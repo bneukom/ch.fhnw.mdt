@@ -13,4 +13,7 @@ Require-Bundle: org.eclipse.cdt.core;bundle-version="5.4.1",
  org.eclipse.ui.workbench.texteditor;bundle-version="3.9.0",
  org.eclipse.jface;bundle-version="3.10.1",
  org.eclipse.jface.text;bundle-version="3.9.1",
- org.eclipse.ui;bundle-version="3.106.0"
+ org.eclipse.ui;bundle-version="3.106.0",
+ org.eclipse.cdt.managedbuilder.core,
+ org.eclipse.cdt.debug.core,
+ ch.fhnw.mdt.build;bundle-version="1.0.0"

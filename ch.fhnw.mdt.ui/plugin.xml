@@ -8,7 +8,7 @@
          <language
       class="org.eclipse.cdt.core.dom.ast.gnu.c.GCCLanguage"
       id="gcc"
-      name="Mcore C">
+      name="MCore C">
    <contentType id="org.eclipse.cdt.core.cSource"/>
    <contentType id="org.eclipse.cdt.core.cHeader"/>
 </language>
