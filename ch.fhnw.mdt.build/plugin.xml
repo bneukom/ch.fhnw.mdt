@@ -8,8 +8,34 @@
             id="ch.fhnw.mdt.ui.mcoretoolchain"
             isAbstract="false"
             isToolChainSupported="ch.fhnw.mdt.build.IsMCoreToolChainSupported"
-            name="MCore Tool Chain"
-            osList="linux">
+            name="MCore"
+            osList="linux"
+            supportsManagedBuild="true"
+            targetTool="ch.fhnw.mdt.build.mcorecompiler">
+         <tool
+               command="lcc-mcore"
+               id="ch.fhnw.mdt.build.mcorecompiler"
+               isAbstract="false"
+               name="MCore Compiler"
+               natureFilter="cnature"
+               supportsManagedBuild="true">
+            <supportedProperties>
+	            <property id="org.eclipse.cdt.build.core.buildArtefactType">
+		            <value id="org.eclipse.cdt.build.core.buildArtefactType.exe"/>
+	            </property>
+				<property id="org.eclipse.cdt.build.core.buildType">
+					<value id="org.eclipse.cdt.build.core.buildType.debug"/>
+					<value id="org.eclipse.cdt.build.core.buildType.release"/>
+				</property>
+            </supportedProperties>
+         </tool>
+         <builder
+               id="ch.fhnw.mdt.build.mcorebuilder"
+               isAbstract="false"
+               isVariableCaseSensitive="false"
+               name="MCore Builder"
+               superClass="cdt.managedbuild.target.gnu.builder">
+         </builder>
       </toolChain>
    </extension>
 
