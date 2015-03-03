@@ -3,40 +3,69 @@
 <plugin>
    <extension
          point="org.eclipse.cdt.managedbuilder.core.buildDefinitions">
-      <toolChain
-            archList="all"
-            id="ch.fhnw.mdt.ui.mcoretoolchain"
-            isAbstract="false"
-            isToolChainSupported="ch.fhnw.mdt.build.IsMCoreToolChainSupported"
-            name="MCore"
-            osList="linux"
-            supportsManagedBuild="true"
-            targetTool="ch.fhnw.mdt.build.mcorecompiler">
-         <tool
-               command="lcc-mcore"
-               id="ch.fhnw.mdt.build.mcorecompiler"
-               isAbstract="false"
-               name="MCore Compiler"
-               natureFilter="cnature"
-               supportsManagedBuild="true">
-            <supportedProperties>
-	            <property id="org.eclipse.cdt.build.core.buildArtefactType">
-		            <value id="org.eclipse.cdt.build.core.buildArtefactType.exe"/>
-	            </property>
-				<property id="org.eclipse.cdt.build.core.buildType">
-					<value id="org.eclipse.cdt.build.core.buildType.debug"/>
-					<value id="org.eclipse.cdt.build.core.buildType.release"/>
-				</property>
-            </supportedProperties>
-         </tool>
-         <builder
-               id="ch.fhnw.mdt.build.mcorebuilder"
-               isAbstract="false"
-               isVariableCaseSensitive="false"
-               name="MCore Builder"
-               superClass="cdt.managedbuild.target.gnu.builder">
-         </builder>
-      </toolChain>
+  
+    <projectType
+          buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe"
+          id="ch.fhnw.mdt.build.mcoreProjectType"
+          isAbstract="false"
+          name="MCore Executable">
+       <configuration
+             cleanCommand="rm -f"
+             errorParsers="org.eclipse.cdt.core.MakeErrorParser;org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GLDErrorParser;org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.VCErrorParser"
+             id="ch.fhnw.mdt.build.mcoreconfiguration"
+             name="MCore Configuraion">
+          <toolChain
+                id="ch.fhnw.mdt.ui.mcoretoolchain"
+                isAbstract="false"
+                isToolChainSupported="ch.fhnw.mdt.build.IsMCoreToolChainSupported"
+                name="MCore Toolchain"
+                osList="linux"
+                targetTool="ch.fhnw.mdt.ui.mcorecompiler">
+             <targetPlatform
+                   binaryParser="org.eclipse.cdt.core.ELF"
+                   id="ch.fhnw.mdt.ui.mcoretargetplatform"
+                   isAbstract="false"
+                   name="MCore Target Platform"
+                   osList="linux">
+             </targetPlatform>
+             <tool
+                   command="lcc-mcore"
+                   errorParsers="org.eclipse.cdt.core.MakeErrorParser;org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GLDErrorParser;org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.VCErrorParser"
+                   id="ch.fhnw.mdt.ui.mcorecompiler"
+                   isAbstract="false"
+                   name="MCore Compiler"
+                   natureFilter="cnature"
+                   outputFlag="-S -Q">
+                <inputType
+                      dependencyCalculator="org.eclipse.cdt.managedbuilder.makegen.internal.DefaultIndexerDependencyCalculator"
+                      dependencyContentType="org.eclipse.cdt.core.cHeader"
+                      id="ch.fhnw.mdt.ui.mcorecompilerinput"
+                      name="Compiler Input"
+                      primaryInput="true"
+                      sourceContentType="org.eclipse.cdt.core.cSource">
+                </inputType>
+                <outputType
+                      buildVariable="OBJS"
+                      id="ch.fhnw.mdt.ui.mcorecompileroutput"
+                      name="Compiler Output"
+                      outputs="o"
+                      primaryOutput="true">
+                </outputType>
+             </tool>
+             <builder
+                   id="ch.fhnw.mdt.ui.mcorebuilder"
+                   name="MCore Builder"
+                   superClass="org.eclipse.cdt.build.core.internal.builder">
+             </builder>
+          </toolChain>
+       </configuration>
+    </projectType>
+   </extension>
+   <extension
+         point="org.eclipse.cdt.core.templateAssociations">
+      <template
+            id="ch.fhnw.mdt.build.template1">
+      </template>
    </extension>
 
 </plugin>
