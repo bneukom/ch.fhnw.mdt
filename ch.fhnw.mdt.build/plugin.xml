@@ -10,7 +10,7 @@
           isAbstract="false"
           name="MCore Executable">
        <configuration
-             cleanCommand="rm -f"
+             cleanCommand="rm -rf"
              errorParsers="org.eclipse.cdt.core.MakeErrorParser;org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GLDErrorParser;org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.VCErrorParser"
              id="ch.fhnw.mdt.build.mcoreconfiguration"
              name="MCore Configuraion">
@@ -64,7 +64,22 @@
    <extension
          point="org.eclipse.cdt.core.templateAssociations">
       <template
-            id="ch.fhnw.mdt.build.template1">
+            id="ch.fhnw.mdt.build.mcoretemplate">
+         <toolChain
+               id="ch.fhnw.mdt.ui.mcoretoolchain">
+         </toolChain>
+      </template>
+   </extension>
+   <extension
+         point="org.eclipse.cdt.core.templates">
+      <template
+            filterPattern="ch.fhnw.mdt.build.mcoreconfiguration"
+            id="ch.fhnw.mdt.build.mcoretemplate"
+            location="template.xml"
+            projectType="org.eclipse.cdt.build.core.buildArtefactType.exe">
+         <toolChain
+               id="ch.fhnw.mdt.ui.mcoretoolchain">
+         </toolChain>
       </template>
    </extension>
 

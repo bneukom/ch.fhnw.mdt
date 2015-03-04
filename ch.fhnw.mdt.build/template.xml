@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<template type="ProjTempl" version="1.0" supplier="Eclipse.org" revision="1.0" author="Christelle Burguera"
+        copyright="Copyright (c) 2015 FHNW"
+        id="com.st.christelle.burguera.template" label="MCore Project" description="A simple application."
+         help="help.html">
+    
+    <process type="org.eclipse.cdt.managedbuilder.core.NewManagedProject">
+        <simple name="name" value="$(projectName)" /> 
+        <simple name="artifactExtension" value="exe" /> 
+        <simple name="isCProject" value="true" /> 
+        <simple name="projectType" value="ch.fhnw.mdt.build.mcoreProjectType" /> 
+        <simple name="configs" value="ch.fhnw.mdt.build.mcoreconfiguration" />
+    </process>
+
+    <process type="org.eclipse.cdt.core.AddFiles">
+        <simple name="projectName" value="$(projectName)"/>
+        <complex-array name="files">
+            <element>
+                <simple name="source" value="example.c"/>
+                <simple name="target" value="$(projectName).c"/>
+                <simple name="replaceable" value="true"/>
+            </element>
+            <element>
+                <simple name="source" value="launchConfig.launch"/>
+                <simple name="target" value="$(projectName).launch"/>
+                <simple name="replaceable" value="true"/>
+            </element>
+        </complex-array>
+    </process>
+    
+   
+
+</template>
