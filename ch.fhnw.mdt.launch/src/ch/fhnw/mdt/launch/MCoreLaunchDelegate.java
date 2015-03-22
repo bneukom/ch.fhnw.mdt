@@ -5,13 +5,14 @@ import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.model.ILaunchConfigurationDelegate;
 
-
+// TODO implement ILaunchShortcut
 public class MCoreLaunchDelegate implements ILaunchConfigurationDelegate {
 
 	@Override
 	public void launch(ILaunchConfiguration configuration, String mode,
 			ILaunch launch, IProgressMonitor monitor) throws CoreException {
 
+		MCoreLauncher.launch(launch);
 	}
 
 }

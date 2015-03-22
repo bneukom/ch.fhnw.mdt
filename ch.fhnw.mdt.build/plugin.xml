@@ -41,16 +41,20 @@
                       dependencyCalculator="org.eclipse.cdt.managedbuilder.makegen.internal.DefaultIndexerDependencyCalculator"
                       dependencyContentType="org.eclipse.cdt.core.cHeader"
                       id="ch.fhnw.mdt.ui.mcorecompilerinput"
+                      multipleOfType="true"
                       name="Compiler Input"
                       primaryInput="true"
                       sourceContentType="org.eclipse.cdt.core.cSource">
                 </inputType>
                 <outputType
-                      buildVariable="OBJS"
                       id="ch.fhnw.mdt.ui.mcorecompileroutput"
+                      multipleOfType="true"
                       name="Compiler Output"
-                      outputs="o"
-                      primaryOutput="true">
+                      namePattern="%.test"
+                      nameProvider="ch.fhnw.mdt.build.OutputNameProvider"
+                      outputs="s"
+                      primaryInputType="ch.fhnw.mdt.ui.mcorecompilerinput"
+                      primaryOutput="false">
                 </outputType>
                 <optionCategory
                       id="ch.fhnw.mdt.build.generalcategory"
@@ -72,6 +76,11 @@
                    name="MCore Builder"
                    superClass="org.eclipse.cdt.build.core.internal.builder">
              </builder>
+             <tool
+                   id="ch.fhnw.mdt.build.rename"
+                   isAbstract="false"
+                   name="Rename Output">
+             </tool>
           </toolChain>
        </configuration>
     </projectType>

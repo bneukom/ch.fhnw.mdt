@@ -6,20 +6,28 @@
       <launchConfigurationType
             delegate="ch.fhnw.mdt.launch.MCoreLaunchDelegate"
             delegateDescription="MicroCore Launcher supports launching and debugging"
-            delegateName="MicroCore Launcher"
+            delegateName="MicroCore Application"
             id="ch.fhnw.mdt.launch.mcorelaunch"
             modes="run,debug"
-            name="MCore Launcher"
+            name="MCore Application"
             public="true">
       </launchConfigurationType>
    </extension>
    <extension
          point="org.eclipse.debug.ui.launchConfigurationTabGroups">
       <launchConfigurationTabGroup
-            class="ch.fhnw.mdt.launch.AbstractLaunchConfigurationTabGroup1"
+            class="ch.fhnw.mdt.launch.MCoreLaunchConfigurationTabGroup"
             id="ch.fhnw.mdt.launch.mcorelaunchtabgroup"
             type="ch.fhnw.mdt.launch.mcorelaunch">
       </launchConfigurationTabGroup>
+   </extension>
+   <extension
+         point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+      <launchConfigurationTypeImage
+            configTypeID="ch.fhnw.mdt.launch.mcorelaunch"
+            icon="icons/mcorelaunchicon.png"
+            id="ch.fhnw.mdt.launch.mcorelaunchimage">
+      </launchConfigurationTypeImage>
    </extension>
 
 </plugin>
