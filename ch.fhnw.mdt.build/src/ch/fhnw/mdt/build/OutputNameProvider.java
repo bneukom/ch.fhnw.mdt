@@ -8,7 +8,7 @@ public class OutputNameProvider implements IManagedOutputNameProvider {
 
 	@Override
 	public IPath[] getOutputNames(ITool tool, IPath[] primaryInputNames) {
-		return null;
+		return null; 
 	}
 
 }

@@ -5,11 +5,11 @@
          point="org.eclipse.cdt.managedbuilder.core.buildDefinitions">
   
     <projectType
-          buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe"
           id="ch.fhnw.mdt.build.mcoreProjectType"
           isAbstract="false"
           name="MCore Executable">
        <configuration
+             buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe"
              cleanCommand="rm -rf"
              errorParsers="org.eclipse.cdt.core.MakeErrorParser;org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GLDErrorParser;org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.VCErrorParser"
              id="ch.fhnw.mdt.build.mcoreconfiguration"
@@ -20,6 +20,7 @@
                 isToolChainSupported="ch.fhnw.mdt.build.IsMCoreToolChainSupported"
                 name="MCore Toolchain"
                 osList="linux"
+                supportsManagedBuild="true"
                 targetTool="ch.fhnw.mdt.ui.mcorecompiler">
              <targetPlatform
                    binaryParser="org.eclipse.cdt.core.ELF"
@@ -31,6 +32,7 @@
              <tool
                    command="lcc-mcore"
                    commandLinePattern="${COMMAND} ${FLAGS} ${INPUTS}"
+                   customBuildStep="true"
                    errorParsers="org.eclipse.cdt.core.MakeErrorParser;org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GLDErrorParser;org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.VCErrorParser"
                    id="ch.fhnw.mdt.ui.mcorecompiler"
                    isAbstract="false"
@@ -39,20 +41,21 @@
                    outputFlag="-o">
                 <inputType
                       dependencyCalculator="org.eclipse.cdt.managedbuilder.makegen.internal.DefaultIndexerDependencyCalculator"
-                      dependencyContentType="org.eclipse.cdt.core.cHeader"
                       id="ch.fhnw.mdt.ui.mcorecompilerinput"
                       multipleOfType="true"
                       name="Compiler Input"
                       primaryInput="true"
-                      sourceContentType="org.eclipse.cdt.core.cSource">
+                      sourceContentType="org.eclipse.cdt.core.cSource"
+                      sources="c">
                 </inputType>
                 <outputType
                       id="ch.fhnw.mdt.ui.mcorecompileroutput"
                       multipleOfType="true"
                       name="Compiler Output"
-                      namePattern="%.test"
+                      namePattern="%.fs"
                       nameProvider="ch.fhnw.mdt.build.OutputNameProvider"
-                      outputs="s"
+                      outputNames="${BuildArtifactFileBaseName}.fs"
+                      outputs="fs"
                       primaryInputType="ch.fhnw.mdt.ui.mcorecompilerinput"
                       primaryOutput="false">
                 </outputType>
@@ -73,6 +76,8 @@
              </tool>
              <builder
                    id="ch.fhnw.mdt.ui.mcorebuilder"
+                   isAbstract="false"
+                   isVariableCaseSensitive="false"
                    name="MCore Builder"
                    superClass="org.eclipse.cdt.build.core.internal.builder">
              </builder>
@@ -105,6 +110,26 @@
                id="ch.fhnw.mdt.ui.mcoretoolchain">
          </toolChain>
       </template>
+   </extension>
+   <extension
+         id="id1"
+         point="org.eclipse.core.resources.builders">
+      <builder
+            hasNature="true"
+            isConfigurable="false">
+         <run
+               class="ch.fhnw.mdt.build.MDTProjectBuilder">
+         </run>
+      </builder>
+   </extension>
+   <extension
+         id="id1"
+         point="org.eclipse.core.resources.natures">
+      <runtime>
+         <run
+               class="ch.fhnw.mdt.build.MDTNature">
+         </run>
+      </runtime>
    </extension>
 
 </plugin>

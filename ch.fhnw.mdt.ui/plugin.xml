@@ -13,5 +13,13 @@
    <contentType id="org.eclipse.cdt.core.cHeader"/>
 </language>
    </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="ch.fhnw.mdt.ui.perferences.MCorePreferencePage"
+            id="ch.fhnw.mdt.ui.mcorepreferencepage"
+            name="MCore">
+      </page>
+   </extension>
 
 </plugin>
