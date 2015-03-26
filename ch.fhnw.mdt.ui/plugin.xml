@@ -16,7 +16,7 @@
    <extension
          point="org.eclipse.ui.preferencePages">
       <page
-            class="ch.fhnw.mdt.ui.perferences.MCorePreferencePage2"
+            class="ch.fhnw.mdt.ui.perferences.MCorePreferencePage"
             id="ch.fhnw.mdt.ui.mcorepreferencepage"
             name="MCore">
       </page>
