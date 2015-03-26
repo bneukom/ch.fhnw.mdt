@@ -1,20 +1,19 @@
-package ch.fhnw.mdt.build;
+package ch.fhnw.mdt.launch.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
-
-import ch.fhnw.mdt.build.nature.McoreNatureCore;
 
 /**
  * The activator class controls the plug-in life cycle
  */
 public class Activator extends AbstractUIPlugin {
 
-	public static final String PLUGIN_ID = "ch.fhnw.mdt.build"; //$NON-NLS-1$
-	
-	
-	private static Activator plugin;
+	// The plug-in ID
+	public static final String PLUGIN_ID = "ch.fhnw.mdt.launch.ui"; //$NON-NLS-1$
 
+	// The shared instance
+	private static Activator plugin;
+	
 	/**
 	 * The constructor
 	 */
@@ -23,24 +22,16 @@ public class Activator extends AbstractUIPlugin {
 
 	/*
 	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext
-	 * )
+	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
 	 */
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
-
-		McoreNatureCore.initialize();
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext
-	 * )
+	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
 	 */
 	public void stop(BundleContext context) throws Exception {
 		plugin = null;

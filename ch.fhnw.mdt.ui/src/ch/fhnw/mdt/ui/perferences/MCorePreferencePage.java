@@ -21,11 +21,9 @@ public class MCorePreferencePage extends FieldEditorPreferencePage implements IW
 	 */
 	@Override
 	protected void createFieldEditors() {
-		{
-			StringFieldEditor stringFieldEditor = new StringFieldEditor("id", "Device Port", -1, StringFieldEditor.VALIDATE_ON_KEY_STROKE, getFieldEditorParent());
-			stringFieldEditor.setStringValue("/dev/ttyUSB0");
-			addField(stringFieldEditor);
-		}
+		StringFieldEditor stringFieldEditor = new StringFieldEditor("id", "Device Port", -1, StringFieldEditor.VALIDATE_ON_KEY_STROKE, getFieldEditorParent());
+		stringFieldEditor.setStringValue("/dev/ttyUSB0");
+		addField(stringFieldEditor);
 	}
 
 	/**

@@ -112,24 +112,39 @@
       </template>
    </extension>
    <extension
-         id="id1"
+         id="mcoreProjectBuilder"
+         name="MCore Project Builder"
          point="org.eclipse.core.resources.builders">
       <builder
-            hasNature="true"
-            isConfigurable="false">
+            hasNature="true">
          <run
-               class="ch.fhnw.mdt.build.MDTProjectBuilder">
+               class="ch.fhnw.mdt.build.nature.MCoreProjectBuilder">
          </run>
       </builder>
    </extension>
    <extension
-         id="id1"
+         id="mcoreNature"
+         name="MCore Project Nature"
          point="org.eclipse.core.resources.natures">
       <runtime>
          <run
-               class="ch.fhnw.mdt.build.MDTNature">
+               class="ch.fhnw.mdt.build.nature.MCoreNature">
          </run>
       </runtime>
+      <builder
+            id="ch.fhnw.mdt.build.mcoreProjectBuilder">
+      </builder>
+   </extension>
+   <extension
+         id="pathProblem"
+         name="Path Problem"
+         point="org.eclipse.core.resources.markers">
+      <super
+            type="org.eclipse.core.resources.problemmarker">
+      </super>
+      <persistent
+            value="true">
+      </persistent>
    </extension>
 
 </plugin>
