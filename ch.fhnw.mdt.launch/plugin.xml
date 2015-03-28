@@ -16,7 +16,7 @@
    <extension
          point="org.eclipse.debug.ui.launchConfigurationTabGroups">
       <launchConfigurationTabGroup
-            class="ch.fhnw.mdt.launch.MCoreLaunchConfigurationTabGroup"
+            class="ch.fhnw.mdt.launch.tab.group.MCoreLaunchConfigurationTabGroup"
             id="ch.fhnw.mdt.launch.mcorelaunchtabgroup"
             type="ch.fhnw.mdt.launch.mcorelaunch">
       </launchConfigurationTabGroup>

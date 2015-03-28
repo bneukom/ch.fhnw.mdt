@@ -1,4 +1,4 @@
-package ch.fhnw.mdt.launch.ui;
+package ch.fhnw.mdt.ui.perferences;
 
 import java.io.File;
 import java.io.IOException;

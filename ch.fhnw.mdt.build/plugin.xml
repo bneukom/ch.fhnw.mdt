@@ -42,7 +42,7 @@
                 <inputType
                       dependencyCalculator="org.eclipse.cdt.managedbuilder.makegen.internal.DefaultIndexerDependencyCalculator"
                       id="ch.fhnw.mdt.ui.mcorecompilerinput"
-                      multipleOfType="true"
+                      multipleOfType="false"
                       name="Compiler Input"
                       primaryInput="true"
                       sourceContentType="org.eclipse.cdt.core.cSource"
@@ -145,6 +145,14 @@
       <persistent
             value="true">
       </persistent>
+   </extension>
+   <extension
+         id="id1"
+         name="name"
+         point="org.eclipse.cdt.core.ErrorParser">
+      <errorparser
+            id="ch.fhnw.mdt.build.lccerrorparser">
+      </errorparser>
    </extension>
 
 </plugin>
