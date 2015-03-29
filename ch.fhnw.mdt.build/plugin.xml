@@ -9,12 +9,12 @@
           isAbstract="false"
           name="MCore Executable">
        <configuration
-             buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe"
              cleanCommand="rm -rf"
-             errorParsers="org.eclipse.cdt.core.MakeErrorParser;org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GLDErrorParser;org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.VCErrorParser"
+             errorParsers="ch.fhnw.mdt.build.lccerrorparser"
              id="ch.fhnw.mdt.build.mcoreconfiguration"
              name="Release">
           <toolChain
+                errorParsers="ch.fhnw.mdt.build.lccerrorparser"
                 id="ch.fhnw.mdt.ui.mcoretoolchain"
                 isAbstract="false"
                 isToolChainSupported="ch.fhnw.mdt.build.IsMCoreToolChainSupported"
@@ -33,7 +33,7 @@
                    command="lcc-mcore"
                    commandLinePattern="${COMMAND} ${FLAGS} ${INPUTS}"
                    customBuildStep="true"
-                   errorParsers="org.eclipse.cdt.core.MakeErrorParser;org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GLDErrorParser;org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.VCErrorParser"
+                   errorParsers="ch.fhnw.mdt.build.lccerrorparser"
                    id="ch.fhnw.mdt.ui.mcorecompiler"
                    isAbstract="false"
                    name="MCore Compiler"
@@ -50,10 +50,8 @@
                 </inputType>
                 <outputType
                       id="ch.fhnw.mdt.ui.mcorecompileroutput"
-                      multipleOfType="true"
                       name="Compiler Output"
                       namePattern="%.fs"
-                      nameProvider="ch.fhnw.mdt.build.OutputNameProvider"
                       outputNames="${BuildArtifactFileBaseName}.fs"
                       outputs="fs"
                       primaryInputType="ch.fhnw.mdt.ui.mcorecompilerinput"
@@ -75,9 +73,10 @@
                 </option>
              </tool>
              <builder
+                   buildRunner="org.eclipse.cdt.managedbuilder.core.InternalBuildRunner"
+                   errorParsers="ch.fhnw.mdt.build.lccerrorparser"
                    id="ch.fhnw.mdt.ui.mcorebuilder"
                    isAbstract="false"
-                   isVariableCaseSensitive="false"
                    name="MCore Builder"
                    superClass="org.eclipse.cdt.build.core.internal.builder">
              </builder>
@@ -147,10 +146,11 @@
       </persistent>
    </extension>
    <extension
-         id="id1"
-         name="name"
+         id="ch.fhnw.mdt.build.lccerrorparser"
+         name="LCC Error Parser"
          point="org.eclipse.cdt.core.ErrorParser">
       <errorparser
+            class="ch.fhnw.mdt.build.errorparser.LCCErrorParser"
             id="ch.fhnw.mdt.build.lccerrorparser">
       </errorparser>
    </extension>

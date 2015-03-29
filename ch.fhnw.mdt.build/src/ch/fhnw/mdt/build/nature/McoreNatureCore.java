@@ -45,7 +45,7 @@ public class McoreNatureCore {
 						if (buildInfo.getManagedProject().getName().equals(MCORE_EXECUTABLE_NAME)) {
 							final IProject project = (IProject) affectedResource;
 
-							final WorkspaceJob job = new WorkspaceJob("Test") {
+							final WorkspaceJob job = new WorkspaceJob("Add Mcore Nature") {
 
 								@Override
 								public IStatus runInWorkspace(IProgressMonitor monitor) throws CoreException {
@@ -59,7 +59,6 @@ public class McoreNatureCore {
 
 						}
 					}
-					System.out.println(resource);
 				}
 			}
 		}, IResourceChangeEvent.POST_CHANGE);

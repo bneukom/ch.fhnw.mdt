@@ -39,19 +39,22 @@ public class MCoreProjectBuilder extends IncrementalProjectBuilder {
 		final IManagedBuildInfo buildInfo = ManagedBuildManager.getBuildInfo(project);
 		final IEnvironmentVariable[] variables = environmentVariableProvider.getVariables(buildInfo.getManagedProject().getConfigurations()[0], true);
 
+		project.deleteMarkers(MARKER_TYPE, false, 1);
+
 		for (final IEnvironmentVariable environmentVariable : variables) {
 			if (environmentVariable.getName().equals(GFORTH_PATH_VARIABLE)) {
+				// TODO location, check if it exists, persistent?
+				
 				return null; // found
 			}
 		}
-		
+
 		// gforth path not found in environment
 		IMarker pathNotFoundMarker = project.createMarker(MARKER_TYPE);
-		
+
 		pathNotFoundMarker.setAttribute(IMarker.MESSAGE, "GFORTHPATH could not be found in environment");
 		pathNotFoundMarker.setAttribute(IMarker.PRIORITY, IMarker.PRIORITY_HIGH);
 		pathNotFoundMarker.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_ERROR);
-		// TODO location, check if it exists, persistent?
 		return null;
 	}
 
