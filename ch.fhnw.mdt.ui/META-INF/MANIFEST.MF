@@ -17,4 +17,5 @@ Require-Bundle: org.eclipse.cdt.core;bundle-version="5.4.1",
  org.eclipse.cdt.managedbuilder.core,
  org.eclipse.cdt.debug.core,
  ch.fhnw.mdt.build;bundle-version="1.0.0",
- ch.fhnw.mdt.launch;bundle-version="1.0.0"
+ ch.fhnw.mdt.launch;bundle-version="1.0.0",
+ org.eclipse.cdt.ui;bundle-version="5.8.1"
