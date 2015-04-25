@@ -10,6 +10,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.core.resources.IResourceDelta;
+import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.resources.WorkspaceJob;
 import org.eclipse.core.runtime.CoreException;
@@ -22,6 +23,9 @@ import ch.fhnw.mdt.build.Activator;
 
 public class McoreNatureCore {
 
+	/**
+	 * Executable name of the MCore Project.
+	 */
 	public static final String MCORE_EXECUTABLE_NAME = "MCore Executable";
 
 	/**
@@ -29,12 +33,13 @@ public class McoreNatureCore {
 	 * {@link IProject} added to the workspace with an MCore Tool-Chain set.
 	 */
 	public static void initialize() {
+		
+		// TODO build all projects on initialize
+		
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(new IResourceChangeListener() {
 
 			@Override
 			public void resourceChanged(final IResourceChangeEvent event) {
-				final IResource resource = event.getResource();
-
 				if (event.getDelta().getKind() == IResourceDelta.CHANGED) {
 					final IResourceDelta[] affectedChildren = event.getDelta().getAffectedChildren();
 					if (affectedChildren.length > 0) {
@@ -50,6 +55,8 @@ public class McoreNatureCore {
 								@Override
 								public IStatus runInWorkspace(IProgressMonitor monitor) throws CoreException {
 									addMCoreNature(project);
+									
+									project.build(IncrementalProjectBuilder.FULL_BUILD, monitor);
 									
 									return new Status(IStatus.OK, Activator.PLUGIN_ID, null);
 								}
@@ -67,7 +74,7 @@ public class McoreNatureCore {
 	private static void addMCoreNature(final IProject project) throws CoreException {
 		final IProjectDescription description = project.getDescription();
 		final String[] natures = description.getNatureIds();
-
+		
 		// check if it has already been added
 		if (Arrays.stream(natures).anyMatch(nature -> nature.equals(MCoreNature.NATURE_ID))) {
 			return;

@@ -9,6 +9,7 @@ public class MCoreLauncher {
 	public static void launch(ILaunch launch) {
 		pwd(launch);
 		ls(launch);
+		
 //		launchGforth(launch);
 	}
 
