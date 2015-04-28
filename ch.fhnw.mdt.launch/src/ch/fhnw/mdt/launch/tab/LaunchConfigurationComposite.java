@@ -94,6 +94,7 @@ public class LaunchConfigurationComposite extends Composite {
 		grpTargetDevice.setLayout(new GridLayout(2, false));
 
 		final Button btnCheckButton = new Button(grpTargetDevice, SWT.CHECK);
+		btnCheckButton.setEnabled(false);
 		btnCheckButton.setSelection(true);
 		btnCheckButton.setText("Use Workspace Default");
 		new Label(grpTargetDevice, SWT.NONE);

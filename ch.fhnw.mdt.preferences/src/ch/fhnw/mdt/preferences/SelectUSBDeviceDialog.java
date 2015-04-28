@@ -1,4 +1,4 @@
-package ch.fhnw.mdt.ui.perferences;
+package ch.fhnw.mdt.preferences;
 
 import java.io.File;
 import java.io.IOException;

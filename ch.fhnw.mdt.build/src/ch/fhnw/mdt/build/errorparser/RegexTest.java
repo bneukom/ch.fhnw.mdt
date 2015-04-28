@@ -17,5 +17,7 @@ public class RegexTest {
 			System.out.println(i + ": " + group2);
 		}
 		
+//		System.out.println("\u22A5");
+		
 	}
 }

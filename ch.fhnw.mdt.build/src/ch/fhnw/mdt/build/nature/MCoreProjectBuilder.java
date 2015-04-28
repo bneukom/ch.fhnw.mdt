@@ -26,7 +26,7 @@ import org.xml.sax.helpers.DefaultHandler;
 
 public class MCoreProjectBuilder extends IncrementalProjectBuilder {
 
-	private static final String GFORTH_PATH_VARIABLE = "GFORTHPATH";
+	public static final String GFORTH_PATH_VARIABLE = "GFORTHPATH";
 
 	public static final String BUILDER_ID = "ch.fhnw.mdt.build.mcoreProjectBuilder";
 
@@ -38,7 +38,7 @@ public class MCoreProjectBuilder extends IncrementalProjectBuilder {
 		final IProject project = getProject();
 		final IManagedBuildInfo buildInfo = ManagedBuildManager.getBuildInfo(project);
 		final IEnvironmentVariable[] variables = environmentVariableProvider.getVariables(buildInfo.getManagedProject().getConfigurations()[0], true);
-
+		
 		project.deleteMarkers(MARKER_TYPE, false, 1);
 
 		for (final IEnvironmentVariable environmentVariable : variables) {

@@ -21,6 +21,7 @@ import org.eclipse.core.runtime.Status;
 
 import ch.fhnw.mdt.build.Activator;
 
+// TODO should that just be the Activator class?
 public class McoreNatureCore {
 
 	/**
@@ -55,8 +56,6 @@ public class McoreNatureCore {
 								@Override
 								public IStatus runInWorkspace(IProgressMonitor monitor) throws CoreException {
 									addMCoreNature(project);
-									
-									project.build(IncrementalProjectBuilder.FULL_BUILD, monitor);
 									
 									return new Status(IStatus.OK, Activator.PLUGIN_ID, null);
 								}

@@ -1,4 +1,4 @@
-package ch.fhnw.mdt.ui.perferences;
+package ch.fhnw.mdt.preferences;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -9,6 +9,7 @@ import java.net.URL;
 
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -25,9 +26,16 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.eclipse.wb.swt.SWTResourceManager;
 import org.osgi.framework.Bundle;
 
+
 public class MCorePreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
 	private Text usbDeviceText;
 	private Text gforthLoaderText;
+	private Button selectUSBDeviceButton;
+	
+	public static final String USB_DEVICE_NAME_PREFERENCE = "usbDeviceNamePreference";
+	public static final String GFORTH_LOADER_PREFERENCE = "gforthLoader";
+	private Button useUSBDeviceButton;
+		
 
 	/**
 	 * Create the preference page.
@@ -45,13 +53,28 @@ public class MCorePreferencePage extends PreferencePage implements IWorkbenchPre
 		final Composite container = new Composite(parent, SWT.NULL);
 		container.setLayout(new GridLayout(3, false));
 
-		final Label lblUsbDevice = new Label(container, SWT.NONE);
-		lblUsbDevice.setText("USB Device");
+		final String usbDeviceName = getPreferenceStore().getString(USB_DEVICE_NAME_PREFERENCE);
+
+		useUSBDeviceButton = new Button(container, SWT.CHECK);
+		useUSBDeviceButton.setText("USB Device");
+		useUSBDeviceButton.setSelection(!usbDeviceName.equals(""));
+		useUSBDeviceButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(final SelectionEvent e) {
+				usbDeviceText.setText("");
+				usbDeviceText.setEnabled(useUSBDeviceButton.getSelection());
+				selectUSBDeviceButton.setEnabled(useUSBDeviceButton.getSelection());
+			}
+		});
+
 
 		usbDeviceText = new Text(container, SWT.BORDER);
+		usbDeviceText.setEnabled(!usbDeviceName.equals(""));
+		usbDeviceText.setText(usbDeviceName);
 		usbDeviceText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 
-		final Button selectUSBDeviceButton = new Button(container, SWT.NONE);
+		selectUSBDeviceButton = new Button(container, SWT.NONE);
+		selectUSBDeviceButton.setEnabled(!usbDeviceName.equals(""));
 		selectUSBDeviceButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
@@ -64,15 +87,15 @@ public class MCorePreferencePage extends PreferencePage implements IWorkbenchPre
 			}
 		});
 		selectUSBDeviceButton.setText("Search Device...");
-				
-						final Label label = new Label(container, SWT.SEPARATOR | SWT.HORIZONTAL);
-						label.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 3, 1));
-		
-				final Label lblGforthLoader = new Label(container, SWT.NONE);
-				lblGforthLoader.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 2, 1));
-				lblGforthLoader.setText("GForth Loader");
+
+		final Label label = new Label(container, SWT.SEPARATOR | SWT.HORIZONTAL);
+		label.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 3, 1));
+
+		final Label lblGforthLoader = new Label(container, SWT.NONE);
+		lblGforthLoader.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 2, 1));
+		lblGforthLoader.setText("GForth Loader");
 		new Label(container, SWT.NONE);
-		
+
 		final Label lblNewLabel = new Label(container, SWT.NONE);
 		lblNewLabel.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 2, 1));
 		lblNewLabel.setForeground(SWTResourceManager.getColor(SWT.COLOR_DARK_GRAY));
@@ -84,20 +107,20 @@ public class MCorePreferencePage extends PreferencePage implements IWorkbenchPre
 		gd_gforthLoaderText.heightHint = 426;
 		gforthLoaderText.setLayoutData(gd_gforthLoaderText);
 
-		gforthLoaderText.setText(getDefaultLoader());
-		
+		gforthLoaderText.setText(getPreferenceStore().getString(GFORTH_LOADER_PREFERENCE));
+
 		return container;
 	}
-	
+
 	private String getDefaultLoader() {
 		final Bundle bundle = Platform.getBundle("ch.fhnw.mdt.ui");
 		final URL fileURL = bundle.getEntry("loaders/loader.fs");
-		
+
 		String loader = "";
-		
+
 		try {
 			final File file = new File(FileLocator.resolve(fileURL).toURI());
-			
+
 			try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
 				String line;
 				while ((line = reader.readLine()) != null) {
@@ -105,17 +128,32 @@ public class MCorePreferencePage extends PreferencePage implements IWorkbenchPre
 					loader += System.lineSeparator();
 				}
 			}
-			
+
 		} catch (URISyntaxException | IOException e) {
 			e.printStackTrace();
 		}
 		return loader;
 	}
+	
+	@Override
+	protected IPreferenceStore doGetPreferenceStore() {
+		return MDTPreferencesPlugin.getDefault().getPreferenceStore();
+	}
+	
+	@Override
+	public boolean performOk() {
+		
+		if (useUSBDeviceButton.getSelection()) getPreferenceStore().setValue(USB_DEVICE_NAME_PREFERENCE, usbDeviceText.getText());
+		getPreferenceStore().setValue(GFORTH_LOADER_PREFERENCE, gforthLoaderText.getText());
+		
+		return true;
+	}
+	
 
 	/**
 	 * Initialize the preference page.
 	 */
 	public void init(final IWorkbench workbench) {
-		// Initialize the preference page
+		getPreferenceStore().setDefault(GFORTH_LOADER_PREFERENCE, getDefaultLoader());
 	}
 }

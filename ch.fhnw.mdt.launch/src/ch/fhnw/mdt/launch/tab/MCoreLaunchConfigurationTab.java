@@ -12,8 +12,15 @@ public class MCoreLaunchConfigurationTab extends AbstractLaunchConfigurationTab 
 
 	private LaunchConfigurationComposite launchConfigurationComposite;
 	
-	private static final String PROJECT_ATTRIBUTE = "projectName";
-	private static final String EXECUTABLE_FILE_PATH = "executableFilePath";
+	/**
+	 * Property for the project name of the project to be launched.
+	 */
+	public static final String PROJECT_ATTRIBUTE = "projectName";
+	
+	/**
+	 * Property for the file name to be executed. 
+	 */
+	public static final String EXECUTABLE_FILE_PATH = "executableFilePath";
 	
 	@Override
 	public void createControl(Composite parent) {
