@@ -50,7 +50,7 @@ public class MCoreLauncher {
 			final String executableFilePath = launch.getLaunchConfiguration().getAttribute(MCoreLaunchConfigurationTab.EXECUTABLE_FILE_PATH, "");
 			final IFile executableFile = (IFile) project.findMember(executableFilePath);
 
-			// TODO umbilical needs to be set (otherwise throw error in pre
+			// TODO umbilical needs to be set (otherwise throw error in pre check)
 			// check of launch)
 			final String umbilical = MDTPreferencesPlugin.getDefault().getPreferenceStore().getString(MCorePreferencePage.USB_DEVICE_NAME_PREFERENCE);
 
