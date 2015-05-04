@@ -49,6 +49,7 @@
                       sources="c">
                 </inputType>
                 <outputType
+                      buildVariable="LCC_OUTPUT"
                       id="ch.fhnw.mdt.ui.mcorecompileroutput"
                       multipleOfType="true"
                       name="Compiler Output"
@@ -82,11 +83,6 @@
                    name="MCore Builder"
                    superClass="org.eclipse.cdt.build.core.internal.builder">
              </builder>
-             <tool
-                   id="ch.fhnw.mdt.build.rename"
-                   isAbstract="false"
-                   name="Rename Output">
-             </tool>
           </toolChain>
        </configuration>
     </projectType>
