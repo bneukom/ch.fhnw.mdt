@@ -42,7 +42,7 @@
                 <inputType
                       dependencyCalculator="org.eclipse.cdt.managedbuilder.makegen.internal.DefaultIndexerDependencyCalculator"
                       id="ch.fhnw.mdt.ui.mcorecompilerinput"
-                      multipleOfType="false"
+                      multipleOfType="true"
                       name="Compiler Input"
                       primaryInput="true"
                       sourceContentType="org.eclipse.cdt.core.cSource"
@@ -50,12 +50,14 @@
                 </inputType>
                 <outputType
                       id="ch.fhnw.mdt.ui.mcorecompileroutput"
+                      multipleOfType="true"
                       name="Compiler Output"
                       namePattern="%.fs"
-                      outputNames="${BuildArtifactFileBaseName}.fs"
-                      outputs="fs"
+                      nameProvider="ch.fhnw.mdt.build.MCoreCompilerOuputNameProvider"
+                      outputNames="${InputFileName}.fs"
+                      outputs="fs,s"
                       primaryInputType="ch.fhnw.mdt.ui.mcorecompilerinput"
-                      primaryOutput="false">
+                      primaryOutput="true">
                 </outputType>
                 <optionCategory
                       id="ch.fhnw.mdt.build.generalcategory"
