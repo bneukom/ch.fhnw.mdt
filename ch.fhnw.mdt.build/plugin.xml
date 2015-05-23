@@ -76,7 +76,7 @@
                 </option>
              </tool>
              <builder
-                   buildRunner="org.eclipse.cdt.managedbuilder.core.InternalBuildRunner"
+                   buildRunner="ch.fhnw.mdt.build.LCCBuildRunner"
                    errorParsers="ch.fhnw.mdt.build.lccerrorparser"
                    id="ch.fhnw.mdt.ui.mcorebuilder"
                    isAbstract="false"

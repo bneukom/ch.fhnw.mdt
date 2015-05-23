@@ -1,10 +1,12 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Debugger
-Bundle-SymbolicName: ch.fhnw.mdt.debugger
+Bundle-SymbolicName: ch.fhnw.mdt.debugger;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: ch.fhnw.mdt.debugger.Activator
 Require-Bundle: org.eclipse.ui,
- org.eclipse.core.runtime
+ org.eclipse.core.runtime,
+ org.eclipse.cdt.debug.core;bundle-version="7.5.0",
+ org.eclipse.cdt.debug.mi.core;bundle-version="7.3.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy

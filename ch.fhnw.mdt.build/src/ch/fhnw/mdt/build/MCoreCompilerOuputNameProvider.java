@@ -4,6 +4,7 @@ import org.eclipse.cdt.managedbuilder.core.IManagedOutputNameProvider;
 import org.eclipse.cdt.managedbuilder.core.ITool;
 import org.eclipse.core.runtime.IPath;
 
+// TODO unused!
 public class MCoreCompilerOuputNameProvider implements IManagedOutputNameProvider {
 
 	@Override

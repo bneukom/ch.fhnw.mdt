@@ -59,7 +59,9 @@ public class MCoreLauncher {
 
 			
 			final Process process = processBuilder.start();
+
 			final IProcess launchProcess = DebugPlugin.newProcess(launch, process, "gforth launch");
+			
 
 //			final IOConsole launchConsole = (IOConsole) DebugUITools.getConsole(launchProcess);
 //			final BufferedWriter consoleWriter = new BufferedWriter(new OutputStreamWriter(launchConsole.newOutputStream()));

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.cdt.debug.core.BreakpointExtension">
+      <breakpointExtension
+            class="ch.fhnw.mdt.debugger.CBreakpointExtension1"
+            debugModelId="ch.fhnw.mdt.debugger.breakpointExtension1"
+            id="ch.fhnw.mdt.debugger.breakpointExtension1"
+            markerType="ch.fhnw.mdt.debugger.breakpointExtension1">
+      </breakpointExtension>
+   </extension>
+
+</plugin>
