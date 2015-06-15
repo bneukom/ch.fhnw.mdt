@@ -36,7 +36,7 @@ public class LaunchConfigurationComposite extends Composite {
 	private IResource executableResource;
 	private final Button searchFileButton;
 
-	private static final String MCORE_EXECUTABLE_FILE_EXTENSION = "s";
+	private static final String MCORE_EXECUTABLE_FILE_EXTENSION = "fs";
 	private MCoreLaunchConfigurationTab mCoreLaunchConfigurationTab;
 
 	/**

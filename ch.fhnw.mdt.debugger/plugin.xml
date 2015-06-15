@@ -2,13 +2,15 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension
-         point="org.eclipse.cdt.debug.core.BreakpointExtension">
-      <breakpointExtension
-            class="ch.fhnw.mdt.debugger.CBreakpointExtension1"
-            debugModelId="ch.fhnw.mdt.debugger.breakpointExtension1"
-            id="ch.fhnw.mdt.debugger.breakpointExtension1"
-            markerType="ch.fhnw.mdt.debugger.breakpointExtension1">
-      </breakpointExtension>
+         point="org.eclipse.cdt.debug.core.CDebugger">
+      <debugger
+            class="ch.fhnw.mdt.debugger.LCCDebugger"
+            cpu="*"
+            id="ch.fhnw.mdt.debugger.lccdebugger"
+            modes="run,core,attach"
+            name="LCC Console Debugger"
+            platform="*">
+      </debugger>
    </extension>
 
 </plugin>

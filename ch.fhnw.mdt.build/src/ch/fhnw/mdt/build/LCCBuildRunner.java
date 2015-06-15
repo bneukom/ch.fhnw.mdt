@@ -23,15 +23,16 @@ public class LCCBuildRunner extends InternalBuildRunner {
 		final IResource buildLocationResource = ResourcesPlugin.getWorkspace().getRoot()
 				.findMember(buildPath.makeRelativeTo(ResourcesPlugin.getWorkspace().getRoot().getLocation()));
 
+		// TODO don't do this always!
 		// remove old files
-		if (buildLocationResource != null) {
-			buildLocationResource.accept((res) -> {
-				if (!res.equals(buildLocationResource)) {
-					res.delete(true, monitor);
-				}
-				return true;
-			});
-		}
+//		if (buildLocationResource != null) {
+//			buildLocationResource.accept((res) -> {
+//				if (!res.equals(buildLocationResource)) {
+//					res.delete(true, monitor);
+//				}
+//				return true;
+//			});
+//		}
 
 		// build project
 		super.invokeBuild(kind, project, configuration, builder, console, markerGenerator, projectBuilder, monitor);

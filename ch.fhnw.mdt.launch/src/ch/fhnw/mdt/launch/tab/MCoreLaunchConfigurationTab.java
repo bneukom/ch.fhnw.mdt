@@ -1,17 +1,17 @@
 package ch.fhnw.mdt.launch.tab;
 
+import org.eclipse.cdt.debug.core.ICDTLaunchConfigurationConstants;
+import org.eclipse.cdt.launch.ui.CLaunchConfigurationTab;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.debug.ui.AbstractLaunchConfigurationTab;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 
-public class MCoreLaunchConfigurationTab extends AbstractLaunchConfigurationTab {
+public class MCoreLaunchConfigurationTab extends CLaunchConfigurationTab {
 
 	private LaunchConfigurationComposite launchConfigurationComposite;
-	
 	/**
 	 * Property for the project name of the project to be launched.
 	 */
@@ -54,6 +54,12 @@ public class MCoreLaunchConfigurationTab extends AbstractLaunchConfigurationTab 
 	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
 		configuration.setAttribute(PROJECT_ATTRIBUTE, launchConfigurationComposite.getProjectName());
 		configuration.setAttribute(EXECUTABLE_FILE_PATH, launchConfigurationComposite.getExecutableFilePath());
+	
+		// TODO make configurabele!
+		configuration.setAttribute(ICDTLaunchConfigurationConstants.ATTR_DEBUGGER_ID, "ch.fhnw.mdt.debugger.lccdebugger");
+		configuration.setAttribute(ICDTLaunchConfigurationConstants.ATTR_PROGRAM_NAME, "hello.c");
+		configuration.setAttribute(ICDTLaunchConfigurationConstants.ATTR_PLATFORM, "linux");
+
 	}
 	
 	@Override
