@@ -17,4 +17,6 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.cdt.launch;bundle-version="7.1.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
-Import-Package: org.eclipse.cdt.debug.core
+Import-Package: org.eclipse.cdt.debug.core,
+ org.eclipse.cdt.debug.core.cdi,
+ org.eclipse.cdt.debug.core.cdi.model

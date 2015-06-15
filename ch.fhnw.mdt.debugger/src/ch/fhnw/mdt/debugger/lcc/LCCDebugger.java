@@ -1,4 +1,4 @@
-package ch.fhnw.mdt.debugger;
+package ch.fhnw.mdt.debugger.lcc;
 
 import java.io.File;
 
@@ -9,6 +9,8 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.debug.core.ILaunch;
 
+// TODO use https://wiki.eclipse.org/CDT/cdt-debug-dsf-gdb-extensibility ??
+// TODO use mi commands?
 public class LCCDebugger implements ICDIDebugger2 {
 
 	public LCCDebugger() {
@@ -16,12 +18,12 @@ public class LCCDebugger implements ICDIDebugger2 {
 
 	@Override
 	public ICDISession createSession(ILaunch launch, File executable, IProgressMonitor monitor) throws CoreException {
-		return null;
+		return new LCCSession();
 	}
 
 	@Override
 	public ICDISession createDebuggerSession(ILaunch launch, IBinaryObject exe, IProgressMonitor monitor) throws CoreException {
-		return null;
+		return new LCCSession();
 	}
 
 

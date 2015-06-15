@@ -4,7 +4,7 @@
    <extension
          point="org.eclipse.cdt.debug.core.CDebugger">
       <debugger
-            class="ch.fhnw.mdt.debugger.LCCDebugger"
+            class="ch.fhnw.mdt.debugger.lcc.LCCDebugger"
             cpu="*"
             id="ch.fhnw.mdt.debugger.lccdebugger"
             modes="run,core,attach"

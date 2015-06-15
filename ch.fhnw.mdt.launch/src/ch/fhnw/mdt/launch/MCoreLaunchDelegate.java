@@ -12,9 +12,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.eclipse.cdt.core.envvar.IEnvironmentVariable;
-import org.eclipse.cdt.debug.core.ICDIDebugger;
+import org.eclipse.cdt.debug.core.CDIDebugModel;
 import org.eclipse.cdt.debug.core.ICDIDebugger2;
+import org.eclipse.cdt.debug.core.ICDTLaunchConfigurationConstants;
 import org.eclipse.cdt.debug.core.ICDebugConfiguration;
+import org.eclipse.cdt.debug.core.cdi.ICDISession;
+import org.eclipse.cdt.debug.core.cdi.model.ICDITarget;
 import org.eclipse.cdt.launch.AbstractCLaunchDelegate;
 import org.eclipse.cdt.managedbuilder.core.IManagedBuildInfo;
 import org.eclipse.cdt.managedbuilder.core.ManagedBuildManager;
@@ -36,17 +39,18 @@ import ch.fhnw.mdt.preferences.MCorePreferencePage;
 import ch.fhnw.mdt.preferences.MDTPreferencesPlugin;
 
 // TODO implement ILaunchShortcut
+// TODO see LocalCDILaunchDelegate
 public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 
 	public static final String GFORTH_PATH_VARIABLE = "GFORTHPATH";
 	private static final String DEBUG_MODE = "debug";
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void launch(ILaunchConfiguration configuration, String mode, ILaunch launch, IProgressMonitor monitor) throws CoreException {
-		final ILaunch launch1 = launch;
 		try {
 
-			final String projectName = launch1.getLaunchConfiguration().getAttribute(MCoreLaunchConfigurationTab.PROJECT_ATTRIBUTE, "");
+			final String projectName = launch.getLaunchConfiguration().getAttribute(MCoreLaunchConfigurationTab.PROJECT_ATTRIBUTE, "");
 			final IProject project = (IProject) ResourcesPlugin.getWorkspace().getRoot().findMember(projectName);
 
 			final IEnvironmentVariableProvider environmentVariableProvider = ManagedBuildManager.getEnvironmentVariableProvider();
@@ -56,32 +60,51 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 
 			final String[] gforthPaths = gforthPathEnvironmentVariable.getValue().split(":");
 			final String workingDirectory = gforthPaths[gforthPaths.length - 1];
-			final String executableFilePath = launch1.getLaunchConfiguration().getAttribute(MCoreLaunchConfigurationTab.EXECUTABLE_FILE_PATH, "");
+			final String executableFilePath = launch.getLaunchConfiguration().getAttribute(MCoreLaunchConfigurationTab.EXECUTABLE_FILE_PATH, "");
 			final IFile executableFile = (IFile) project.findMember(executableFilePath);
 
-			if (launch1.getLaunchMode().equals(DEBUG_MODE)) {
+			if (launch.getLaunchMode().equals(DEBUG_MODE)) {
 				// generate debug functions for gforth
 				final String debugForth = generateDebugCFunctions(executableFile);
 
 				final InputStream stream = new ByteArrayInputStream(debugForth.getBytes(StandardCharsets.UTF_8));
 				final IPath debugPath = executableFile.getParent().getFullPath().append("debugCFunction.fs");
 
-				ResourcesPlugin.getWorkspace().getRoot().getFile(debugPath).create(stream, true, new NullProgressMonitor());
+				final IFile debugFile = ResourcesPlugin.getWorkspace().getRoot().getFile(debugPath);
+				if (debugFile.exists()) {
+					debugFile.delete(true, new NullProgressMonitor());
+				}
+				debugFile.create(stream, true, new NullProgressMonitor());
 
 				// start debugger
 				ICDebugConfiguration debugConfig = getDebugConfig(configuration);
 				final ICDIDebugger2 debugger = (ICDIDebugger2) debugConfig.createDebugger();
-				System.out.println(debugger.toString());
+				final ICDISession session= debugger.createSession(launch, executableFile.getFullPath().toFile(), monitor);
+
+				boolean stopInMain = launch.getLaunchConfiguration().getAttribute(ICDTLaunchConfigurationConstants.ATTR_DEBUGGER_STOP_AT_MAIN, false);
+				String stopSymbol = null;
+				if (stopInMain)
+					stopSymbol = launch.getLaunchConfiguration().getAttribute(ICDTLaunchConfigurationConstants.ATTR_DEBUGGER_STOP_AT_MAIN_SYMBOL, ICDTLaunchConfigurationConstants.DEBUGGER_STOP_AT_MAIN_SYMBOL_DEFAULT);
+				ICDITarget[] targets = session.getTargets();
+				for(int i = 0; i < targets.length; i++) {
+					Process process = targets[i].getProcess();
+					IProcess iprocess = null;
+					if (process != null) {
+						iprocess = DebugPlugin.newProcess(launch, process, "debugger", getDefaultProcessMap());
+					}
+					
+					
+					CDIDebugModel.newDebugTarget(launch, project.getProject(), targets[i], renderTargetLabel(debugConfig), iprocess, null, true, false, stopSymbol, true);
+				}
 			}
 
-			// TODO umbilical needs to be set (otherwise throw error in pre
-			// check)
+			// TODO umbilical needs to be set (otherwise throw error in pre check)
 			// check of launch)
 			final String umbilical = MDTPreferencesPlugin.getDefault().getPreferenceStore().getString(MCorePreferencePage.USB_DEVICE_NAME_PREFERENCE);
 
 			// TODO copy release files into workingDirectory?
 
-			launchGforth(launch1, workingDirectory, umbilical, executableFile);
+			launchGforth(launch, workingDirectory, umbilical, executableFile);
 		} catch (final CoreException e) {
 			e.printStackTrace();
 		} finally {

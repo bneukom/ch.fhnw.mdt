@@ -44,6 +44,10 @@ public class LCCBuildRunner extends InternalBuildRunner {
 					final IFile file = (IFile) res;
 					if (file.getFileExtension().equals("s")) {
 						final IPath newFilePath = file.getFullPath().removeFileExtension().addFileExtension("fs");
+						final IFile newFile = ResourcesPlugin.getWorkspace().getRoot().getFile(newFilePath);
+						if (newFile.exists()) {
+							newFile.delete(true, monitor);
+						}
 						file.move(newFilePath, true, monitor);
 					}
 					return false;
