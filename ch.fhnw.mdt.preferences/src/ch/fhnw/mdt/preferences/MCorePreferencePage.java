@@ -1,14 +1,5 @@
 package ch.fhnw.mdt.preferences;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
-
-import org.eclipse.core.runtime.FileLocator;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.swt.SWT;
@@ -24,18 +15,15 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.eclipse.wb.swt.SWTResourceManager;
-import org.osgi.framework.Bundle;
-
 
 public class MCorePreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
 	private Text usbDeviceText;
 	private Text gforthLoaderText;
 	private Button selectUSBDeviceButton;
-	
+
 	public static final String USB_DEVICE_NAME_PREFERENCE = "usbDeviceNamePreference";
 	public static final String GFORTH_LOADER_PREFERENCE = "gforthLoader";
 	private Button useUSBDeviceButton;
-		
 
 	/**
 	 * Create the preference page.
@@ -66,7 +54,6 @@ public class MCorePreferencePage extends PreferencePage implements IWorkbenchPre
 				selectUSBDeviceButton.setEnabled(useUSBDeviceButton.getSelection());
 			}
 		});
-
 
 		usbDeviceText = new Text(container, SWT.BORDER);
 		usbDeviceText.setEnabled(!usbDeviceName.equals(""));
@@ -112,48 +99,24 @@ public class MCorePreferencePage extends PreferencePage implements IWorkbenchPre
 		return container;
 	}
 
-	private String getDefaultLoader() {
-		final Bundle bundle = Platform.getBundle("ch.fhnw.mdt.ui");
-		final URL fileURL = bundle.getEntry("loaders/loader.fs");
-
-		String loader = "";
-
-		try {
-			final File file = new File(FileLocator.resolve(fileURL).toURI());
-
-			try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-				String line;
-				while ((line = reader.readLine()) != null) {
-					loader += line;
-					loader += System.lineSeparator();
-				}
-			}
-
-		} catch (URISyntaxException | IOException e) {
-			e.printStackTrace();
-		}
-		return loader;
-	}
-	
 	@Override
 	protected IPreferenceStore doGetPreferenceStore() {
 		return MDTPreferencesPlugin.getDefault().getPreferenceStore();
 	}
-	
+
 	@Override
 	public boolean performOk() {
-		
-		if (useUSBDeviceButton.getSelection()) getPreferenceStore().setValue(USB_DEVICE_NAME_PREFERENCE, usbDeviceText.getText());
+
+		if (useUSBDeviceButton.getSelection())
+			getPreferenceStore().setValue(USB_DEVICE_NAME_PREFERENCE, usbDeviceText.getText());
 		getPreferenceStore().setValue(GFORTH_LOADER_PREFERENCE, gforthLoaderText.getText());
-		
+
 		return true;
 	}
-	
 
 	/**
 	 * Initialize the preference page.
 	 */
 	public void init(final IWorkbench workbench) {
-		getPreferenceStore().setDefault(GFORTH_LOADER_PREFERENCE, getDefaultLoader());
 	}
 }

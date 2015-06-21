@@ -90,7 +90,7 @@ public class LCCTargetConfiguration implements ICDITargetConfiguration3 {
 
 	@Override
 	public boolean supportsMemoryRetrieval() {
-		return false;
+		return true;
 	}
 
 	@Override
@@ -100,7 +100,7 @@ public class LCCTargetConfiguration implements ICDITargetConfiguration3 {
 
 	@Override
 	public boolean supportsExpressionEvaluation() {
-		return false;
+		return true;
 	}
 
 	@Override

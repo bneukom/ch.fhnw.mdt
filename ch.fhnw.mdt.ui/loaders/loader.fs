@@ -17,6 +17,8 @@ include disasm.fs               \ the disassembler
 include umbilical.fs            \ defines the actual serial port used on this computer
 include constants.fs            \ MicroCore Register addresses and bits
 
+$DEBUG_INCLUDE
+
 new Target                      \ reset target compiler and go into target compilation mode
 
 8 trap-addr code-origin

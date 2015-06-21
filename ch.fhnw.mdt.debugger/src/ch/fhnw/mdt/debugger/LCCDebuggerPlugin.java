@@ -47,5 +47,6 @@ public class LCCDebuggerPlugin extends AbstractUIPlugin {
 	public static LCCDebuggerPlugin getDefault() {
 		return plugin;
 	}
+	
 
 }

@@ -2,12 +2,13 @@ package ch.fhnw.mdt.launch;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -26,16 +27,15 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.model.IProcess;
+import org.eclipse.debug.core.model.RuntimeProcess;
 
 import ch.fhnw.mdt.launch.tab.MCoreLaunchConfigurationTab;
-import ch.fhnw.mdt.preferences.MCorePreferencePage;
 import ch.fhnw.mdt.preferences.MDTPreferencesPlugin;
 
 // TODO implement ILaunchShortcut
@@ -45,9 +45,10 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 	public static final String GFORTH_PATH_VARIABLE = "GFORTHPATH";
 	private static final String DEBUG_MODE = "debug";
 
-	@SuppressWarnings("unchecked")
+	private static final String DEBUG_FILE_NAME = "debugCFunction.fs";
+
 	@Override
-	public void launch(ILaunchConfiguration configuration, String mode, ILaunch launch, IProgressMonitor monitor) throws CoreException {
+	public void launch(final ILaunchConfiguration configuration, final String mode, final ILaunch launch, final IProgressMonitor monitor) throws CoreException {
 		try {
 
 			final String projectName = launch.getLaunchConfiguration().getAttribute(MCoreLaunchConfigurationTab.PROJECT_ATTRIBUTE, "");
@@ -63,52 +64,125 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 			final String executableFilePath = launch.getLaunchConfiguration().getAttribute(MCoreLaunchConfigurationTab.EXECUTABLE_FILE_PATH, "");
 			final IFile executableFile = (IFile) project.findMember(executableFilePath);
 
-			if (launch.getLaunchMode().equals(DEBUG_MODE)) {
-				// generate debug functions for gforth
-				final String debugForth = generateDebugCFunctions(executableFile);
+			final String umbilical = MDTPreferencesPlugin.getDefault().getUmbilical();
 
-				final InputStream stream = new ByteArrayInputStream(debugForth.getBytes(StandardCharsets.UTF_8));
-				final IPath debugPath = executableFile.getParent().getFullPath().append("debugCFunction.fs");
-
-				final IFile debugFile = ResourcesPlugin.getWorkspace().getRoot().getFile(debugPath);
-				if (debugFile.exists()) {
-					debugFile.delete(true, new NullProgressMonitor());
-				}
-				debugFile.create(stream, true, new NullProgressMonitor());
-
-				// start debugger
-				ICDebugConfiguration debugConfig = getDebugConfig(configuration);
-				final ICDIDebugger2 debugger = (ICDIDebugger2) debugConfig.createDebugger();
-				final ICDISession session= debugger.createSession(launch, executableFile.getFullPath().toFile(), monitor);
-
-				boolean stopInMain = launch.getLaunchConfiguration().getAttribute(ICDTLaunchConfigurationConstants.ATTR_DEBUGGER_STOP_AT_MAIN, false);
-				String stopSymbol = null;
-				if (stopInMain)
-					stopSymbol = launch.getLaunchConfiguration().getAttribute(ICDTLaunchConfigurationConstants.ATTR_DEBUGGER_STOP_AT_MAIN_SYMBOL, ICDTLaunchConfigurationConstants.DEBUGGER_STOP_AT_MAIN_SYMBOL_DEFAULT);
-				ICDITarget[] targets = session.getTargets();
-				for(int i = 0; i < targets.length; i++) {
-					Process process = targets[i].getProcess();
-					IProcess iprocess = null;
-					if (process != null) {
-						iprocess = DebugPlugin.newProcess(launch, process, "debugger", getDefaultProcessMap());
-					}
-					
-					
-					CDIDebugModel.newDebugTarget(launch, project.getProject(), targets[i], renderTargetLabel(debugConfig), iprocess, null, true, false, stopSymbol, true);
-				}
+			// TODO show error?
+			// abort if umbilical is not set
+			if (umbilical == null) {
+				return;
 			}
 
-			// TODO umbilical needs to be set (otherwise throw error in pre check)
-			// check of launch)
-			final String umbilical = MDTPreferencesPlugin.getDefault().getPreferenceStore().getString(MCorePreferencePage.USB_DEVICE_NAME_PREFERENCE);
+			final boolean isDebugMode = launch.getLaunchMode().equals(DEBUG_MODE);
 
-			// TODO copy release files into workingDirectory?
+			// copy files into working directory
+			try {
+				final Path executablePath = Paths.get(workingDirectory, executableFile.getName());
+				Files.deleteIfExists(executablePath);
 
-			launchGforth(launch, workingDirectory, umbilical, executableFile);
+				// copy file to execute
+				try (InputStream contents = executableFile.getContents(true)) {
+					Files.copy(contents, executablePath);
+				}
+
+				// generate debug functions for gforth
+				if (isDebugMode) {
+					final String debugForth = generateDebugCFunctions(executableFile);
+
+					final Path debugFunctions = Paths.get(workingDirectory, DEBUG_FILE_NAME);
+
+					Files.deleteIfExists(debugFunctions);
+					Files.write(debugFunctions, debugForth.getBytes());
+				}
+
+				final Path eclipseLoaderPath = Paths.get(workingDirectory, "load_eclipse.fs");
+
+				final String loaderFile = MDTPreferencesPlugin.getDefault().getLoader(executableFile.getName(), isDebugMode);
+				Files.write(eclipseLoaderPath, loaderFile.getBytes());
+			} catch (final IOException e) {
+				e.printStackTrace();
+			}
+
+			// run gforth
+			final MCoreLaunchProcess launchProcess = run(launch, workingDirectory, umbilical, executableFile);
+
+			// start debugger if necessary
+			if (isDebugMode) {
+				startDebugger(launchProcess, configuration, launch, monitor, project, executableFile);
+			}
+
+			// wait for done
+			try {
+				launchProcess.process.waitFor();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+
 		} catch (final CoreException e) {
 			e.printStackTrace();
 		} finally {
 		}
+	}
+
+	private void startDebugger(MCoreLaunchProcess launchProcess, final ILaunchConfiguration configuration, final ILaunch launch, final IProgressMonitor monitor,
+			final IProject project, final IFile executableFile) throws CoreException, DebugException {
+
+		// start debugger
+		final ICDebugConfiguration debugConfig = getDebugConfig(configuration);
+		
+
+		final ICDIDebugger2 debugger = (ICDIDebugger2) debugConfig.createDebugger();
+		final ICDISession session = debugger.createSession(launch, executableFile.getFullPath().toFile(), monitor);
+
+		final boolean stopInMain = launch.getLaunchConfiguration().getAttribute(ICDTLaunchConfigurationConstants.ATTR_DEBUGGER_STOP_AT_MAIN, false);
+		String stopSymbol = null;
+		if (stopInMain)
+			stopSymbol = launch.getLaunchConfiguration().getAttribute(ICDTLaunchConfigurationConstants.ATTR_DEBUGGER_STOP_AT_MAIN_SYMBOL,
+					ICDTLaunchConfigurationConstants.DEBUGGER_STOP_AT_MAIN_SYMBOL_DEFAULT);
+		final ICDITarget[] targets = session.getTargets();
+		for (int i = 0; i < targets.length; i++) {
+			
+			// TODO how to notify lcc proce
+			// final Process process = targets[i].getProcess();
+			// IProcess iprocess = null;
+			// if (process != null) {
+			// iprocess = DebugPlugin.newProcess(launch, process, "debugger", getDefaultProcessMap());
+			// }
+
+			CDIDebugModel.newDebugTarget(launch, project.getProject(), targets[i], renderTargetLabel(debugConfig), launchProcess.wrapper, null, true, false, stopSymbol, true);
+		}
+	}
+
+	// TODO close all streams!
+	private MCoreLaunchProcess run(final ILaunch launch, final String workingDirectory, final String umbilical, final IFile executableFile) {
+		try {
+			final ProcessBuilder processBuilder = new ProcessBuilder("/bin/bash");
+
+			final Process process = processBuilder.start();
+
+			@SuppressWarnings("unused")
+			final RuntimeProcess launchProcess = (RuntimeProcess) DebugPlugin.newProcess(launch, process, "gforth launch");
+			final BufferedWriter processWriter = new BufferedWriter(new OutputStreamWriter(process.getOutputStream()));
+			// final BufferedReader processReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+
+			processWriter.write("cd " + workingDirectory);
+			processWriter.newLine();
+
+			processWriter.write("gforth ./load_eclipse.fs");
+			processWriter.newLine();
+
+			processWriter.write("umbilical: " + umbilical);
+			processWriter.newLine();
+
+			processWriter.flush();
+
+			return new MCoreLaunchProcess(launchProcess, process);
+
+		} catch (final IOException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+
 	}
 
 	private static String generateDebugCFunctions(final IFile forthFile) {
@@ -128,9 +202,6 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 
 					result += entry;
 					result += System.lineSeparator();
-
-					// Host T definitions H 2Variable C2ForthFunctionName1
-					// Host s" _CFunctionName" T C2ForthFunctionName1 H 2!
 				}
 			}
 
@@ -141,75 +212,20 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 		return result;
 	}
 
-	// TODO close all streams!
-	private static void launchGforth(final ILaunch launch, final String workingDirectory, final String umbilical, final IFile executableFile) {
-		try {
-			final ProcessBuilder processBuilder = new ProcessBuilder("/bin/bash");
-
-			final Process process = processBuilder.start();
-
-			@SuppressWarnings("unused")
-			final IProcess launchProcess = DebugPlugin.newProcess(launch, process, "gforth launch");
-
-			// final IOConsole launchConsole = (IOConsole)
-			// DebugUITools.getConsole(launchProcess);
-			// final BufferedWriter consoleWriter = new BufferedWriter(new
-			// OutputStreamWriter(launchConsole.newOutputStream()));
-
-			final BufferedWriter processWriter = new BufferedWriter(new OutputStreamWriter(process.getOutputStream()));
-
-			final BufferedReader processReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-
-			// schedule job for IO
-			// readProcessJob.schedule();
-
-			processWriter.write("cd " + workingDirectory);
-			processWriter.newLine();
-
-			processWriter.write("gforth ./load_tasks.fs");
-			processWriter.newLine();
-
-			processWriter.write("umbilical: " + umbilical);
-			processWriter.newLine();
-
-			processWriter.flush();
-
-			// wait for the process to finish (will finish after exiting the
-			// bash or closing the launch)
-			try {
-				process.waitFor();
-			} catch (final InterruptedException e) {
-				e.printStackTrace();
-			}
-
-			// close the process reader, this will automatically stop the job
-			processReader.close();
-
-		} catch (final IOException e) {
-			e.printStackTrace();
-		}
-
-		// TODO get gforth workspace
-		// TODO copy ./load_tasks into gforth workspace (eclipse_loader.fs)
-		// TODO launch eclipse_loader
-		// TODO use
-		// http://www.programcreek.com/java-api-examples/index.php?api=org.eclipse.ui.console.IOConsole
-		// ?
-		// TODO can we change load_tasks to include umbilical port?
-
-		// ProcessBuilder builder = new ProcessBuilder("gforth",
-		// "./load_tasks.fs");
-		// Process process;
-		// try {
-		// process = builder.start();
-		// DebugPlugin.newProcess(launch, process, "gforth");
-		// } catch (IOException e) {
-		// e.printStackTrace();
-		// }
-	}
-
 	@Override
 	protected String getPluginID() {
 		return MDTLaunchPlugin.PLUGIN_ID;
+	}
+
+	private static class MCoreLaunchProcess {
+		private final IProcess wrapper;
+		private final Process process;
+
+		public MCoreLaunchProcess(IProcess wrapper, Process process) {
+			super();
+			this.wrapper = wrapper;
+			this.process = process;
+		}
+
 	}
 }

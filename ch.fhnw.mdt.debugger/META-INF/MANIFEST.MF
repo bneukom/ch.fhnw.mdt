@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Debugger
-Bundle-SymbolicName: ch.fhnw.mdt.debugger;singleton:=true
+Bundle-SymbolicName: ch.fhnw.mdt.lccdebugger;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: ch.fhnw.mdt.debugger.LCCDebuggerPlugin
 Require-Bundle: org.eclipse.ui,

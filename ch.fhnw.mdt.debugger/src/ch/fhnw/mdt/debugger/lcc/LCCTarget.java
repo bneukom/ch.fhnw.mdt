@@ -36,6 +36,7 @@ import org.eclipse.cdt.debug.mi.core.cdi.LineLocation;
 import org.eclipse.cdt.debug.mi.core.cdi.model.FunctionLocation;
 
 import ch.fhnw.mdt.debugger.lcc.events.LCCResumedEvent;
+import ch.fhnw.mdt.debugger.lcc.events.LCCSuspendedEvent;
 
 // TODO parse AST and recieve information about breakpoints for enablement
 public class LCCTarget implements ICDITarget {
@@ -126,6 +127,8 @@ public class LCCTarget implements ICDITarget {
 	@Override
 	public void resume(boolean passSignal) throws CDIException {
 		session.getLCCEventManager().fireEvent(new LCCResumedEvent(this));
+		
+		session.getLCCEventManager().fireEvent(new LCCSuspendedEvent(session, this));
 	}
 
 	@Override
@@ -140,7 +143,7 @@ public class LCCTarget implements ICDITarget {
 
 	@Override
 	public void suspend() throws CDIException {
-
+		session.getLCCEventManager().fireEvent(new LCCSuspendedEvent(session, this));
 	}
 
 	@Override
@@ -298,7 +301,7 @@ public class LCCTarget implements ICDITarget {
 
 	@Override
 	public void terminate() throws CDIException {
-
+		// TODO stop process
 	}
 
 	@Override
