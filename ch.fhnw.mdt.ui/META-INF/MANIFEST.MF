@@ -19,5 +19,5 @@ Require-Bundle: org.eclipse.cdt.core;bundle-version="5.4.1",
  org.eclipse.cdt.ui;bundle-version="5.8.1",
  ch.fhnw.mdt.build;bundle-version="1.0.0",
  ch.fhnw.mdt.preferences;bundle-version="1.0.0",
- ch.fhnw.mdt.lccdebugger;bundle-version="1.0.0"
+ ch.fhnw.mdt.forthdebugger;bundle-version="1.0.0"
 Export-Package: ch.fhnw.mdt.ui

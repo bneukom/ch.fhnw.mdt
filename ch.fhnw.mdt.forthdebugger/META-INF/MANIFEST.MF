@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Forthdebugger
+Bundle-SymbolicName: ch.fhnw.mdt.forthdebugger;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: ch.fhnw.mdt.forthdebugger.model.ForthDebuggerPlugin
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.debug.core;bundle-version="3.9.1",
+ org.eclipse.debug.ui;bundle-version="3.10.1",
+ org.eclipse.ui.workbench.texteditor,
+ org.eclipse.jface.text,
+ org.eclipse.ui.workbench
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy
+Import-Package: org.eclipse.ui.part

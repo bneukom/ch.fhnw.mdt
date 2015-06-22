@@ -13,12 +13,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.eclipse.cdt.core.envvar.IEnvironmentVariable;
-import org.eclipse.cdt.debug.core.CDIDebugModel;
-import org.eclipse.cdt.debug.core.ICDIDebugger2;
-import org.eclipse.cdt.debug.core.ICDTLaunchConfigurationConstants;
-import org.eclipse.cdt.debug.core.ICDebugConfiguration;
-import org.eclipse.cdt.debug.core.cdi.ICDISession;
-import org.eclipse.cdt.debug.core.cdi.model.ICDITarget;
 import org.eclipse.cdt.launch.AbstractCLaunchDelegate;
 import org.eclipse.cdt.managedbuilder.core.IManagedBuildInfo;
 import org.eclipse.cdt.managedbuilder.core.ManagedBuildManager;
@@ -126,30 +120,6 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 	private void startDebugger(MCoreLaunchProcess launchProcess, final ILaunchConfiguration configuration, final ILaunch launch, final IProgressMonitor monitor,
 			final IProject project, final IFile executableFile) throws CoreException, DebugException {
 
-		// start debugger
-		final ICDebugConfiguration debugConfig = getDebugConfig(configuration);
-		
-
-		final ICDIDebugger2 debugger = (ICDIDebugger2) debugConfig.createDebugger();
-		final ICDISession session = debugger.createSession(launch, executableFile.getFullPath().toFile(), monitor);
-
-		final boolean stopInMain = launch.getLaunchConfiguration().getAttribute(ICDTLaunchConfigurationConstants.ATTR_DEBUGGER_STOP_AT_MAIN, false);
-		String stopSymbol = null;
-		if (stopInMain)
-			stopSymbol = launch.getLaunchConfiguration().getAttribute(ICDTLaunchConfigurationConstants.ATTR_DEBUGGER_STOP_AT_MAIN_SYMBOL,
-					ICDTLaunchConfigurationConstants.DEBUGGER_STOP_AT_MAIN_SYMBOL_DEFAULT);
-		final ICDITarget[] targets = session.getTargets();
-		for (int i = 0; i < targets.length; i++) {
-			
-			// TODO how to notify lcc proce
-			// final Process process = targets[i].getProcess();
-			// IProcess iprocess = null;
-			// if (process != null) {
-			// iprocess = DebugPlugin.newProcess(launch, process, "debugger", getDefaultProcessMap());
-			// }
-
-			CDIDebugModel.newDebugTarget(launch, project.getProject(), targets[i], renderTargetLabel(debugConfig), launchProcess.wrapper, null, true, false, stopSymbol, true);
-		}
 	}
 
 	// TODO close all streams!
