@@ -37,7 +37,7 @@ public class MDTPreferencesPlugin extends AbstractUIPlugin {
 	 * 
 	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
 	 */
-	public void start(BundleContext context) throws Exception {
+	public void start(final BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
 
@@ -56,7 +56,7 @@ public class MDTPreferencesPlugin extends AbstractUIPlugin {
 	 * 
 	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
 	 */
-	public void stop(BundleContext context) throws Exception {
+	public void stop(final BundleContext context) throws Exception {
 		plugin = null;
 		super.stop(context);
 	}
@@ -77,33 +77,35 @@ public class MDTPreferencesPlugin extends AbstractUIPlugin {
 	 * @param isDebugMode
 	 * @return
 	 */
-	public String getLoader(String inputFile, boolean isDebugMode) {
+	public String getLoader(final String inputFile, final boolean isDebugMode) {
 		String loader = MDTPreferencesPlugin.getDefault().getPreferenceStore().getString(MCorePreferencePage.GFORTH_LOADER_PREFERENCE);
 		loader = loader.replace("$INPUT_FILE", inputFile);
-		loader = loader.replace("$DEBUG_INCLUDE", isDebugMode ? "include debugCFunction.fs" : "");
+
+		// loader = loader.replace("$DEBUG_INCLUDE", isDebugMode ? "include debugCFunction.fs" : "");
+		loader = loader.replace("$DEBUG_INCLUDE", "");
 
 		return loader;
 	}
 
 	/**
-	 * Returns the umbilical set as preference.
+	 * Returns the umbilical set as preference and checks if it is a valid umbilical port by looking for the file. If the umbilical port is invalid this method will return null.
 	 * 
 	 * @return
 	 */
 	public String getUmbilical() {
+		return MDTPreferencesPlugin.getDefault().getPreferenceStore().getString(MCorePreferencePage.USB_DEVICE_NAME_PREFERENCE);
+	}
+	
+	/**
+	 * Returns the umbilical set as preference and checks if it is a valid umbilical port by looking for the file. If the umbilical port is invalid this method will return null.
+	 * 
+	 * @return
+	 */
+	public String getCheckedUmbilical() {
 		final String umbilical = MDTPreferencesPlugin.getDefault().getPreferenceStore().getString(MCorePreferencePage.USB_DEVICE_NAME_PREFERENCE);
 		if (umbilical != null && !umbilical.isEmpty() && Files.exists(Paths.get(umbilical))) {
 			return umbilical;
 		}
-
-		// TODO check thread access
-		// // not set or invalid
-		// final SelectUSBDeviceDialog selectUsbDeviceDialog = new SelectUSBDeviceDialog(null);
-		// final int response = selectUsbDeviceDialog.open();
-		// if (response == SelectUSBDeviceDialog.OK) {
-		// final String device = selectUsbDeviceDialog.getSelectedDevice();
-		// return device;
-		// }
 
 		return null;
 	}

@@ -5,22 +5,15 @@ import org.eclipse.cdt.launch.ui.CLaunchConfigurationTab;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
-import org.eclipse.debug.ui.AbstractLaunchConfigurationTab;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
+
+import ch.fhnw.mdt.forthdebugger.IMDTConstants;
 
 public class MCoreLaunchConfigurationTab extends CLaunchConfigurationTab {
 
 	private LaunchConfigurationComposite launchConfigurationComposite;
-	/**
-	 * Property for the project name of the project to be launched.
-	 */
-	public static final String PROJECT_ATTRIBUTE = "projectName";
-	
-	/**
-	 * Property for the file name to be executed. 
-	 */
-	public static final String EXECUTABLE_FILE_PATH = "executableFilePath";
+
 	
 	@Override
 	public void createControl(Composite parent) {
@@ -42,8 +35,8 @@ public class MCoreLaunchConfigurationTab extends CLaunchConfigurationTab {
 	@Override
 	public void initializeFrom(ILaunchConfiguration configuration) {
 		try {
-			launchConfigurationComposite.setProject(configuration.getAttribute(PROJECT_ATTRIBUTE, ""));
-			launchConfigurationComposite.setExecutableFile(configuration.getAttribute(EXECUTABLE_FILE_PATH, ""));
+			launchConfigurationComposite.setProject(configuration.getAttribute(IMDTConstants.ATTR_PROJECT, ""));
+			launchConfigurationComposite.setExecutableFile(configuration.getAttribute(IMDTConstants.ATTR_FORTH_EXECUTABLE_FILE, ""));
 			
 		} catch (CoreException e) {
 			e.printStackTrace();
@@ -52,14 +45,9 @@ public class MCoreLaunchConfigurationTab extends CLaunchConfigurationTab {
 
 	@Override
 	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
-		configuration.setAttribute(PROJECT_ATTRIBUTE, launchConfigurationComposite.getProjectName());
-		configuration.setAttribute(EXECUTABLE_FILE_PATH, launchConfigurationComposite.getExecutableFilePath());
-	
-		// TODO make configurabele!
-		configuration.setAttribute(ICDTLaunchConfigurationConstants.ATTR_DEBUGGER_ID, "ch.fhnw.mdt.debugger.lccdebugger");
-		configuration.setAttribute(ICDTLaunchConfigurationConstants.ATTR_PROGRAM_NAME, "hello.c");
-		configuration.setAttribute(ICDTLaunchConfigurationConstants.ATTR_PLATFORM, "linux");
-
+		configuration.setAttribute(IMDTConstants.ATTR_PROJECT, launchConfigurationComposite.getProjectName());
+		configuration.setAttribute(IMDTConstants.ATTR_FORTH_EXECUTABLE_FILE, launchConfigurationComposite.getExecutableFilePath());
+		configuration.setAttribute(ICDTLaunchConfigurationConstants.ATTR_PROGRAM_NAME, launchConfigurationComposite.getExecutableFile().getName());
 	}
 	
 	@Override

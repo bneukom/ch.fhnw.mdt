@@ -1,4 +1,4 @@
-package ch.fhnw.mdt.forthdebugger.model;
+package ch.fhnw.mdt.forthdebugger;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.PlatformObject;

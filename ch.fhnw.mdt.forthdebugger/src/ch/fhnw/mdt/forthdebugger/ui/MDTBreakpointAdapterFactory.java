@@ -26,12 +26,12 @@ public class MDTBreakpointAdapterFactory implements IAdapterFactory {
 	 * @see org.eclipse.core.runtime.IAdapterFactory#getAdapter(java.lang.Object, java.lang.Class)
 	 */
 	@Override
-	public Object getAdapter(Object adaptableObject, Class adapterType) {
+	public Object getAdapter(final Object adaptableObject, final Class adapterType) {
 		if (adaptableObject instanceof ITextEditor) {
-			ITextEditor editorPart = (ITextEditor) adaptableObject;
-			IResource resource = (IResource) editorPart.getEditorInput().getAdapter(IResource.class);
+			final ITextEditor editorPart = (ITextEditor) adaptableObject;
+			final IResource resource = (IResource) editorPart.getEditorInput().getAdapter(IResource.class);
 			if (resource != null) {
-				String extension = resource.getFileExtension();
+				final String extension = resource.getFileExtension();
 				if (extension != null && extension.equals("c")) {
 					return new MDTLineBreakpointAdapter();
 				}

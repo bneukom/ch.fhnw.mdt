@@ -11,6 +11,7 @@
  *******************************************************************************/
 package ch.fhnw.mdt.forthdebugger.ui;
 
+import org.eclipse.cdt.internal.ui.editor.CEditor;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.ILineBreakpoint;
@@ -94,7 +95,7 @@ public class MDTModelPresentation extends LabelProvider implements IDebugModelPr
 	@Override
 	public String getEditorId(IEditorInput input, Object element) {
 		if (element instanceof IFile || element instanceof ILineBreakpoint) {
-			return "org.eclipse.ui.DefaultTextEditor";
+			return "org.eclipse.cdt.ui.editor.CEditor";
 		}
 		return null;
 	}

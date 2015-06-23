@@ -9,20 +9,25 @@
  *     IBM Corporation - initial API and implementation
  *     Bjorn Freeman-Benson - initial API and implementation
  *******************************************************************************/
-package ch.fhnw.mdt.forthdebugger.model;
+package ch.fhnw.mdt.forthdebugger;
 
 /**
- * Constants for the PDA debugger.
+ * Constants for the MDT debugger.
  */
 public interface IMDTConstants {
 
 	/**
-	 * Unique identifier for the PDA debug model
+	 * Unique identifier for the MDT debug model
 	 */
 	public static final String ID_MDT_DEBUG_MODEL = "ch.fhnw.mdt.forthdebugger.mdtDebugModelPresentation";
 
 	/**
-	 * Launch configuration key.
+	 * Property for the project name of the project to be launched.
 	 */
-	public static final String ATTR_PDA_PROGRAM = ID_MDT_DEBUG_MODEL + ".ATTR_PDA_PROGRAM";
+	public static final String ATTR_PROJECT = "projectName";
+	
+	/**
+	 * Property for the file name to be executed. 
+	 */
+	public static final String ATTR_FORTH_EXECUTABLE_FILE = "executableFilePath";
 }

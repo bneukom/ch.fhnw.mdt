@@ -32,7 +32,7 @@
    <extension
          point="org.eclipse.debug.core.breakpoints">
       <breakpoint
-            class="ch.fhnw.mdt.forthdebugger.model.MDTLineBreakpoint"
+            class="ch.fhnw.mdt.forthdebugger.MDTLineBreakpoint"
             id="ch.fhnw.mdt.forthdebugger.mdtBreakpoint"
             markerType="ch.fhnw.mdt.forthdebugger.mdtBreakpointMarker"
             name="MDT Line Breakpoint">
@@ -44,6 +44,21 @@
             contextId="org.eclipse.cdt.debug.ui.debugging"
             debugModelId="ch.fhnw.mdt.forthdebugger.mdtDebugModelPresentation">
       </modelContextBinding>
+   </extension>
+   <extension
+         point="org.eclipse.debug.core.sourceLocators">
+      <sourceLocator
+            class="ch.fhnw.mdt.forthdebugger.sourcelookup.MDTSourceLookupDirector"
+            id="ch.fhnw.mdt.forthdebugger.mdtSourceLocator"
+            name="MDT Source Locator">
+      </sourceLocator>
+   </extension>
+   <extension
+         point="org.eclipse.debug.core.sourcePathComputers">
+      <sourcePathComputer
+            class="ch.fhnw.mdt.forthdebugger.sourcelookup.MDTSourcePathComputerDelegate"
+            id="ch.fhnw.mdt.forthdebugger.mdtSourcePathComputer">
+      </sourcePathComputer>
    </extension>
 
 </plugin>

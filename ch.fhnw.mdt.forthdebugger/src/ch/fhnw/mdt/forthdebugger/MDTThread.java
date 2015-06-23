@@ -9,7 +9,7 @@
  *     IBM Corporation - initial API and implementation
  *     Bjorn Freeman-Benson - initial API and implementation
  *******************************************************************************/
-package ch.fhnw.mdt.forthdebugger.model;
+package ch.fhnw.mdt.forthdebugger;
 
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IBreakpoint;
@@ -24,12 +24,12 @@ public class MDTThread extends MDTDebugElement implements IThread {
 	/**
 	 * Breakpoints this thread is suspended at or <code>null</code> if none.
 	 */
-	private IBreakpoint[] fBreakpoints;
+	private IBreakpoint[] breakpoints;
 
 	/**
 	 * Whether this thread is stepping
 	 */
-	private boolean fStepping = false;
+	private boolean isStepping = false;
 
 	/**
 	 * Constructs a new thread for the given target
@@ -106,10 +106,10 @@ public class MDTThread extends MDTDebugElement implements IThread {
 	 */
 	@Override
 	public IBreakpoint[] getBreakpoints() {
-		if (fBreakpoints == null) {
+		if (breakpoints == null) {
 			return new IBreakpoint[0];
 		}
-		return fBreakpoints;
+		return breakpoints;
 	}
 
 	/**
@@ -119,7 +119,7 @@ public class MDTThread extends MDTDebugElement implements IThread {
 	 *            the breakpoints this thread is suspended at, or <code>null</code> if none
 	 */
 	protected void setBreakpoints(IBreakpoint[] breakpoints) {
-		fBreakpoints = breakpoints;
+		breakpoints = breakpoints;
 	}
 
 	/*
@@ -209,7 +209,7 @@ public class MDTThread extends MDTDebugElement implements IThread {
 	 */
 	@Override
 	public boolean isStepping() {
-		return fStepping;
+		return isStepping;
 	}
 
 	/*
@@ -277,6 +277,6 @@ public class MDTThread extends MDTDebugElement implements IThread {
 	 *            whether stepping
 	 */
 	protected void setStepping(boolean stepping) {
-		fStepping = stepping;
+		isStepping = stepping;
 	}
 }
