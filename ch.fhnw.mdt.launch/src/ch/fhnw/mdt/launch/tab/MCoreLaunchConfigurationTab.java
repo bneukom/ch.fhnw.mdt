@@ -47,7 +47,10 @@ public class MCoreLaunchConfigurationTab extends CLaunchConfigurationTab {
 	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
 		configuration.setAttribute(IMDTConstants.ATTR_PROJECT, launchConfigurationComposite.getProjectName());
 		configuration.setAttribute(IMDTConstants.ATTR_FORTH_EXECUTABLE_FILE, launchConfigurationComposite.getExecutableFilePath());
-		configuration.setAttribute(ICDTLaunchConfigurationConstants.ATTR_PROGRAM_NAME, launchConfigurationComposite.getExecutableFile().getName());
+		
+		if (launchConfigurationComposite.getExecutableFile() != null) {
+			configuration.setAttribute(ICDTLaunchConfigurationConstants.ATTR_PROGRAM_NAME, launchConfigurationComposite.getExecutableFile().getName());
+		}
 	}
 	
 	@Override

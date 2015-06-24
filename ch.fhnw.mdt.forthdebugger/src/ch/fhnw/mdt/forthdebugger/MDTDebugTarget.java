@@ -54,13 +54,14 @@ public class MDTDebugTarget extends MDTDebugElement implements IDebugTarget {
 	private static final String DEBUG_FUNCTION = "debug";
 
 	private static final String NEW_LINE = System.lineSeparator();
-	
+
 	private enum DebugState {
-		
+
 	}
 
 	/**
-	 * Constructs a new debug target in the given launch for the associated PDA VM process.
+	 * Constructs a new debug target in the given launch for the associated PDA
+	 * VM process.
 	 * 
 	 * @param launch
 	 *            containing launch
@@ -92,7 +93,7 @@ public class MDTDebugTarget extends MDTDebugElement implements IDebugTarget {
 		DebugPlugin.getDefault().getBreakpointManager().addBreakpointListener(this);
 
 		// start the debugger
-		sendCommand(START_DEBUGGER);
+		// sendCommand(START_DEBUGGER);
 	}
 
 	/*
@@ -145,7 +146,9 @@ public class MDTDebugTarget extends MDTDebugElement implements IDebugTarget {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.debug.core.model.IDebugTarget#supportsBreakpoint(org.eclipse.debug.core.model.IBreakpoint)
+	 * @see
+	 * org.eclipse.debug.core.model.IDebugTarget#supportsBreakpoint(org.eclipse
+	 * .debug.core.model.IBreakpoint)
 	 */
 	@Override
 	public boolean supportsBreakpoint(final IBreakpoint breakpoint) {
@@ -157,8 +160,9 @@ public class MDTDebugTarget extends MDTDebugElement implements IDebugTarget {
 					if (marker != null) {
 						final IPath p = new Path(program);
 						return true;
-						// TODO implement marker checking to see if we are in a valid file
-//						return marker.getResource().getFullPath().equals(p);
+						// TODO implement marker checking to see if we are in a
+						// valid file
+						// return marker.getResource().getFullPath().equals(p);
 					}
 				}
 			} catch (final CoreException e) {
@@ -291,7 +295,9 @@ public class MDTDebugTarget extends MDTDebugElement implements IDebugTarget {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.debug.core.IBreakpointListener#breakpointAdded(org.eclipse.debug.core.model.IBreakpoint)
+	 * @see
+	 * org.eclipse.debug.core.IBreakpointListener#breakpointAdded(org.eclipse
+	 * .debug.core.model.IBreakpoint)
 	 */
 	@Override
 	public void breakpointAdded(final IBreakpoint breakpoint) {
@@ -311,7 +317,9 @@ public class MDTDebugTarget extends MDTDebugElement implements IDebugTarget {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.debug.core.IBreakpointListener#breakpointRemoved(org.eclipse.debug.core.model.IBreakpoint, org.eclipse.core.resources.IMarkerDelta)
+	 * @see
+	 * org.eclipse.debug.core.IBreakpointListener#breakpointRemoved(org.eclipse
+	 * .debug.core.model.IBreakpoint, org.eclipse.core.resources.IMarkerDelta)
 	 */
 	@Override
 	public void breakpointRemoved(final IBreakpoint breakpoint, final IMarkerDelta delta) {
@@ -326,7 +334,9 @@ public class MDTDebugTarget extends MDTDebugElement implements IDebugTarget {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.debug.core.IBreakpointListener#breakpointChanged(org.eclipse.debug.core.model.IBreakpoint, org.eclipse.core.resources.IMarkerDelta)
+	 * @see
+	 * org.eclipse.debug.core.IBreakpointListener#breakpointChanged(org.eclipse
+	 * .debug.core.model.IBreakpoint, org.eclipse.core.resources.IMarkerDelta)
 	 */
 	@Override
 	public void breakpointChanged(final IBreakpoint breakpoint, final IMarkerDelta delta) {
@@ -374,7 +384,9 @@ public class MDTDebugTarget extends MDTDebugElement implements IDebugTarget {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.debug.core.model.IMemoryBlockRetrieval#supportsStorageRetrieval()
+	 * @see
+	 * org.eclipse.debug.core.model.IMemoryBlockRetrieval#supportsStorageRetrieval
+	 * ()
 	 */
 	@Override
 	public boolean supportsStorageRetrieval() {
@@ -384,7 +396,9 @@ public class MDTDebugTarget extends MDTDebugElement implements IDebugTarget {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.debug.core.model.IMemoryBlockRetrieval#getMemoryBlock(long, long)
+	 * @see
+	 * org.eclipse.debug.core.model.IMemoryBlockRetrieval#getMemoryBlock(long,
+	 * long)
 	 */
 	@Override
 	public IMemoryBlock getMemoryBlock(final long startAddress, final long length) throws DebugException {
@@ -392,7 +406,8 @@ public class MDTDebugTarget extends MDTDebugElement implements IDebugTarget {
 	}
 
 	/**
-	 * Notification we have connected to the VM and it has started. Resume the VM.
+	 * Notification we have connected to the VM and it has started. Resume the
+	 * VM.
 	 */
 	private void started() {
 		fireCreationEvent();
@@ -404,7 +419,8 @@ public class MDTDebugTarget extends MDTDebugElement implements IDebugTarget {
 	}
 
 	/**
-	 * Install breakpoints that are already registered with the breakpoint manager.
+	 * Install breakpoints that are already registered with the breakpoint
+	 * manager.
 	 */
 	private void installDeferredBreakpoints() {
 		final IBreakpoint[] breakpoints = DebugPlugin.getDefault().getBreakpointManager().getBreakpoints(IMDTConstants.ID_MDT_DEBUG_MODEL);
@@ -439,7 +455,8 @@ public class MDTDebugTarget extends MDTDebugElement implements IDebugTarget {
 		// final IStackFrame[] theFrames = new IStackFrame[frames.length];
 		// for (int i = 0; i < frames.length; i++) {
 		// final String data = frames[i];
-		// theFrames[frames.length - i - 1] = new MDTStackFrame(mdtThread, data, i);
+		// theFrames[frames.length - i - 1] = new MDTStackFrame(mdtThread, data,
+		// i);
 		// }
 		// return theFrames;
 		// }
@@ -458,7 +475,6 @@ public class MDTDebugTarget extends MDTDebugElement implements IDebugTarget {
 	protected void addFunctionBreakpoint(String function) throws DebugException {
 		sendCommand("debug _" + function);
 	}
-	
 
 	/**
 	 * Adds a breakpoint for the given function.
@@ -490,13 +506,15 @@ public class MDTDebugTarget extends MDTDebugElement implements IDebugTarget {
 	 */
 	protected IValue getVariableValue(final MDTVariable variable) throws DebugException {
 		// synchronized (fRequestSocket) {
-		// fRequestWriter.println("var " + variable.getStackFrame().getIdentifier() + " " + variable.getName());
+		// fRequestWriter.println("var " +
+		// variable.getStackFrame().getIdentifier() + " " + variable.getName());
 		// fRequestWriter.flush();
 		// try {
 		// final String value = fRequestReader.readLine();
 		// return new MDTValue(this, value);
 		// } catch (final IOException e) {
-		// abort(MessageFormat.format("Unable to retrieve value for variable {0}", variable.getName()), e);
+		// abort(MessageFormat.format("Unable to retrieve value for variable {0}",
+		// variable.getName()), e);
 		// }
 		// }
 		return null;
@@ -546,7 +564,8 @@ public class MDTDebugTarget extends MDTDebugElement implements IDebugTarget {
 	}
 
 	/**
-	 * Notification a breakpoint was encountered. Determine which breakpoint was hit and fire a suspend event.
+	 * Notification a breakpoint was encountered. Determine which breakpoint was
+	 * hit and fire a suspend event.
 	 * 
 	 * @param event
 	 *            debug event
