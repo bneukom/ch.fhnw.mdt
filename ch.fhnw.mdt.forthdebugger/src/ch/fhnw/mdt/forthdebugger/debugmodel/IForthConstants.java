@@ -9,12 +9,12 @@
  *     IBM Corporation - initial API and implementation
  *     Bjorn Freeman-Benson - initial API and implementation
  *******************************************************************************/
-package ch.fhnw.mdt.forthdebugger;
+package ch.fhnw.mdt.forthdebugger.debugmodel;
 
 /**
  * Constants for the MDT debugger.
  */
-public interface IMDTConstants {
+public interface IForthConstants {
 
 	/**
 	 * Unique identifier for the MDT debug model

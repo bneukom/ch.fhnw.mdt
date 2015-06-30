@@ -1,14 +1,3 @@
-/*******************************************************************************
- * Copyright (c) 2004 IBM Corporation and others.
- * All rights reserved. This program and the accompanying materials 
- * are made available under the terms of the Common Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/cpl-v10.html
- * 
- * Contributors:
- *     IBM Corporation - initial API and implementation
- *     Bjorn Freeman-Benson - initial API and implementation
- *******************************************************************************/
 package ch.fhnw.mdt.forthdebugger.ui;
 
 import org.eclipse.cdt.core.dom.ast.IASTDeclaration;
@@ -36,16 +25,16 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.texteditor.ITextEditor;
 
 import ch.fhnw.mdt.forthdebugger.ForthDebuggerPlugin;
-import ch.fhnw.mdt.forthdebugger.IMDTConstants;
-import ch.fhnw.mdt.forthdebugger.MDTLineBreakpoint;
+import ch.fhnw.mdt.forthdebugger.debugmodel.IForthConstants;
+import ch.fhnw.mdt.forthdebugger.debugmodel.ForthLineBreakpoint;
 import ch.fhnw.mdt.forthdebugger.util.ASTUtil;
 
 /**
  * Adapter to create breakpoints in PDA files.
  */
-public class MDTLineBreakpointAdapter implements IToggleBreakpointsTarget {
+public class ForthLineBreakpointAdapter implements IToggleBreakpointsTarget {
 
-	public MDTLineBreakpointAdapter() {
+	public ForthLineBreakpointAdapter() {
 
 	}
 
@@ -103,7 +92,7 @@ public class MDTLineBreakpointAdapter implements IToggleBreakpointsTarget {
 			final IResource resource = (IResource) textEditor.getEditorInput().getAdapter(IResource.class);
 			final ITextSelection textSelection = (ITextSelection) selection;
 			final int lineNumber = textSelection.getStartLine();
-			final IBreakpoint[] breakpoints = DebugPlugin.getDefault().getBreakpointManager().getBreakpoints(IMDTConstants.ID_MDT_DEBUG_MODEL);
+			final IBreakpoint[] breakpoints = DebugPlugin.getDefault().getBreakpointManager().getBreakpoints(IForthConstants.ID_MDT_DEBUG_MODEL);
 
 			// remove old break point if there was a breakpoint here already
 			for (int i = 0; i < breakpoints.length; i++) {
@@ -125,7 +114,7 @@ public class MDTLineBreakpointAdapter implements IToggleBreakpointsTarget {
 			final IASTFunctionDefinition functionDefinition = ASTUtil.getFunctionDefinition(ast, lineNumber + 1);
 			if (functionDefinition != null) {
 				final String functionName = functionDefinition.getDeclarator().getName().toString();
-				final MDTLineBreakpoint lineBreakpoint = new MDTLineBreakpoint(resource, functionName, lineNumber + 1);
+				final ForthLineBreakpoint lineBreakpoint = new ForthLineBreakpoint(resource, functionName, lineNumber + 1);
 				DebugPlugin.getDefault().getBreakpointManager().addBreakpoint(lineBreakpoint);
 			}
 		}

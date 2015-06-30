@@ -9,7 +9,7 @@
  *     IBM Corporation - initial API and implementation
  *     Bjorn Freeman-Benson - initial API and implementation
  *******************************************************************************/
-package ch.fhnw.mdt.forthdebugger;
+package ch.fhnw.mdt.forthdebugger.debugmodel;
 
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IValue;
@@ -18,11 +18,11 @@ import org.eclipse.debug.core.model.IVariable;
 /**
  * Value of a PDA variable.
  */
-public class MDTValue extends MDTDebugElement implements IValue {
+public class ForthValue extends ForthDebugElement implements IValue {
 
 	private String value;
 
-	public MDTValue(MDTDebugTarget target, String value) {
+	public ForthValue(ForthDebugTarget target, String value) {
 		super(target);
 		this.value = value;
 	}

@@ -9,7 +9,7 @@
  *     IBM Corporation - initial API and implementation
  *     Bjorn Freeman-Benson - initial API and implementation
  *******************************************************************************/
-package ch.fhnw.mdt.forthdebugger;
+package ch.fhnw.mdt.forthdebugger.debugmodel;
 
 import org.eclipse.cdt.core.dom.ast.IASTFunctionDefinition;
 import org.eclipse.cdt.core.dom.ast.IASTTranslationUnit;
@@ -31,7 +31,7 @@ import ch.fhnw.mdt.forthdebugger.util.ASTUtil;
 /**
  * http://alvinalexander.com/java/jwarehouse/eclipse/org.eclipse.debug.examples.core/plugin.xml.shtml PDA line breakpoint
  */
-public class MDTLineBreakpoint extends LineBreakpoint {
+public class ForthLineBreakpoint extends LineBreakpoint {
 
 	private static final String MDT_DEBUG_MARKER = "ch.fhnw.mdt.forthdebugger.mdtBreakpointMarker";
 	public static final String ATTR_FUNCTION_NAME = "functionName";
@@ -42,7 +42,7 @@ public class MDTLineBreakpoint extends LineBreakpoint {
 	 * Default constructor is required for the breakpoint manager to re-create persisted breakpoints. After instantiating a breakpoint, the <code>setMarker(...)</code> method is
 	 * called to restore this breakpoint's attributes.
 	 */
-	public MDTLineBreakpoint() {
+	public ForthLineBreakpoint() {
 		initializeBreakpointListener();
 	}
 
@@ -58,7 +58,7 @@ public class MDTLineBreakpoint extends LineBreakpoint {
 	 * @throws CoreException
 	 *             if unable to create the breakpoint
 	 */
-	public MDTLineBreakpoint(final IResource resource, final String functionName, final int lineNumber) throws CoreException {
+	public ForthLineBreakpoint(final IResource resource, final String functionName, final int lineNumber) throws CoreException {
 
 		IWorkspaceRunnable runnable = new IWorkspaceRunnable() {
 			@Override
@@ -91,7 +91,7 @@ public class MDTLineBreakpoint extends LineBreakpoint {
 
 			@Override
 			public void breakpointChanged(final IBreakpoint breakpoint, final IMarkerDelta delta) {
-				if (breakpoint == MDTLineBreakpoint.this) {
+				if (breakpoint == ForthLineBreakpoint.this) {
 					try {
 						final int lineNumber = (int) breakpoint.getMarker().getAttribute(IMarker.LINE_NUMBER);
 						final IASTTranslationUnit ast = translationUnit.getAST();
@@ -124,6 +124,6 @@ public class MDTLineBreakpoint extends LineBreakpoint {
 	 */
 	@Override
 	public String getModelIdentifier() {
-		return IMDTConstants.ID_MDT_DEBUG_MODEL;
+		return IForthConstants.ID_MDT_DEBUG_MODEL;
 	}
 }

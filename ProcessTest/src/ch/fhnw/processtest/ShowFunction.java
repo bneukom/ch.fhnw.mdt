@@ -40,10 +40,10 @@ public class ShowFunction {
 		final ForthCommunicator communicator = new ForthCommunicator(processWriter, reader, process);
 
 		// TODO make reader extend thread
-		new Thread(reader).start();
+		reader.start();
 		communicator.start();
 
-		communicator.sendCommand("umbilical: /dev/ttyUSB3" + NL, ForthCommunicator.OK);
+		communicator.sendCommand("umbilical: /dev/ttyUSB4" + NL, ForthCommunicator.OK);
 		communicator.sendCommand("run" + NL, "HANDSHAKE");
 //		communicator.sendCommand("show _bar" + NL, "_bar              ---------------");
 //
@@ -81,12 +81,6 @@ public class ShowFunction {
 		communicator.shutdown();
 		
 		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-
-		try {
 			int waitFor = process.waitFor();
 			System.out.println(waitFor);
 		} catch (final InterruptedException e) {
@@ -94,7 +88,7 @@ public class ShowFunction {
 		}
 		
 		try {
-			Thread.sleep(1000);
+			Thread.sleep(5000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -112,7 +106,7 @@ public class ShowFunction {
 	 */
 	private static final class ForthCommunicator extends Thread {
 
-		private final BlockingQueue<Command> commandQueue = new LinkedBlockingQueue<ShowFunction.Command>();
+		private final BlockingQueue<Command> commandQueue = new LinkedBlockingQueue<Command>();
 		private final BufferedWriter processWriter;
 		private final ForthReader forthReader;
 		private final Process process;
@@ -246,26 +240,27 @@ public class ShowFunction {
 			processWriter.flush();
 
 		}
+
+		public static final class Command {
+			public final Either<String, Integer> request;
+			public final String result;
+			
+			public Command(final String request, final String result) {
+				super();
+				this.request = Either.left(request);
+				this.result = result;
+			}
+			
+			public Command(final int request, final String result) {
+				super();
+				this.request = Either.right(request);
+				this.result = result;
+			}
+		}
 	}
 
-	private static final class Command {
-		public final Either<String, Integer> request;
-		public final String result;
 
-		public Command(final String request, final String result) {
-			super();
-			this.request = Either.left(request);
-			this.result = result;
-		}
-
-		public Command(final int request, final String result) {
-			super();
-			this.request = Either.right(request);
-			this.result = result;
-		}
-	}
-
-	private static final class ForthReader implements Runnable {
+	public static final class ForthReader extends  Thread {
 
 		private final List<WaitFor> waitQueue = Collections.synchronizedList(new ArrayList<WaitFor>());
 		private final List<OutputStream> forward = Collections.synchronizedList(new ArrayList<OutputStream>());

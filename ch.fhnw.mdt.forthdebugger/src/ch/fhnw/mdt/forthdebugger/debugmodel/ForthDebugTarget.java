@@ -1,6 +1,7 @@
-package ch.fhnw.mdt.forthdebugger;
+package ch.fhnw.mdt.forthdebugger.debugmodel;
 
 import java.io.IOException;
+import java.util.regex.Pattern;
 
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IMarkerDelta;
@@ -21,14 +22,17 @@ import org.eclipse.debug.core.model.IMemoryBlock;
 import org.eclipse.debug.core.model.IProcess;
 import org.eclipse.debug.core.model.IStackFrame;
 import org.eclipse.debug.core.model.IStreamMonitor;
-import org.eclipse.debug.core.model.IStreamsProxy;
 import org.eclipse.debug.core.model.IThread;
 import org.eclipse.debug.core.model.IValue;
+
+import ch.fhnw.mdt.forthdebugger.ForthDebuggerPlugin;
+import ch.fhnw.mdt.forthdebugger.ForthReader;
+import ch.fhnw.mdt.forthdebugger.ForthCommunicator;
 
 /**
  * PDA Debug Target
  */
-public class MDTDebugTarget extends MDTDebugElement implements IDebugTarget {
+public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget {
 
 	// associated system process (VM)
 	private final IProcess process;
@@ -43,21 +47,21 @@ public class MDTDebugTarget extends MDTDebugElement implements IDebugTarget {
 	private boolean suspended = true;
 
 	// process communication
-	private IStreamsProxy processProxy;
+	private ForthReader reader;
+	private ForthCommunicator forthCommunicator;
 
 	// threads
-	private final MDTThread mdtThread;
+	private final ForthThread mdtThread;
 	private final IThread[] threads;
 
+	
+	private final DebuggerLineListener debugLineListener;
+	
 	// debug commands
-	private static final String START_DEBUGGER = "debugger";
 	private static final String DEBUG_FUNCTION = "debug";
 
 	private static final String NEW_LINE = System.lineSeparator();
 
-	private enum DebugState {
-
-	}
 
 	/**
 	 * Constructs a new debug target in the given launch for the associated PDA
@@ -72,28 +76,27 @@ public class MDTDebugTarget extends MDTDebugElement implements IDebugTarget {
 	 * @exception CoreException
 	 *                if unable to connect to host
 	 */
-	public MDTDebugTarget(final ILaunch launch, final IProcess eclipseProcess) throws CoreException {
+	public ForthDebugTarget(final ILaunch launch, final IProcess process, final ForthCommunicator communicator, final ForthReader reader) throws CoreException {
 		super(null);
 		this.launch = launch;
-		this.process = eclipseProcess;
+		this.process = process;
+		this.forthCommunicator = communicator;
+		this.reader = reader;
 		this.target = this;
 
-		this.processProxy = eclipseProcess.getStreamsProxy();
-		this.processProxy.getOutputStreamMonitor().addListener(new IStreamListener() {
-
-			@Override
-			public void streamAppended(String text, IStreamMonitor monitor) {
-				System.out.println("event: \"" + text + "\"");
-			}
-		});
-
-		this.mdtThread = new MDTThread(this);
+		this.mdtThread = new ForthThread(this);
 		this.threads = new IThread[] { mdtThread };
+		
+		this.debugLineListener = new DebuggerLineListener();
+
+		this.reader.addLineListener(debugLineListener);
 
 		DebugPlugin.getDefault().getBreakpointManager().addBreakpointListener(this);
-
-		// start the debugger
-		// sendCommand(START_DEBUGGER);
+		
+		communicator.sendCommandForResult("debug _foo" + NEW_LINE, "ok");
+		communicator.sendCommand("_foo" + NEW_LINE);
+		
+		resumed();
 	}
 
 	/*
@@ -134,9 +137,9 @@ public class MDTDebugTarget extends MDTDebugElement implements IDebugTarget {
 	@Override
 	public String getName() throws DebugException {
 		if (programName == null) {
-			programName = "MDT Program";
+			programName = "Forth Program";
 			try {
-				programName = getLaunch().getLaunchConfiguration().getAttribute(IMDTConstants.ATTR_FORTH_EXECUTABLE_FILE, "MDT Program");
+				programName = getLaunch().getLaunchConfiguration().getAttribute(IForthConstants.ATTR_FORTH_EXECUTABLE_FILE, "Forth Program");
 			} catch (final CoreException e) {
 			}
 		}
@@ -152,9 +155,9 @@ public class MDTDebugTarget extends MDTDebugElement implements IDebugTarget {
 	 */
 	@Override
 	public boolean supportsBreakpoint(final IBreakpoint breakpoint) {
-		if (breakpoint.getModelIdentifier().equals(IMDTConstants.ID_MDT_DEBUG_MODEL)) {
+		if (breakpoint.getModelIdentifier().equals(IForthConstants.ID_MDT_DEBUG_MODEL)) {
 			try {
-				final String program = getLaunch().getLaunchConfiguration().getAttribute(IMDTConstants.ATTR_FORTH_EXECUTABLE_FILE, (String) null);
+				final String program = getLaunch().getLaunchConfiguration().getAttribute(IForthConstants.ATTR_FORTH_EXECUTABLE_FILE, (String) null);
 				if (program != null) {
 					final IMarker marker = breakpoint.getMarker();
 					if (marker != null) {
@@ -258,7 +261,7 @@ public class MDTDebugTarget extends MDTDebugElement implements IDebugTarget {
 	 */
 	@Override
 	public void resume() throws DebugException {
-		sendCommand("resume");
+		// TODO implement
 	}
 
 	/**
@@ -305,7 +308,7 @@ public class MDTDebugTarget extends MDTDebugElement implements IDebugTarget {
 			try {
 				if (breakpoint.isEnabled()) {
 					try {
-						addFunctionBreakpoint(breakpoint.getMarker().getAttribute(MDTLineBreakpoint.ATTR_FUNCTION_NAME, ""));
+						addFunctionBreakpoint(breakpoint.getMarker().getAttribute(ForthLineBreakpoint.ATTR_FUNCTION_NAME, ""));
 					} catch (final CoreException e) {
 					}
 				}
@@ -325,7 +328,7 @@ public class MDTDebugTarget extends MDTDebugElement implements IDebugTarget {
 	public void breakpointRemoved(final IBreakpoint breakpoint, final IMarkerDelta delta) {
 		if (supportsBreakpoint(breakpoint)) {
 			try {
-				removeFunctionBreakpoint(breakpoint.getMarker().getAttribute(MDTLineBreakpoint.ATTR_FUNCTION_NAME, ""));
+				removeFunctionBreakpoint(breakpoint.getMarker().getAttribute(ForthLineBreakpoint.ATTR_FUNCTION_NAME, ""));
 			} catch (final CoreException e) {
 			}
 		}
@@ -423,7 +426,7 @@ public class MDTDebugTarget extends MDTDebugElement implements IDebugTarget {
 	 * manager.
 	 */
 	private void installDeferredBreakpoints() {
-		final IBreakpoint[] breakpoints = DebugPlugin.getDefault().getBreakpointManager().getBreakpoints(IMDTConstants.ID_MDT_DEBUG_MODEL);
+		final IBreakpoint[] breakpoints = DebugPlugin.getDefault().getBreakpointManager().getBreakpoints(IForthConstants.ID_MDT_DEBUG_MODEL);
 		for (int i = 0; i < breakpoints.length; i++) {
 			breakpointAdded(breakpoints[i]);
 		}
@@ -473,7 +476,7 @@ public class MDTDebugTarget extends MDTDebugElement implements IDebugTarget {
 	 * @throws DebugException
 	 */
 	protected void addFunctionBreakpoint(String function) throws DebugException {
-		sendCommand("debug _" + function);
+		forthCommunicator.sendCommand("debug _" + function + NEW_LINE);
 	}
 
 	/**
@@ -483,7 +486,7 @@ public class MDTDebugTarget extends MDTDebugElement implements IDebugTarget {
 	 * @throws DebugException
 	 */
 	protected void removeFunctionBreakpoint(String function) throws DebugException {
-		sendCommand("unbug _" + function);
+		forthCommunicator.sendCommand("unbug _" + function + NEW_LINE);
 	}
 
 	/**
@@ -493,7 +496,7 @@ public class MDTDebugTarget extends MDTDebugElement implements IDebugTarget {
 	 *             if the request fails
 	 */
 	protected void step() throws DebugException {
-		sendCommand("step");
+		// TODO implement
 	}
 
 	/**
@@ -504,7 +507,7 @@ public class MDTDebugTarget extends MDTDebugElement implements IDebugTarget {
 	 * @throws DebugException
 	 *             if the request fails
 	 */
-	protected IValue getVariableValue(final MDTVariable variable) throws DebugException {
+	protected IValue getVariableValue(final ForthVariable variable) throws DebugException {
 		// synchronized (fRequestSocket) {
 		// fRequestWriter.println("var " +
 		// variable.getStackFrame().getIdentifier() + " " + variable.getName());
@@ -547,21 +550,7 @@ public class MDTDebugTarget extends MDTDebugElement implements IDebugTarget {
 		return new IValue[0];
 	}
 
-	/**
-	 * Sends a request to the PDA VM and waits for an OK.
-	 * 
-	 * @param request
-	 *            debug command
-	 * @throws DebugException
-	 *             if the request fails
-	 */
-	private void sendCommand(final String request) throws DebugException {
-		try {
-			processProxy.write(request + NEW_LINE);
-		} catch (IOException e) {
-			throw new DebugException(new Status(IStatus.ERROR, ForthDebuggerPlugin.PLUGIN_ID, e.getMessage()));
-		}
-	}
+
 
 	/**
 	 * Notification a breakpoint was encountered. Determine which breakpoint was
@@ -576,7 +565,7 @@ public class MDTDebugTarget extends MDTDebugElement implements IDebugTarget {
 		if (lastSpace > 0) {
 			final String line = event.substring(lastSpace + 1);
 			final int lineNumber = Integer.parseInt(line);
-			final IBreakpoint[] breakpoints = DebugPlugin.getDefault().getBreakpointManager().getBreakpoints(IMDTConstants.ID_MDT_DEBUG_MODEL);
+			final IBreakpoint[] breakpoints = DebugPlugin.getDefault().getBreakpointManager().getBreakpoints(IForthConstants.ID_MDT_DEBUG_MODEL);
 			for (int i = 0; i < breakpoints.length; i++) {
 				final IBreakpoint breakpoint = breakpoints[i];
 				if (supportsBreakpoint(breakpoint)) {
@@ -594,5 +583,17 @@ public class MDTDebugTarget extends MDTDebugElement implements IDebugTarget {
 			}
 		}
 		suspended(DebugEvent.BREAKPOINT);
+	}
+	
+	private class DebuggerLineListener implements ForthReader.LineListener {
+		final Pattern functionPattern = Pattern.compile("([^\\s]+)(\\s+)(-{15})\\n");
+		@Override
+		public void lineRead(String line) {
+			// breakpoint hit
+			if (functionPattern.matcher(line).matches()) {
+				
+			}
+		}
+		
 	}
 }

@@ -26,7 +26,7 @@ import org.eclipse.ui.part.*;
 /**
  * Renders PDA debug elements
  */
-public class MDTModelPresentation extends LabelProvider implements IDebugModelPresentation {
+public class ForthModelPresentation extends LabelProvider implements IDebugModelPresentation {
 	/*
 	 * (non-Javadoc)
 	 * 

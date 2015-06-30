@@ -9,7 +9,7 @@
  *     IBM Corporation - initial API and implementation
  *     Bjorn Freeman-Benson - initial API and implementation
  *******************************************************************************/
-package ch.fhnw.mdt.forthdebugger;
+package ch.fhnw.mdt.forthdebugger.debugmodel;
 
 import org.eclipse.core.runtime.Path;
 import org.eclipse.debug.core.DebugException;
@@ -21,9 +21,9 @@ import org.eclipse.debug.core.model.IVariable;
 /**
  * PDA stack frame.
  */
-public class MDTStackFrame extends MDTDebugElement implements IStackFrame {
+public class ForthStackFrame extends ForthDebugElement implements IStackFrame {
 
-	private MDTThread thread;
+	private ForthThread thread;
 	private String fName;
 	private int fPC;
 	private String fFileName;
@@ -39,8 +39,8 @@ public class MDTStackFrame extends MDTDebugElement implements IStackFrame {
 	 * @param id
 	 *            stack frame id (0 is the bottom of the stack)
 	 */
-	public MDTStackFrame(MDTThread thread, String data, int id) {
-		super((MDTDebugTarget) thread.getDebugTarget());
+	public ForthStackFrame(ForthThread thread, String data, int id) {
+		super((ForthDebugTarget) thread.getDebugTarget());
 		this.fId = id;
 		this.thread = thread;
 		init(data);
@@ -61,7 +61,7 @@ public class MDTStackFrame extends MDTDebugElement implements IStackFrame {
 		int numVars = strings.length - 3;
 		fVariables = new IVariable[numVars];
 		for (int i = 0; i < numVars; i++) {
-			fVariables[i] = new MDTVariable(this, strings[i + 3]);
+			fVariables[i] = new ForthVariable(this, strings[i + 3]);
 		}
 	}
 
@@ -321,8 +321,8 @@ public class MDTStackFrame extends MDTDebugElement implements IStackFrame {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof MDTStackFrame) {
-			MDTStackFrame sf = (MDTStackFrame) obj;
+		if (obj instanceof ForthStackFrame) {
+			ForthStackFrame sf = (ForthStackFrame) obj;
 			try {
 				return sf.getSourceName().equals(getSourceName()) && sf.getLineNumber() == getLineNumber() && sf.fId == fId;
 			} catch (DebugException e) {

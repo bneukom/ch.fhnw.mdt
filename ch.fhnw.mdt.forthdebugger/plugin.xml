@@ -4,7 +4,7 @@
    <extension
          point="org.eclipse.debug.ui.debugModelPresentations">
       <debugModelPresentation
-            class="ch.fhnw.mdt.forthdebugger.ui.MDTModelPresentation"
+            class="ch.fhnw.mdt.forthdebugger.ui.ForthModelPresentation"
             id="ch.fhnw.mdt.forthdebugger.mdtDebugModelPresentation">
       </debugModelPresentation>
    </extension>
@@ -12,7 +12,7 @@
          point="org.eclipse.core.runtime.adapters">
       <factory
             adaptableType="org.eclipse.ui.texteditor.ITextEditor"
-            class="ch.fhnw.mdt.forthdebugger.ui.MDTBreakpointAdapterFactory">
+            class="ch.fhnw.mdt.forthdebugger.ui.ForthBreakpointAdapterFactory">
          <adapter
                type="org.eclipse.debug.ui.actions.IToggleBreakpointsTarget">
          </adapter>
@@ -32,7 +32,7 @@
    <extension
          point="org.eclipse.debug.core.breakpoints">
       <breakpoint
-            class="ch.fhnw.mdt.forthdebugger.MDTLineBreakpoint"
+            class="ch.fhnw.mdt.forthdebugger.debugmodel.ForthLineBreakpoint"
             id="ch.fhnw.mdt.forthdebugger.mdtBreakpoint"
             markerType="ch.fhnw.mdt.forthdebugger.mdtBreakpointMarker"
             name="MDT Line Breakpoint">
@@ -48,7 +48,7 @@
    <extension
          point="org.eclipse.debug.core.sourceLocators">
       <sourceLocator
-            class="ch.fhnw.mdt.forthdebugger.sourcelookup.MDTSourceLookupDirector"
+            class="ch.fhnw.mdt.forthdebugger.sourcelookup.ForthSourceLookupDirector"
             id="ch.fhnw.mdt.forthdebugger.mdtSourceLocator"
             name="MDT Source Locator">
       </sourceLocator>
@@ -56,9 +56,16 @@
    <extension
          point="org.eclipse.debug.core.sourcePathComputers">
       <sourcePathComputer
-            class="ch.fhnw.mdt.forthdebugger.sourcelookup.MDTSourcePathComputerDelegate"
+            class="ch.fhnw.mdt.forthdebugger.sourcelookup.ForthSourcePathComputerDelegate"
             id="ch.fhnw.mdt.forthdebugger.mdtSourcePathComputer">
       </sourcePathComputer>
+   </extension>
+   <extension
+         point="org.eclipse.debug.core.processFactories">
+      <processFactory
+            class="ch.fhnw.mdt.forthdebugger.ForthProcessFactory"
+            id="ch.fhnw.mdt.forthdebugger.forthprocessfactory">
+      </processFactory>
    </extension>
 
 </plugin>

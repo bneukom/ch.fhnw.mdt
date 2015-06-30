@@ -30,12 +30,19 @@ import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.model.IDebugTarget;
 import org.eclipse.debug.core.model.IProcess;
+import org.eclipse.debug.core.model.RuntimeProcess;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.console.ConsolePlugin;
+import org.eclipse.ui.console.IConsole;
+import org.eclipse.ui.console.IOConsole;
+import org.eclipse.ui.console.IOConsoleInputStream;
 
+import ch.fhnw.mdt.forthdebugger.ForthCommunicator;
 import ch.fhnw.mdt.forthdebugger.ForthDebuggerPlugin;
-import ch.fhnw.mdt.forthdebugger.IMDTConstants;
-import ch.fhnw.mdt.forthdebugger.MDTDebugTarget;
+import ch.fhnw.mdt.forthdebugger.ForthReader;
+import ch.fhnw.mdt.forthdebugger.debugmodel.IForthConstants;
+import ch.fhnw.mdt.forthdebugger.debugmodel.ForthDebugTarget;
 import ch.fhnw.mdt.preferences.MDTPreferencesPlugin;
 
 // TODO implement ILaunchShortcut
@@ -46,13 +53,11 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 	private static final String DEBUG_MODE = "debug";
 	private static final String DEBUG_FILE_NAME = "debugCFunction.fs";
 
-	private static final String NEW_LINE = System.lineSeparator();
-
 	@Override
 	public void launch(final ILaunchConfiguration configuration, final String mode, final ILaunch launch, final IProgressMonitor monitor) throws CoreException {
 		try {
 
-			final String projectName = launch.getLaunchConfiguration().getAttribute(IMDTConstants.ATTR_PROJECT, "");
+			final String projectName = launch.getLaunchConfiguration().getAttribute(IForthConstants.ATTR_PROJECT, "");
 			final IProject project = (IProject) ResourcesPlugin.getWorkspace().getRoot().findMember(projectName);
 
 			final IEnvironmentVariableProvider environmentVariableProvider = ManagedBuildManager.getEnvironmentVariableProvider();
@@ -62,7 +67,7 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 
 			final String[] gforthPaths = gforthPathEnvironmentVariable.getValue().split(":");
 			final String workingDirectory = gforthPaths[gforthPaths.length - 1];
-			final String executableFilePath = launch.getLaunchConfiguration().getAttribute(IMDTConstants.ATTR_FORTH_EXECUTABLE_FILE, "");
+			final String executableFilePath = launch.getLaunchConfiguration().getAttribute(IForthConstants.ATTR_FORTH_EXECUTABLE_FILE, "");
 			final IFile executableFile = (IFile) project.findMember(executableFilePath);
 
 			final String umbilical = MDTPreferencesPlugin.getDefault().getCheckedUmbilical();
@@ -75,7 +80,8 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 
 					@Override
 					public void run() {
-						MessageDialog.openError(Display.getDefault().getActiveShell(), "Invalid Umbilical", "The umbilical port " + MDTPreferencesPlugin.getDefault().getUmbilical() + " is invalid. Open MCore Preferences and set a valid umbilical port.");
+						MessageDialog.openError(Display.getDefault().getActiveShell(), "Invalid Umbilical", "The umbilical port "
+								+ MDTPreferencesPlugin.getDefault().getUmbilical() + " is invalid. Open MCore Preferences and set a valid umbilical port.");
 					}
 				});
 
@@ -169,23 +175,7 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 
 	@Override
 	protected String getPluginID() {
-		return MDTLaunchPlugin.PLUGIN_ID;
-	}
-
-	/**
-	 * Wraps a {@link Process} and the corresponding {@link IProcess}.
-	 *
-	 */
-	private static class MCoreLaunchProcess {
-		private final IProcess wrapper;
-		private final Process process;
-
-		public MCoreLaunchProcess(IProcess wrapper, Process process) {
-			super();
-			this.wrapper = wrapper;
-			this.process = process;
-		}
-
+		return MCoreLaunchPlugin.PLUGIN_ID;
 	}
 
 	/**
@@ -213,23 +203,19 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 		@Override
 		protected IStatus run(IProgressMonitor monitor) {
 			// start gforth
-			final MCoreLaunchProcess launchProcess = startGforth(launch, workingDirectory, umbilical, executableFile);
+			final MCoreLaunch mcoreLaunch = startGforth(launch, workingDirectory, umbilical, executableFile);
 
 			// start debugger if necessary
 			if (isDebugMode) {
 				try {
-					startDebugger(launch, launchProcess);
+					startDebugger(launch, mcoreLaunch);
 				} catch (CoreException e) {
 					return new Status(IStatus.ERROR, ForthDebuggerPlugin.PLUGIN_ID, e.getMessage());
 				}
 			}
 
 			// wait for done
-			try {
-				launchProcess.process.waitFor();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+			mcoreLaunch.await();
 
 			return new Status(IStatus.OK, ForthDebuggerPlugin.PLUGIN_ID, "");
 		}
@@ -238,16 +224,16 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 		 * Starts the gforth debugger. This must be called after {@link #startGforth(ILaunch, String, String, IFile)}
 		 * 
 		 * @param launch
-		 * @param launchProcess
+		 * @param mcoreLaunch
 		 * @throws CoreException
 		 */
-		private void startDebugger(final ILaunch launch, final MCoreLaunchProcess launchProcess) throws CoreException {
-			IDebugTarget target = new MDTDebugTarget(launch, launchProcess.wrapper);
+		private void startDebugger(final ILaunch launch, final MCoreLaunch mcoreLaunch) throws CoreException {
+			IDebugTarget target = new ForthDebugTarget(launch, mcoreLaunch.eclipseProcess, mcoreLaunch.communicator, mcoreLaunch.reader);
 			launch.addDebugTarget(target);
 		}
 
 		/**
-		 * Starts gforth
+		 * Starts gforth. This method blocks until gforth has been completely set up.
 		 * 
 		 * @param launch
 		 * @param workingDirectory
@@ -255,38 +241,108 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 		 * @param executableFile
 		 * @return
 		 */
-		private MCoreLaunchProcess startGforth(final ILaunch launch, final String workingDirectory, final String umbilical, final IFile executableFile) {
+		private MCoreLaunch startGforth(final ILaunch launch, final String workingDirectory, final String umbilical, final IFile executableFile) {
 			try {
+				launch.setAttribute(DebugPlugin.ATTR_PROCESS_FACTORY_ID, "ch.fhnw.mdt.launch.forthprocessfactory");
+
 				final ProcessBuilder processBuilder = new ProcessBuilder("/bin/bash");
-
 				final Process process = processBuilder.start();
+				final IProcess eclipseProcess = DebugPlugin.newProcess(launch, process, "gforth");
 
-				final IProcess launchProcess = DebugPlugin.newProcess(launch, process, "gforth process");
+				final IOConsole gforthConsole = new IOConsole("gforth console", null);
+
+				ConsolePlugin.getDefault().getConsoleManager().addConsoles(new IConsole[] { gforthConsole });
 
 				final BufferedWriter processWriter = new BufferedWriter(new OutputStreamWriter(process.getOutputStream()));
-				processWriter.write("cd " + workingDirectory);
-				processWriter.newLine();
-				processWriter.flush();
+				final ForthReader reader = new ForthReader(process.getInputStream());
+				final ForthCommunicator communicator = new ForthCommunicator(processWriter, reader, process);
+				final InputThread inputThread = new InputThread(gforthConsole.getInputStream(), communicator);
 
-				processWriter.write("gforth ./load_eclipse.fs");
-				processWriter.newLine();
-				processWriter.flush();
+				// inputThread.start();
+				communicator.start();
+				reader.start();
 
-				processWriter.write("umbilical: " + umbilical);
-				processWriter.newLine();
-				processWriter.flush();
+				reader.forwardOutput(System.out);
+				reader.forwardOutput(gforthConsole.newOutputStream());
 
-				processWriter.write("run");
-				processWriter.newLine();
-				processWriter.flush();
+				communicator.sendCommand("cd " + workingDirectory + ForthCommunicator.NL);
+				communicator.sendCommand("gforth ./load_eclipse.fs" + ForthCommunicator.NL);
 
-				return new MCoreLaunchProcess(launchProcess, process);
+				reader.awaitReadCompletion();
+
+				communicator.sendCommandForResult("umbilical: " + umbilical + ForthCommunicator.NL, ForthCommunicator.OK);
+				communicator.sendCommandForResult("run" + ForthCommunicator.NL, "HANDSHAKE");
+
+				return new MCoreLaunch(process, eclipseProcess, communicator, reader);
 
 			} catch (final IOException e) {
 				e.printStackTrace();
 			}
 
 			return null;
+
+		}
+	}
+
+	private static class InputThread extends Thread {
+
+		private final InputStream inputStream;
+		private final ForthCommunicator forthCommunicator;
+
+		public InputThread(InputStream inputStream, ForthCommunicator forthCommunicator) {
+			super();
+			this.inputStream = inputStream;
+			this.forthCommunicator = forthCommunicator;
+		}
+
+		@Override
+		public void run() {
+			while (true) {
+				try {
+					StringBuilder read = new StringBuilder();
+					read.append((char) inputStream.read());
+
+					while (inputStream.available() > 0) {
+						char readCharacter = (char) inputStream.read();
+						read.append(readCharacter);
+					}
+					System.out.println("send command: " + read.toString());
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
+	/**
+	 * Contains all necessary information for the launched process.
+	 *
+	 */
+	private static class MCoreLaunch {
+		private final Process process;
+		private IProcess eclipseProcess;
+		private final ForthCommunicator communicator;
+		private final ForthReader reader;
+
+		public MCoreLaunch(Process process, IProcess eclipseProcess, ForthCommunicator communicator, ForthReader reader) {
+			super();
+			this.process = process;
+			this.eclipseProcess = eclipseProcess;
+			this.communicator = communicator;
+			this.reader = reader;
+		}
+
+		public void await() {
+			// wait for done
+			try {
+				process.waitFor();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+
+			// cleanup
+			communicator.shutdown();
+			reader.shutdown();
 
 		}
 	}

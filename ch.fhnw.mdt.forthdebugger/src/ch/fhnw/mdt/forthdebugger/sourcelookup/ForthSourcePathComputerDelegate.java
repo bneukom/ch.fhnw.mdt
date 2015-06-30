@@ -1,14 +1,3 @@
-/*******************************************************************************
- * Copyright (c) 2004 IBM Corporation and others.
- * All rights reserved. This program and the accompanying materials 
- * are made available under the terms of the Common Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/cpl-v10.html
- * 
- * Contributors:
- *     IBM Corporation - initial API and implementation
- *     Bjorn Freeman-Benson - initial API and implementation
- *******************************************************************************/
 package ch.fhnw.mdt.forthdebugger.sourcelookup;
 
 import org.eclipse.core.runtime.CoreException;
@@ -22,7 +11,7 @@ import org.eclipse.debug.core.sourcelookup.containers.WorkspaceSourceContainer;
  * Computes the default source lookup path for a PDA launch configuration. The default source lookup path is the folder or project containing the PDA program being launched. If the
  * program is not specified, the workspace is searched by default.
  */
-public class MDTSourcePathComputerDelegate implements ISourcePathComputerDelegate {
+public class ForthSourcePathComputerDelegate implements ISourcePathComputerDelegate {
 
 	/*
 	 * (non-Javadoc)

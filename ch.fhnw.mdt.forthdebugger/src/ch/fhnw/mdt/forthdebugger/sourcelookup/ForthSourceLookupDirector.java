@@ -17,7 +17,7 @@ import org.eclipse.debug.core.sourcelookup.ISourceLookupParticipant;
 /**
  * PDA source lookup director. For PDA source lookup there is one source lookup participant.
  */
-public class MDTSourceLookupDirector extends AbstractSourceLookupDirector {
+public class ForthSourceLookupDirector extends AbstractSourceLookupDirector {
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -25,6 +25,6 @@ public class MDTSourceLookupDirector extends AbstractSourceLookupDirector {
 	 */
 	@Override
 	public void initializeParticipants() {
-		addParticipants(new ISourceLookupParticipant[] { new MDTSourceLookupParticipant() });
+		addParticipants(new ISourceLookupParticipant[] { new ForthSourceLookupParticipant() });
 	}
 }

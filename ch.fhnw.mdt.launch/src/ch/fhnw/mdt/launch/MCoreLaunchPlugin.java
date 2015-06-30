@@ -6,18 +6,18 @@ import org.osgi.framework.BundleContext;
 /**
  * The activator class controls the plug-in life cycle
  */
-public class MDTLaunchPlugin extends AbstractUIPlugin {
+public class MCoreLaunchPlugin extends AbstractUIPlugin {
 
 	// The plug-in ID
 	public static final String PLUGIN_ID = "ch.fhnw.mdt.launch"; //$NON-NLS-1$
 
 	// The shared instance
-	private static MDTLaunchPlugin plugin;
+	private static MCoreLaunchPlugin plugin;
 	
 	/**
 	 * The constructor
 	 */
-	public MDTLaunchPlugin() {
+	public MCoreLaunchPlugin() {
 	}
 
 	/*
@@ -43,7 +43,7 @@ public class MDTLaunchPlugin extends AbstractUIPlugin {
 	 *
 	 * @return the shared instance
 	 */
-	public static MDTLaunchPlugin getDefault() {
+	public static MCoreLaunchPlugin getDefault() {
 		return plugin;
 	}
 

@@ -9,7 +9,7 @@
  *     IBM Corporation - initial API and implementation
  *     Bjorn Freeman-Benson - initial API and implementation
  *******************************************************************************/
-package ch.fhnw.mdt.forthdebugger;
+package ch.fhnw.mdt.forthdebugger.debugmodel;
 
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IValue;
@@ -18,11 +18,11 @@ import org.eclipse.debug.core.model.IVariable;
 /**
  * A variable in a PDA stack frame
  */
-public class MDTVariable extends MDTDebugElement implements IVariable {
+public class ForthVariable extends ForthDebugElement implements IVariable {
 
 	// name & stack frmae
 	private String name;
-	private MDTStackFrame frame;
+	private ForthStackFrame frame;
 
 	/**
 	 * Constructs a variable contained in the given stack frame with the given name.
@@ -32,8 +32,8 @@ public class MDTVariable extends MDTDebugElement implements IVariable {
 	 * @param name
 	 *            variable name
 	 */
-	public MDTVariable(MDTStackFrame frame, String name) {
-		super((MDTDebugTarget) frame.getDebugTarget());
+	public ForthVariable(ForthStackFrame frame, String name) {
+		super((ForthDebugTarget) frame.getDebugTarget());
 		this.frame = frame;
 		this.name = name;
 	}
@@ -45,7 +45,7 @@ public class MDTVariable extends MDTDebugElement implements IVariable {
 	 */
 	@Override
 	public IValue getValue() throws DebugException {
-		return ((MDTDebugTarget) getDebugTarget()).getVariableValue(this);
+		return ((ForthDebugTarget) getDebugTarget()).getVariableValue(this);
 	}
 
 	/*
@@ -133,7 +133,7 @@ public class MDTVariable extends MDTDebugElement implements IVariable {
 	 * 
 	 * @return the stack frame owning this variable
 	 */
-	protected MDTStackFrame getStackFrame() {
+	protected ForthStackFrame getStackFrame() {
 		return frame;
 	}
 

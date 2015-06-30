@@ -14,12 +14,12 @@ package ch.fhnw.mdt.forthdebugger.sourcelookup;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.sourcelookup.AbstractSourceLookupParticipant;
 
-import ch.fhnw.mdt.forthdebugger.MDTStackFrame;
+import ch.fhnw.mdt.forthdebugger.debugmodel.ForthStackFrame;
 
 /**
  * The PDA source lookup participant knows how to translate a PDA stack frame into a source file name
  */
-public class MDTSourceLookupParticipant extends AbstractSourceLookupParticipant {
+public class ForthSourceLookupParticipant extends AbstractSourceLookupParticipant {
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -27,8 +27,8 @@ public class MDTSourceLookupParticipant extends AbstractSourceLookupParticipant 
 	 */
 	@Override
 	public String getSourceName(Object object) throws CoreException {
-		if (object instanceof MDTStackFrame) {
-			return ((MDTStackFrame) object).getSourceName();
+		if (object instanceof ForthStackFrame) {
+			return ((ForthStackFrame) object).getSourceName();
 		}
 		return null;
 	}

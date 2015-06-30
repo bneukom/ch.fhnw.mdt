@@ -3,12 +3,13 @@ package ch.fhnw.mdt.launch.tab;
 import org.eclipse.cdt.debug.core.ICDTLaunchConfigurationConstants;
 import org.eclipse.cdt.launch.ui.CLaunchConfigurationTab;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 
-import ch.fhnw.mdt.forthdebugger.IMDTConstants;
+import ch.fhnw.mdt.forthdebugger.debugmodel.IForthConstants;
 
 public class MCoreLaunchConfigurationTab extends CLaunchConfigurationTab {
 
@@ -35,8 +36,8 @@ public class MCoreLaunchConfigurationTab extends CLaunchConfigurationTab {
 	@Override
 	public void initializeFrom(ILaunchConfiguration configuration) {
 		try {
-			launchConfigurationComposite.setProject(configuration.getAttribute(IMDTConstants.ATTR_PROJECT, ""));
-			launchConfigurationComposite.setExecutableFile(configuration.getAttribute(IMDTConstants.ATTR_FORTH_EXECUTABLE_FILE, ""));
+			launchConfigurationComposite.setProject(configuration.getAttribute(IForthConstants.ATTR_PROJECT, ""));
+			launchConfigurationComposite.setExecutableFile(configuration.getAttribute(IForthConstants.ATTR_FORTH_EXECUTABLE_FILE, ""));
 			
 		} catch (CoreException e) {
 			e.printStackTrace();
@@ -45,8 +46,9 @@ public class MCoreLaunchConfigurationTab extends CLaunchConfigurationTab {
 
 	@Override
 	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
-		configuration.setAttribute(IMDTConstants.ATTR_PROJECT, launchConfigurationComposite.getProjectName());
-		configuration.setAttribute(IMDTConstants.ATTR_FORTH_EXECUTABLE_FILE, launchConfigurationComposite.getExecutableFilePath());
+		configuration.setAttribute(IForthConstants.ATTR_PROJECT, launchConfigurationComposite.getProjectName());
+		configuration.setAttribute(IForthConstants.ATTR_FORTH_EXECUTABLE_FILE, launchConfigurationComposite.getExecutableFilePath());
+		configuration.setAttribute(DebugPlugin.ATTR_PROCESS_FACTORY_ID, "ch.fhnw.mdt.forthdebugger.forthprocessfactory");
 		
 		if (launchConfigurationComposite.getExecutableFile() != null) {
 			configuration.setAttribute(ICDTLaunchConfigurationConstants.ATTR_PROGRAM_NAME, launchConfigurationComposite.getExecutableFile().getName());

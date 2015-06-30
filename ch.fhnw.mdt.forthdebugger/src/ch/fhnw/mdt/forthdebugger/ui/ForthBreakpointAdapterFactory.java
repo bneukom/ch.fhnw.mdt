@@ -19,7 +19,7 @@ import org.eclipse.ui.texteditor.ITextEditor;
 /**
  * Creates a toggle breakpoint adapter
  */
-public class MDTBreakpointAdapterFactory implements IAdapterFactory {
+public class ForthBreakpointAdapterFactory implements IAdapterFactory {
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -33,7 +33,7 @@ public class MDTBreakpointAdapterFactory implements IAdapterFactory {
 			if (resource != null) {
 				final String extension = resource.getFileExtension();
 				if (extension != null && extension.equals("c")) {
-					return new MDTLineBreakpointAdapter();
+					return new ForthLineBreakpointAdapter();
 				}
 			}
 		}

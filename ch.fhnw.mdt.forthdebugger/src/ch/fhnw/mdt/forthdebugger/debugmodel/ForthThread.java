@@ -9,7 +9,7 @@
  *     IBM Corporation - initial API and implementation
  *     Bjorn Freeman-Benson - initial API and implementation
  *******************************************************************************/
-package ch.fhnw.mdt.forthdebugger;
+package ch.fhnw.mdt.forthdebugger.debugmodel;
 
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IBreakpoint;
@@ -19,7 +19,7 @@ import org.eclipse.debug.core.model.IThread;
 /**
  * A forth thread. Forth Environment is single threaded.
  */
-public class MDTThread extends MDTDebugElement implements IThread {
+public class ForthThread extends ForthDebugElement implements IThread {
 
 	/**
 	 * Breakpoints this thread is suspended at or <code>null</code> if none.
@@ -37,7 +37,7 @@ public class MDTThread extends MDTDebugElement implements IThread {
 	 * @param target
 	 *            VM
 	 */
-	public MDTThread(MDTDebugTarget target) {
+	public ForthThread(ForthDebugTarget target) {
 		super(target);
 	}
 
@@ -49,7 +49,7 @@ public class MDTThread extends MDTDebugElement implements IThread {
 	@Override
 	public IStackFrame[] getStackFrames() throws DebugException {
 		if (isSuspended()) {
-			return ((MDTDebugTarget) getDebugTarget()).getStackFrames();
+			return ((ForthDebugTarget) getDebugTarget()).getStackFrames();
 		} else {
 			return new IStackFrame[0];
 		}
@@ -228,7 +228,7 @@ public class MDTThread extends MDTDebugElement implements IThread {
 	 */
 	@Override
 	public void stepOver() throws DebugException {
-		((MDTDebugTarget) getDebugTarget()).step();
+		((ForthDebugTarget) getDebugTarget()).step();
 	}
 
 	/*

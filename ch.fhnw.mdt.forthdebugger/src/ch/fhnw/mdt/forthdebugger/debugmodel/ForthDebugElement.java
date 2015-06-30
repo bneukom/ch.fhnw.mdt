@@ -1,4 +1,4 @@
-package ch.fhnw.mdt.forthdebugger;
+package ch.fhnw.mdt.forthdebugger.debugmodel;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.PlatformObject;
@@ -10,12 +10,14 @@ import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.model.IDebugElement;
 import org.eclipse.debug.core.model.IDebugTarget;
 
+import ch.fhnw.mdt.forthdebugger.ForthDebuggerPlugin;
+
 /**
  * Common function of PDA debug model elements
  */
-public abstract class MDTDebugElement extends PlatformObject implements IDebugElement {
+public abstract class ForthDebugElement extends PlatformObject implements IDebugElement {
 	
-	protected MDTDebugTarget target;
+	protected ForthDebugTarget target;
 	
 	/**
 	 * Constructs a new debug element contained in the given
@@ -23,7 +25,7 @@ public abstract class MDTDebugElement extends PlatformObject implements IDebugEl
 	 * 
 	 * @param target debug target (PDA VM)
 	 */
-	public MDTDebugElement(MDTDebugTarget target) {
+	public ForthDebugElement(ForthDebugTarget target) {
 		this.target = target;
 	}
 	
@@ -32,7 +34,7 @@ public abstract class MDTDebugElement extends PlatformObject implements IDebugEl
 	 */
 	@Override
 	public String getModelIdentifier() {
-		return IMDTConstants.ID_MDT_DEBUG_MODEL;
+		return IForthConstants.ID_MDT_DEBUG_MODEL;
 	}
 	/* (non-Javadoc)
 	 * @see org.eclipse.debug.core.model.IDebugElement#getDebugTarget()
