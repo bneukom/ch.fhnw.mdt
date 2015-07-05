@@ -9,6 +9,7 @@ import java.io.OutputStreamWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -30,19 +31,17 @@ import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.model.IDebugTarget;
 import org.eclipse.debug.core.model.IProcess;
-import org.eclipse.debug.core.model.RuntimeProcess;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.console.ConsolePlugin;
 import org.eclipse.ui.console.IConsole;
 import org.eclipse.ui.console.IOConsole;
-import org.eclipse.ui.console.IOConsoleInputStream;
 
 import ch.fhnw.mdt.forthdebugger.ForthCommunicator;
 import ch.fhnw.mdt.forthdebugger.ForthDebuggerPlugin;
 import ch.fhnw.mdt.forthdebugger.ForthReader;
-import ch.fhnw.mdt.forthdebugger.debugmodel.IForthConstants;
 import ch.fhnw.mdt.forthdebugger.debugmodel.ForthDebugTarget;
+import ch.fhnw.mdt.forthdebugger.debugmodel.IForthConstants;
 import ch.fhnw.mdt.preferences.MDTPreferencesPlugin;
 
 // TODO implement ILaunchShortcut
@@ -92,10 +91,11 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 			initializeWorkingDirectory(workingDirectory, executableFile, isDebugMode);
 
 			// launch
-			final LaunchJob launchJob = new LaunchJob(isDebugMode, launch, workingDirectory, umbilical, executableFile);
+			final List<String> forthSourceCode = Files.readAllLines(executableFile.getLocation().toFile().toPath());
+			final LaunchJob launchJob = new LaunchJob(isDebugMode, launch, workingDirectory, umbilical, forthSourceCode, executableFile);
 			launchJob.schedule();
 
-		} catch (final CoreException e) {
+		} catch (final CoreException | IOException e) {
 			e.printStackTrace();
 		} finally {
 		}
@@ -188,13 +188,15 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 		private String workingDirectory;
 		private String umbilical;
 		private IFile executableFile;
+		private List<String> forthSource;
 
-		public LaunchJob(boolean isDebugMode, ILaunch launch, String workingDirectory, String umbilical, IFile executableFile) {
+		public LaunchJob(boolean isDebugMode, ILaunch launch, String workingDirectory, String umbilical, List<String> forthSource, IFile executableFile) {
 			super("Launch");
 			this.isDebugMode = isDebugMode;
 			this.launch = launch;
 			this.workingDirectory = workingDirectory;
 			this.umbilical = umbilical;
+			this.forthSource = forthSource;
 			this.executableFile = executableFile;
 
 			setSystem(true);
@@ -228,7 +230,7 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 		 * @throws CoreException
 		 */
 		private void startDebugger(final ILaunch launch, final MCoreLaunch mcoreLaunch) throws CoreException {
-			IDebugTarget target = new ForthDebugTarget(launch, mcoreLaunch.eclipseProcess, mcoreLaunch.communicator, mcoreLaunch.reader);
+			IDebugTarget target = new ForthDebugTarget(forthSource, launch, mcoreLaunch.eclipseProcess, mcoreLaunch.communicator, mcoreLaunch.reader);
 			launch.addDebugTarget(target);
 		}
 
@@ -258,7 +260,7 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 				final ForthCommunicator communicator = new ForthCommunicator(processWriter, reader, process);
 				final InputThread inputThread = new InputThread(gforthConsole.getInputStream(), communicator);
 
-				// inputThread.start();
+				inputThread.start();
 				communicator.start();
 				reader.start();
 
@@ -270,8 +272,8 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 
 				reader.awaitReadCompletion();
 
-				communicator.sendCommandForResult("umbilical: " + umbilical + ForthCommunicator.NL, ForthCommunicator.OK);
-				communicator.sendCommandForResult("run" + ForthCommunicator.NL, "HANDSHAKE");
+				communicator.sendCommandAwaitResult("umbilical: " + umbilical + ForthCommunicator.NL, ForthCommunicator.OK);
+				communicator.sendCommandAwaitResult("run" + ForthCommunicator.NL, "HANDSHAKE");
 
 				return new MCoreLaunch(process, eclipseProcess, communicator, reader);
 
@@ -288,6 +290,7 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 
 		private final InputStream inputStream;
 		private final ForthCommunicator forthCommunicator;
+		private static final char CR = 10;
 
 		public InputThread(InputStream inputStream, ForthCommunicator forthCommunicator) {
 			super();
@@ -297,16 +300,18 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 
 		@Override
 		public void run() {
+			final StringBuffer commandBuffer = new StringBuffer();
 			while (true) {
 				try {
-					StringBuilder read = new StringBuilder();
-					read.append((char) inputStream.read());
+					final char read = (char) inputStream.read();
 
-					while (inputStream.available() > 0) {
-						char readCharacter = (char) inputStream.read();
-						read.append(readCharacter);
+					if (read == CR) {
+						forthCommunicator.sendCommand(commandBuffer.toString() + ForthCommunicator.NL);
+						commandBuffer.setLength(0);
+					} else {
+						commandBuffer.append(read);
 					}
-					System.out.println("send command: " + read.toString());
+
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

@@ -16,7 +16,7 @@ import org.eclipse.debug.core.model.IValue;
 import org.eclipse.debug.core.model.IVariable;
 
 /**
- * Value of a PDA variable.
+ * Value of a Forth variable.
  */
 public class ForthValue extends ForthDebugElement implements IValue {
 

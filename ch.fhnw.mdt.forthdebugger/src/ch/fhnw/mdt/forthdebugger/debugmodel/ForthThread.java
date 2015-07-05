@@ -96,7 +96,7 @@ public class ForthThread extends ForthDebugElement implements IThread {
 	 */
 	@Override
 	public String getName() throws DebugException {
-		return "Thread[1]";
+		return "Forth Thread";
 	}
 
 	/*
@@ -119,7 +119,7 @@ public class ForthThread extends ForthDebugElement implements IThread {
 	 *            the breakpoints this thread is suspended at, or <code>null</code> if none
 	 */
 	protected void setBreakpoints(IBreakpoint[] breakpoints) {
-		breakpoints = breakpoints;
+		this.breakpoints = breakpoints;
 	}
 
 	/*

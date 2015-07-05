@@ -17,7 +17,7 @@ import org.eclipse.debug.core.sourcelookup.AbstractSourceLookupParticipant;
 import ch.fhnw.mdt.forthdebugger.debugmodel.ForthStackFrame;
 
 /**
- * The PDA source lookup participant knows how to translate a PDA stack frame into a source file name
+ * The Forth source lookup participant knows how to translate a Forth stack frame into a source file name
  */
 public class ForthSourceLookupParticipant extends AbstractSourceLookupParticipant {
 	/*

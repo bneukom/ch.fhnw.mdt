@@ -10,7 +10,9 @@
             id="ch.fhnw.mdt.launch.mcorelaunch"
             modes="run,debug"
             name="MCore Application"
-            public="true">
+            public="true"
+            sourceLocatorId="ch.fhnw.mdt.forthdebugger.mdtSourceLocator"
+            sourcePathComputerId="ch.fhnw.mdt.forthdebugger.mdtSourcePathComputer">
       </launchConfigurationType>
    </extension>
    <extension

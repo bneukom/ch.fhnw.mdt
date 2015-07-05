@@ -11,7 +11,6 @@
  *******************************************************************************/
 package ch.fhnw.mdt.forthdebugger.debugmodel;
 
-import org.eclipse.core.runtime.Path;
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IRegisterGroup;
 import org.eclipse.debug.core.model.IStackFrame;
@@ -43,6 +42,9 @@ public class ForthStackFrame extends ForthDebugElement implements IStackFrame {
 		super((ForthDebugTarget) thread.getDebugTarget());
 		this.fId = id;
 		this.thread = thread;
+		this.fVariables = new IVariable[0];
+		this.fName = "_foo";
+		this.fFileName = "hello.fs";
 		init(data);
 	}
 
@@ -52,17 +54,17 @@ public class ForthStackFrame extends ForthDebugElement implements IStackFrame {
 	 * @param data
 	 */
 	private void init(String data) {
-		String[] strings = data.split("\\|");
-		String fileName = strings[0];
-		fFileName = (new Path(fileName)).lastSegment();
-		String pc = strings[1];
-		fPC = Integer.parseInt(pc) + 1;
-		fName = strings[2];
-		int numVars = strings.length - 3;
-		fVariables = new IVariable[numVars];
-		for (int i = 0; i < numVars; i++) {
-			fVariables[i] = new ForthVariable(this, strings[i + 3]);
-		}
+//		String[] strings = data.split("\\|");
+//		String fileName = strings[0];
+//		fFileName = (new Path(fileName)).lastSegment();
+//		String pc = strings[1];
+//		fPC = Integer.parseInt(pc) + 1;
+//		fName = strings[2];
+//		int numVars = strings.length - 3;
+//		fVariables = new IVariable[numVars];
+//		for (int i = 0; i < numVars; i++) {
+//			fVariables[i] = new ForthVariable(this, strings[i + 3]);
+//		}
 	}
 
 	/*
@@ -102,7 +104,7 @@ public class ForthStackFrame extends ForthDebugElement implements IStackFrame {
 	 */
 	@Override
 	public int getLineNumber() throws DebugException {
-		return fPC;
+		return 2;
 	}
 
 	/*

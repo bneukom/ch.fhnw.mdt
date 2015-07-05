@@ -67,7 +67,7 @@ public final class ForthCommunicator extends Thread {
 	 * @param command
 	 * @param result
 	 */
-	public void sendCommandForResult(final String command, final String result) {
+	public void sendCommandAwaitResult(final String command, final String result) {
 		sendCommand(new Command(command, result));
 	}
 
