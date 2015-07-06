@@ -45,7 +45,7 @@ public class ForthVariable extends ForthDebugElement implements IVariable {
 	 */
 	@Override
 	public IValue getValue() throws DebugException {
-		return ((ForthDebugTarget) getDebugTarget()).getVariableValue(this);
+		throw new UnsupportedOperationException();
 	}
 
 	/*

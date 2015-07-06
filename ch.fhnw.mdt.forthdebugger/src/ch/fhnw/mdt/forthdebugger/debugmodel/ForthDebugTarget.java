@@ -1,5 +1,10 @@
 package ch.fhnw.mdt.forthdebugger.debugmodel;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PipedInputStream;
+import java.io.PipedOutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,7 +27,6 @@ import org.eclipse.debug.core.model.IMemoryBlock;
 import org.eclipse.debug.core.model.IProcess;
 import org.eclipse.debug.core.model.IStackFrame;
 import org.eclipse.debug.core.model.IThread;
-import org.eclipse.debug.core.model.IValue;
 
 import ch.fhnw.mdt.forthdebugger.ForthCommunicator;
 import ch.fhnw.mdt.forthdebugger.ForthReader;
@@ -38,8 +42,8 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 	// containing launch object
 	private final ILaunch launch;
 
-	// program name
-	private String programName;
+	// forth file name
+	private final String forthFileName;
 
 	// suspend state
 	private boolean suspended = true;
@@ -52,9 +56,11 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 	private final ForthThread forthThread;
 	private final IThread[] threads;
 
-	private final DebuggerLineListener debugLineListener;
+	// debugger state
+	private String currentAddress;
+	private String currentFunction;
 
-	// the
+	private DebugStreamListener debugStreamListener;
 	private final SourceMapping sourceMapping;
 
 	private static final String NL = System.lineSeparator();
@@ -71,9 +77,10 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 	 * @exception CoreException
 	 *                if unable to connect to host
 	 */
-	public ForthDebugTarget(final List<String> forthSource, final ILaunch launch, final IProcess process, final ForthCommunicator communicator, final ForthReader reader)
-			throws CoreException {
+	public ForthDebugTarget(final String forthFileName, final List<String> forthSource, final ILaunch launch, final IProcess process, final ForthCommunicator communicator,
+			final ForthReader reader) throws CoreException {
 		super(null);
+		this.forthFileName = forthFileName;
 		this.launch = launch;
 		this.process = process;
 		this.forthCommunicator = communicator;
@@ -85,13 +92,21 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 		this.forthThread = new ForthThread(this);
 		this.threads = new IThread[] { forthThread };
 
-		this.debugLineListener = new DebuggerLineListener();
+		try {
+			final PipedInputStream in = new PipedInputStream();
+			final PipedOutputStream out = new PipedOutputStream(in);
 
-		this.reader.addLineListener(debugLineListener);
+			this.debugStreamListener = new DebugStreamListener(in);
+			this.debugStreamListener.start();
+
+			this.reader.forwardOutput(out);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 		DebugPlugin.getDefault().getBreakpointManager().addBreakpointListener(this);
 
-		// started();
+		started();
 
 	}
 
@@ -132,14 +147,7 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 	 */
 	@Override
 	public String getName() throws DebugException {
-		if (programName == null) {
-			programName = "Forth Program";
-			try {
-				programName = getLaunch().getLaunchConfiguration().getAttribute(IForthConstants.ATTR_FORTH_EXECUTABLE_FILE, "Forth Program");
-			} catch (final CoreException e) {
-			}
-		}
-		return programName;
+		return forthFileName;
 	}
 
 	/*
@@ -392,6 +400,9 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 		return null;
 	}
 
+	/**
+	 * Called after the debugger has started, sets up everything necessary.
+	 */
 	private void started() {
 		fireCreationEvent();
 		installDeferredBreakpoints();
@@ -428,25 +439,13 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 	 *             if unable to perform the request
 	 */
 	protected IStackFrame[] getStackFrames() throws DebugException {
-		// fRequestWriter.println("stack");
-		// fRequestWriter.flush();
-		// try {
-		// final String framesData = fRequestReader.readLine();
-		// if (framesData != null) {
-		// final String[] frames = framesData.split("#");
-		// final IStackFrame[] theFrames = new IStackFrame[frames.length];
-		// for (int i = 0; i < frames.length; i++) {
-		// final String data = frames[i];
-		// theFrames[frames.length - i - 1] = new MDTStackFrame(mdtThread, data,
-		// i);
-		// }
-		// return theFrames;
-		// }
-		// } catch (final IOException e) {
-		// abort("Unable to retrieve stack frames", e);
-		// }
+		if (forthThread.isStepping()) {
+			final int lineNumber = sourceMapping.getLineNumber(currentAddress);
 
-		return new IStackFrame[] { new ForthStackFrame(forthThread, "", 1) };
+			return new IStackFrame[] { new ForthStackFrame(forthThread, currentFunction, forthFileName, lineNumber, 0) };
+		}
+
+		return new IStackFrame[0];
 	}
 
 	/**
@@ -476,102 +475,110 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 	 *             if the request fails
 	 */
 	protected void step() throws DebugException {
-		// TODO implement
+		forthCommunicator.sendCommand(ForthCommunicator.CR);
 	}
 
 	/**
-	 * Returns the current value of the given variable.
 	 * 
-	 * @param variable
-	 * @return variable value
-	 * @throws DebugException
-	 *             if the request fails
+	 *
 	 */
-	protected IValue getVariableValue(final ForthVariable variable) throws DebugException {
-		// synchronized (fRequestSocket) {
-		// fRequestWriter.println("var " +
-		// variable.getStackFrame().getIdentifier() + " " + variable.getName());
-		// fRequestWriter.flush();
-		// try {
-		// final String value = fRequestReader.readLine();
-		// return new MDTValue(this, value);
-		// } catch (final IOException e) {
-		// abort(MessageFormat.format("Unable to retrieve value for variable {0}",
-		// variable.getName()), e);
-		// }
-		// }
-		return new ForthValue(this, "100");
-	}
+	private class DebugStreamListener extends Thread {
 
-	/**
-	 * Returns the values on the data stack (top down)
-	 * 
-	 * @return the values on the data stack (top down)
-	 */
-	public IValue[] getDataStack() throws DebugException {
-		// synchronized (fRequestSocket) {
-		// fRequestWriter.println("data");
-		// fRequestWriter.flush();
-		// try {
-		// final String valueString = fRequestReader.readLine();
-		// if (valueString != null && valueString.length() > 0) {
-		// final String[] values = valueString.split("\\|");
-		// final IValue[] theValues = new IValue[values.length];
-		// for (int i = 0; i < values.length; i++) {
-		// final String value = values[values.length - i - 1];
-		// theValues[i] = new MDTValue(this, value);
-		// }
-		// return theValues;
-		// }
-		// } catch (final IOException e) {
-		// abort("Unable to retrieve data stack", e);
-		// }
-		// }
-		return new IValue[] { new ForthValue(this, "42") };
-	}
+		private final InputStream stream;
+		private final Pattern functionPattern = Pattern.compile("([^\\s]+)(\\s+)(-{15})");
+		private final Pattern stepPattern = Pattern.compile("([A-Fa-f0-9]{8}):(.*)>");
 
-	/**
-	 * Notification a breakpoint was encountered. Determine which breakpoint was hit and fire a suspend event.
-	 * 
-	 * @param function
-	 *            debug event
-	 */
-	private void breakpointHit(final String function) {
-		// determine which breakpoint was hit, and set the thread's breakpoint
-		final IBreakpoint[] breakpoints = DebugPlugin.getDefault().getBreakpointManager().getBreakpoints(IForthConstants.ID_MDT_DEBUG_MODEL);
-		for (int i = 0; i < breakpoints.length; i++) {
-			final IBreakpoint breakpoint = breakpoints[i];
-			if (supportsBreakpoint(breakpoint)) {
-				if (breakpoint instanceof ForthLineBreakpoint) {
-					final ForthLineBreakpoint lineBreakpoint = (ForthLineBreakpoint) breakpoint;
-					try {
-						if (function.equals("_" + lineBreakpoint.getMarker().getAttribute(ForthLineBreakpoint.ATTR_FUNCTION_NAME))) {
-							forthThread.setBreakpoints(new IBreakpoint[] { breakpoint });
-							break;
-						}
-					} catch (final CoreException e) {
+		public DebugStreamListener(InputStream stream) {
+			this.stream = stream;
+		}
+
+		@Override
+		public void run() {
+			StringBuilder line = new StringBuilder();
+
+			while (true) {
+				try {
+					final char read = (char) stream.read();
+					line.append(read);
+
+					update(line.toString());
+
+					if (line.toString().endsWith(NL)) {
+						line = new StringBuilder();
 					}
+
+				} catch (IOException e) {
+					return;
 				}
 			}
 		}
-		suspended(DebugEvent.BREAKPOINT);
-	}
 
-	/**
-	 * Listens to the stream from the device and fires appropriate events.
-	 *
-	 */
-	private class DebuggerLineListener implements ForthReader.LineListener {
-		final Pattern functionPattern = Pattern.compile("([^\\s]+)(\\s+)(-{15})\\n");
+		private void update(String current) {
+			final Matcher functionMatcher = functionPattern.matcher(current);
+			final Matcher stepMatcher = stepPattern.matcher(current);
 
-		@Override
-		public void lineRead(final String line) {
-			// breakpoint hit
-			final Matcher functionMatcher = functionPattern.matcher(line);
 			if (functionMatcher.matches()) {
-				forthThread.setStepping(true);
+				// breakpoint hit
 				breakpointHit(functionMatcher.group(1));
+			} else if (stepMatcher.matches()) {
+				// step
+				stepped(stepMatcher.group(1));
+			} else if (current.startsWith("uCore>")) {
+				// step end
+				functionEnded();
 			}
+		}
+
+		/**
+		 * Notification a breakpoint was encountered. Determine which breakpoint was hit and fire a suspend event.
+		 * 
+		 * @param function
+		 *            the function
+		 */
+		private void breakpointHit(final String function) {
+			// determine which breakpoint was hit, and set the thread's breakpoint
+			final IBreakpoint[] breakpoints = DebugPlugin.getDefault().getBreakpointManager().getBreakpoints(IForthConstants.ID_MDT_DEBUG_MODEL);
+			for (int i = 0; i < breakpoints.length; i++) {
+				final IBreakpoint breakpoint = breakpoints[i];
+				if (supportsBreakpoint(breakpoint)) {
+					if (breakpoint instanceof ForthLineBreakpoint) {
+						final ForthLineBreakpoint lineBreakpoint = (ForthLineBreakpoint) breakpoint;
+						try {
+							if (function.equals("_" + lineBreakpoint.getMarker().getAttribute(ForthLineBreakpoint.ATTR_FUNCTION_NAME))) {
+								forthThread.setBreakpoints(new IBreakpoint[] { breakpoint });
+								currentFunction = function;
+								break;
+							}
+						} catch (final CoreException e) {
+						}
+					}
+				}
+			}
+			suspended(DebugEvent.BREAKPOINT);
+		}
+
+		/**
+		 * Notification that the debugger has stepped.
+		 * 
+		 * @param address
+		 *            the address to which the debugger has stepped
+		 */
+		private void stepped(final String address) {
+			currentAddress = address;
+			forthThread.setStepping(true);
+
+			suspended(DebugEvent.STEP_END);
+		}
+
+		/**
+		 * Notification that the debugger has reached the end of a function and is ready to resume normally.
+		 */
+		private void functionEnded() {
+			currentAddress = null;
+			currentFunction = null;
+			forthThread.setStepping(false);
+
+			resumed(DebugEvent.RESUME);
 		}
 
 	}
@@ -604,23 +611,24 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 				final int startCodeLineNumber = function.getValue() + 2;
 				final String functionName = function.getKey();
 
-				communicator.sendCommand("show " + functionName + NL);
+				communicator.sendCommandAwaitResult("show " + functionName + NL, "---------------");
 
 				communicator.awaitCommandCompletion();
 				reader.awaitReadCompletion();
+				
 
 				String currentLine = reader.getCurrentLine();
 				int lineNumber = startCodeLineNumber;
+				lineMapping.put(currentLine.substring(0, 8), lineNumber);
+
 				while (!currentLine.contains("exit")) {
-
-					lineMapping.put(currentLine.substring(0, 8), lineNumber);
-
-					communicator.sendCommandForResult(ForthCommunicator.ANY, NL);
+					communicator.sendCommandAwaitResult(ForthCommunicator.ANY, NL);
 					communicator.awaitCommandCompletion();
 					reader.awaitReadCompletion();
 
 					currentLine = reader.getCurrentLine();
-					lineNumber++;
+					lineMapping.put(currentLine.substring(0, 8), ++lineNumber);
+
 				}
 
 				communicator.sendCommand(ForthCommunicator.CR);

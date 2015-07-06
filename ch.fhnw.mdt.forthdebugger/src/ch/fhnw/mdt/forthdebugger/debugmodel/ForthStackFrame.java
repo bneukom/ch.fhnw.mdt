@@ -18,54 +18,32 @@ import org.eclipse.debug.core.model.IThread;
 import org.eclipse.debug.core.model.IVariable;
 
 /**
- * PDA stack frame.
+ * Forth stack frame.
  */
 public class ForthStackFrame extends ForthDebugElement implements IStackFrame {
 
 	private ForthThread thread;
-	private String fName;
-	private int fPC;
-	private String fFileName;
-	private int fId;
-	private IVariable[] fVariables;
+	private String functionName;
+	private String fileName;
+	private int lineNumber;
+	private int id;
 
 	/**
 	 * Constructs a stack frame in the given thread with the given frame data.
 	 * 
 	 * @param thread
-	 * @param data
-	 *            frame data
 	 * @param id
 	 *            stack frame id (0 is the bottom of the stack)
 	 */
-	public ForthStackFrame(ForthThread thread, String data, int id) {
+	public ForthStackFrame(ForthThread thread, String functionName, String fileName, int lineNumber, int id) {
 		super((ForthDebugTarget) thread.getDebugTarget());
-		this.fId = id;
+		this.id = id;
 		this.thread = thread;
-		this.fVariables = new IVariable[0];
-		this.fName = "_foo";
-		this.fFileName = "hello.fs";
-		init(data);
+		this.fileName = fileName;
+		this.functionName = functionName;
+		this.lineNumber = lineNumber;
 	}
 
-	/**
-	 * Initializes this frame based on its data
-	 * 
-	 * @param data
-	 */
-	private void init(String data) {
-//		String[] strings = data.split("\\|");
-//		String fileName = strings[0];
-//		fFileName = (new Path(fileName)).lastSegment();
-//		String pc = strings[1];
-//		fPC = Integer.parseInt(pc) + 1;
-//		fName = strings[2];
-//		int numVars = strings.length - 3;
-//		fVariables = new IVariable[numVars];
-//		for (int i = 0; i < numVars; i++) {
-//			fVariables[i] = new ForthVariable(this, strings[i + 3]);
-//		}
-	}
 
 	/*
 	 * (non-Javadoc)
@@ -84,7 +62,7 @@ public class ForthStackFrame extends ForthDebugElement implements IStackFrame {
 	 */
 	@Override
 	public IVariable[] getVariables() throws DebugException {
-		return fVariables;
+		return new IVariable[0];
 	}
 
 	/*
@@ -94,7 +72,7 @@ public class ForthStackFrame extends ForthDebugElement implements IStackFrame {
 	 */
 	@Override
 	public boolean hasVariables() throws DebugException {
-		return fVariables.length > 0;
+		return false;
 	}
 
 	/*
@@ -104,7 +82,7 @@ public class ForthStackFrame extends ForthDebugElement implements IStackFrame {
 	 */
 	@Override
 	public int getLineNumber() throws DebugException {
-		return 2;
+		return lineNumber;
 	}
 
 	/*
@@ -134,7 +112,7 @@ public class ForthStackFrame extends ForthDebugElement implements IStackFrame {
 	 */
 	@Override
 	public String getName() throws DebugException {
-		return fName;
+		return functionName;
 	}
 
 	/*
@@ -313,7 +291,7 @@ public class ForthStackFrame extends ForthDebugElement implements IStackFrame {
 	 * @return the name of the source file this stack frame is associated with
 	 */
 	public String getSourceName() {
-		return fFileName;
+		return fileName;
 	}
 
 	/*
@@ -326,7 +304,7 @@ public class ForthStackFrame extends ForthDebugElement implements IStackFrame {
 		if (obj instanceof ForthStackFrame) {
 			ForthStackFrame sf = (ForthStackFrame) obj;
 			try {
-				return sf.getSourceName().equals(getSourceName()) && sf.getLineNumber() == getLineNumber() && sf.fId == fId;
+				return sf.getSourceName().equals(getSourceName()) && sf.getLineNumber() == getLineNumber() && sf.id == id;
 			} catch (DebugException e) {
 			}
 		}
@@ -340,7 +318,7 @@ public class ForthStackFrame extends ForthDebugElement implements IStackFrame {
 	 */
 	@Override
 	public int hashCode() {
-		return getSourceName().hashCode() + fId;
+		return getSourceName().hashCode() + id;
 	}
 
 	/**
@@ -349,6 +327,6 @@ public class ForthStackFrame extends ForthDebugElement implements IStackFrame {
 	 * @return this stack frame's unique identifier within its thread
 	 */
 	protected int getIdentifier() {
-		return fId;
+		return id;
 	}
 }

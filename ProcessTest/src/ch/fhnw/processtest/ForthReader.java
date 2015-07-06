@@ -1,4 +1,4 @@
-package ch.fhnw.mdt.forthdebugger;
+package ch.fhnw.processtest;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -89,7 +89,7 @@ public final class ForthReader extends Thread {
 	}
 
 	/**
-	 * Forwards the output from the reader to the given {@link OutputStream}. Note that caller must make sure the stream gets closed correctly.
+	 * Forwards the output from the reader to the given {@link OutputStream}. Note that callees must make sure the stream gets closed correctly.
 	 * 
 	 * @param out
 	 */
@@ -107,7 +107,7 @@ public final class ForthReader extends Thread {
 				// read next char
 				final int nextCharacter = input.read();
 				
-				// TODO ordering is important due to clearing (how to make that consistent)
+				// TODO ordering is important due to clearing
 				// notify everyone who was waiting for the available count to hit zero
 				try {
 					availableLock.lock();
@@ -196,6 +196,13 @@ public final class ForthReader extends Thread {
 			availableLock.unlock();
 		}
 	}
+	
+	/**
+	 * Awaits the next 
+	 */
+	public void awaitNextReadCompletion() {
+		
+	}
 
 	/**
 	 * Callback after a whole line has been read from the reader.
@@ -220,7 +227,7 @@ public final class ForthReader extends Thread {
 
 		return wait;
 	}
-	
+
 	public static abstract class WaitFor {
 		protected final Lock lock = new ReentrantLock();
 		protected Condition waitCondition;

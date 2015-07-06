@@ -1,4 +1,4 @@
-package ch.fhnw.mdt.forthdebugger;
+package ch.fhnw.processtest;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -8,8 +8,7 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import ch.fhnw.mdt.forthdebugger.ForthReader.WaitFor;
-import ch.fhnw.mdt.forthdebugger.util.Either;
+import ch.fhnw.processtest.ForthReader.WaitFor;
 
 /**
  * Thread safe communication for the forth process. TODO implement timeout!
@@ -62,7 +61,7 @@ public final class ForthCommunicator extends Thread {
 	}
 
 	/**
-	 * Sends the given command and blocks the queue until the process has returned the given result. This method returns immediately after sending the request.
+	 * Sends the given command and blocks until the process has returned the given result
 	 * 
 	 * @param command
 	 * @param result
@@ -81,7 +80,7 @@ public final class ForthCommunicator extends Thread {
 	}
 
 	/**
-	 * Sends the given command and blocks the queue until the process has returned the given result. This method returns immediately after sending the request.
+	 * Sends the given command and blocks until the process has returned the given result
 	 * 
 	 * @param command
 	 * @param result
@@ -91,7 +90,7 @@ public final class ForthCommunicator extends Thread {
 	}
 
 	/**
-	 * Sends the given {@link Command}.
+	 * Sends the given {@link Command} if the command contains a desired result this method will block until the process has returned this result.
 	 * 
 	 * @param command
 	 */

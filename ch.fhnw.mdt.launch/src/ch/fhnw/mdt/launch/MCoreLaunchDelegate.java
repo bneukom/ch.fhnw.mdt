@@ -55,7 +55,6 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 	@Override
 	public void launch(final ILaunchConfiguration configuration, final String mode, final ILaunch launch, final IProgressMonitor monitor) throws CoreException {
 		try {
-
 			final String projectName = launch.getLaunchConfiguration().getAttribute(IForthConstants.ATTR_PROJECT, "");
 			final IProject project = (IProject) ResourcesPlugin.getWorkspace().getRoot().findMember(projectName);
 
@@ -92,7 +91,7 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 
 			// launch
 			final List<String> forthSourceCode = Files.readAllLines(executableFile.getLocation().toFile().toPath());
-			final LaunchJob launchJob = new LaunchJob(isDebugMode, launch, workingDirectory, umbilical, forthSourceCode, executableFile);
+			final LaunchJob launchJob = new LaunchJob(executableFile.getName(), isDebugMode, launch, workingDirectory, umbilical, forthSourceCode, executableFile);
 			launchJob.schedule();
 
 		} catch (final CoreException | IOException e) {
@@ -188,10 +187,12 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 		private String workingDirectory;
 		private String umbilical;
 		private IFile executableFile;
+		private String forthSourceFile;
 		private List<String> forthSource;
 
-		public LaunchJob(boolean isDebugMode, ILaunch launch, String workingDirectory, String umbilical, List<String> forthSource, IFile executableFile) {
+		public LaunchJob(String forthSourceFile, boolean isDebugMode, ILaunch launch, String workingDirectory, String umbilical, List<String> forthSource, IFile executableFile) {
 			super("Launch");
+			this.forthSourceFile = forthSourceFile;
 			this.isDebugMode = isDebugMode;
 			this.launch = launch;
 			this.workingDirectory = workingDirectory;
@@ -230,7 +231,7 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 		 * @throws CoreException
 		 */
 		private void startDebugger(final ILaunch launch, final MCoreLaunch mcoreLaunch) throws CoreException {
-			IDebugTarget target = new ForthDebugTarget(forthSource, launch, mcoreLaunch.eclipseProcess, mcoreLaunch.communicator, mcoreLaunch.reader);
+			final IDebugTarget target = new ForthDebugTarget(forthSourceFile, forthSource, launch, mcoreLaunch.eclipseProcess, mcoreLaunch.communicator, mcoreLaunch.reader);
 			launch.addDebugTarget(target);
 		}
 
