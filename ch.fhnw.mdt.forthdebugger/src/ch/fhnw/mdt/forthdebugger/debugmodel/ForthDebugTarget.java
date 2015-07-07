@@ -479,7 +479,7 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 	}
 
 	/**
-	 * 
+	 * Listens to the forth process output and reports appropriate events.
 	 *
 	 */
 	private class DebugStreamListener extends Thread {
@@ -501,7 +501,7 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 					final char read = (char) stream.read();
 					line.append(read);
 
-					update(line.toString());
+					fireEvents(line.toString());
 
 					if (line.toString().endsWith(NL)) {
 						line = new StringBuilder();
@@ -513,7 +513,7 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 			}
 		}
 
-		private void update(String current) {
+		private void fireEvents(String current) {
 			final Matcher functionMatcher = functionPattern.matcher(current);
 			final Matcher stepMatcher = stepPattern.matcher(current);
 
@@ -605,6 +605,8 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 		private Map<String, Integer> createLineMapping() {
 			final Map<String, Integer> forthFunctions = getForthFunctions(forthSource);
 			final Map<String, Integer> lineMapping = new HashMap<String, Integer>();
+			final Pattern disasemblerLinePattern = Pattern.compile("([A-Fa-f0-9]{8}): ([A-Fa-f0-9 ]{8}) ?([^\\s]+)(.*)");
+			
 
 			for (final Entry<String, Integer> function : forthFunctions.entrySet()) {
 				// the code for the function starts two lines after the actual function defintion
@@ -619,7 +621,7 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 
 				String currentLine = reader.getCurrentLine();
 				int lineNumber = startCodeLineNumber;
-				lineMapping.put(currentLine.substring(0, 8), lineNumber);
+				lineNumber = insertLine(currentLine, lineNumber, disasemblerLinePattern, lineMapping);
 
 				while (!currentLine.contains("exit")) {
 					communicator.sendCommandAwaitResult(ForthCommunicator.ANY, NL);
@@ -627,14 +629,44 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 					reader.awaitReadCompletion();
 
 					currentLine = reader.getCurrentLine();
-					lineMapping.put(currentLine.substring(0, 8), ++lineNumber);
-
+					lineNumber = insertLine(currentLine, lineNumber, disasemblerLinePattern, lineMapping);
+					
 				}
 
 				communicator.sendCommand(ForthCommunicator.CR);
 			}
 
 			return lineMapping;
+		}
+		
+		private int insertLine(String currentLine, int currentLineNumber, Pattern disasemblerLinePattern, Map<String, Integer> lineMapping) {
+			final Matcher lineMatcher = disasemblerLinePattern.matcher(currentLine);
+			lineMatcher.find();
+
+			final String address = lineMatcher.group(1);
+			String word = lineMatcher.group(3);
+			
+			try {
+				int intValue = Integer.parseUnsignedInt(word, 16);
+				word = Integer.toString(intValue);
+			} catch (NumberFormatException e) {
+				// ignore
+			}
+			
+			// search for the line in the original source, this needs to be done to achieve the following things:
+			// - skip empty lines
+			// - skip comments
+			// - skip labels
+			// - sometimes forth merges some words (swap \n - becomes swap-)
+			String line = forthSource.get(currentLineNumber - 1); // -1 because in the array lines are not one based
+			while (!line.startsWith(word)) {
+				currentLineNumber++;
+				line = forthSource.get(currentLineNumber - 1); // -1 because in the array lines are not one based
+			}
+			
+			lineMapping.put(address, ++currentLineNumber);
+			
+			return currentLineNumber;
 		}
 
 		/**
