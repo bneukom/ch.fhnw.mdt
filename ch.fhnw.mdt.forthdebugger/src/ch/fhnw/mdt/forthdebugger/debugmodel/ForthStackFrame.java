@@ -27,23 +27,25 @@ public class ForthStackFrame extends ForthDebugElement implements IStackFrame {
 	private String fileName;
 	private int lineNumber;
 	private int id;
+	private String currentAddress;
 
 	/**
 	 * Constructs a stack frame in the given thread with the given frame data.
 	 * 
 	 * @param thread
+	 * @param currentAddress
 	 * @param id
 	 *            stack frame id (0 is the bottom of the stack)
 	 */
-	public ForthStackFrame(ForthThread thread, String functionName, String fileName, int lineNumber, int id) {
+	public ForthStackFrame(ForthThread thread, String functionName, String fileName, int lineNumber, String currentAddress, int id) {
 		super((ForthDebugTarget) thread.getDebugTarget());
 		this.id = id;
 		this.thread = thread;
 		this.fileName = fileName;
 		this.functionName = functionName;
 		this.lineNumber = lineNumber;
+		this.currentAddress = currentAddress;
 	}
-
 
 	/*
 	 * (non-Javadoc)
@@ -328,5 +330,23 @@ public class ForthStackFrame extends ForthDebugElement implements IStackFrame {
 	 */
 	protected int getIdentifier() {
 		return id;
+	}
+
+	/**
+	 * Returns the function name of this stack frame.
+	 * 
+	 * @return the function name of this stack frame.
+	 */
+	public String getFunctionName() {
+		return functionName;
+	}
+
+	/**
+	 * Returns the current address of this stack frame.
+	 *  
+	 * @return the current address of this stack frame.
+	 */
+	public String getCurrentAddress() {
+		return currentAddress;
 	}
 }

@@ -419,7 +419,8 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 
 		private final InputStream stream;
 		private final Pattern functionPattern = Pattern.compile("([^\\s]+)(\\s+)(-{15})");
-		private final Pattern stepPattern = Pattern.compile("([A-Fa-f0-9]{8}):(.*)>");
+		private final Pattern stepPattern = Pattern
+				.compile("([A-Fa-f0-9]{8}): ([A-Fa-f0-9 ]{8})(([A-Fa-f0-9]+ [A-Fa-f0-9]+)|( [^\\s]+[A-Fa-f0-9 ]+ (call))|([^\\s]+))([A-Fa-f0-9 ]*)(>+)");
 
 		public DebugStreamListener(InputStream stream) {
 			this.stream = stream;
@@ -429,22 +430,20 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 		public void run() {
 			StringBuilder line = new StringBuilder();
 
+			boolean fired = false;
 			while (true) {
 				try {
 					final char read = (char) stream.read();
 
 					line.append(read);
 
-					// fire event in case we have read everything up until now
-					if (stream.available() == 0) {
-						fireEvents(line.toString());
+					if (!fired) {
+						fired = fireEvents(line.toString());
 					}
 
 					if (line.toString().endsWith(NL)) {
-						if (stream.available() > 0) {
-							fireEvents(line.toString().trim());
-						}
 						line = new StringBuilder();
+						fired = false;
 					}
 
 				} catch (IOException e) {
@@ -458,30 +457,43 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 		 * 
 		 * @param current
 		 */
-		private void fireEvents(String current) {
-			final Matcher functionMatcher = functionPattern.matcher(current.trim());
-			final Matcher stepMatcher = stepPattern.matcher(current.trim());
+		private boolean fireEvents(String current) {
+			// System.out.println("LINE :\"" + current + "\"");
+			final Matcher functionMatcher = functionPattern.matcher(current);
+			final Matcher stepMatcher = stepPattern.matcher(current);
 
 			if (functionMatcher.matches()) {
 				// breakpoint hit
-				breakpointHit(functionMatcher.group(1));
+				functionBegin(functionMatcher.group(1));
+				return true;
 			} else if (stepMatcher.matches()) {
-				// step
-				singleStep(stepMatcher.group(1));
-			} else if (current.startsWith("uCore>")) {
-				// step end
-				functionExit();
+				if ("exit".equals(stepMatcher.group(3))) {
+					// exit
+					functionExit();
+
+					// step out of function
+					try {
+						forthThread.stepOver();
+					} catch (DebugException e) {
+						e.printStackTrace();
+					}
+				} else {
+					// step
+					singleStep(stepMatcher.group(1));
+				}
+				return true;
 			}
+			
+			return false;
 		}
 
-		// TODO not only capture when there is a breakpoint in the function, when we step into a function without a breakpoint set (with nest) we still need to finish this function
 		/**
 		 * Notification a breakpoint was encountered. Determine which breakpoint was hit and fire a suspend event.
 		 * 
 		 * @param function
 		 *            the function
 		 */
-		private void breakpointHit(final String function) {
+		private void functionBegin(final String function) {
 			// determine which breakpoint was hit, and set the thread's breakpoint
 			final IBreakpoint[] breakpoints = DebugPlugin.getDefault().getBreakpointManager().getBreakpoints(IForthConstants.ID_MDT_DEBUG_MODEL);
 			for (int i = 0; i < breakpoints.length; i++) {
@@ -492,7 +504,6 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 						try {
 							if (function.equals("_" + lineBreakpoint.getMarker().getAttribute(ForthLineBreakpoint.ATTR_FUNCTION_NAME))) {
 								forthThread.setBreakpoints(new IBreakpoint[] { breakpoint });
-								forthThread.setFunction(function);
 								break;
 							}
 						} catch (final CoreException e) {
@@ -500,6 +511,8 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 					}
 				}
 			}
+
+			forthThread.functionEnter(function);
 			suspended(DebugEvent.BREAKPOINT);
 		}
 

@@ -1,13 +1,8 @@
 package ch.fhnw.mdt.forthdebugger.debugmodel;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.PipedInputStream;
-import java.io.PipedOutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -23,9 +18,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.debug.core.DebugEvent;
 import org.eclipse.debug.core.DebugException;
-import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.model.IBreakpoint;
 import org.eclipse.debug.core.model.IStackFrame;
 import org.eclipse.debug.core.model.IThread;
@@ -80,21 +73,23 @@ public class ForthThread extends ForthDebugElement implements IThread {
 	 */
 	@Override
 	public IStackFrame[] getStackFrames() throws DebugException {
-		if (isSuspended() && isStepping) {
+		if (isSuspended() && isStepping && currentAddress != null && currentFunction != null) {
 
 			final IStackFrame[] resultFrames = new IStackFrame[stackFrames.size() + 1];
-			resultFrames[0] = new ForthStackFrame(this, currentFunction, currentFunction + ".fs", addressMapping.getLineNumber(currentFunction, currentAddress), 0);
-			
+			resultFrames[0] = new ForthStackFrame(this, currentFunction, currentFunction + ".fs", addressMapping.getLineNumber(currentFunction, currentAddress), currentAddress, 0);
+
 			int resultIndex = 1;
 			for (IStackFrame frame : stackFrames) {
 				resultFrames[resultIndex++] = frame;
 			}
-			
+
 			return resultFrames;
 		} else {
 			return new IStackFrame[0];
 		}
 	}
+	
+	
 
 	/*
 	 * (non-Javadoc)
@@ -261,9 +256,6 @@ public class ForthThread extends ForthDebugElement implements IThread {
 	@Override
 	public void stepInto() throws DebugException {
 		forthCommunicator.sendCommand("nest" + ForthCommunicator.NL);
-
-		// add the current function to the call stack
-		stackFrames.add(new ForthStackFrame(this, currentFunction, currentFunction + ".fs", addressMapping.getLineNumber(currentFunction, currentAddress) , stackFrames.size() + 1));
 	}
 
 	/*
@@ -316,12 +308,20 @@ public class ForthThread extends ForthDebugElement implements IThread {
 	}
 
 	/**
-	 * Sets the currently executed function.
+	 * Enters the currently executed function.
 	 * 
 	 * @param function
 	 */
-	public void setFunction(String function) {
+	public void functionEnter(String function) {
+		// save old stack frame
+		if (currentFunction != null && currentAddress != null) {
+			stackFrames.add(new ForthStackFrame(this, currentFunction, currentFunction + ".fs", addressMapping.getLineNumber(currentFunction, currentAddress), currentAddress,
+					stackFrames.size() + 1));
+		}
+
+		// set new stack frame
 		currentFunction = function;
+		currentAddress = null;
 	}
 
 	/**
@@ -331,8 +331,13 @@ public class ForthThread extends ForthDebugElement implements IThread {
 		isStepping = false;
 		currentAddress = null;
 
-		if (!stackFrames.isEmpty())
-			stackFrames.pop();
+		if (!stackFrames.isEmpty()) {
+			final ForthStackFrame previousFrame = stackFrames.pop();
+			currentFunction = previousFrame.getFunctionName();
+			currentAddress = previousFrame.getCurrentAddress();
+		} else {
+			breakpoints = null;
+		}
 	}
 
 	/**
@@ -362,6 +367,7 @@ public class ForthThread extends ForthDebugElement implements IThread {
 
 			forthCommunicator.sendCommandAwaitResult("show " + functionName + ForthCommunicator.NL, "---------------");
 
+			// TODO this might not always work, we need some way to wait until the read text matches a regex or anything else
 			forthCommunicator.awaitCommandCompletion();
 			reader.awaitReadCompletion();
 
@@ -488,19 +494,5 @@ public class ForthThread extends ForthDebugElement implements IThread {
 		public int getLineNumber(String currentFunction, String currentAddress) {
 			return functionLineMap.get(currentFunction).get(currentAddress);
 		}
-
 	}
-
-	private static class CallStack {
-		public final String address;
-		public final String function;
-
-		public CallStack(String address, String function) {
-			super();
-			this.address = address;
-			this.function = function;
-		}
-
-	}
-
 }
