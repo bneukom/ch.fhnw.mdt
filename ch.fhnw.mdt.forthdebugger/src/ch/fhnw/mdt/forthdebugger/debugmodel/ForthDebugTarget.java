@@ -2,21 +2,15 @@ package ch.fhnw.mdt.forthdebugger.debugmodel;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.eclipse.core.resources.IMarker;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarkerDelta;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.debug.core.DebugEvent;
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.DebugPlugin;
@@ -25,14 +19,13 @@ import org.eclipse.debug.core.model.IBreakpoint;
 import org.eclipse.debug.core.model.IDebugTarget;
 import org.eclipse.debug.core.model.IMemoryBlock;
 import org.eclipse.debug.core.model.IProcess;
-import org.eclipse.debug.core.model.IStackFrame;
 import org.eclipse.debug.core.model.IThread;
 
 import ch.fhnw.mdt.forthdebugger.ForthCommunicator;
 import ch.fhnw.mdt.forthdebugger.ForthReader;
 
 /**
- * PDA Debug Target
+ * Forth Debug Target.
  */
 public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget {
 
@@ -43,7 +36,7 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 	private final ILaunch launch;
 
 	// forth file name
-	private final String forthFileName;
+	private final IFile forthFile;
 
 	// suspend state
 	private boolean suspended = true;
@@ -56,12 +49,7 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 	private final ForthThread forthThread;
 	private final IThread[] threads;
 
-	// debugger state
-	private String currentAddress;
-	private String currentFunction;
-
 	private DebugStreamListener debugStreamListener;
-	private final SourceMapping sourceMapping;
 
 	private static final String NL = System.lineSeparator();
 
@@ -77,19 +65,17 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 	 * @exception CoreException
 	 *                if unable to connect to host
 	 */
-	public ForthDebugTarget(final String forthFileName, final List<String> forthSource, final ILaunch launch, final IProcess process, final ForthCommunicator communicator,
+	public ForthDebugTarget(final IFile forthFile, final List<String> forthSource, final ILaunch launch, final IProcess process, final ForthCommunicator communicator,
 			final ForthReader reader) throws CoreException {
 		super(null);
-		this.forthFileName = forthFileName;
+		this.forthFile = forthFile;
 		this.launch = launch;
 		this.process = process;
 		this.forthCommunicator = communicator;
 		this.reader = reader;
 		this.target = this;
 
-		this.sourceMapping = new SourceMapping(forthSource, communicator, reader);
-
-		this.forthThread = new ForthThread(this);
+		this.forthThread = new ForthThread(this, forthFile, forthSource, forthCommunicator, reader);
 		this.threads = new IThread[] { forthThread };
 
 		try {
@@ -147,7 +133,7 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 	 */
 	@Override
 	public String getName() throws DebugException {
-		return forthFileName;
+		return forthFile.getName();
 	}
 
 	/*
@@ -157,23 +143,7 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 	 */
 	@Override
 	public boolean supportsBreakpoint(final IBreakpoint breakpoint) {
-		if (breakpoint.getModelIdentifier().equals(IForthConstants.ID_MDT_DEBUG_MODEL)) {
-			try {
-				final String program = getLaunch().getLaunchConfiguration().getAttribute(IForthConstants.ATTR_FORTH_EXECUTABLE_FILE, (String) null);
-				if (program != null) {
-					final IMarker marker = breakpoint.getMarker();
-					if (marker != null) {
-						final IPath p = new Path(program);
-						return true;
-						// TODO implement marker checking to see if we are in a
-						// valid file
-						// return marker.getResource().getFullPath().equals(p);
-					}
-				}
-			} catch (final CoreException e) {
-			}
-		}
-		return false;
+		return breakpoint.getModelIdentifier().equals(IForthConstants.ID_MDT_DEBUG_MODEL);
 	}
 
 	/*
@@ -423,32 +393,6 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 	}
 
 	/**
-	 * Called when this debug target terminates.
-	 */
-	private void terminated() {
-		suspended = false;
-		DebugPlugin.getDefault().getBreakpointManager().removeBreakpointListener(this);
-		fireTerminateEvent();
-	}
-
-	/**
-	 * Returns the current stack frames in the target.
-	 * 
-	 * @return the current stack frames in the target
-	 * @throws DebugException
-	 *             if unable to perform the request
-	 */
-	protected IStackFrame[] getStackFrames() throws DebugException {
-		if (forthThread.isStepping()) {
-			final int lineNumber = sourceMapping.getLineNumber(currentAddress);
-
-			return new IStackFrame[] { new ForthStackFrame(forthThread, currentFunction, forthFileName, lineNumber, 0) };
-		}
-
-		return new IStackFrame[0];
-	}
-
-	/**
 	 * Adds a breakpoint for the given function.
 	 * 
 	 * @param function
@@ -469,18 +413,7 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 	}
 
 	/**
-	 * Single step the interpreter.
-	 * 
-	 * @throws DebugException
-	 *             if the request fails
-	 */
-	protected void step() throws DebugException {
-		forthCommunicator.sendCommand(ForthCommunicator.CR);
-	}
-
-	/**
 	 * Listens to the forth process output and reports appropriate events.
-	 *
 	 */
 	private class DebugStreamListener extends Thread {
 
@@ -499,11 +432,18 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 			while (true) {
 				try {
 					final char read = (char) stream.read();
+
 					line.append(read);
 
-					fireEvents(line.toString());
+					// fire event in case we have read everything up until now
+					if (stream.available() == 0) {
+						fireEvents(line.toString());
+					}
 
 					if (line.toString().endsWith(NL)) {
+						if (stream.available() > 0) {
+							fireEvents(line.toString().trim());
+						}
 						line = new StringBuilder();
 					}
 
@@ -513,22 +453,28 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 			}
 		}
 
+		/**
+		 * Fires event based on the output of the forth debugger
+		 * 
+		 * @param current
+		 */
 		private void fireEvents(String current) {
-			final Matcher functionMatcher = functionPattern.matcher(current);
-			final Matcher stepMatcher = stepPattern.matcher(current);
+			final Matcher functionMatcher = functionPattern.matcher(current.trim());
+			final Matcher stepMatcher = stepPattern.matcher(current.trim());
 
 			if (functionMatcher.matches()) {
 				// breakpoint hit
 				breakpointHit(functionMatcher.group(1));
 			} else if (stepMatcher.matches()) {
 				// step
-				stepped(stepMatcher.group(1));
+				singleStep(stepMatcher.group(1));
 			} else if (current.startsWith("uCore>")) {
 				// step end
-				functionEnded();
+				functionExit();
 			}
 		}
 
+		// TODO not only capture when there is a breakpoint in the function, when we step into a function without a breakpoint set (with nest) we still need to finish this function
 		/**
 		 * Notification a breakpoint was encountered. Determine which breakpoint was hit and fire a suspend event.
 		 * 
@@ -546,7 +492,7 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 						try {
 							if (function.equals("_" + lineBreakpoint.getMarker().getAttribute(ForthLineBreakpoint.ATTR_FUNCTION_NAME))) {
 								forthThread.setBreakpoints(new IBreakpoint[] { breakpoint });
-								currentFunction = function;
+								forthThread.setFunction(function);
 								break;
 							}
 						} catch (final CoreException e) {
@@ -560,12 +506,10 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 		/**
 		 * Notification that the debugger has stepped.
 		 * 
-		 * @param address
-		 *            the address to which the debugger has stepped
+		 * @param line
 		 */
-		private void stepped(final String address) {
-			currentAddress = address;
-			forthThread.setStepping(true);
+		private void singleStep(String address) {
+			forthThread.stepped(address);
 
 			suspended(DebugEvent.STEP_END);
 		}
@@ -573,135 +517,21 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 		/**
 		 * Notification that the debugger has reached the end of a function and is ready to resume normally.
 		 */
-		private void functionEnded() {
-			currentAddress = null;
-			currentFunction = null;
-			forthThread.setStepping(false);
+		private void functionExit() {
+			forthThread.functionExit();
 
 			resumed(DebugEvent.RESUME);
 		}
 
+		/**
+		 * Called when this debug target terminates.
+		 */
+		private void terminated() {
+			suspended = false;
+			DebugPlugin.getDefault().getBreakpointManager().removeBreakpointListener(ForthDebugTarget.this);
+			fireTerminateEvent();
+		}
+
 	}
 
-	/**
-	 * Maps runtime addresses to the corresponding line number of the source code.
-	 *
-	 */
-	private static class SourceMapping {
-
-		private final List<String> forthSource;
-		private ForthCommunicator communicator;
-		private ForthReader reader;
-
-		private final Map<String, Integer> lineMapping;
-
-		public SourceMapping(List<String> forthSource, ForthCommunicator communicator, ForthReader reader) {
-			this.forthSource = forthSource;
-			this.communicator = communicator;
-			this.reader = reader;
-			this.lineMapping = createLineMapping();
-		}
-
-		private Map<String, Integer> createLineMapping() {
-			final Map<String, Integer> forthFunctions = getForthFunctions(forthSource);
-			final Map<String, Integer> lineMapping = new HashMap<String, Integer>();
-			final Pattern disasemblerLinePattern = Pattern.compile("([A-Fa-f0-9]{8}): ([A-Fa-f0-9 ]{8}) ?([^\\s]+)(.*)");
-			
-
-			for (final Entry<String, Integer> function : forthFunctions.entrySet()) {
-				// the code for the function starts two lines after the actual function defintion
-				final int startCodeLineNumber = function.getValue() + 2;
-				final String functionName = function.getKey();
-
-				communicator.sendCommandAwaitResult("show " + functionName + NL, "---------------");
-
-				communicator.awaitCommandCompletion();
-				reader.awaitReadCompletion();
-				
-
-				String currentLine = reader.getCurrentLine();
-				int lineNumber = startCodeLineNumber;
-				lineNumber = insertLine(currentLine, lineNumber, disasemblerLinePattern, lineMapping);
-
-				while (!currentLine.contains("exit")) {
-					communicator.sendCommandAwaitResult(ForthCommunicator.ANY, NL);
-					communicator.awaitCommandCompletion();
-					reader.awaitReadCompletion();
-
-					currentLine = reader.getCurrentLine();
-					lineNumber = insertLine(currentLine, lineNumber, disasemblerLinePattern, lineMapping);
-					
-				}
-
-				communicator.sendCommand(ForthCommunicator.CR);
-			}
-
-			return lineMapping;
-		}
-		
-		private int insertLine(String currentLine, int currentLineNumber, Pattern disasemblerLinePattern, Map<String, Integer> lineMapping) {
-			final Matcher lineMatcher = disasemblerLinePattern.matcher(currentLine);
-			lineMatcher.find();
-
-			final String address = lineMatcher.group(1);
-			String word = lineMatcher.group(3);
-			
-			try {
-				int intValue = Integer.parseUnsignedInt(word, 16);
-				word = Integer.toString(intValue);
-			} catch (NumberFormatException e) {
-				// ignore
-			}
-			
-			// search for the line in the original source, this needs to be done to achieve the following things:
-			// - skip empty lines
-			// - skip comments
-			// - skip labels
-			// - sometimes forth merges some words (swap \n - becomes swap-)
-			String line = forthSource.get(currentLineNumber - 1); // -1 because in the array lines are not one based
-			while (!line.startsWith(word)) {
-				currentLineNumber++;
-				line = forthSource.get(currentLineNumber - 1); // -1 because in the array lines are not one based
-			}
-			
-			lineMapping.put(address, ++currentLineNumber);
-			
-			return currentLineNumber;
-		}
-
-		/**
-		 * Returns the line number for the given address. An Address is an 8 digit hex number (e.g. 0000067A).
-		 * 
-		 * @param address
-		 * @return
-		 */
-		public int getLineNumber(final String address) {
-			return lineMapping.get(address);
-		}
-
-		/**
-		 * Returns all forth functions and their corresponding line number (one based) for the given forth source. This method does not return the forth function with the name any.
-		 * 
-		 * @param forthSource
-		 * @return
-		 */
-		private static Map<String, Integer> getForthFunctions(final List<String> forthSource) {
-
-			final Map<String, Integer> forthFunctions = new HashMap<String, Integer>();
-
-			for (int lineIndex = 0; lineIndex < forthSource.size(); ++lineIndex) {
-				final String line = forthSource.get(lineIndex);
-
-				if (line.startsWith(":")) {
-					final int lineNumber = lineIndex + 1;
-					final String functionName = line.replaceAll(":\\s+", "");
-
-					if (!functionName.equals("any"))
-						forthFunctions.put(functionName, lineNumber);
-				}
-			}
-
-			return forthFunctions;
-		}
-	}
 }

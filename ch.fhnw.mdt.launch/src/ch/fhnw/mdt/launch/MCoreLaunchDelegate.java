@@ -46,6 +46,7 @@ import ch.fhnw.mdt.preferences.MDTPreferencesPlugin;
 
 // TODO implement ILaunchShortcut
 // TODO see LocalCDILaunchDelegate
+// TODO Close all Streams!!!
 public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 
 	public static final String GFORTH_PATH_VARIABLE = "GFORTHPATH";
@@ -91,7 +92,7 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 
 			// launch
 			final List<String> forthSourceCode = Files.readAllLines(executableFile.getLocation().toFile().toPath());
-			final LaunchJob launchJob = new LaunchJob(executableFile.getName(), isDebugMode, launch, workingDirectory, umbilical, forthSourceCode, executableFile);
+			final LaunchJob launchJob = new LaunchJob(isDebugMode, launch, workingDirectory, umbilical, forthSourceCode, executableFile);
 			launchJob.schedule();
 
 		} catch (final CoreException | IOException e) {
@@ -187,12 +188,10 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 		private String workingDirectory;
 		private String umbilical;
 		private IFile executableFile;
-		private String forthSourceFile;
 		private List<String> forthSource;
 
-		public LaunchJob(String forthSourceFile, boolean isDebugMode, ILaunch launch, String workingDirectory, String umbilical, List<String> forthSource, IFile executableFile) {
+		public LaunchJob(boolean isDebugMode, ILaunch launch, String workingDirectory, String umbilical, List<String> forthSource, IFile executableFile) {
 			super("Launch");
-			this.forthSourceFile = forthSourceFile;
 			this.isDebugMode = isDebugMode;
 			this.launch = launch;
 			this.workingDirectory = workingDirectory;
@@ -231,7 +230,7 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 		 * @throws CoreException
 		 */
 		private void startDebugger(final ILaunch launch, final MCoreLaunch mcoreLaunch) throws CoreException {
-			final IDebugTarget target = new ForthDebugTarget(forthSourceFile, forthSource, launch, mcoreLaunch.eclipseProcess, mcoreLaunch.communicator, mcoreLaunch.reader);
+			final IDebugTarget target = new ForthDebugTarget(executableFile, forthSource, launch, mcoreLaunch.eclipseProcess, mcoreLaunch.communicator, mcoreLaunch.reader);
 			launch.addDebugTarget(target);
 		}
 
@@ -287,6 +286,9 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 		}
 	}
 
+	/**
+	 * Reads from the Console and passes the input as commands to the {@link ForthCommunicator}.
+	 */
 	private static class InputThread extends Thread {
 
 		private final InputStream inputStream;
