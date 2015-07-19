@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.regex.Pattern;
 
 // TODO integrate into forth communcator?
 public final class ForthReader extends Thread {
@@ -106,7 +107,7 @@ public final class ForthReader extends Thread {
 			try {
 				// read next char
 				final int nextCharacter = input.read();
-				
+
 				// TODO ordering is important due to clearing (how to make that consistent)
 				// notify everyone who was waiting for the available count to hit zero
 				try {
@@ -152,7 +153,7 @@ public final class ForthReader extends Thread {
 					final Iterator<WaitFor> iterator = waitQueue.iterator();
 
 					while (iterator.hasNext()) {
-						final WaitFor waitFor = (WaitFor) iterator.next();
+						final WaitFor waitFor = iterator.next();
 						if (waitFor.isWaiting) {
 							waitFor.nextInput(nextCharacter);
 						} else {
@@ -206,13 +207,14 @@ public final class ForthReader extends Thread {
 	}
 
 	/**
-	 * Creates a {@link WaitFor} object which can be used to wait for a given result from the forth process reader at a later time. Call {@link WaitFor#await()} to wait.
+	 * Creates a {@link WaitForResult} object which can be used to wait for a given result from the forth process reader at a later time.
+	 * Call {@link WaitFor#await()} to wait.
 	 * 
 	 * @param result
 	 * @return
 	 */
-	public synchronized WaitFor waitForLater(final String result) {
-		final WaitFor wait = new WaitForResult(result);
+	public synchronized WaitForResult waitForResultLater(final String result) {
+		final WaitForResult wait = new WaitForResult(result);
 
 		synchronized (waitQueue) {
 			waitQueue.add(wait);
@@ -220,7 +222,28 @@ public final class ForthReader extends Thread {
 
 		return wait;
 	}
-	
+
+	/**
+	 * Creates a {@link WaitForMatch} object which can be used to wait for a given match from the forth process reader at a later time.
+	 * Call {@link WaitFor#await()} to wait.
+	 * 
+	 * @param result
+	 * @return
+	 */
+	public synchronized WaitForMatch waitForMatchLater(final String regex) {
+		final WaitForMatch wait = new WaitForMatch(regex);
+
+		synchronized (waitQueue) {
+			waitQueue.add(wait);
+		}
+
+		return wait;
+	}
+
+	/**
+	 * Abstract base class for all possible await classes.
+	 *
+	 */
 	public static abstract class WaitFor {
 		protected final Lock lock = new ReentrantLock();
 		protected Condition waitCondition;
@@ -238,6 +261,59 @@ public final class ForthReader extends Thread {
 
 	}
 
+	/**
+	 * Waits for the line to match the given {@link String}.
+	 * Avoid complex Regex since they will be evaluated for every new character read.
+	 *
+	 */
+	public static final class WaitForMatch extends WaitFor {
+
+		private final Pattern pattern;
+
+		private StringBuffer current = new StringBuffer();
+
+		public WaitForMatch(final String regex) {
+			pattern = Pattern.compile(regex);
+		}
+
+		@Override
+		public void nextInput(final int nextCharacter) {
+			try {
+				lock.lock();
+				current.append((char) nextCharacter);
+
+				if (pattern.matcher(current).matches()) {
+					isWaiting = false;
+					waitCondition.signalAll();
+				}
+
+				if (current.toString().endsWith(LINE_SEPERATOR)) {
+					current = new StringBuffer();
+				}
+			} finally {
+				lock.unlock();
+			}
+		}
+
+		@Override
+		public void await() {
+			try {
+				lock.lock();
+
+				while (isWaiting) {
+					try {
+						waitCondition.await();
+					} catch (final InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			} finally {
+				lock.unlock();
+			}
+		}
+
+	}
+
 	public static final class WaitForResult extends WaitFor {
 		private final String waitFor;
 		private final StringBuffer current = new StringBuffer();
@@ -246,6 +322,7 @@ public final class ForthReader extends Thread {
 			this.waitFor = waitFor;
 		}
 
+		@Override
 		public void nextInput(final int nextCharacter) {
 			try {
 				lock.lock();
@@ -260,6 +337,7 @@ public final class ForthReader extends Thread {
 			}
 		}
 
+		@Override
 		public void await() {
 			try {
 				lock.lock();

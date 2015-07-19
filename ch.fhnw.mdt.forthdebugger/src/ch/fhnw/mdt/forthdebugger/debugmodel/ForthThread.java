@@ -25,6 +25,7 @@ import org.eclipse.debug.core.model.IThread;
 
 import ch.fhnw.mdt.forthdebugger.ForthCommunicator;
 import ch.fhnw.mdt.forthdebugger.ForthReader;
+import ch.fhnw.mdt.forthdebugger.ForthReader.WaitFor;
 
 /**
  * A forth thread. Forth Environment is single threaded.
@@ -358,6 +359,8 @@ public class ForthThread extends ForthDebugElement implements IThread {
 	 */
 	private void disassemble(List<String> forthSource) {
 		final Map<String, Integer> forthFunctions = getForthFunctions(forthSource);
+		
+		// TODO better pattern
 		final Pattern disasemblerLinePattern = Pattern.compile("([A-Fa-f0-9]{8}): ([A-Fa-f0-9 ]{8}) ?(.*)");
 
 		for (final Entry<String, Integer> function : forthFunctions.entrySet()) {
@@ -365,10 +368,7 @@ public class ForthThread extends ForthDebugElement implements IThread {
 			final String functionName = function.getKey();
 			final List<String> disassembledFunction = new ArrayList<String>();
 
-			forthCommunicator.sendCommandAwaitResult("show " + functionName + ForthCommunicator.NL, "---------------");
-
-			// TODO this might not always work, we need some way to wait until the read text matches a regex or anything else
-			forthCommunicator.awaitCommandCompletion();
+			forthCommunicator.sendCommandAwaitResult("show " + functionName + ForthCommunicator.NL, reader.waitForResultLater("---------------"));
 			reader.awaitReadCompletion();
 
 			String currentLine = reader.getCurrentLine();
@@ -378,8 +378,7 @@ public class ForthThread extends ForthDebugElement implements IThread {
 
 			// one based line numbering
 			while (!currentLine.contains("exit")) {
-				forthCommunicator.sendCommandAwaitResult(ForthCommunicator.ANY, ForthCommunicator.NL);
-				forthCommunicator.awaitCommandCompletion();
+				forthCommunicator.sendCommandAwaitResult(ForthCommunicator.ANY, reader.waitForResultLater(ForthCommunicator.NL));
 				reader.awaitReadCompletion();
 
 				currentLine = reader.getCurrentLine();

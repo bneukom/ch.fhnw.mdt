@@ -62,13 +62,13 @@ public final class ForthCommunicator extends Thread {
 	}
 
 	/**
-	 * Sends the given command and blocks the queue until the process has returned the given result. This method returns immediately after sending the request.
+	 * Sends the given command and blocks until the process has returned the given result.
 	 * 
 	 * @param command
-	 * @param result
+	 * @param waitFor
 	 */
-	public void sendCommandAwaitResult(final String command, final String result) {
-		sendCommand(new Command(command, result));
+	public void sendCommandAwaitResult(final String command, final WaitFor waitFor) {
+		sendCommand(new Command(command, waitFor));
 	}
 
 	/**
@@ -81,13 +81,13 @@ public final class ForthCommunicator extends Thread {
 	}
 
 	/**
-	 * Sends the given command and blocks the queue until the process has returned the given result. This method returns immediately after sending the request.
+	 * Sends the given command and blocks until the process has returned the given result.
 	 * 
 	 * @param command
-	 * @param result
+	 * @param waitFor
 	 */
-	public void sendCommandAwaitResult(final int command, final String result) {
-		sendCommand(new Command(command, result));
+	public void sendCommandAwaitResult(final int command, final WaitFor waitFor) {
+		sendCommand(new Command(command, waitFor));
 	}
 
 	/**
@@ -100,11 +100,17 @@ public final class ForthCommunicator extends Thread {
 			commandCompletionLock.lock();
 
 			commandQueue.put(command);
+
+			// await the result
+			if (command.waitFor != null) {
+				awaitCommandCompletion();
+			}
 		} catch (final InterruptedException e) {
 			e.printStackTrace();
 		} finally {
 			commandCompletionLock.unlock();
 		}
+
 	}
 
 	/**
@@ -131,15 +137,15 @@ public final class ForthCommunicator extends Thread {
 				final Command command = commandQueue.take();
 
 				try {
-					if (command.result != null) {
+					if (command.waitFor != null) {
 						// register for waiting, this needs to be done before the actual command has been sent
 						// The WaitFor object no receives all output from the process and after await has been called
-						final WaitFor wait = forthReader.waitForLater(command.result);
+						// final WaitFor wait = forthReader.waitForLater(command.result);
 
 						writeCommand(command);
 
 						// wait for the result
-						wait.await();
+						command.waitFor.await();
 					} else {
 						writeCommand(command);
 					}
@@ -191,18 +197,19 @@ public final class ForthCommunicator extends Thread {
 	 */
 	public static final class Command {
 		public final Either<String, Integer> request;
-		public final String result; // TODO as Option?
+		public final WaitFor waitFor;
 
-		public Command(final String request, final String result) {
+		public Command(final String request, final WaitFor waitFor) {
 			super();
 			this.request = Either.left(request);
-			this.result = result;
+			this.waitFor = waitFor;
+
 		}
 
-		public Command(final int request, final String result) {
+		public Command(final int request, final WaitFor waitFor) {
 			super();
 			this.request = Either.right(request);
-			this.result = result;
+			this.waitFor = waitFor;
 		}
 	}
 }
