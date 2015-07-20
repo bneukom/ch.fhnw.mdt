@@ -21,8 +21,9 @@ import org.eclipse.debug.core.model.IMemoryBlock;
 import org.eclipse.debug.core.model.IProcess;
 import org.eclipse.debug.core.model.IThread;
 
-import ch.fhnw.mdt.forthdebugger.ForthCommunicator;
-import ch.fhnw.mdt.forthdebugger.ForthReader;
+import ch.fhnw.mdt.forthdebugger.forth.Forth;
+import ch.fhnw.mdt.forthdebugger.forth.ForthCommandQueue;
+import ch.fhnw.mdt.forthdebugger.forth.ForthReader;
 
 /**
  * Forth Debug Target.
@@ -42,8 +43,7 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 	private boolean suspended = true;
 
 	// process communication
-	private final ForthReader reader;
-	private final ForthCommunicator forthCommunicator;
+	private final Forth forth;
 
 	// threads
 	private final ForthThread forthThread;
@@ -65,17 +65,15 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 	 * @exception CoreException
 	 *                if unable to connect to host
 	 */
-	public ForthDebugTarget(final IFile forthFile, final List<String> forthSource, final ILaunch launch, final IProcess process, final ForthCommunicator communicator,
-			final ForthReader reader) throws CoreException {
+	public ForthDebugTarget(final IFile forthFile, final List<String> forthSource, final ILaunch launch, final IProcess process, final Forth forth) throws CoreException {
 		super(null);
 		this.forthFile = forthFile;
 		this.launch = launch;
 		this.process = process;
-		this.forthCommunicator = communicator;
-		this.reader = reader;
+		this.forth = forth;
 		this.target = this;
 
-		this.forthThread = new ForthThread(this, forthFile, forthSource, forthCommunicator, reader);
+		this.forthThread = new ForthThread(this, forthFile, forthSource, forth);
 		this.threads = new IThread[] { forthThread };
 
 		try {
@@ -85,7 +83,7 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 			this.debugStreamListener = new DebugStreamListener(in);
 			this.debugStreamListener.start();
 
-			this.reader.forwardOutput(out);
+			this.forth.forwardOutput(out);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -399,7 +397,7 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 	 * @throws DebugException
 	 */
 	protected void addFunctionBreakpoint(final String function) throws DebugException {
-		forthCommunicator.sendCommand("debug _" + function + NL);
+		forth.sendCommand("debug _" + function + NL);
 	}
 
 	/**
@@ -409,7 +407,7 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 	 * @throws DebugException
 	 */
 	protected void removeFunctionBreakpoint(final String function) throws DebugException {
-		forthCommunicator.sendCommand("unbug _" + function + NL);
+		forth.sendCommand("unbug _" + function + NL);
 	}
 
 	/**
@@ -419,6 +417,8 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 
 		private final InputStream stream;
 		private final Pattern functionPattern = Pattern.compile("([^\\s]+)(\\s+)(-{15})");
+		
+		// TODO check pattern for correctness
 		private final Pattern stepPattern = Pattern
 				.compile("([A-Fa-f0-9]{8}): ([A-Fa-f0-9 ]{8})(([A-Fa-f0-9]+ [A-Fa-f0-9]+)|( [^\\s]+[A-Fa-f0-9 ]+ (call))|([^\\s]+))([A-Fa-f0-9 ]*)(>+)");
 

@@ -1,4 +1,4 @@
-package ch.fhnw.mdt.forthdebugger;
+package ch.fhnw.mdt.forthdebugger.forth;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -41,7 +42,8 @@ public final class ForthReader extends Thread {
 	}
 
 	/**
-	 * Returns the number of lines which have been read since this reader has been started.
+	 * Returns the number of lines which have been read since this reader has
+	 * been started.
 	 * 
 	 * @return
 	 */
@@ -69,7 +71,8 @@ public final class ForthReader extends Thread {
 	}
 
 	/**
-	 * Returns the line which is currently being read. This line might not be complete.
+	 * Returns the line which is currently being read. This line might not be
+	 * complete.
 	 * 
 	 * @return
 	 */
@@ -90,7 +93,8 @@ public final class ForthReader extends Thread {
 	}
 
 	/**
-	 * Forwards the output from the reader to the given {@link OutputStream}. Note that caller must make sure the stream gets closed correctly.
+	 * Forwards the output from the reader to the given {@link OutputStream}.
+	 * Note that caller must make sure the stream gets closed correctly.
 	 * 
 	 * @param out
 	 */
@@ -108,8 +112,10 @@ public final class ForthReader extends Thread {
 				// read next char
 				final int nextCharacter = input.read();
 
-				// TODO ordering is important due to clearing (how to make that consistent)
-				// notify everyone who was waiting for the available count to hit zero
+				// TODO ordering is important due to clearing (how to make that
+				// consistent)
+				// notify everyone who was waiting for the available count to
+				// hit zero
 				try {
 					availableLock.lock();
 
@@ -180,7 +186,8 @@ public final class ForthReader extends Thread {
 	}
 
 	/**
-	 * Awaits until the reader has read everything from its current buffer. Immediately returns if there is nothing to read.
+	 * Awaits until the reader has read everything from its current buffer.
+	 * Immediately returns if there is nothing to read.
 	 */
 	public void awaitReadCompletion() {
 		try {
@@ -207,8 +214,9 @@ public final class ForthReader extends Thread {
 	}
 
 	/**
-	 * Creates a {@link WaitForResult} object which can be used to wait for a given result from the forth process reader at a later time.
-	 * Call {@link WaitFor#await()} to wait.
+	 * Creates a {@link WaitForResult} object which can be used to wait for a
+	 * given result from the forth process reader at a later time. Call
+	 * {@link WaitFor#await()} to wait.
 	 * 
 	 * @param result
 	 * @return
@@ -224,8 +232,9 @@ public final class ForthReader extends Thread {
 	}
 
 	/**
-	 * Creates a {@link WaitForMatch} object which can be used to wait for a given match from the forth process reader at a later time.
-	 * Call {@link WaitFor#await()} to wait.
+	 * Creates a {@link WaitForMatch} object which can be used to wait for a
+	 * given match from the forth process reader at a later time. Call
+	 * {@link WaitFor#await()} to wait.
 	 * 
 	 * @param result
 	 * @return
@@ -249,21 +258,33 @@ public final class ForthReader extends Thread {
 		protected Condition waitCondition;
 
 		protected volatile boolean isWaiting;
+		
+		public static final int DEFAULT_TIME_OUT_MILLIS = 5000;
 
 		public WaitFor() {
 			this.isWaiting = true;
 			this.waitCondition = lock.newCondition();
 		}
 
+		/**
+		 * Sends the next input character read from output of the process.
+		 * 
+		 * @param nextCharacter
+		 */
 		public abstract void nextInput(final int nextCharacter);
 
-		public abstract void await();
+		/**
+		 * Awaits a given output from the process.
+		 * 
+		 * @throws InterruptedException
+		 */
+		public abstract void await() throws InterruptedException;
 
 	}
 
 	/**
-	 * Waits for the line to match the given {@link String}.
-	 * Avoid complex Regex since they will be evaluated for every new character read.
+	 * Waits for the line to match the given {@link String}. Avoid complex Regex
+	 * since they will be evaluated for every new character read.
 	 *
 	 */
 	public static final class WaitForMatch extends WaitFor {
@@ -296,16 +317,12 @@ public final class ForthReader extends Thread {
 		}
 
 		@Override
-		public void await() {
+		public void await() throws InterruptedException {
 			try {
 				lock.lock();
 
 				while (isWaiting) {
-					try {
-						waitCondition.await();
-					} catch (final InterruptedException e) {
-						e.printStackTrace();
-					}
+					waitCondition.await(DEFAULT_TIME_OUT_MILLIS, TimeUnit.MILLISECONDS);
 				}
 			} finally {
 				lock.unlock();
@@ -338,16 +355,12 @@ public final class ForthReader extends Thread {
 		}
 
 		@Override
-		public void await() {
+		public void await() throws InterruptedException {
 			try {
 				lock.lock();
 
 				while (isWaiting) {
-					try {
-						waitCondition.await();
-					} catch (final InterruptedException e) {
-						e.printStackTrace();
-					}
+					waitCondition.await(DEFAULT_TIME_OUT_MILLIS, TimeUnit.MILLISECONDS);
 				}
 			} finally {
 				lock.unlock();

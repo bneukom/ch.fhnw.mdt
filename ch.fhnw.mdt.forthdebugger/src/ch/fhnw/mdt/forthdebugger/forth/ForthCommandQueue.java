@@ -1,25 +1,31 @@
-package ch.fhnw.mdt.forthdebugger;
+package ch.fhnw.mdt.forthdebugger.forth;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import ch.fhnw.mdt.forthdebugger.ForthReader.WaitFor;
+import ch.fhnw.mdt.forthdebugger.forth.ForthReader.WaitFor;
 import ch.fhnw.mdt.forthdebugger.util.Either;
 
 /**
  * Thread safe communication for the forth process. TODO implement timeout!
  */
-public final class ForthCommunicator extends Thread {
+public final class ForthCommandQueue extends Thread {
 
 	private final BlockingQueue<Command> commandQueue = new LinkedBlockingQueue<Command>();
+	private transient boolean isWorking = false;
+
 	private final BufferedWriter processWriter;
-	private final ForthReader forthReader;
 	private final Process process;
+	private volatile boolean shutdown = false;
+
+	private final List<TimedOutListener> timedOutListeners = new ArrayList<TimedOutListener>();
 
 	private final Lock commandCompletionLock = new ReentrantLock();
 	private final Condition commandCompletionCondition;
@@ -31,9 +37,8 @@ public final class ForthCommunicator extends Thread {
 
 	public static final int ANY = 65;
 
-	public ForthCommunicator(final BufferedWriter processWriter, final ForthReader forthReader, final Process process) {
+	public ForthCommandQueue(final BufferedWriter processWriter, final Process process) {
 		this.processWriter = processWriter;
-		this.forthReader = forthReader;
 		this.process = process;
 
 		this.commandCompletionCondition = commandCompletionLock.newCondition();
@@ -43,12 +48,25 @@ public final class ForthCommunicator extends Thread {
 	 * Shuts the communication down and closes all streams.
 	 */
 	public void shutdown() {
+		shutdown = true;
 		interrupt();
 
 		try {
 			processWriter.close();
 		} catch (final IOException e) {
 			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Adds the given {@link TimedOutListener} callback which will get called
+	 * after the command queue has terminated.
+	 * 
+	 * @param listener
+	 */
+	public void addShutdownListener(TimedOutListener listener) {
+		synchronized (timedOutListeners) {
+			timedOutListeners.add(listener);
 		}
 	}
 
@@ -62,7 +80,8 @@ public final class ForthCommunicator extends Thread {
 	}
 
 	/**
-	 * Sends the given command and blocks until the process has returned the given result.
+	 * Sends the given command and blocks until the process has returned the
+	 * given result.
 	 * 
 	 * @param command
 	 * @param waitFor
@@ -81,7 +100,8 @@ public final class ForthCommunicator extends Thread {
 	}
 
 	/**
-	 * Sends the given command and blocks until the process has returned the given result.
+	 * Sends the given command and blocks until the process has returned the
+	 * given result.
 	 * 
 	 * @param command
 	 * @param waitFor
@@ -99,6 +119,7 @@ public final class ForthCommunicator extends Thread {
 		try {
 			commandCompletionLock.lock();
 
+			isWorking = true;
 			commandQueue.put(command);
 
 			// await the result
@@ -114,12 +135,14 @@ public final class ForthCommunicator extends Thread {
 	}
 
 	/**
-	 * Awaits until the command queue has been completed meaning all commands have been written and if necessary recieved their results.
+	 * Awaits until the command queue has been completed meaning all commands
+	 * have been written and if necessary received their results.
 	 */
 	public void awaitCommandCompletion() {
 		try {
 			commandCompletionLock.lock();
-			while (!commandQueue.isEmpty()) {
+
+			while (isWorking) {
 				commandCompletionCondition.await();
 			}
 		} catch (final InterruptedException e) {
@@ -131,21 +154,26 @@ public final class ForthCommunicator extends Thread {
 
 	@Override
 	public void run() {
-		while (process.isAlive()) {
+		while (!shutdown) {
 			try {
 				// get next command or wait if there are none
 				final Command command = commandQueue.take();
 
 				try {
 					if (command.waitFor != null) {
-						// register for waiting, this needs to be done before the actual command has been sent
-						// The WaitFor object no receives all output from the process and after await has been called
-						// final WaitFor wait = forthReader.waitForLater(command.result);
-
 						writeCommand(command);
 
-						// wait for the result
-						command.waitFor.await();
+						// wait for the result before processing further
+						// commands
+						try {
+							command.waitFor.await();
+						} catch (InterruptedException e) {
+							synchronized (timedOutListeners) {
+								for (TimedOutListener timedOutListener : timedOutListeners) {
+									timedOutListener.shutdown(shutdown ? null : reason);
+								}
+							}
+						}
 					} else {
 						writeCommand(command);
 					}
@@ -155,6 +183,7 @@ public final class ForthCommunicator extends Thread {
 
 						// signal commandQueue empty
 						if (commandQueue.isEmpty()) {
+							isWorking = false;
 							commandCompletionCondition.signalAll();
 						}
 					} finally {
@@ -162,14 +191,17 @@ public final class ForthCommunicator extends Thread {
 					}
 
 				} catch (final IOException e) {
-					e.printStackTrace();
+					break;
 				}
 
 			} catch (final InterruptedException e) {
-				return;
+				break;
 			}
-
 		}
+
+	
+
+		shutdown = true;
 	}
 
 	private void writeCommand(final Command command) throws IOException {
@@ -211,5 +243,9 @@ public final class ForthCommunicator extends Thread {
 			this.request = Either.right(request);
 			this.waitFor = waitFor;
 		}
+	}
+
+	public interface TimedOutListener {
+		public void shutdown(Exception reason);
 	}
 }

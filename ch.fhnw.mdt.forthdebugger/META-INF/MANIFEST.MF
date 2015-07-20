@@ -17,4 +17,5 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Import-Package: org.eclipse.ui.part
 Export-Package: ch.fhnw.mdt.forthdebugger,
- ch.fhnw.mdt.forthdebugger.debugmodel
+ ch.fhnw.mdt.forthdebugger.debugmodel,
+ ch.fhnw.mdt.forthdebugger.forth

@@ -23,9 +23,9 @@ import org.eclipse.debug.core.model.IBreakpoint;
 import org.eclipse.debug.core.model.IStackFrame;
 import org.eclipse.debug.core.model.IThread;
 
-import ch.fhnw.mdt.forthdebugger.ForthCommunicator;
-import ch.fhnw.mdt.forthdebugger.ForthReader;
-import ch.fhnw.mdt.forthdebugger.ForthReader.WaitFor;
+import ch.fhnw.mdt.forthdebugger.forth.Forth;
+import ch.fhnw.mdt.forthdebugger.forth.ForthCommandQueue;
+import ch.fhnw.mdt.forthdebugger.forth.ForthReader.WaitForMatch;
 
 /**
  * A forth thread. Forth Environment is single threaded.
@@ -36,8 +36,7 @@ public class ForthThread extends ForthDebugElement implements IThread {
 	private IFile forthFile;
 
 	// forth communication
-	private ForthCommunicator forthCommunicator;
-	private ForthReader reader;
+	private Forth forth;
 
 	// debugger state
 	private boolean isStepping = false;
@@ -52,14 +51,13 @@ public class ForthThread extends ForthDebugElement implements IThread {
 	 * 
 	 * @param target
 	 * @param reader
-	 * @param forthCommunicator
+	 * @param forthCommandQueue
 	 * @param forthSource
 	 */
-	public ForthThread(ForthDebugTarget target, IFile forthFile, List<String> forthSource, ForthCommunicator forthCommunicator, ForthReader reader) {
+	public ForthThread(ForthDebugTarget target, IFile forthFile, List<String> forthSource, Forth forth) {
 		super(target);
 		this.forthFile = forthFile;
-		this.forthCommunicator = forthCommunicator;
-		this.reader = reader;
+		this.forth = forth;
 
 		this.addressMapping = new LineMapping();
 
@@ -256,7 +254,7 @@ public class ForthThread extends ForthDebugElement implements IThread {
 	 */
 	@Override
 	public void stepInto() throws DebugException {
-		forthCommunicator.sendCommand("nest" + ForthCommunicator.NL);
+		forth.sendCommand("nest" + ForthCommandQueue.NL);
 	}
 
 	/*
@@ -266,7 +264,7 @@ public class ForthThread extends ForthDebugElement implements IThread {
 	 */
 	@Override
 	public void stepOver() throws DebugException {
-		forthCommunicator.sendCommand(ForthCommunicator.CR);
+		forth.sendCommand(ForthCommandQueue.CR);
 	}
 
 	/*
@@ -360,7 +358,6 @@ public class ForthThread extends ForthDebugElement implements IThread {
 	private void disassemble(List<String> forthSource) {
 		final Map<String, Integer> forthFunctions = getForthFunctions(forthSource);
 		
-		// TODO better pattern
 		final Pattern disasemblerLinePattern = Pattern.compile("([A-Fa-f0-9]{8}): ([A-Fa-f0-9 ]{8}) ?(.*)");
 
 		for (final Entry<String, Integer> function : forthFunctions.entrySet()) {
@@ -368,25 +365,28 @@ public class ForthThread extends ForthDebugElement implements IThread {
 			final String functionName = function.getKey();
 			final List<String> disassembledFunction = new ArrayList<String>();
 
-			forthCommunicator.sendCommandAwaitResult("show " + functionName + ForthCommunicator.NL, reader.waitForResultLater("---------------"));
-			reader.awaitReadCompletion();
+			
+			final WaitForMatch waitForMatchLater = forth.waitForMatchLater("([A-Fa-f0-9]{8}): ([A-Fa-f0-9 ]{8}) ?(([A-Fa-f0-9]+ [A-Fa-f0-9]+)|( [^\\s]+[A-Fa-f0-9 ]+ (call))|([^\\s]+))");
+			forth.sendCommandAwaitResult("show " + functionName + ForthCommandQueue.NL, waitForMatchLater);
+			forth.awaitReadCompletion();
 
-			String currentLine = reader.getCurrentLine();
+			String currentLine = forth.getCurrentLine();
 
 			int lineNumber = 1;
 			lineRead(disasemblerLinePattern, disassembledFunction, functionName, currentLine, lineNumber++);
 
 			// one based line numbering
 			while (!currentLine.contains("exit")) {
-				forthCommunicator.sendCommandAwaitResult(ForthCommunicator.ANY, reader.waitForResultLater(ForthCommunicator.NL));
-				reader.awaitReadCompletion();
+				forth.awaitReadCompletion();
+				forth.sendCommandAwaitResult(ForthCommandQueue.ANY, forth.waitForResultLater(ForthCommandQueue.NL));
+				forth.awaitReadCompletion();
 
-				currentLine = reader.getCurrentLine();
+				currentLine = forth.getCurrentLine();
 
 				lineRead(disasemblerLinePattern, disassembledFunction, functionName, currentLine, lineNumber++);
 			}
 
-			forthCommunicator.sendCommand(ForthCommunicator.CR);
+			forth.sendCommand(ForthCommandQueue.CR);
 
 			final IPath debugFolderPath = forthFile.getParent().getFullPath().append("debugger");
 			final IPath debugFile = debugFolderPath.append(functionName).addFileExtension("fs");

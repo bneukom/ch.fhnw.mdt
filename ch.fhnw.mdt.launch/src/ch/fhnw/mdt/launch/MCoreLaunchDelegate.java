@@ -32,16 +32,19 @@ import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.model.IDebugTarget;
 import org.eclipse.debug.core.model.IProcess;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.console.ConsolePlugin;
 import org.eclipse.ui.console.IConsole;
 import org.eclipse.ui.console.IOConsole;
+import org.eclipse.ui.console.IOConsoleOutputStream;
 
-import ch.fhnw.mdt.forthdebugger.ForthCommunicator;
 import ch.fhnw.mdt.forthdebugger.ForthDebuggerPlugin;
-import ch.fhnw.mdt.forthdebugger.ForthReader;
 import ch.fhnw.mdt.forthdebugger.debugmodel.ForthDebugTarget;
 import ch.fhnw.mdt.forthdebugger.debugmodel.IForthConstants;
+import ch.fhnw.mdt.forthdebugger.forth.Forth;
+import ch.fhnw.mdt.forthdebugger.forth.ForthCommandQueue;
+import ch.fhnw.mdt.forthdebugger.forth.ForthReader;
 import ch.fhnw.mdt.preferences.MDTPreferencesPlugin;
 
 // TODO implement ILaunchShortcut
@@ -140,7 +143,8 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 	}
 
 	/**
-	 * Generates the debug file which maps forth and c function names together and can be used while debugging.
+	 * Generates the debug file which maps forth and c function names together
+	 * and can be used while debugging.
 	 * 
 	 * @param forthFile
 	 *            the forth file to generate function mappings for.
@@ -223,19 +227,21 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 		}
 
 		/**
-		 * Starts the gforth debugger. This must be called after {@link #startGforth(ILaunch, String, String, IFile)}
+		 * Starts the gforth debugger. This must be called after
+		 * {@link #startGforth(ILaunch, String, String, IFile)}
 		 * 
 		 * @param launch
 		 * @param mcoreLaunch
 		 * @throws CoreException
 		 */
 		private void startDebugger(final ILaunch launch, final MCoreLaunch mcoreLaunch) throws CoreException {
-			final IDebugTarget target = new ForthDebugTarget(executableFile, forthSource, launch, mcoreLaunch.eclipseProcess, mcoreLaunch.communicator, mcoreLaunch.reader);
+			final IDebugTarget target = new ForthDebugTarget(executableFile, forthSource, launch, mcoreLaunch.eclipseProcess, mcoreLaunch.forth);
 			launch.addDebugTarget(target);
 		}
 
 		/**
-		 * Starts gforth. This method blocks until gforth has been completely set up.
+		 * Starts gforth. This method blocks until gforth has been completely
+		 * set up.
 		 * 
 		 * @param launch
 		 * @param workingDirectory
@@ -256,26 +262,44 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 				ConsolePlugin.getDefault().getConsoleManager().addConsoles(new IConsole[] { gforthConsole });
 
 				final BufferedWriter processWriter = new BufferedWriter(new OutputStreamWriter(process.getOutputStream()));
-				final ForthReader reader = new ForthReader(process.getInputStream());
-				final ForthCommunicator communicator = new ForthCommunicator(processWriter, reader, process);
-				final InputThread inputThread = new InputThread(gforthConsole.getInputStream(), communicator);
+
+				final Forth forth = new Forth(processWriter, process.getInputStream(), process);
+				final InputThread inputThread = new InputThread(gforthConsole.getInputStream(), forth);
 
 				inputThread.start();
-				communicator.start();
-				reader.start();
 
-				reader.forwardOutput(System.out);
-				reader.forwardOutput(gforthConsole.newOutputStream());
+				final IOConsoleOutputStream consoleOutputStream = gforthConsole.newOutputStream();
+				forth.forwardOutput(System.out);
+				forth.forwardOutput(consoleOutputStream);
 
-				communicator.sendCommand("cd " + workingDirectory + ForthCommunicator.NL);
-				communicator.sendCommand("gforth ./load_eclipse.fs" + ForthCommunicator.NL);
+				forth.sendCommand("cd " + workingDirectory + ForthCommandQueue.NL);
+				forth.sendCommand("gforth ./load_eclipse.fs" + ForthCommandQueue.NL);
 
-				reader.awaitReadCompletion();
+				forth.awaitReadCompletion();
 
-				communicator.sendCommandAwaitResult("umbilical: " + umbilical + ForthCommunicator.NL, ForthCommunicator.OK);
-				communicator.sendCommandAwaitResult("run" + ForthCommunicator.NL, "HANDSHAKE");
+				forth.sendCommandAwaitResult("umbilical: " + umbilical + ForthCommandQueue.NL, forth.waitForResultLater(ForthCommandQueue.OK));
+				forth.sendCommandAwaitResult("run" + ForthCommandQueue.NL, forth.waitForResultLater("HANDSHAKE"));
 
-				return new MCoreLaunch(process, eclipseProcess, communicator, reader);
+				forth.addShutdownListener(shutdownReason -> {
+
+					if (shutdownReason != null && shutdownReason instanceof InterruptedException) {
+						consoleOutputStream.setColor(Display.getCurrent().getSystemColor(SWT.COLOR_RED));
+						try {
+							consoleOutputStream.write("The process has timed out after not responding");
+							consoleOutputStream.flush();
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+
+					try {
+						consoleOutputStream.close();
+					} catch (Exception closeException) {
+						closeException.printStackTrace();
+					}
+				});
+
+				return new MCoreLaunch(process, eclipseProcess, forth);
 
 			} catch (final IOException e) {
 				e.printStackTrace();
@@ -287,18 +311,18 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 	}
 
 	/**
-	 * Reads from the Console and passes the input as commands to the {@link ForthCommunicator}.
+	 * Reads from the Console and passes the input as commands to {@link Forth}.
 	 */
 	private static class InputThread extends Thread {
 
 		private final InputStream inputStream;
-		private final ForthCommunicator forthCommunicator;
+		private final Forth forth;
 		private static final char CR = 10;
 
-		public InputThread(InputStream inputStream, ForthCommunicator forthCommunicator) {
+		public InputThread(InputStream inputStream, Forth forthCommandQueue) {
 			super();
 			this.inputStream = inputStream;
-			this.forthCommunicator = forthCommunicator;
+			this.forth = forthCommandQueue;
 		}
 
 		@Override
@@ -309,14 +333,15 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 					final char read = (char) inputStream.read();
 
 					if (read == CR) {
-						forthCommunicator.sendCommand(commandBuffer.toString() + ForthCommunicator.NL);
+						forth.sendCommand(commandBuffer.toString() + ForthCommandQueue.NL);
 						commandBuffer.setLength(0);
 					} else {
 						commandBuffer.append(read);
 					}
 
 				} catch (IOException e) {
-					e.printStackTrace();
+					// stream was closed
+					return;
 				}
 			}
 		}
@@ -329,15 +354,13 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 	private static class MCoreLaunch {
 		private final Process process;
 		private IProcess eclipseProcess;
-		private final ForthCommunicator communicator;
-		private final ForthReader reader;
+		private final Forth forth;
 
-		public MCoreLaunch(Process process, IProcess eclipseProcess, ForthCommunicator communicator, ForthReader reader) {
+		public MCoreLaunch(Process process, IProcess eclipseProcess, Forth forth) {
 			super();
 			this.process = process;
 			this.eclipseProcess = eclipseProcess;
-			this.communicator = communicator;
-			this.reader = reader;
+			this.forth = forth;
 		}
 
 		public void await() {
@@ -349,8 +372,7 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 			}
 
 			// cleanup
-			communicator.shutdown();
-			reader.shutdown();
+			forth.shutdown();
 
 		}
 	}
