@@ -5,6 +5,7 @@
          point="org.eclipse.ui.views">
       <view
             class="ch.fhnw.mdt.forthdebugger.ui.DataStackView"
+            icon="icons/stack.png"
             id="ch.fhnw.mdt.forthdebugger.ui.datastackview"
             name="Data Stack"
             restorable="true">

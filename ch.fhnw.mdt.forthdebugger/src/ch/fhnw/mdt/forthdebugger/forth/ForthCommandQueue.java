@@ -175,7 +175,9 @@ public final class ForthCommandQueue extends Thread {
 									}
 								}
 							}
-							
+
+							System.err.println("command " + command.request.map(l -> l, r -> r.toString()) + "  has timed out");
+
 							// abort after a timeout has happened
 							return;
 						}

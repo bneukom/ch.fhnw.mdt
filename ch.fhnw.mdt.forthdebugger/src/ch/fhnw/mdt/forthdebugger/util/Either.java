@@ -23,6 +23,7 @@ public final class Either<L, R> {
 	}
 
 	public <T> T map(final Function<? super L, ? extends T> lFunc, final Function<? super R, ? extends T> rFunc) {
+		left.map(lFunc).orElseGet(() -> right.map(rFunc).get());
 		return left.map(lFunc).orElseGet(() -> right.map(rFunc).get());
 	}
 

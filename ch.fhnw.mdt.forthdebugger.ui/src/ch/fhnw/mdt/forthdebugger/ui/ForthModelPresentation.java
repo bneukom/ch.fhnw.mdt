@@ -19,8 +19,11 @@ import org.eclipse.debug.ui.IDebugModelPresentation;
 import org.eclipse.debug.ui.IValueDetailListener;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.part.FileEditorInput;
+
+import ch.fhnw.mdt.forthdebugger.debugmodel.ForthValue;
 
 /**
  * Renders PDA debug elements
@@ -42,6 +45,11 @@ public class ForthModelPresentation extends LabelProvider implements IDebugModel
 	 */
 	@Override
 	public Image getImage(Object element) {
+		if (element instanceof ForthValue) {
+			final Image image  = new Image(Display.getDefault(), 8, 8);
+			return image;
+		}
+		
 		return null;
 	}
 

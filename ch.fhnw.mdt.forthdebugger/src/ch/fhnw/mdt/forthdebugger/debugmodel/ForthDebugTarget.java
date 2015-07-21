@@ -5,9 +5,11 @@ import java.io.InputStream;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarkerDelta;
@@ -49,7 +51,7 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 	private final ForthThread forthThread;
 	private final IThread[] threads;
 	
-	private final List<IValue> dataStack = new ArrayList<IValue>();
+	private List<IValue> dataStack = new ArrayList<IValue>();
 
 	private DebugStreamListener debugStreamListener;
 
@@ -375,8 +377,8 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 	 * 
 	 * @return the values on the data stack (top down)
 	 */
-	public IValue[] getDataStack() throws DebugException {
-		return null;
+	public List<IValue> getDataStack() throws DebugException {
+		return dataStack;
 	}
 
 	/**
@@ -490,7 +492,7 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 					}
 				} else {
 					// step
-					singleStep(stepMatcher.group(1));
+					singleStep(stepMatcher.group(1), stepMatcher.group(8));
 				}
 				return true;
 			}
@@ -529,11 +531,15 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 
 		/**
 		 * Notification that the debugger has stepped.
+		 * @param stack 
 		 * 
 		 * @param line
 		 */
-		private void singleStep(String address) {
+		private void singleStep(String address, String stack) {
 			forthThread.stepped(address);
+			
+			final String[] stackValues = stack.trim().split(" ");
+			dataStack = Arrays.stream(stackValues).map(s -> new ForthValue(target, s)).collect(Collectors.toList());
 
 			suspended(DebugEvent.STEP_END);
 		}

@@ -19,6 +19,7 @@ import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IMarkerDelta;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRunnable;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.debug.core.DebugPlugin;
@@ -43,7 +44,6 @@ public class ForthLineBreakpoint extends LineBreakpoint {
 	 * called to restore this breakpoint's attributes.
 	 */
 	public ForthLineBreakpoint() {
-		initializeBreakpointListener();
 	}
 
 	/**
@@ -65,16 +65,20 @@ public class ForthLineBreakpoint extends LineBreakpoint {
 			public void run(IProgressMonitor monitor) throws CoreException {
 				IMarker marker = resource.createMarker(MDT_DEBUG_MARKER);
 				setMarker(marker);
+				
+				marker.getResource().getFullPath();
 				marker.setAttribute(IBreakpoint.ENABLED, Boolean.TRUE);
 				marker.setAttribute(IMarker.LINE_NUMBER, lineNumber);
 				marker.setAttribute(ATTR_FUNCTION_NAME, functionName);
 				marker.setAttribute(IBreakpoint.ID, getModelIdentifier());
 				marker.setAttribute(IMarker.MESSAGE, "MDT Breakpoint: " + resource.getName() + " [line: " + lineNumber + ", function: " + functionName + "]");
+			
+				initializeBreakpointListener();
 			}
 		};
 
 		run(getMarkerRule(resource), runnable);
-		initializeBreakpointListener();
+		
 	}
 
 	/**
@@ -115,6 +119,13 @@ public class ForthLineBreakpoint extends LineBreakpoint {
 			public void breakpointAdded(final IBreakpoint breakpoint) {
 			}
 		});
+	}
+	
+	@Override
+	public void setMarker(IMarker marker) throws CoreException {
+		super.setMarker(marker);
+		
+		initializeBreakpointListener();
 	}
 
 	/*
