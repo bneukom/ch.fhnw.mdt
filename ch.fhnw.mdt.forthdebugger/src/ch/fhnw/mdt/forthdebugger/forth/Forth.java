@@ -24,12 +24,18 @@ public class Forth {
 		
 		commandQueue.start();
 		reader.start();
+		
+		commandQueue.addTimeOutListener(() -> {
+			shutdown();
+		});
 	}
 
 	/**
 	 * Shuts down Forth and also closes the underlying Forth {@link Process}.
 	 */
 	public void shutdown() {
+		
+		// TODO closing lies hand in hand, probably make these classes static inner classes.
 		commandQueue.shutdown();
 		reader.shutdown();
 		
@@ -38,10 +44,10 @@ public class Forth {
 
 	/**
 	 * @param listener
-	 * @see ch.fhnw.mdt.forthdebugger.forth.ForthCommandQueue#addShutdownListener(ch.fhnw.mdt.forthdebugger.forth.ForthCommandQueue.TimedOutListener)
+	 * @see ch.fhnw.mdt.forthdebugger.forth.ForthCommandQueue#addTimeOutListener(ch.fhnw.mdt.forthdebugger.forth.ForthCommandQueue.TimedOutListener)
 	 */
-	public void addShutdownListener(TimedOutListener listener) {
-		commandQueue.addShutdownListener(listener);
+	public void addTimeOutListener(TimedOutListener listener) {
+		commandQueue.addTimeOutListener(listener);
 	}
 
 	/**

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -20,10 +21,9 @@ import org.eclipse.debug.core.model.IDebugTarget;
 import org.eclipse.debug.core.model.IMemoryBlock;
 import org.eclipse.debug.core.model.IProcess;
 import org.eclipse.debug.core.model.IThread;
+import org.eclipse.debug.core.model.IValue;
 
 import ch.fhnw.mdt.forthdebugger.forth.Forth;
-import ch.fhnw.mdt.forthdebugger.forth.ForthCommandQueue;
-import ch.fhnw.mdt.forthdebugger.forth.ForthReader;
 
 /**
  * Forth Debug Target.
@@ -48,6 +48,8 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 	// threads
 	private final ForthThread forthThread;
 	private final IThread[] threads;
+	
+	private final List<IValue> dataStack = new ArrayList<IValue>();
 
 	private DebugStreamListener debugStreamListener;
 
@@ -365,6 +367,15 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 	 */
 	@Override
 	public IMemoryBlock getMemoryBlock(final long startAddress, final long length) throws DebugException {
+		return null;
+	}
+	
+	/**
+	 * Returns the values on the data stack (top down)
+	 * 
+	 * @return the values on the data stack (top down)
+	 */
+	public IValue[] getDataStack() throws DebugException {
 		return null;
 	}
 

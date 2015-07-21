@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            class="ch.fhnw.mdt.forthdebugger.ui.DataStackView"
+            id="ch.fhnw.mdt.forthdebugger.ui.datastackview"
+            name="Data Stack"
+            restorable="true">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="org.eclipse.debug.ui.DebugPerspective">
+         <view
+               id="ch.fhnw.mdt.forthdebugger.ui.datastackview"
+               minimized="false"
+               relationship="stack"
+               relative="org.eclipse.debug.ui.VariableView"
+               visible="false">
+         </view>
+      </perspectiveExtension>
+   </extension>
+   <extension
+         point="org.eclipse.ui.contexts">
+      <context
+            description="MDT Debugging"
+            id="ch.fhnw.mdt.forthdebugger.ui.debugging"
+            name="MDT Debugging"
+            parentId="org.eclipse.debug.ui.debugging">
+      </context>
+   </extension>
+   <extension
+         point="org.eclipse.debug.ui.contextViewBindings">
+      <contextViewBinding
+            autoClose="true"
+            autoOpen="true"
+            contextId="ch.fhnw.mdt.forthdebugger.ui.debugging"
+            viewId="ch.fhnw.mdt.forthdebugger.ui.datastackview">
+      </contextViewBinding>
+   </extension>
+   <extension
+         point="org.eclipse.debug.ui.debugModelPresentations">
+      <debugModelPresentation
+            class="ch.fhnw.mdt.forthdebugger.ui.ForthModelPresentation"
+            id="ch.fhnw.mdt.forthdebugger.forthDebugModelPresentation">
+      </debugModelPresentation>
+   </extension>
+   <extension
+         point="org.eclipse.debug.ui.debugModelContextBindings">
+      <modelContextBinding
+            contextId="ch.fhnw.mdt.forthdebugger.ui.debugging"
+            debugModelId="ch.fhnw.mdt.forthdebugger.forthDebugModelPresentation">
+      </modelContextBinding>
+   </extension>
+
+</plugin>

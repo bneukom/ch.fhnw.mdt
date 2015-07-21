@@ -13,7 +13,6 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.regex.Pattern;
 
-// TODO integrate into forth communcator?
 public final class ForthReader extends Thread {
 
 	private final List<WaitFor> waitQueue = Collections.synchronizedList(new ArrayList<WaitFor>());
@@ -52,7 +51,7 @@ public final class ForthReader extends Thread {
 	}
 
 	/**
-	 * Returns the line read at the given inde.
+	 * Returns the line read at the given index.
 	 * 
 	 * @param index
 	 * @return
@@ -87,6 +86,10 @@ public final class ForthReader extends Thread {
 		try {
 			isRunning = false;
 			input.close();
+
+			// TODO
+			// all waiting objects will timeout eventually
+
 		} catch (final IOException e) {
 			e.printStackTrace();
 		}
@@ -215,8 +218,7 @@ public final class ForthReader extends Thread {
 
 	/**
 	 * Creates a {@link WaitForResult} object which can be used to wait for a
-	 * given result from the forth process reader at a later time. Call
-	 * {@link WaitFor#await()} to wait.
+	 * given result from the forth process reader at a later time. Call {@link WaitFor#await()} to wait.
 	 * 
 	 * @param result
 	 * @return
@@ -233,8 +235,7 @@ public final class ForthReader extends Thread {
 
 	/**
 	 * Creates a {@link WaitForMatch} object which can be used to wait for a
-	 * given match from the forth process reader at a later time. Call
-	 * {@link WaitFor#await()} to wait.
+	 * given match from the forth process reader at a later time. Call {@link WaitFor#await()} to wait.
 	 * 
 	 * @param result
 	 * @return
@@ -258,8 +259,8 @@ public final class ForthReader extends Thread {
 		protected Condition waitCondition;
 
 		protected volatile boolean isWaiting;
-		
-		public static final int DEFAULT_TIME_OUT_MILLIS = 5000;
+
+		public static final int DEFAULT_TIME_OUT_MILLIS = 10_000;
 
 		public WaitFor() {
 			this.isWaiting = true;
@@ -322,7 +323,11 @@ public final class ForthReader extends Thread {
 				lock.lock();
 
 				while (isWaiting) {
-					waitCondition.await(DEFAULT_TIME_OUT_MILLIS, TimeUnit.MILLISECONDS);
+					boolean finished = waitCondition.await(DEFAULT_TIME_OUT_MILLIS, TimeUnit.MILLISECONDS);
+
+					if (!finished) {
+						throw new InterruptedException();
+					}
 				}
 			} finally {
 				lock.unlock();
@@ -360,8 +365,13 @@ public final class ForthReader extends Thread {
 				lock.lock();
 
 				while (isWaiting) {
-					waitCondition.await(DEFAULT_TIME_OUT_MILLIS, TimeUnit.MILLISECONDS);
+					boolean finished = waitCondition.await(DEFAULT_TIME_OUT_MILLIS, TimeUnit.MILLISECONDS);
+
+					if (!finished) {
+						throw new InterruptedException();
+					}
 				}
+
 			} finally {
 				lock.unlock();
 			}

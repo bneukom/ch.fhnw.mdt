@@ -11,7 +11,6 @@
  *******************************************************************************/
 package ch.fhnw.mdt.forthdebugger.ui;
 
-import org.eclipse.cdt.internal.ui.editor.CEditor;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.ILineBreakpoint;
@@ -21,7 +20,7 @@ import org.eclipse.debug.ui.IValueDetailListener;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.IEditorInput;
-import org.eclipse.ui.part.*;
+import org.eclipse.ui.part.FileEditorInput;
 
 /**
  * Renders PDA debug elements

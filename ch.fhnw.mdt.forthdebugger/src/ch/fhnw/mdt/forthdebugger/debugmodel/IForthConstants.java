@@ -19,8 +19,8 @@ public interface IForthConstants {
 	/**
 	 * Unique identifier for the MDT debug model
 	 */
-	public static final String ID_MDT_DEBUG_MODEL = "ch.fhnw.mdt.forthdebugger.mdtDebugModelPresentation";
-
+	public static final String ID_MDT_DEBUG_MODEL = "ch.fhnw.mdt.forthdebugger.forthDebugModelPresentation";
+	
 	/**
 	 * Property for the project name of the project to be launched.
 	 */

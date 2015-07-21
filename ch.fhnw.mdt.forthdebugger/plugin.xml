@@ -2,13 +2,6 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension
-         point="org.eclipse.debug.ui.debugModelPresentations">
-      <debugModelPresentation
-            class="ch.fhnw.mdt.forthdebugger.ui.ForthModelPresentation"
-            id="ch.fhnw.mdt.forthdebugger.mdtDebugModelPresentation">
-      </debugModelPresentation>
-   </extension>
-   <extension
          point="org.eclipse.core.runtime.adapters">
       <factory
             adaptableType="org.eclipse.ui.texteditor.ITextEditor"
@@ -37,13 +30,6 @@
             markerType="ch.fhnw.mdt.forthdebugger.mdtBreakpointMarker"
             name="MDT Line Breakpoint">
       </breakpoint>
-   </extension>
-   <extension
-         point="org.eclipse.debug.ui.debugModelContextBindings">
-      <modelContextBinding
-            contextId="org.eclipse.cdt.debug.ui.debugging"
-            debugModelId="ch.fhnw.mdt.forthdebugger.mdtDebugModelPresentation">
-      </modelContextBinding>
    </extension>
    <extension
          point="org.eclipse.debug.core.sourceLocators">

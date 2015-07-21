@@ -59,12 +59,12 @@ public final class ForthCommandQueue extends Thread {
 	}
 
 	/**
-	 * Adds the given {@link TimedOutListener} callback which will get called
-	 * after the command queue has terminated.
+	 * Adds the given {@link TimedOutListener} callback which will get called when a command has timed out.
+	 * 
 	 * 
 	 * @param listener
 	 */
-	public void addShutdownListener(TimedOutListener listener) {
+	public void addTimeOutListener(TimedOutListener listener) {
 		synchronized (timedOutListeners) {
 			timedOutListeners.add(listener);
 		}
@@ -168,11 +168,16 @@ public final class ForthCommandQueue extends Thread {
 						try {
 							command.waitFor.await();
 						} catch (InterruptedException e) {
-							synchronized (timedOutListeners) {
-								for (TimedOutListener timedOutListener : timedOutListeners) {
-									timedOutListener.shutdown(shutdown ? null : reason);
+							if (!shutdown) {
+								synchronized (timedOutListeners) {
+									for (TimedOutListener timedOutListener : timedOutListeners) {
+										timedOutListener.timedOut();
+									}
 								}
 							}
+							
+							// abort after a timeout has happened
+							return;
 						}
 					} else {
 						writeCommand(command);
@@ -198,8 +203,6 @@ public final class ForthCommandQueue extends Thread {
 				break;
 			}
 		}
-
-	
 
 		shutdown = true;
 	}
@@ -246,6 +249,6 @@ public final class ForthCommandQueue extends Thread {
 	}
 
 	public interface TimedOutListener {
-		public void shutdown(Exception reason);
+		public void timedOut();
 	}
 }

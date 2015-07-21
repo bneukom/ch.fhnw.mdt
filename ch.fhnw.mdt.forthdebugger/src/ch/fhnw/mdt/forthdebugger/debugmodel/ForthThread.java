@@ -349,6 +349,7 @@ public class ForthThread extends ForthDebugElement implements IThread {
 		currentAddress = address;
 	}
 
+	// TODO should this method be here or at the same place where the other pre processing files lie?
 	/**
 	 * Creates files with disassembled source code for the debugger.
 	 * 
@@ -469,6 +470,7 @@ public class ForthThread extends ForthDebugElement implements IThread {
 	 */
 	private static class LineMapping {
 
+		// TODO some more information parsing? like if the line is a function call or not (for stepping purposes)
 		private Map<String, Map<String, Integer>> functionLineMap = new HashMap<String, Map<String, Integer>>();
 
 		/**

@@ -44,7 +44,6 @@ import ch.fhnw.mdt.forthdebugger.debugmodel.ForthDebugTarget;
 import ch.fhnw.mdt.forthdebugger.debugmodel.IForthConstants;
 import ch.fhnw.mdt.forthdebugger.forth.Forth;
 import ch.fhnw.mdt.forthdebugger.forth.ForthCommandQueue;
-import ch.fhnw.mdt.forthdebugger.forth.ForthReader;
 import ch.fhnw.mdt.preferences.MDTPreferencesPlugin;
 
 // TODO implement ILaunchShortcut
@@ -227,8 +226,7 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 		}
 
 		/**
-		 * Starts the gforth debugger. This must be called after
-		 * {@link #startGforth(ILaunch, String, String, IFile)}
+		 * Starts the gforth debugger. This must be called after {@link #startGforth(ILaunch, String, String, IFile)}
 		 * 
 		 * @param launch
 		 * @param mcoreLaunch
@@ -267,10 +265,22 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 				final InputThread inputThread = new InputThread(gforthConsole.getInputStream(), forth);
 
 				inputThread.start();
-
+				
 				final IOConsoleOutputStream consoleOutputStream = gforthConsole.newOutputStream();
 				forth.forwardOutput(System.out);
 				forth.forwardOutput(consoleOutputStream);
+				
+				forth.addTimeOutListener(() -> {
+					Display.getDefault().asyncExec(() -> {
+//						consoleOutputStream.setColor(Display.getDefault().getSystemColor(SWT.COLOR_RED));
+						try {
+							consoleOutputStream.write(System.lineSeparator() + System.lineSeparator() +  "The debugger has timed out as the process is not responding");
+							consoleOutputStream.flush();
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					});
+				});
 
 				forth.sendCommand("cd " + workingDirectory + ForthCommandQueue.NL);
 				forth.sendCommand("gforth ./load_eclipse.fs" + ForthCommandQueue.NL);
@@ -280,26 +290,7 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 				forth.sendCommandAwaitResult("umbilical: " + umbilical + ForthCommandQueue.NL, forth.waitForResultLater(ForthCommandQueue.OK));
 				forth.sendCommandAwaitResult("run" + ForthCommandQueue.NL, forth.waitForResultLater("HANDSHAKE"));
 
-				forth.addShutdownListener(shutdownReason -> {
-
-					if (shutdownReason != null && shutdownReason instanceof InterruptedException) {
-						consoleOutputStream.setColor(Display.getCurrent().getSystemColor(SWT.COLOR_RED));
-						try {
-							consoleOutputStream.write("The process has timed out after not responding");
-							consoleOutputStream.flush();
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					}
-
-					try {
-						consoleOutputStream.close();
-					} catch (Exception closeException) {
-						closeException.printStackTrace();
-					}
-				});
-
-				return new MCoreLaunch(process, eclipseProcess, forth);
+				return new MCoreLaunch(process, eclipseProcess, consoleOutputStream, forth);
 
 			} catch (final IOException e) {
 				e.printStackTrace();
@@ -355,14 +346,19 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 		private final Process process;
 		private IProcess eclipseProcess;
 		private final Forth forth;
+		private IOConsoleOutputStream consoleOutputStream;
 
-		public MCoreLaunch(Process process, IProcess eclipseProcess, Forth forth) {
+		public MCoreLaunch(Process process, IProcess eclipseProcess, IOConsoleOutputStream consoleOutputStream, Forth forth) {
 			super();
 			this.process = process;
 			this.eclipseProcess = eclipseProcess;
+			this.consoleOutputStream = consoleOutputStream;
 			this.forth = forth;
 		}
 
+		/**
+		 * Waits until the process has finished and then does a cleanup.
+		 */
 		public void await() {
 			// wait for done
 			try {
@@ -373,6 +369,12 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 
 			// cleanup
 			forth.shutdown();
+
+			try {
+				consoleOutputStream.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 
 		}
 	}
