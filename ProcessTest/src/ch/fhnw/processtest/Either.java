@@ -21,10 +21,6 @@ public final class Either<L, R> {
 		right = r;
 	}
 
-	public <T> T map(final Function<? super L, ? extends T> lFunc, final Function<? super R, ? extends T> rFunc) {
-		return left.map(lFunc).orElseGet(() -> right.map(rFunc).get());
-	}
-
 	public <T> Either<T, R> mapLeft(final Function<? super L, ? extends T> lFunc) {
 		return new Either<>(left.map(lFunc), right);
 	}

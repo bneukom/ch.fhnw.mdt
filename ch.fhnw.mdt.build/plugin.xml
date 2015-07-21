@@ -19,7 +19,7 @@
                 isAbstract="false"
                 isToolChainSupported="ch.fhnw.mdt.build.IsMCoreToolChainSupported"
                 name="MCore Toolchain"
-                osList="linux"
+                osList="linux, win32"
                 supportsManagedBuild="true"
                 targetTool="ch.fhnw.mdt.ui.mcorecompiler">
              <targetPlatform
@@ -27,7 +27,7 @@
                    id="ch.fhnw.mdt.ui.mcoretargetplatform"
                    isAbstract="false"
                    name="MCore Target Platform"
-                   osList="linux">
+                   osList="linux, win32">
              </targetPlatform>
              <tool
                    command="lcc-mcore"

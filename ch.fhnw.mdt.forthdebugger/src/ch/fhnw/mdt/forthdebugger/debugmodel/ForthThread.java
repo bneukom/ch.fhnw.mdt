@@ -23,9 +23,9 @@ import org.eclipse.debug.core.model.IBreakpoint;
 import org.eclipse.debug.core.model.IStackFrame;
 import org.eclipse.debug.core.model.IThread;
 
-import ch.fhnw.mdt.forthdebugger.forth.Forth;
-import ch.fhnw.mdt.forthdebugger.forth.ForthCommandQueue;
-import ch.fhnw.mdt.forthdebugger.forth.ForthReader.WaitForMatch;
+import ch.fhnw.mdt.forthdebugger.communication.ForthCommunicator;
+import ch.fhnw.mdt.forthdebugger.communication.ForthCommandQueue;
+import ch.fhnw.mdt.forthdebugger.communication.ForthReader.WaitForMatch;
 
 /**
  * A forth thread. Forth Environment is single threaded.
@@ -36,7 +36,7 @@ public class ForthThread extends ForthDebugElement implements IThread {
 	private IFile forthFile;
 
 	// forth communication
-	private Forth forth;
+	private ForthCommunicator forthCommunicator;
 
 	// debugger state
 	private boolean isStepping = false;
@@ -54,10 +54,10 @@ public class ForthThread extends ForthDebugElement implements IThread {
 	 * @param forthCommandQueue
 	 * @param forthSource
 	 */
-	public ForthThread(ForthDebugTarget target, IFile forthFile, List<String> forthSource, Forth forth) {
+	public ForthThread(ForthDebugTarget target, IFile forthFile, List<String> forthSource, ForthCommunicator forthCommunicator) {
 		super(target);
 		this.forthFile = forthFile;
-		this.forth = forth;
+		this.forthCommunicator = forthCommunicator;
 
 		this.addressMapping = new LineMapping();
 
@@ -87,8 +87,6 @@ public class ForthThread extends ForthDebugElement implements IThread {
 			return new IStackFrame[0];
 		}
 	}
-	
-	
 
 	/*
 	 * (non-Javadoc)
@@ -148,10 +146,12 @@ public class ForthThread extends ForthDebugElement implements IThread {
 	}
 
 	/**
-	 * Sets the breakpoints this thread is suspended at, or <code>null</code> if none.
+	 * Sets the breakpoints this thread is suspended at, or <code>null</code> if
+	 * none.
 	 * 
 	 * @param breakpoints
-	 *            the breakpoints this thread is suspended at, or <code>null</code> if none
+	 *            the breakpoints this thread is suspended at, or
+	 *            <code>null</code> if none
 	 */
 	protected void setBreakpoints(IBreakpoint[] breakpoints) {
 		this.breakpoints = breakpoints;
@@ -254,7 +254,7 @@ public class ForthThread extends ForthDebugElement implements IThread {
 	 */
 	@Override
 	public void stepInto() throws DebugException {
-		forth.sendCommand("nest" + ForthCommandQueue.NL);
+		forthCommunicator.sendCommand("nest" + ForthCommandQueue.NL);
 	}
 
 	/*
@@ -264,7 +264,7 @@ public class ForthThread extends ForthDebugElement implements IThread {
 	 */
 	@Override
 	public void stepOver() throws DebugException {
-		forth.sendCommand(ForthCommandQueue.CR);
+		forthCommunicator.sendCommand(ForthCommandQueue.CR);
 	}
 
 	/*
@@ -349,45 +349,48 @@ public class ForthThread extends ForthDebugElement implements IThread {
 		currentAddress = address;
 	}
 
-	// TODO should this method be here or at the same place where the other pre processing files lie?
+	// TODO should this method be here or at the same place where the other pre
+	// processing files lie?
 	/**
 	 * Creates files with disassembled source code for the debugger.
 	 * 
 	 * @param forthSource
-	 *            the original source file used to read all the function names from
+	 *            the original source file used to read all the function names
+	 *            from
 	 */
 	private void disassemble(List<String> forthSource) {
 		final Map<String, Integer> forthFunctions = getForthFunctions(forthSource);
-		
+
 		final Pattern disasemblerLinePattern = Pattern.compile("([A-Fa-f0-9]{8}): ([A-Fa-f0-9 ]{8}) ?(.*)");
 
 		for (final Entry<String, Integer> function : forthFunctions.entrySet()) {
-			// the code for the function starts two lines after the actual function defintion
+			// the code for the function starts two lines after the actual
+			// function defintion
 			final String functionName = function.getKey();
 			final List<String> disassembledFunction = new ArrayList<String>();
 
-			
-			final WaitForMatch waitForMatchLater = forth.waitForMatchLater("([A-Fa-f0-9]{8}): ([A-Fa-f0-9 ]{8}) ?(([A-Fa-f0-9]+ [A-Fa-f0-9]+)|( [^\\s]+[A-Fa-f0-9 ]+ (call))|([^\\s]+))");
-			forth.sendCommandAwaitResult("show " + functionName + ForthCommandQueue.NL, waitForMatchLater);
-			forth.awaitReadCompletion();
+			final WaitForMatch waitForMatchLater = forthCommunicator
+					.waitForMatchLater("([A-Fa-f0-9]{8}): ([A-Fa-f0-9 ]{8}) ?(([A-Fa-f0-9]+ [A-Fa-f0-9]+)|( [^\\s]+[A-Fa-f0-9 ]+ (call))|([^\\s]+))");
+			forthCommunicator.sendCommandAwaitResult("show " + functionName + "\r", waitForMatchLater);
+			forthCommunicator.awaitReadCompletion();
 
-			String currentLine = forth.getCurrentLine();
+			String currentLine = forthCommunicator.getCurrentLine();
 
 			int lineNumber = 1;
 			lineRead(disasemblerLinePattern, disassembledFunction, functionName, currentLine, lineNumber++);
 
 			// one based line numbering
 			while (!currentLine.contains("exit")) {
-				forth.awaitReadCompletion();
-				forth.sendCommandAwaitResult(ForthCommandQueue.ANY, forth.waitForResultLater(ForthCommandQueue.NL));
-				forth.awaitReadCompletion();
+				forthCommunicator.awaitReadCompletion();
+				forthCommunicator.sendCommandAwaitResult(ForthCommandQueue.ANY, forthCommunicator.waitForResultLater(ForthCommandQueue.NL));
+				forthCommunicator.awaitReadCompletion();
 
-				currentLine = forth.getCurrentLine();
+				currentLine = forthCommunicator.getCurrentLine();
 
 				lineRead(disasemblerLinePattern, disassembledFunction, functionName, currentLine, lineNumber++);
 			}
 
-			forth.sendCommand(ForthCommandQueue.CR);
+			forthCommunicator.sendCommand(ForthCommandQueue.CR);
 
 			final IPath debugFolderPath = forthFile.getParent().getFullPath().append("debugger");
 			final IPath debugFile = debugFolderPath.append(functionName).addFileExtension("fs");
@@ -440,7 +443,9 @@ public class ForthThread extends ForthDebugElement implements IThread {
 	}
 
 	/**
-	 * Returns all forth functions and their corresponding line number (one based) for the given forth source. This method does not return the forth function with the name any.
+	 * Returns all forth functions and their corresponding line number (one
+	 * based) for the given forth source. This method does not return the forth
+	 * function with the name any.
 	 * 
 	 * @param forthSource
 	 * @return
@@ -470,7 +475,8 @@ public class ForthThread extends ForthDebugElement implements IThread {
 	 */
 	private static class LineMapping {
 
-		// TODO some more information parsing? like if the line is a function call or not (for stepping purposes)
+		// TODO some more information parsing? like if the line is a function
+		// call or not (for stepping purposes)
 		private Map<String, Map<String, Integer>> functionLineMap = new HashMap<String, Map<String, Integer>>();
 
 		/**

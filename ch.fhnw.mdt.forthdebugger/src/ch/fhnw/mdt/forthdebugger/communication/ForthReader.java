@@ -1,4 +1,4 @@
-package ch.fhnw.mdt.forthdebugger.forth;
+package ch.fhnw.mdt.forthdebugger.communication;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,7 +25,9 @@ public final class ForthReader extends Thread {
 	private final List<String> readLines = new ArrayList<String>();
 	private StringBuffer currentLine = new StringBuffer();
 
-	private static final String LINE_SEPERATOR = System.lineSeparator();
+	// XXX WINDOWS WORKAROUND
+//	private static final String LINE_SEPERATOR = System.lineSeparator();
+	private static final String LINE_SEPERATOR = "\n";
 
 	private Lock availableLock = new ReentrantLock();
 	private Condition availableCondition = availableLock.newCondition();
@@ -260,7 +262,7 @@ public final class ForthReader extends Thread {
 
 		protected volatile boolean isWaiting;
 
-		public static final int DEFAULT_TIME_OUT_MILLIS = 10_000;
+		public static final int DEFAULT_TIME_OUT_MILLIS = 10000_000;
 
 		public WaitFor() {
 			this.isWaiting = true;

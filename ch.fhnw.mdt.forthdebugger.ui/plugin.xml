@@ -56,5 +56,16 @@
             debugModelId="ch.fhnw.mdt.forthdebugger.forthDebugModelPresentation">
       </modelContextBinding>
    </extension>
+   <extension
+         point="org.eclipse.debug.ui.memoryRenderings">
+      <renderingBindings
+            primaryId="org.eclipse.debug.ui.rendering.raw_memory"
+            renderingIds="org.eclipse.debug.ui.rendering.raw_memory">
+         <enablement>
+            <instanceof
+                  value="ch.fhnw.mdt.forthdebugger.debugmodel.ForthMemoryBlock">
+            </instanceof></enablement>
+      </renderingBindings>
+   </extension>
 
 </plugin>

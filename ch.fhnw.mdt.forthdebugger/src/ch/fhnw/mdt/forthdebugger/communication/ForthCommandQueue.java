@@ -1,4 +1,4 @@
-package ch.fhnw.mdt.forthdebugger.forth;
+package ch.fhnw.mdt.forthdebugger.communication;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -10,7 +10,7 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import ch.fhnw.mdt.forthdebugger.forth.ForthReader.WaitFor;
+import ch.fhnw.mdt.forthdebugger.communication.ForthReader.WaitFor;
 import ch.fhnw.mdt.forthdebugger.util.Either;
 
 /**
@@ -31,7 +31,10 @@ public final class ForthCommandQueue extends Thread {
 	private final Condition commandCompletionCondition;
 
 	public static final String OK = "ok";
-	public static final String NL = System.lineSeparator();
+
+	// FIXME WINDOWS WORKAROUND
+	// public static final String NL = System.lineSeparator();
+	public static final String NL = "\n";
 
 	public static final int CR = 13;
 
@@ -176,8 +179,6 @@ public final class ForthCommandQueue extends Thread {
 								}
 							}
 
-							System.err.println("command " + command.request.map(l -> l, r -> r.toString()) + "  has timed out");
-
 							// abort after a timeout has happened
 							return;
 						}
@@ -217,7 +218,7 @@ public final class ForthCommandQueue extends Thread {
 			} catch (final IOException e) {
 				e.printStackTrace();
 			}
-		}, i -> {
+		} , i -> {
 			try {
 				processWriter.write(i);
 			} catch (final IOException e) {

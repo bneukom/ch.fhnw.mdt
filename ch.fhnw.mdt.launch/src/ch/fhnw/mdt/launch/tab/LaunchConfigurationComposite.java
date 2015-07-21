@@ -249,6 +249,7 @@ public class LaunchConfigurationComposite extends Composite {
 		return new IResource[0];
 	}
 
+	// FIXME throws when a project is not a c project in the workspace!
 	protected IProject[] getMCoreProjects() {
 		final IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
 		return Arrays.stream(projects).filter(p -> p.isOpen()).filter(p -> {

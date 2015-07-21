@@ -6,6 +6,7 @@ import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -25,7 +26,8 @@ import org.eclipse.debug.core.model.IProcess;
 import org.eclipse.debug.core.model.IThread;
 import org.eclipse.debug.core.model.IValue;
 
-import ch.fhnw.mdt.forthdebugger.forth.Forth;
+import ch.fhnw.mdt.forthdebugger.communication.ForthCommandQueue;
+import ch.fhnw.mdt.forthdebugger.communication.ForthCommunicator;
 
 /**
  * Forth Debug Target.
@@ -45,17 +47,18 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 	private boolean suspended = true;
 
 	// process communication
-	private final Forth forth;
+	private final ForthCommunicator forthCommunicator;
 
 	// threads
 	private final ForthThread forthThread;
 	private final IThread[] threads;
-	
+
 	private List<IValue> dataStack = new ArrayList<IValue>();
 
 	private DebugStreamListener debugStreamListener;
 
-	private static final String NL = System.lineSeparator();
+	// private static final String NL = System.lineSeparator();
+	private static final String NL = "\n";
 
 	/**
 	 * Constructs a new debug target in the given launch for the associated PDA VM process.
@@ -69,15 +72,16 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 	 * @exception CoreException
 	 *                if unable to connect to host
 	 */
-	public ForthDebugTarget(final IFile forthFile, final List<String> forthSource, final ILaunch launch, final IProcess process, final Forth forth) throws CoreException {
+	public ForthDebugTarget(final IFile forthFile, final List<String> forthSource, final ILaunch launch, final IProcess process, final ForthCommunicator forthCommunicator)
+			throws CoreException {
 		super(null);
 		this.forthFile = forthFile;
 		this.launch = launch;
 		this.process = process;
-		this.forth = forth;
+		this.forthCommunicator = forthCommunicator;
 		this.target = this;
 
-		this.forthThread = new ForthThread(this, forthFile, forthSource, forth);
+		this.forthThread = new ForthThread(this, forthFile, forthSource, forthCommunicator);
 		this.threads = new IThread[] { forthThread };
 
 		try {
@@ -87,7 +91,7 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 			this.debugStreamListener = new DebugStreamListener(in);
 			this.debugStreamListener.start();
 
-			this.forth.forwardOutput(out);
+			this.forthCommunicator.forwardOutput(out);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -359,7 +363,7 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 	 */
 	@Override
 	public boolean supportsStorageRetrieval() {
-		return false;
+		return true;
 	}
 
 	/*
@@ -369,9 +373,15 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 	 */
 	@Override
 	public IMemoryBlock getMemoryBlock(final long startAddress, final long length) throws DebugException {
-		return null;
+
+		forthCommunicator.awaitReadCompletion();
+
+		forthCommunicator.sendCommandAwaitResult(String.valueOf(startAddress) + " " + String.valueOf(length) + " dump" + ForthCommandQueue.NL,
+				forthCommunicator.waitForResultLater(ForthCommandQueue.OK));
+
+		return new ForthMemoryBlock(target);
 	}
-	
+
 	/**
 	 * Returns the values on the data stack (top down)
 	 * 
@@ -410,7 +420,7 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 	 * @throws DebugException
 	 */
 	protected void addFunctionBreakpoint(final String function) throws DebugException {
-		forth.sendCommand("debug _" + function + NL);
+		forthCommunicator.sendCommand("debug _" + function + NL);
 	}
 
 	/**
@@ -420,7 +430,7 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 	 * @throws DebugException
 	 */
 	protected void removeFunctionBreakpoint(final String function) throws DebugException {
-		forth.sendCommand("unbug _" + function + NL);
+		forthCommunicator.sendCommand("unbug _" + function + NL);
 	}
 
 	/**
@@ -430,10 +440,10 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 
 		private final InputStream stream;
 		private final Pattern functionPattern = Pattern.compile("([^\\s]+)(\\s+)(-{15})");
-		
+
 		// TODO check pattern for correctness
 		private final Pattern stepPattern = Pattern
-				.compile("([A-Fa-f0-9]{8}): ([A-Fa-f0-9 ]{8})(([A-Fa-f0-9]+ [A-Fa-f0-9]+)|( [^\\s]+[A-Fa-f0-9 ]+ (call))|([^\\s]+))([A-Fa-f0-9 ]*)(>+)");
+				.compile("([A-Fa-f0-9]{8}): ([A-Fa-f0-9 ]{8})(([^\\s]+ [^\\s]+)|( [^\\s]+[A-Fa-f0-9 ]+ (call))|([^\\s]+))((-?[A-Fa-f0-9 ])*) (>+)");
 
 		public DebugStreamListener(InputStream stream) {
 			this.stream = stream;
@@ -496,7 +506,7 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 				}
 				return true;
 			}
-			
+
 			return false;
 		}
 
@@ -531,15 +541,18 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 
 		/**
 		 * Notification that the debugger has stepped.
-		 * @param stack 
+		 * 
+		 * @param stack
 		 * 
 		 * @param line
 		 */
 		private void singleStep(String address, String stack) {
 			forthThread.stepped(address);
-			
+
+			// update stack
 			final String[] stackValues = stack.trim().split(" ");
 			dataStack = Arrays.stream(stackValues).map(s -> new ForthValue(target, s)).collect(Collectors.toList());
+			Collections.reverse(dataStack);
 
 			suspended(DebugEvent.STEP_END);
 		}

@@ -2,6 +2,7 @@ package ch.fhnw.mdt.launch;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -40,10 +41,10 @@ import org.eclipse.ui.console.IOConsole;
 import org.eclipse.ui.console.IOConsoleOutputStream;
 
 import ch.fhnw.mdt.forthdebugger.ForthDebuggerPlugin;
+import ch.fhnw.mdt.forthdebugger.communication.ForthCommunicator;
+import ch.fhnw.mdt.forthdebugger.communication.ForthCommandQueue;
 import ch.fhnw.mdt.forthdebugger.debugmodel.ForthDebugTarget;
 import ch.fhnw.mdt.forthdebugger.debugmodel.IForthConstants;
-import ch.fhnw.mdt.forthdebugger.forth.Forth;
-import ch.fhnw.mdt.forthdebugger.forth.ForthCommandQueue;
 import ch.fhnw.mdt.preferences.MDTPreferencesPlugin;
 
 // TODO implement ILaunchShortcut
@@ -66,7 +67,8 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 			final IEnvironmentVariable gforthPathEnvironmentVariable = environmentVariableProvider.getVariable(GFORTH_PATH_VARIABLE, buildInfo.getManagedProject()
 					.getConfigurations()[0], true);
 
-			final String[] gforthPaths = gforthPathEnvironmentVariable.getValue().split(":");
+//			final String[] gforthPaths = gforthPathEnvironmentVariable.getValue().split(":");
+			final String[] gforthPaths = gforthPathEnvironmentVariable.getValue().split(";");
 			final String workingDirectory = gforthPaths[gforthPaths.length - 1];
 			final String executableFilePath = launch.getLaunchConfiguration().getAttribute(IForthConstants.ATTR_FORTH_EXECUTABLE_FILE, "");
 			final IFile executableFile = (IFile) project.findMember(executableFilePath);
@@ -233,7 +235,7 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 		 * @throws CoreException
 		 */
 		private void startDebugger(final ILaunch launch, final MCoreLaunch mcoreLaunch) throws CoreException {
-			final IDebugTarget target = new ForthDebugTarget(executableFile, forthSource, launch, mcoreLaunch.eclipseProcess, mcoreLaunch.forth);
+			final IDebugTarget target = new ForthDebugTarget(executableFile, forthSource, launch, mcoreLaunch.eclipseProcess, mcoreLaunch.forthCommunicator);
 			launch.addDebugTarget(target);
 		}
 
@@ -251,7 +253,10 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 			try {
 				launch.setAttribute(DebugPlugin.ATTR_PROCESS_FACTORY_ID, "ch.fhnw.mdt.launch.forthprocessfactory");
 
-				final ProcessBuilder processBuilder = new ProcessBuilder("/bin/bash");
+				// XXX WINDOWS WORKAROUND
+				final ProcessBuilder processBuilder = new ProcessBuilder("cmd");
+				processBuilder.directory(new File(workingDirectory));
+//				final ProcessBuilder processBuilder = new ProcessBuilder("/bin/bash");
 				final Process process = processBuilder.start();
 				final IProcess eclipseProcess = DebugPlugin.newProcess(launch, process, "gforth");
 
@@ -261,18 +266,17 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 
 				final BufferedWriter processWriter = new BufferedWriter(new OutputStreamWriter(process.getOutputStream()));
 
-				final Forth forth = new Forth(processWriter, process.getInputStream(), process);
-				final InputThread inputThread = new InputThread(gforthConsole.getInputStream(), forth);
+				final ForthCommunicator forthCommunicator = new ForthCommunicator(processWriter, process.getInputStream(), process);
+				final InputThread inputThread = new InputThread(gforthConsole.getInputStream(), forthCommunicator);
 
 				inputThread.start();
 				
 				final IOConsoleOutputStream consoleOutputStream = gforthConsole.newOutputStream();
-				forth.forwardOutput(System.out);
-				forth.forwardOutput(consoleOutputStream);
+				forthCommunicator.forwardOutput(System.out);
+				forthCommunicator.forwardOutput(consoleOutputStream);
 				
-				forth.addTimeOutListener(() -> {
+				forthCommunicator.addTimeOutListener(() -> {
 					Display.getDefault().asyncExec(() -> {
-//						consoleOutputStream.setColor(Display.getDefault().getSystemColor(SWT.COLOR_RED));
 						try {
 							consoleOutputStream.write(System.lineSeparator() + System.lineSeparator() +  "The debugger has timed out as the process is not responding");
 							consoleOutputStream.flush();
@@ -282,15 +286,15 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 					});
 				});
 
-				forth.sendCommand("cd " + workingDirectory + ForthCommandQueue.NL);
-				forth.sendCommand("gforth ./load_eclipse.fs" + ForthCommandQueue.NL);
+//				forth.sendCommand("cd " + workingDirectory + ForthCommandQueue.NL);
+				forthCommunicator.sendCommand("gforth ./load_eclipse.fs" + ForthCommandQueue.NL);
 
-				forth.awaitReadCompletion();
+				forthCommunicator.awaitReadCompletion();
 
-				forth.sendCommandAwaitResult("umbilical: " + umbilical + ForthCommandQueue.NL, forth.waitForResultLater(ForthCommandQueue.OK));
-				forth.sendCommandAwaitResult("run" + ForthCommandQueue.NL, forth.waitForResultLater("HANDSHAKE"));
+				forthCommunicator.sendCommandAwaitResult("umbilical: " + umbilical + ForthCommandQueue.NL, forthCommunicator.waitForResultLater(ForthCommandQueue.OK));
+				forthCommunicator.sendCommandAwaitResult("run" + ForthCommandQueue.NL, forthCommunicator.waitForResultLater("HANDSHAKE"));
 
-				return new MCoreLaunch(process, eclipseProcess, consoleOutputStream, forth);
+				return new MCoreLaunch(process, eclipseProcess, consoleOutputStream, forthCommunicator);
 
 			} catch (final IOException e) {
 				e.printStackTrace();
@@ -302,18 +306,18 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 	}
 
 	/**
-	 * Reads from the Console and passes the input as commands to {@link Forth}.
+	 * Reads from the Console and passes the input as commands to {@link ForthCommunicator}.
 	 */
 	private static class InputThread extends Thread {
 
 		private final InputStream inputStream;
-		private final Forth forth;
+		private final ForthCommunicator forthCommunicator;
 		private static final char CR = 10;
 
-		public InputThread(InputStream inputStream, Forth forthCommandQueue) {
+		public InputThread(InputStream inputStream, ForthCommunicator forthCommandQueue) {
 			super();
 			this.inputStream = inputStream;
-			this.forth = forthCommandQueue;
+			this.forthCommunicator = forthCommandQueue;
 		}
 
 		@Override
@@ -324,7 +328,8 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 					final char read = (char) inputStream.read();
 
 					if (read == CR) {
-						forth.sendCommand(commandBuffer.toString() + ForthCommandQueue.NL);
+						// XXX WINDOWS WORKAROUND
+						forthCommunicator.sendCommand(commandBuffer.toString().substring(0, commandBuffer.toString().length() - 1) + ForthCommandQueue.NL);
 						commandBuffer.setLength(0);
 					} else {
 						commandBuffer.append(read);
@@ -345,15 +350,15 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 	private static class MCoreLaunch {
 		private final Process process;
 		private IProcess eclipseProcess;
-		private final Forth forth;
+		private final ForthCommunicator forthCommunicator;
 		private IOConsoleOutputStream consoleOutputStream;
 
-		public MCoreLaunch(Process process, IProcess eclipseProcess, IOConsoleOutputStream consoleOutputStream, Forth forth) {
+		public MCoreLaunch(Process process, IProcess eclipseProcess, IOConsoleOutputStream consoleOutputStream, ForthCommunicator forthCommunicator) {
 			super();
 			this.process = process;
 			this.eclipseProcess = eclipseProcess;
 			this.consoleOutputStream = consoleOutputStream;
-			this.forth = forth;
+			this.forthCommunicator = forthCommunicator;
 		}
 
 		/**
@@ -368,7 +373,7 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 			}
 
 			// cleanup
-			forth.shutdown();
+			forthCommunicator.shutdown();
 
 			try {
 				consoleOutputStream.close();
