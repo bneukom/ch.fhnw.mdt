@@ -378,7 +378,7 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 			try {
 				consoleOutputStream.close();
 			} catch (IOException e) {
-				e.printStackTrace();
+				// ignore if can not close
 			}
 
 		}

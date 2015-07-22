@@ -59,13 +59,18 @@
    <extension
          point="org.eclipse.debug.ui.memoryRenderings">
       <renderingBindings
-            primaryId="org.eclipse.debug.ui.rendering.raw_memory"
-            renderingIds="org.eclipse.debug.ui.rendering.raw_memory">
+            primaryId="org.eclipse.debug.ui.rendering.hexint"
+            renderingIds="org.eclipse.debug.ui.rendering.raw_memory, org.eclipse.debug.ui.rendering.hexint">
          <enablement>
             <instanceof
                   value="ch.fhnw.mdt.forthdebugger.debugmodel.ForthMemoryBlock">
             </instanceof></enablement>
       </renderingBindings>
+      <renderingType
+            class="ch.fhnw.mdt.forthdebugger.ui.ForthMemoryRenderingTypeDelegate"
+            id="ch.fhnw.mdt.forthdebugger.ui.forthmemoryrendering"
+            name="Forth Memory Rendering">
+      </renderingType>
    </extension>
 
 </plugin>

@@ -3,6 +3,7 @@ package ch.fhnw.mdt.forthdebugger.communication;
 import java.io.BufferedWriter;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.List;
 
 import ch.fhnw.mdt.forthdebugger.communication.ForthCommandQueue.Command;
 import ch.fhnw.mdt.forthdebugger.communication.ForthCommandQueue.TimedOutListener;
@@ -11,6 +12,7 @@ import ch.fhnw.mdt.forthdebugger.communication.ForthReader.WaitFor;
 import ch.fhnw.mdt.forthdebugger.communication.ForthReader.WaitForMatch;
 import ch.fhnw.mdt.forthdebugger.communication.ForthReader.WaitForResult;
 
+// TODO somehow merge all three classes so we dont have to forward all methods
 public class ForthCommunicator {
 
 	private final ForthCommandQueue commandQueue;
@@ -21,10 +23,10 @@ public class ForthCommunicator {
 		this.process = process;
 		this.commandQueue = new ForthCommandQueue(processWriter, process);
 		this.reader = new ForthReader(input);
-		
+
 		commandQueue.start();
 		reader.start();
-		
+
 		// TODO does this really work?
 		commandQueue.addTimeOutListener(() -> {
 			shutdown();
@@ -35,11 +37,12 @@ public class ForthCommunicator {
 	 * Shuts down Forth and also closes the underlying Forth {@link Process}.
 	 */
 	public void shutdown() {
-		
-		// TODO closing lies hand in hand, probably make these classes static inner classes.
+
+		// TODO closing lies hand in hand, probably make these classes static
+		// inner classes.
 		commandQueue.shutdown();
 		reader.shutdown();
-		
+
 		process.destroy();
 	}
 
@@ -150,6 +153,14 @@ public class ForthCommunicator {
 	 */
 	public void addLineListener(LineListener lineListener) {
 		reader.addLineListener(lineListener);
+	}
+
+	/**
+	 * @return
+	 * @see ch.fhnw.mdt.forthdebugger.communication.ForthReader#getReadLines()
+	 */
+	public List<String> getReadLines() {
+		return reader.getReadLines();
 	}
 
 	/**

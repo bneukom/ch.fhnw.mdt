@@ -49,7 +49,9 @@ public final class ForthReader extends Thread {
 	 * @return
 	 */
 	public int getNumberOfReadLines() {
-		return readLines.size();
+		synchronized (readLines) {
+			return readLines.size();
+		}
 	}
 
 	/**
@@ -59,7 +61,9 @@ public final class ForthReader extends Thread {
 	 * @return
 	 */
 	public String getLineAt(final int index) {
-		return readLines.get(index);
+		synchronized (readLines) {
+			return readLines.get(index);
+		}
 	}
 
 	/**
@@ -68,7 +72,19 @@ public final class ForthReader extends Thread {
 	 * @return
 	 */
 	public String getLastLine() {
-		return readLines.get(readLines.size() - 1);
+		synchronized (readLines) {
+			return readLines.get(readLines.size() - 1);
+		}
+	}
+	
+	/**
+	 * Returns a copy of all read lines.
+	 * @return
+	 */
+	public List<String> getReadLines() {
+		synchronized (readLines) {
+			return Collections.unmodifiableList(readLines);
+		}
 	}
 
 	/**
@@ -89,7 +105,7 @@ public final class ForthReader extends Thread {
 			isRunning = false;
 			input.close();
 
-			// TODO
+			// TODO is this as clean as it should be?
 			// all waiting objects will timeout eventually
 
 		} catch (final IOException e) {

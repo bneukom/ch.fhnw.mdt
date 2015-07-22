@@ -376,10 +376,13 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 
 		forthCommunicator.awaitReadCompletion();
 
+		// ANOTHER
 		forthCommunicator.sendCommandAwaitResult(String.valueOf(startAddress) + " " + String.valueOf(length) + " dump" + ForthCommandQueue.NL,
 				forthCommunicator.waitForResultLater(ForthCommandQueue.OK));
 
-		return new ForthMemoryBlock(target);
+		List<String> readLines = forthCommunicator.getReadLines();
+		
+		return new ForthMemoryBlock(target, 0, 0, new int[0]);
 	}
 
 	/**
