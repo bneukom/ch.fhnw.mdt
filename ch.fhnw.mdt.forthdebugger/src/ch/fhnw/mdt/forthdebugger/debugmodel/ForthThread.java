@@ -3,6 +3,8 @@ package ch.fhnw.mdt.forthdebugger.debugmodel;
 import java.io.ByteArrayInputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -10,6 +12,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -18,14 +21,15 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.debug.core.DebugEvent;
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IBreakpoint;
 import org.eclipse.debug.core.model.IStackFrame;
 import org.eclipse.debug.core.model.IThread;
 
 import ch.fhnw.mdt.forthdebugger.communication.ForthCommunicator;
-import ch.fhnw.mdt.forthdebugger.communication.ForthCommandQueue;
-import ch.fhnw.mdt.forthdebugger.communication.ForthReader.WaitForMatch;
+import ch.fhnw.mdt.forthdebugger.communication.ForthCommunicator.ForthCommandQueue;
+import ch.fhnw.mdt.forthdebugger.communication.ForthCommunicator.WaitForMatch;
 
 /**
  * A forth thread. Forth Environment is single threaded.
@@ -33,18 +37,21 @@ import ch.fhnw.mdt.forthdebugger.communication.ForthReader.WaitForMatch;
 public class ForthThread extends ForthDebugElement implements IThread {
 
 	private IBreakpoint[] breakpoints;
-	private IFile forthFile;
+	private final IFile forthFile;
 
 	// forth communication
-	private ForthCommunicator forthCommunicator;
+	private final ForthCommunicator forthCommunicator;
 
 	// debugger state
 	private boolean isStepping = false;
-	private String currentAddress;
-	private String currentFunction;
-	private LinkedList<ForthStackFrame> stackFrames = new LinkedList<ForthStackFrame>();
+	private volatile String currentAddress;
+	private volatile String currentFunction;
+	private final LinkedList<ForthStackFrame> stackFrames = new LinkedList<ForthStackFrame>();
+	private volatile List<ForthValue> dataStack;
 
-	private LineMapping addressMapping;
+	private final LineMapping addressMapping;
+
+	private final Pattern stepPattern = Pattern.compile("([A-Fa-f0-9]{8}): ([A-Fa-f0-9 ]{8})(([^\\s]+ [^\\s]+)|( [^\\s]+[A-Fa-f0-9 ]+ (call))|([^\\s]+))((-?[A-Fa-f0-9 ])*) (>+)");
 
 	/**
 	 * Constructs a new thread for the given target
@@ -54,7 +61,7 @@ public class ForthThread extends ForthDebugElement implements IThread {
 	 * @param forthCommandQueue
 	 * @param forthSource
 	 */
-	public ForthThread(ForthDebugTarget target, IFile forthFile, List<String> forthSource, ForthCommunicator forthCommunicator) {
+	public ForthThread(final ForthDebugTarget target, final IFile forthFile, final List<String> forthSource, final ForthCommunicator forthCommunicator) {
 		super(target);
 		this.forthFile = forthFile;
 		this.forthCommunicator = forthCommunicator;
@@ -78,7 +85,7 @@ public class ForthThread extends ForthDebugElement implements IThread {
 			resultFrames[0] = new ForthStackFrame(this, currentFunction, currentFunction + ".fs", addressMapping.getLineNumber(currentFunction, currentAddress), currentAddress, 0);
 
 			int resultIndex = 1;
-			for (IStackFrame frame : stackFrames) {
+			for (final IStackFrame frame : stackFrames) {
 				resultFrames[resultIndex++] = frame;
 			}
 
@@ -115,7 +122,7 @@ public class ForthThread extends ForthDebugElement implements IThread {
 	 */
 	@Override
 	public IStackFrame getTopStackFrame() throws DebugException {
-		IStackFrame[] frames = getStackFrames();
+		final IStackFrame[] frames = getStackFrames();
 		if (frames.length > 0) {
 			return frames[0];
 		}
@@ -153,7 +160,7 @@ public class ForthThread extends ForthDebugElement implements IThread {
 	 *            the breakpoints this thread is suspended at, or
 	 *            <code>null</code> if none
 	 */
-	protected void setBreakpoints(IBreakpoint[] breakpoints) {
+	protected void setBreakpoints(final IBreakpoint[] breakpoints) {
 		this.breakpoints = breakpoints;
 	}
 
@@ -254,7 +261,7 @@ public class ForthThread extends ForthDebugElement implements IThread {
 	 */
 	@Override
 	public void stepInto() throws DebugException {
-		forthCommunicator.sendCommand("nest" + ForthCommandQueue.NL);
+		forthCommunicator.sendCommand("nest" + ForthCommunicator.NL);
 	}
 
 	/*
@@ -264,7 +271,32 @@ public class ForthThread extends ForthDebugElement implements IThread {
 	 */
 	@Override
 	public void stepOver() throws DebugException {
-		forthCommunicator.sendCommand(ForthCommandQueue.CR);
+		final String stepPattern = "([A-Fa-f0-9]{8}): ([A-Fa-f0-9 ]{8})(([^\\s]+ [^\\s]+)|( [^\\s]+[A-Fa-f0-9 ]+ (call))|([^\\s]+))((-?[A-Fa-f0-9 ])*) (>+)";
+
+		final WaitForMatch waitForMatchLater = forthCommunicator.waitForMatchLater(stepPattern);
+
+		forthCommunicator.sendCommandForResult(ForthCommunicator.CR, waitForMatchLater, waitFor -> {
+
+			final String currentLine = waitFor.getResult();
+			final Pattern pattern = Pattern.compile(stepPattern);
+			Matcher matcher = pattern.matcher(currentLine);
+			matcher.find();
+			final String address = matcher.group(2);
+			final String stack = matcher.group(8);
+
+			// update stack
+			synchronized (dataStack) {
+				final String[] stackValues = stack.trim().split(" ");
+				dataStack = Arrays.stream(stackValues).map(s -> new ForthValue(target, s)).collect(Collectors.toList());
+				Collections.reverse(dataStack);
+			}
+
+			// update the current address
+			currentAddress = address;
+
+			fireSuspendEvent(DebugEvent.STEP_END);
+		});
+
 	}
 
 	/*
@@ -311,7 +343,7 @@ public class ForthThread extends ForthDebugElement implements IThread {
 	 * 
 	 * @param function
 	 */
-	public void functionEnter(String function) {
+	public void functionEnter(final String function) {
 		// save old stack frame
 		if (currentFunction != null && currentAddress != null) {
 			stackFrames.add(new ForthStackFrame(this, currentFunction, currentFunction + ".fs", addressMapping.getLineNumber(currentFunction, currentAddress), currentAddress,
@@ -339,16 +371,6 @@ public class ForthThread extends ForthDebugElement implements IThread {
 		}
 	}
 
-	/**
-	 * Notifies that the debugger has stepped to the given address.
-	 * 
-	 * @param address
-	 */
-	public void stepped(String address) {
-		isStepping = true;
-		currentAddress = address;
-	}
-
 	// TODO should this method be here or at the same place where the other pre
 	// processing files lie?
 	/**
@@ -358,20 +380,19 @@ public class ForthThread extends ForthDebugElement implements IThread {
 	 *            the original source file used to read all the function names
 	 *            from
 	 */
-	private void disassemble(List<String> forthSource) {
+	private void disassemble(final List<String> forthSource) {
 		final Map<String, Integer> forthFunctions = getForthFunctions(forthSource);
 
 		final Pattern disasemblerLinePattern = Pattern.compile("([A-Fa-f0-9]{8}): ([A-Fa-f0-9 ]{8}) ?(.*)");
 
 		for (final Entry<String, Integer> function : forthFunctions.entrySet()) {
-			// the code for the function starts two lines after the actual
-			// function defintion
+			// the code for the function starts two lines after the actual function defintion
 			final String functionName = function.getKey();
 			final List<String> disassembledFunction = new ArrayList<String>();
 
 			final WaitForMatch waitForMatchLater = forthCommunicator
 					.waitForMatchLater("([A-Fa-f0-9]{8}): ([A-Fa-f0-9 ]{8}) ?(([A-Fa-f0-9]+ [A-Fa-f0-9]+)|( [^\\s]+[A-Fa-f0-9 ]+ (call))|([^\\s]+))");
-			forthCommunicator.sendCommandAwaitResult("show " + functionName + "\r", waitForMatchLater);
+			forthCommunicator.sendCommandAwaitResult("show " + functionName + "\r", waitForMatchLater); // FIXME WINDOWS WORKAROUND
 			forthCommunicator.awaitReadCompletion();
 
 			String currentLine = forthCommunicator.getCurrentLine();
@@ -382,7 +403,7 @@ public class ForthThread extends ForthDebugElement implements IThread {
 			// one based line numbering
 			while (!currentLine.contains("exit")) {
 				forthCommunicator.awaitReadCompletion();
-				forthCommunicator.sendCommandAwaitResult(ForthCommandQueue.ANY, forthCommunicator.waitForResultLater(ForthCommandQueue.NL));
+				forthCommunicator.sendCommandAwaitResult(ForthCommunicator.ANY, forthCommunicator.waitForResultLater(ForthCommunicator.NL));
 				forthCommunicator.awaitReadCompletion();
 
 				currentLine = forthCommunicator.getCurrentLine();
@@ -390,7 +411,7 @@ public class ForthThread extends ForthDebugElement implements IThread {
 				lineRead(disasemblerLinePattern, disassembledFunction, functionName, currentLine, lineNumber++);
 			}
 
-			forthCommunicator.sendCommand(ForthCommandQueue.CR);
+			forthCommunicator.sendCommand(ForthCommunicator.CR);
 
 			final IPath debugFolderPath = forthFile.getParent().getFullPath().append("debugger");
 			final IPath debugFile = debugFolderPath.append(functionName).addFileExtension("fs");
@@ -402,21 +423,21 @@ public class ForthThread extends ForthDebugElement implements IThread {
 			if (!debugFolder.exists()) {
 				try {
 					debugFolder.create(true, true, monitor);
-				} catch (CoreException e) {
+				} catch (final CoreException e) {
 					e.printStackTrace();
 				}
 			}
 
 			// create the file with the disassembled function
 			final String debugFileContent = disassembledFunction.stream().reduce("", (a, b) -> a + b + System.lineSeparator());
-			IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(debugFile);
+			final IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(debugFile);
 			try {
 				// delete old file
 				if (file.exists()) {
 					file.delete(true, false, monitor);
 				}
 				file.create(new ByteArrayInputStream(debugFileContent.getBytes(StandardCharsets.UTF_8)), true, monitor);
-			} catch (CoreException e) {
+			} catch (final CoreException e) {
 				e.printStackTrace();
 			}
 		}
@@ -430,7 +451,7 @@ public class ForthThread extends ForthDebugElement implements IThread {
 	 * @param currentLine
 	 * @param lineNumber
 	 */
-	private void lineRead(final Pattern disasemblerLinePattern, final List<String> disassembledFunction, String function, String currentLine, int lineNumber) {
+	private void lineRead(final Pattern disasemblerLinePattern, final List<String> disassembledFunction, final String function, final String currentLine, final int lineNumber) {
 		final Matcher matcher = disasemblerLinePattern.matcher(currentLine);
 		matcher.find();
 
@@ -477,7 +498,7 @@ public class ForthThread extends ForthDebugElement implements IThread {
 
 		// TODO some more information parsing? like if the line is a function
 		// call or not (for stepping purposes)
-		private Map<String, Map<String, Integer>> functionLineMap = new HashMap<String, Map<String, Integer>>();
+		private final Map<String, Map<String, Integer>> functionLineMap = new HashMap<String, Map<String, Integer>>();
 
 		/**
 		 * Maps the given address of the given function to the given line number
@@ -486,7 +507,7 @@ public class ForthThread extends ForthDebugElement implements IThread {
 		 * @param address
 		 * @param lineNumber
 		 */
-		public void mapAddress(String function, String address, int lineNumber) {
+		public void mapAddress(final String function, final String address, final int lineNumber) {
 			functionLineMap.putIfAbsent(function, new HashMap<String, Integer>());
 			functionLineMap.get(function).put(address, lineNumber);
 		}
@@ -498,7 +519,7 @@ public class ForthThread extends ForthDebugElement implements IThread {
 		 * @param currentAddress
 		 * @return
 		 */
-		public int getLineNumber(String currentFunction, String currentAddress) {
+		public int getLineNumber(final String currentFunction, final String currentAddress) {
 			return functionLineMap.get(currentFunction).get(currentAddress);
 		}
 	}

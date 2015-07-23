@@ -3,6 +3,9 @@ package ch.fhnw.mdt.forthdebugger.debugmodel;
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IMemoryBlock;
 
+import ch.fhnw.mdt.forthdebugger.communication.ForthCommunicator;
+import ch.fhnw.mdt.forthdebugger.communication.ForthCommunicator.ForthCommandQueue;
+
 public class ForthMemoryBlock extends ForthDebugElement implements IMemoryBlock {
 
 	// 00000000: 12 0 7 3B6 10127 5 9 9
@@ -10,11 +13,26 @@ public class ForthMemoryBlock extends ForthDebugElement implements IMemoryBlock 
 	private final byte[] memory = new byte[100];
 	private long startAddress;
 	private long length;
+	private ForthCommunicator forthCommunicator;
 
-	public ForthMemoryBlock(ForthDebugTarget target, long startAddress, long length, int[] values) {
+	public ForthMemoryBlock(ForthDebugTarget target, long startAddress, long length, ForthCommunicator forthCommunicator) {
 		super(target);
+		this.forthCommunicator = forthCommunicator;
+
 		this.startAddress = startAddress;
 		this.length = length;
+
+		loadMemory();
+	}
+
+	private void loadMemory() {
+
+		forthCommunicator.awaitReadCompletion();
+
+		forthCommunicator.sendCommandAwaitResult(String.valueOf(startAddress) + " " + String.valueOf(length) + " dump" + ForthCommunicator.NL,
+				forthCommunicator.waitForResultLater(ForthCommunicator.OK));
+
+		final int[] values = new int[0];
 
 		for (int valueIndex = 0; valueIndex < values.length; ++valueIndex) {
 
@@ -25,20 +43,8 @@ public class ForthMemoryBlock extends ForthDebugElement implements IMemoryBlock 
 			memory[offset + 2] = (byte) (value >>> 8);
 			memory[offset + 3] = (byte) value;
 		}
-
 	}
-	/*
-	 * addInt(0x12, 0); addInt(0x0, 4); addInt(0x7, 8); addInt(0x3B6, 12);
-	 * addInt(0x10127, 16); addInt(0x5, 20); addInt(0x9, 24); addInt(0x9, 28);
-	 * addInt(0x38F, 32); addInt(0x2, 36); /* }
-	 * 
-	 * /* private void addInt(int value, int offset) { byte[] array =
-	 * ByteBuffer.allocate(4).putInt(value).array(); memory[offset + 0] =
-	 * array[0]; memory[offset + 1] = array[1]; memory[offset + 2] = array[2];
-	 * memory[offset + 3] = array[3];
-	 * 
-	 * }
-	 */
+
 	@Override
 	public long getStartAddress() {
 		return startAddress;
@@ -51,6 +57,9 @@ public class ForthMemoryBlock extends ForthDebugElement implements IMemoryBlock 
 
 	@Override
 	public byte[] getBytes() throws DebugException {
+
+		loadMemory();
+
 		return memory;
 	}
 

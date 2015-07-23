@@ -5,12 +5,9 @@ import java.io.InputStream;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarkerDelta;
@@ -26,7 +23,6 @@ import org.eclipse.debug.core.model.IProcess;
 import org.eclipse.debug.core.model.IThread;
 import org.eclipse.debug.core.model.IValue;
 
-import ch.fhnw.mdt.forthdebugger.communication.ForthCommandQueue;
 import ch.fhnw.mdt.forthdebugger.communication.ForthCommunicator;
 
 /**
@@ -373,16 +369,7 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 	 */
 	@Override
 	public IMemoryBlock getMemoryBlock(final long startAddress, final long length) throws DebugException {
-
-		forthCommunicator.awaitReadCompletion();
-
-		// ANOTHER
-		forthCommunicator.sendCommandAwaitResult(String.valueOf(startAddress) + " " + String.valueOf(length) + " dump" + ForthCommandQueue.NL,
-				forthCommunicator.waitForResultLater(ForthCommandQueue.OK));
-
-		List<String> readLines = forthCommunicator.getReadLines();
-		
-		return new ForthMemoryBlock(target, 0, 0, new int[0]);
+		return new ForthMemoryBlock(target, startAddress, length, forthCommunicator);
 	}
 
 	/**
@@ -492,23 +479,24 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 				// breakpoint hit
 				functionBegin(functionMatcher.group(1));
 				return true;
-			} else if (stepMatcher.matches()) {
-				if ("exit".equals(stepMatcher.group(3))) {
-					// exit
-					functionExit();
-
-					// step out of function
-					try {
-						forthThread.stepOver();
-					} catch (DebugException e) {
-						e.printStackTrace();
-					}
-				} else {
-					// step
-					singleStep(stepMatcher.group(1), stepMatcher.group(8));
-				}
-				return true;
 			}
+			// } else if (stepMatcher.matches()) {
+			// if ("exit".equals(stepMatcher.group(3))) {
+			// // exit
+			// functionExit();
+			//
+			// // step out of function
+			// try {
+			// forthThread.stepOver();
+			// } catch (DebugException e) {
+			// e.printStackTrace();
+			// }
+			// } else {
+			// // step
+			// singleStep(stepMatcher.group(1), stepMatcher.group(8));
+			// }
+			// return true;
+			// }
 
 			return false;
 		}
@@ -542,23 +530,23 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 			suspended(DebugEvent.BREAKPOINT);
 		}
 
-		/**
-		 * Notification that the debugger has stepped.
-		 * 
-		 * @param stack
-		 * 
-		 * @param line
-		 */
-		private void singleStep(String address, String stack) {
-			forthThread.stepped(address);
-
-			// update stack
-			final String[] stackValues = stack.trim().split(" ");
-			dataStack = Arrays.stream(stackValues).map(s -> new ForthValue(target, s)).collect(Collectors.toList());
-			Collections.reverse(dataStack);
-
-			suspended(DebugEvent.STEP_END);
-		}
+		// /**
+		// * Notification that the debugger has stepped.
+		// *
+		// * @param stack
+		// *
+		// * @param line
+		// */
+		// private void singleStep(String address, String stack) {
+		// forthThread.stepped(address);
+		//
+		// // update stack
+		// final String[] stackValues = stack.trim().split(" ");
+		// dataStack = Arrays.stream(stackValues).map(s -> new ForthValue(target, s)).collect(Collectors.toList());
+		// Collections.reverse(dataStack);
+		//
+		// suspended(DebugEvent.STEP_END);
+		// }
 
 		/**
 		 * Notification that the debugger has reached the end of a function and is ready to resume normally.
