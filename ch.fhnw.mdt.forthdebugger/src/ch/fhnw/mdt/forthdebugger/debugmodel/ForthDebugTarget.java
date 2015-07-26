@@ -5,9 +5,12 @@ import java.io.InputStream;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarkerDelta;
@@ -40,33 +43,35 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 	private final IFile forthFile;
 
 	// suspend state
-	private boolean suspended = true;
+	private boolean suspended = false;
 
 	// process communication
 	private final ForthCommunicator forthCommunicator;
+	private DebugStreamListener debugStreamListener;
+	private transient boolean ignoreInput;
 
 	// threads
 	private final ForthThread forthThread;
 	private final IThread[] threads;
-
 	private List<IValue> dataStack = new ArrayList<IValue>();
 
-	private DebugStreamListener debugStreamListener;
-
-	// private static final String NL = System.lineSeparator();
+	// constants
 	private static final String NL = "\n";
 
 	/**
-	 * Constructs a new debug target in the given launch for the associated PDA VM process.
+	 * Constructs a new debug target in the given launch for the associated Forth Process.
 	 * 
+	 * @param forthFile
+	 *            the original source file
+	 * @param forthSource
+	 *            the original forth source code
 	 * @param launch
-	 *            containing launch
-	 * @param requestPort
-	 *            port to send requests to the VM
-	 * @param eventPort
-	 *            port to read events from
-	 * @exception CoreException
-	 *                if unable to connect to host
+	 *            the associated launch
+	 * @param process
+	 *            the forth process
+	 * @param forthCommunicator
+	 *            the communicator used to communicate with the process
+	 * @throws CoreException
 	 */
 	public ForthDebugTarget(final IFile forthFile, final List<String> forthSource, final ILaunch launch, final IProcess process, final ForthCommunicator forthCommunicator)
 			throws CoreException {
@@ -211,16 +216,6 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.debug.core.model.ISuspendResume#canSuspend()
-	 */
-	@Override
-	public boolean canSuspend() {
-		return !isTerminated() && !isSuspended();
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see org.eclipse.debug.core.model.ISuspendResume#isSuspended()
 	 */
 	@Override
@@ -235,30 +230,19 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 	 */
 	@Override
 	public void resume() throws DebugException {
-		// TODO implement
+		forthThread.resume();
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.debug.core.model.ISuspendResume#canSuspend()
+	 */
+	@Override
+	public boolean canSuspend() {
+		return false;
 	}
 
-	/**
-	 * Notification the target has resumed for the given reason
-	 * 
-	 * @param detail
-	 *            reason for the resume
-	 */
-	private void resumed(final int detail) {
-		suspended = false;
-		forthThread.fireResumeEvent(detail);
-	}
-
-	/**
-	 * Notification the target has suspended for the given reason
-	 * 
-	 * @param detail
-	 *            reason for the suspend
-	 */
-	private void suspended(final int detail) {
-		suspended = true;
-		forthThread.fireSuspendEvent(detail);
-	}
 
 	/*
 	 * (non-Javadoc)
@@ -373,6 +357,15 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 	}
 
 	/**
+	 * Sets whether the internal debug stream listener should ignore its input.
+	 * 
+	 * @param ignore
+	 */
+	void setIgnoreInput(boolean ignore) {
+		this.ignoreInput = ignore;
+	}
+
+	/**
 	 * Returns the values on the data stack (top down)
 	 * 
 	 * @return the values on the data stack (top down)
@@ -391,6 +384,28 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 			resume();
 		} catch (final DebugException e) {
 		}
+	}
+
+	/**
+	 * Notification the target has resumed for the given reason
+	 * 
+	 * @param detail
+	 *            reason for the resume
+	 */
+	private void resumed(final int detail) {
+		suspended = false;
+		forthThread.fireResumeEvent(detail);
+	}
+
+	/**
+	 * Notification the target has suspended for the given reason
+	 * 
+	 * @param detail
+	 *            reason for the suspend
+	 */
+	private void suspended(final int detail) {
+		suspended = true;
+		forthThread.fireSuspendEvent(detail);
 	}
 
 	/**
@@ -429,9 +444,8 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 	private class DebugStreamListener extends Thread {
 
 		private final InputStream stream;
-		private final Pattern functionPattern = Pattern.compile("([^\\s]+)(\\s+)(-{15})");
+		private final Pattern debugFunctionPattern = Pattern.compile("([^\\s]+)(\\s+)(-{15})");
 
-		// TODO check pattern for correctness
 		private final Pattern stepPattern = Pattern
 				.compile("([A-Fa-f0-9]{8}): ([A-Fa-f0-9 ]{8})(([^\\s]+ [^\\s]+)|( [^\\s]+[A-Fa-f0-9 ]+ (call))|([^\\s]+))((-?[A-Fa-f0-9 ])*) (>+)");
 
@@ -447,6 +461,10 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 			while (true) {
 				try {
 					final char read = (char) stream.read();
+
+					// ignore
+					if (ignoreInput)
+						continue;
 
 					line.append(read);
 
@@ -465,40 +483,69 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 			}
 		}
 
+		// TODO the first line won't contain the uCore> start...
 		/**
 		 * Fires event based on the output of the forth debugger
 		 * 
 		 * @param current
 		 */
 		private boolean fireEvents(String current) {
-			// System.out.println("LINE :\"" + current + "\"");
-			final Matcher functionMatcher = functionPattern.matcher(current);
+			final Matcher debugFunctionMatcher = debugFunctionPattern.matcher(current);
 			final Matcher stepMatcher = stepPattern.matcher(current);
 
-			if (functionMatcher.matches()) {
+			if (debugFunctionMatcher.matches()) {
 				// breakpoint hit
-				functionBegin(functionMatcher.group(1));
+				functionBegin(debugFunctionMatcher.group(1));
 				return true;
+			} else if (stepMatcher.matches()) {
+				// update stack
+				final String stack = stepMatcher.group(8);
+				final String[] stackValues = stack.trim().split(" ");
+				dataStack = Arrays.stream(stackValues).map(s -> new ForthValue(target, s)).collect(Collectors.toList());
+				Collections.reverse(dataStack);
+
+				// step
+				singleStep(stepMatcher.group(1));
+
+				// notification of function exit
+				if ("exit".equals(stepMatcher.group(3))) {
+					functionExit();
+				}
+				return true;
+			} else if (current.endsWith("uCore>")) {
+				functionEnd();
+			} else if (current.endsWith("bye")) {
+				terminated();
 			}
-			// } else if (stepMatcher.matches()) {
-			// if ("exit".equals(stepMatcher.group(3))) {
-			// // exit
-			// functionExit();
-			//
-			// // step out of function
-			// try {
-			// forthThread.stepOver();
-			// } catch (DebugException e) {
-			// e.printStackTrace();
-			// }
-			// } else {
-			// // step
-			// singleStep(stepMatcher.group(1), stepMatcher.group(8));
-			// }
-			// return true;
-			// }
 
 			return false;
+		}
+
+		/**
+		 * Returns whether this line is a function call. A function call has the following pattern
+		 * <pre>
+		 * uCore> _function ok
+		 * </pre>
+		 * where _function can be replaced with any function loaded by the debugger. (Any function from the running C-File).
+		 * @param current
+		 * @return
+		 */
+		private boolean isFunctionCall(String current) {
+			// note that we can not just use a simple Regex here, because we need to check if the function really is a loaded function otherwise
+			// a command like "uCore> 3 ok" would pass the Regex too.
+			if (current.startsWith("uCore> ") && current.endsWith("ok")) {
+				final String function = current.substring(7, current.length() - 3);
+				return forthThread.hasFunctionLoaded(function);
+			}
+			return false;
+		}
+
+		/**
+		 * Notification that the function has ended.
+		 */
+		private void functionEnd() {
+			forthThread.resumed();
+			resumed(DebugEvent.CLIENT_REQUEST);
 		}
 
 		/**
@@ -527,34 +574,27 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 			}
 
 			forthThread.functionEnter(function);
-			suspended(DebugEvent.BREAKPOINT);
+			// TODO if this is here the forth memory block will get loaded earlier than expected (before the single step event).
+			// suspended(DebugEvent.BREAKPOINT);
 		}
 
-		// /**
-		// * Notification that the debugger has stepped.
-		// *
-		// * @param stack
-		// *
-		// * @param line
-		// */
-		// private void singleStep(String address, String stack) {
-		// forthThread.stepped(address);
-		//
-		// // update stack
-		// final String[] stackValues = stack.trim().split(" ");
-		// dataStack = Arrays.stream(stackValues).map(s -> new ForthValue(target, s)).collect(Collectors.toList());
-		// Collections.reverse(dataStack);
-		//
-		// suspended(DebugEvent.STEP_END);
-		// }
+		/**
+		 * Notification that the debugger has stepped.
+		 *
+		 * @param address
+		 */
+		private void singleStep(String address) {
+			forthThread.stepped(address);
+			suspended(DebugEvent.STEP_END);
+		}
 
 		/**
 		 * Notification that the debugger has reached the end of a function and is ready to resume normally.
+		 * 
+		 * @param address
 		 */
 		private void functionExit() {
 			forthThread.functionExit();
-
-			resumed(DebugEvent.RESUME);
 		}
 
 		/**

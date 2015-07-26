@@ -52,10 +52,17 @@ public class ForthCommunicator {
 	// called after a command request has timed out
 	private final List<CommandTimedOutListener> commandTimedOutListeners = new ArrayList<CommandTimedOutListener>();
 
+	// command queue
+	private final BlockingQueue<Command> queue = new LinkedBlockingQueue<Command>();
+	private final Lock commandCompletionLock = new ReentrantLock();
+	private final Condition commandCompletionCondition;
+	private transient boolean isWorking = false;
+
 	public ForthCommunicator(BufferedWriter processWriter, InputStream input, Process process) {
 		this.process = process;
 		this.commandQueue = new ForthCommandQueue(processWriter);
 		this.reader = new ForthReader(input);
+		this.commandCompletionCondition = commandCompletionLock.newCondition();
 
 		commandQueue.start();
 		reader.start();
@@ -65,19 +72,10 @@ public class ForthCommunicator {
 	 * Shuts down Forth and also closes the underlying Forth {@link Process}.
 	 */
 	public void shutdown() {
-
-		// TODO implement!
-		// TODO close streams
+		commandQueue.terminate();
+		reader.terminate();
 
 		process.destroy();
-	}
-
-	/**
-	 * @param listener
-	 * @see ch.fhnw.mdt.forthdebugger.communication.ForthCommandQueue#addCommandTimeOutListener(ch.fhnw.mdt.forthdebugger.communication.CommandTimedOutListener.TimedOutListener)
-	 */
-	public void addCommandTimeOutListener(CommandTimedOutListener listener) {
-		commandQueue.addTimeOutListener(listener);
 	}
 
 	/**
@@ -128,9 +126,9 @@ public class ForthCommunicator {
 	 * @param waitFor
 	 */
 	public void sendCommandAwaitResult(final int command, final WaitFor waitFor) {
-		sendCommand(new Command(command, waitFor, null, false));
+		sendCommand(new Command(command, waitFor, null, true));
 	}
-	
+
 	/**
 	 * Sends the given command and returns immediately. Calls the {@link CommandCompleted} callback when the process
 	 * has returned the expected result for the given {@link WaitFor}.
@@ -142,13 +140,57 @@ public class ForthCommunicator {
 		sendCommand(new Command(command, waitFor, commandCompleted, false));
 	}
 
+	/**
+	 * Adds the given {@link CommandTimedOutListener} callback which will get called when a command has timed out.
+	 * 
+	 * 
+	 * @param listener
+	 */
+	public void addCommandTimeOutListener(CommandTimedOutListener listener) {
+		synchronized (commandTimedOutListeners) {
+			commandTimedOutListeners.add(listener);
+		}
+	}
 
 	/**
+	 * Sends the given {@link Command}.
+	 * 
 	 * @param command
-	 * @see ch.fhnw.mdt.forthdebugger.communication.ForthCommandQueue#sendCommand(ch.fhnw.mdt.forthdebugger.communication.ForthCommandQueue.Command)
 	 */
-	public void sendCommand(Command command) {
-		commandQueue.sendCommand(command);
+	private void sendCommand(final Command command) {
+		try {
+			commandCompletionLock.lock();
+
+			isWorking = true;
+			queue.put(command);
+
+			if (command.block) {
+				awaitCommandCompletion();
+			}
+		} catch (final InterruptedException e) {
+			e.printStackTrace();
+		} finally {
+			commandCompletionLock.unlock();
+		}
+
+	}
+
+	/**
+	 * Awaits until the command queue has been completed meaning all commands
+	 * have been written and if necessary received their results.
+	 */
+	public void awaitCommandCompletion() {
+		try {
+			commandCompletionLock.lock();
+
+			while (isWorking) {
+				commandCompletionCondition.await();
+			}
+		} catch (final InterruptedException e) {
+			e.printStackTrace();
+		} finally {
+			commandCompletionLock.unlock();
+		}
 	}
 
 	/**
@@ -285,84 +327,37 @@ public class ForthCommunicator {
 	}
 
 	/**
-	 * Thread safe communication for the forth process. TODO implement timeout!
+	 * TODO implement timeout!
+	 * Thread safe communication for the forth process.
 	 */
 	public final class ForthCommandQueue extends Thread {
-
-		private final BlockingQueue<Command> commandQueue = new LinkedBlockingQueue<Command>();
-		private transient boolean isWorking = false;
-
 		private final BufferedWriter processWriter;
 		private volatile boolean shutdown = false;
 
-		private final Lock commandCompletionLock = new ReentrantLock();
-		private final Condition commandCompletionCondition;
-
 		public ForthCommandQueue(final BufferedWriter processWriter) {
 			this.processWriter = processWriter;
-
-			this.commandCompletionCondition = commandCompletionLock.newCondition();
 		}
 
 		/**
-		 * Adds the given {@link CommandTimedOutListener} callback which will get called when a command has timed out.
-		 * 
-		 * 
-		 * @param listener
+		 * Terminates the command queue
 		 */
-		public void addTimeOutListener(CommandTimedOutListener listener) {
-			synchronized (commandTimedOutListeners) {
-				commandTimedOutListeners.add(listener);
-			}
-		}
-
-		/**
-		 * Sends the given {@link Command}.
-		 * 
-		 * @param command
-		 */
-		private void sendCommand(final Command command) {
+		public void terminate() {
+			shutdown = true;
 			try {
-				commandCompletionLock.lock();
-
-				isWorking = true;
-				commandQueue.put(command);
-				
-				if (command.block) {
-					awaitCommandCompletion();
-				}
-			} catch (final InterruptedException e) {
-				e.printStackTrace();
-			} finally {
-				commandCompletionLock.unlock();
+				processWriter.close();
+			} catch (IOException e) {
 			}
 
+			interrupt();
 		}
 
-		/**
-		 * Awaits until the command queue has been completed meaning all commands
-		 * have been written and if necessary received their results.
-		 */
-		private void awaitCommandCompletion() {
-			try {
-				commandCompletionLock.lock();
-
-				while (isWorking) {
-					commandCompletionCondition.await();
-				}
-			} catch (final InterruptedException e) {
-				e.printStackTrace();
-			} finally {
-				commandCompletionLock.unlock();
-			}
-		}
 
 		@Override
 		public void run() {
 			while (!shutdown) {
 				try {
 					// get next command or wait if there are none
-					final Command command = commandQueue.take();
+					final Command command = queue.take();
 
 					try {
 						if (command.waitFor != null) {
@@ -396,7 +391,7 @@ public class ForthCommunicator {
 							commandCompletionLock.lock();
 
 							// signal commandQueue empty
-							if (commandQueue.isEmpty()) {
+							if (queue.isEmpty()) {
 								isWorking = false;
 								commandCompletionCondition.signalAll();
 							}
@@ -454,17 +449,13 @@ public class ForthCommunicator {
 		}
 
 		/**
-		 * Stops this reader.
+		 * Terminates the reader and closes its associated input stream.
 		 */
-		public void shutdown() {
+		public void terminate() {
+			isRunning = false;
 			try {
-				isRunning = false;
 				input.close();
-
-				// TODO is this as clean as it should be?
-				// all waiting objects will timeout eventually
-
-			} catch (final IOException e) {
+			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
@@ -740,6 +731,7 @@ public class ForthCommunicator {
 	 */
 	@FunctionalInterface
 	public interface CommandTimedOutListener {
+
 		/**
 		 * Callback when a {@link Command} has timed out.
 		 */
@@ -751,6 +743,7 @@ public class ForthCommunicator {
 	 *
 	 */
 	public static interface LineListener {
+
 		/**
 		 * Callback when the main Forth Process reader has read a complete line.
 		 * 

@@ -3,16 +3,14 @@ package ch.fhnw.mdt.forthdebugger.debugmodel;
 import java.io.ByteArrayInputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -21,14 +19,15 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.debug.core.DebugEvent;
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IBreakpoint;
 import org.eclipse.debug.core.model.IStackFrame;
 import org.eclipse.debug.core.model.IThread;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
 
 import ch.fhnw.mdt.forthdebugger.communication.ForthCommunicator;
-import ch.fhnw.mdt.forthdebugger.communication.ForthCommunicator.ForthCommandQueue;
 import ch.fhnw.mdt.forthdebugger.communication.ForthCommunicator.WaitForMatch;
 
 /**
@@ -47,11 +46,9 @@ public class ForthThread extends ForthDebugElement implements IThread {
 	private volatile String currentAddress;
 	private volatile String currentFunction;
 	private final LinkedList<ForthStackFrame> stackFrames = new LinkedList<ForthStackFrame>();
-	private volatile List<ForthValue> dataStack;
 
 	private final LineMapping addressMapping;
-
-	private final Pattern stepPattern = Pattern.compile("([A-Fa-f0-9]{8}): ([A-Fa-f0-9 ]{8})(([^\\s]+ [^\\s]+)|( [^\\s]+[A-Fa-f0-9 ]+ (call))|([^\\s]+))((-?[A-Fa-f0-9 ])*) (>+)");
+	private boolean exitFunction;
 
 	/**
 	 * Constructs a new thread for the given target
@@ -167,31 +164,21 @@ public class ForthThread extends ForthDebugElement implements IThread {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.debug.core.model.ISuspendResume#canResume()
-	 */
-	@Override
-	public boolean canResume() {
-		return isSuspended();
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.debug.core.model.ISuspendResume#canSuspend()
-	 */
-	@Override
-	public boolean canSuspend() {
-		return !isSuspended();
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see org.eclipse.debug.core.model.ISuspendResume#isSuspended()
 	 */
 	@Override
 	public boolean isSuspended() {
 		return getDebugTarget().isSuspended();
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.debug.core.model.ISuspendResume#canResume()
+	 */
+	@Override
+	public boolean canResume() {
+		return getDebugTarget().canResume();
 	}
 
 	/*
@@ -201,7 +188,9 @@ public class ForthThread extends ForthDebugElement implements IThread {
 	 */
 	@Override
 	public void resume() throws DebugException {
-		getDebugTarget().resume();
+		if (isSuspended()) {
+			forthCommunicator.sendCommand("end-trace" +  ForthCommunicator.NL);
+		}
 	}
 
 	/*
@@ -211,7 +200,16 @@ public class ForthThread extends ForthDebugElement implements IThread {
 	 */
 	@Override
 	public void suspend() throws DebugException {
-		getDebugTarget().suspend();
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.debug.core.model.ISuspendResume#canSuspend()
+	 */
+	@Override
+	public boolean canSuspend() {
+		return false;
 	}
 
 	/*
@@ -271,31 +269,32 @@ public class ForthThread extends ForthDebugElement implements IThread {
 	 */
 	@Override
 	public void stepOver() throws DebugException {
-		final String stepPattern = "([A-Fa-f0-9]{8}): ([A-Fa-f0-9 ]{8})(([^\\s]+ [^\\s]+)|( [^\\s]+[A-Fa-f0-9 ]+ (call))|([^\\s]+))((-?[A-Fa-f0-9 ])*) (>+)";
-
-		final WaitForMatch waitForMatchLater = forthCommunicator.waitForMatchLater(stepPattern);
-
-		forthCommunicator.sendCommandForResult(ForthCommunicator.CR, waitForMatchLater, waitFor -> {
-
-			final String currentLine = waitFor.getResult();
-			final Pattern pattern = Pattern.compile(stepPattern);
-			Matcher matcher = pattern.matcher(currentLine);
-			matcher.find();
-			final String address = matcher.group(2);
-			final String stack = matcher.group(8);
-
-			// update stack
-			synchronized (dataStack) {
-				final String[] stackValues = stack.trim().split(" ");
-				dataStack = Arrays.stream(stackValues).map(s -> new ForthValue(target, s)).collect(Collectors.toList());
-				Collections.reverse(dataStack);
-			}
-
-			// update the current address
-			currentAddress = address;
-
-			fireSuspendEvent(DebugEvent.STEP_END);
-		});
+		forthCommunicator.sendCommand(ForthCommunicator.CR);
+		// final String stepPattern = "([A-Fa-f0-9]{8}): ([A-Fa-f0-9 ]{8})(([^\\s]+ [^\\s]+)|( [^\\s]+[A-Fa-f0-9 ]+ (call))|([^\\s]+))((-?[A-Fa-f0-9 ])*) (>+)";
+		//
+		// final WaitForMatch waitForMatchLater = forthCommunicator.waitForMatchLater(stepPattern);
+		//
+		// forthCommunicator.sendCommandForResult(ForthCommunicator.CR, waitForMatchLater, waitFor -> {
+		//
+		// final String currentLine = waitFor.getResult();
+		// final Pattern pattern = Pattern.compile(stepPattern);
+		// Matcher matcher = pattern.matcher(currentLine);
+		// matcher.find();
+		// final String address = matcher.group(2);
+		// final String stack = matcher.group(8);
+		//
+		// // update stack
+		// synchronized (dataStack) {
+		// final String[] stackValues = stack.trim().split(" ");
+		// dataStack = Arrays.stream(stackValues).map(s -> new ForthValue(target, s)).collect(Collectors.toList());
+		// Collections.reverse(dataStack);
+		// }
+		//
+		// // update the current address
+		// currentAddress = address;
+		//
+		// fireSuspendEvent(DebugEvent.STEP_END);
+		// });
 
 	}
 
@@ -356,19 +355,55 @@ public class ForthThread extends ForthDebugElement implements IThread {
 	}
 
 	/**
-	 * Notifies this thread that the debugger has exited the current function.
+	 * Notifies the thread of a step to the given address.
+	 * 
+	 * @param address
 	 */
-	public void functionExit() {
-		isStepping = false;
-		currentAddress = null;
-
-		if (!stackFrames.isEmpty()) {
+	public void stepped(String address) {
+		// exit the previous stack frame
+		if (exitFunction && stackFrames.size() > 0) {
 			final ForthStackFrame previousFrame = stackFrames.pop();
 			currentFunction = previousFrame.getFunctionName();
 			currentAddress = previousFrame.getCurrentAddress();
-		} else {
-			breakpoints = null;
+
+			exitFunction = false;
 		}
+
+		// update the current address
+		if (!address.equals(currentAddress)) {
+			isStepping = true;
+
+			currentAddress = address;
+		}
+	}
+
+	/**
+	 * Notifies the thread that the program has resumed and is not debugging anymore.
+	 */
+	public void resumed() {
+		isStepping = false;
+		currentAddress = null;
+		currentFunction = null;
+		breakpoints = null;
+		exitFunction = false;
+
+		stackFrames.clear();
+	}
+
+	/**
+	 * Notifies this thread that the debugger has exited the current function.
+	 */
+	public void functionExit() {
+		exitFunction = true;
+	}
+
+	/**
+	 * Returns whether this thread has the given function loaded.
+	 * 
+	 * @param function
+	 */
+	public boolean hasFunctionLoaded(String function) {
+		return addressMapping.getFunctions().contains(function);
 	}
 
 	// TODO should this method be here or at the same place where the other pre
@@ -522,5 +557,14 @@ public class ForthThread extends ForthDebugElement implements IThread {
 		public int getLineNumber(final String currentFunction, final String currentAddress) {
 			return functionLineMap.get(currentFunction).get(currentAddress);
 		}
+		
+		/**
+		 * 	Returns all functions which have a line numbers associated
+		 * @return
+		 */
+		public Set<String> getFunctions() {
+			return functionLineMap.keySet();
+		}
 	}
+
 }

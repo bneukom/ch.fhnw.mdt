@@ -3,6 +3,7 @@ package ch.fhnw.mdt.forthdebugger.ui;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IDebugElement;
+import org.eclipse.debug.core.model.IDebugTarget;
 import org.eclipse.debug.ui.AbstractDebugView;
 import org.eclipse.debug.ui.DebugUITools;
 import org.eclipse.debug.ui.IDebugUIConstants;
@@ -35,6 +36,8 @@ import ch.fhnw.mdt.forthdebugger.debugmodel.IForthConstants;
  */
 public class DataStackView extends AbstractDebugView implements ISelectionListener {
 
+	private TableViewer viewer;
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -43,7 +46,7 @@ public class DataStackView extends AbstractDebugView implements ISelectionListen
 	 */
 	protected Viewer createViewer(final Composite parent) {
 
-		final TableViewer viewer = new TableViewer(parent);
+		viewer = new TableViewer(parent);
 		final Table table = viewer.getTable();
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
@@ -158,7 +161,10 @@ public class DataStackView extends AbstractDebugView implements ISelectionListen
 			final IDebugElement element = (IDebugElement) adaptable.getAdapter(IDebugElement.class);
 			if (element != null) {
 				if (element.getModelIdentifier().equals(IForthConstants.ID_MDT_DEBUG_MODEL)) {
-					input = element.getDebugTarget();
+					final IDebugTarget debugTarget = element.getDebugTarget();
+					input = debugTarget;
+
+					viewer.getTable().setEnabled(debugTarget.isSuspended());
 				}
 			}
 		}
