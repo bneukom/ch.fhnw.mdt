@@ -15,13 +15,12 @@ public class MCoreLaunchConfigurationTab extends CLaunchConfigurationTab {
 
 	private LaunchConfigurationComposite launchConfigurationComposite;
 
-	
 	@Override
 	public void createControl(Composite parent) {
 		launchConfigurationComposite = new LaunchConfigurationComposite(this, parent, SWT.NONE);
 		setControl(launchConfigurationComposite);
 	}
-	
+
 	/**
 	 * Updates the launch configuration dialog.
 	 */
@@ -38,7 +37,7 @@ public class MCoreLaunchConfigurationTab extends CLaunchConfigurationTab {
 		try {
 			launchConfigurationComposite.setProject(configuration.getAttribute(IForthConstants.ATTR_PROJECT, ""));
 			launchConfigurationComposite.setExecutableFile(configuration.getAttribute(IForthConstants.ATTR_FORTH_EXECUTABLE_FILE, ""));
-			
+
 		} catch (CoreException e) {
 			e.printStackTrace();
 		}
@@ -49,12 +48,12 @@ public class MCoreLaunchConfigurationTab extends CLaunchConfigurationTab {
 		configuration.setAttribute(IForthConstants.ATTR_PROJECT, launchConfigurationComposite.getProjectName());
 		configuration.setAttribute(IForthConstants.ATTR_FORTH_EXECUTABLE_FILE, launchConfigurationComposite.getExecutableFilePath());
 		configuration.setAttribute(DebugPlugin.ATTR_PROCESS_FACTORY_ID, "ch.fhnw.mdt.forthdebugger.forthprocessfactory");
-		
+
 		if (launchConfigurationComposite.getExecutableFile() != null) {
 			configuration.setAttribute(ICDTLaunchConfigurationConstants.ATTR_PROGRAM_NAME, launchConfigurationComposite.getExecutableFile().getName());
 		}
 	}
-	
+
 	@Override
 	public boolean isValid(ILaunchConfiguration launchConfig) {
 		// TODO implement

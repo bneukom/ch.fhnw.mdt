@@ -23,15 +23,6 @@
       </persistent>
    </extension>
    <extension
-         point="org.eclipse.debug.core.breakpoints">
-      <breakpoint
-            class="ch.fhnw.mdt.forthdebugger.debugmodel.ForthLineBreakpoint"
-            id="ch.fhnw.mdt.forthdebugger.mdtBreakpoint"
-            markerType="ch.fhnw.mdt.forthdebugger.mdtBreakpointMarker"
-            name="MDT Line Breakpoint">
-      </breakpoint>
-   </extension>
-   <extension
          point="org.eclipse.debug.core.sourceLocators">
       <sourceLocator
             class="ch.fhnw.mdt.forthdebugger.sourcelookup.ForthSourceLookupDirector"

@@ -1,21 +1,12 @@
-package ch.fhnw.mdt.forthdebugger.ui;
+package ch.fhnw.mdt.forthdebugger.ui.breakpoints;
 
-import org.eclipse.cdt.core.dom.ast.IASTDeclaration;
-import org.eclipse.cdt.core.dom.ast.IASTFileLocation;
 import org.eclipse.cdt.core.dom.ast.IASTFunctionDefinition;
 import org.eclipse.cdt.core.dom.ast.IASTTranslationUnit;
 import org.eclipse.cdt.core.model.ITranslationUnit;
 import org.eclipse.cdt.ui.CDTUITools;
-import org.eclipse.core.resources.IMarker;
-import org.eclipse.core.resources.IMarkerDelta;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
-import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.debug.core.DebugPlugin;
-import org.eclipse.debug.core.IBreakpointListener;
 import org.eclipse.debug.core.model.IBreakpoint;
 import org.eclipse.debug.core.model.ILineBreakpoint;
 import org.eclipse.debug.ui.actions.IToggleBreakpointsTarget;
@@ -24,13 +15,12 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.texteditor.ITextEditor;
 
-import ch.fhnw.mdt.forthdebugger.ForthDebuggerPlugin;
-import ch.fhnw.mdt.forthdebugger.debugmodel.IForthConstants;
 import ch.fhnw.mdt.forthdebugger.debugmodel.ForthLineBreakpoint;
+import ch.fhnw.mdt.forthdebugger.debugmodel.IForthConstants;
 import ch.fhnw.mdt.forthdebugger.util.ASTUtil;
 
 /**
- * Adapter to create breakpoints in PDA files.
+ * Adapter to create breakpoints in C Files for the forth debugger.
  */
 public class ForthLineBreakpointAdapter implements IToggleBreakpointsTarget {
 
@@ -102,7 +92,7 @@ public class ForthLineBreakpointAdapter implements IToggleBreakpointsTarget {
 						// remove
 						breakpoint.delete();
 						return;
-					}
+					}	
 				}
 			}
 

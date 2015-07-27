@@ -427,7 +427,7 @@ public class ForthThread extends ForthDebugElement implements IThread {
 
 			final WaitForMatch waitForMatchLater = forthCommunicator
 					.waitForMatchLater("([A-Fa-f0-9]{8}): ([A-Fa-f0-9 ]{8}) ?(([A-Fa-f0-9]+ [A-Fa-f0-9]+)|( [^\\s]+[A-Fa-f0-9 ]+ (call))|([^\\s]+))");
-			forthCommunicator.sendCommandAwaitResult("show " + functionName + "\r", waitForMatchLater); // FIXME WINDOWS WORKAROUND
+			forthCommunicator.sendCommandAwaitResult("show " + functionName + ForthCommunicator.NL, waitForMatchLater);
 			forthCommunicator.awaitReadCompletion();
 
 			String currentLine = forthCommunicator.getCurrentLine();

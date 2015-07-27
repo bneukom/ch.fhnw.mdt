@@ -47,7 +47,6 @@ import ch.fhnw.mdt.preferences.MDTPreferencesPlugin;
 
 // TODO implement ILaunchShortcut
 // TODO see LocalCDILaunchDelegate
-// TODO Close all Streams!!!
 public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 
 	public static final String GFORTH_PATH_VARIABLE = "GFORTHPATH";
@@ -251,10 +250,11 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 			try {
 				launch.setAttribute(DebugPlugin.ATTR_PROCESS_FACTORY_ID, "ch.fhnw.mdt.launch.forthprocessfactory");
 
-				// FIXME WINDOWS WORKAROUND
-				final ProcessBuilder processBuilder = new ProcessBuilder("cmd");
+				final String shellName = System.getProperty("os.name").equals("Windows") ? "cmd" : "/bin/bash";
+				final ProcessBuilder processBuilder = new ProcessBuilder(shellName);
+				
 				processBuilder.directory(new File(workingDirectory));
-				// final ProcessBuilder processBuilder = new ProcessBuilder("/bin/bash");
+				
 				final Process process = processBuilder.start();
 				final IProcess eclipseProcess = DebugPlugin.newProcess(launch, process, "gforth");
 
@@ -266,7 +266,6 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 
 				final ForthCommunicator forthCommunicator = new ForthCommunicator(processWriter, process.getInputStream(), process);
 				final InputThread inputThread = new InputThread(gforthConsole.getInputStream(), forthCommunicator);
-
 				inputThread.start();
 
 				final IOConsoleOutputStream consoleOutputStream = gforthConsole.newOutputStream();
@@ -326,8 +325,7 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 					final char read = (char) inputStream.read();
 
 					if (read == CR) {
-						// FIXME WINDOWS WORKAROUND
-						forthCommunicator.sendCommand(commandBuffer.toString().substring(0, commandBuffer.toString().length() - 1) + ForthCommunicator.NL);
+						forthCommunicator.sendCommand(commandBuffer.toString().trim() + ForthCommunicator.NL);
 						commandBuffer.setLength(0);
 					} else {
 						commandBuffer.append(read);
@@ -378,8 +376,6 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 			} catch (IOException e) {
 				// ignore if can not close
 			}
-
 		}
 	}
-
 }
