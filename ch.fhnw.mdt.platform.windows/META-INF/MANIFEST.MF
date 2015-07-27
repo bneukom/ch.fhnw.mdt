@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Windows
+Bundle-SymbolicName: ch.fhnw.mdt.platform.windows;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Fragment-Host: ch.fhnw.mdt.platform;bundle-version="1.0.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Eclipse-PlatformFilter: (osgi.os=windows)

@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Platform
+Bundle-SymbolicName: ch.fhnw.mdt.platform;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: ch.fhnw.mdt.platform.MDTPlatformPlugin
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy
+Export-Package: ch.fhnw.mdt.platform
