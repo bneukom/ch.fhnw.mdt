@@ -19,7 +19,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
 
-import ch.fhnw.mdt.build.Activator;
+import ch.fhnw.mdt.build.MDTBuildPlugin;
 
 // TODO should that just be the Activator class?
 public class McoreNatureCore {
@@ -57,7 +57,7 @@ public class McoreNatureCore {
 								public IStatus runInWorkspace(IProgressMonitor monitor) throws CoreException {
 									addMCoreNature(project);
 									
-									return new Status(IStatus.OK, Activator.PLUGIN_ID, null);
+									return new Status(IStatus.OK, MDTBuildPlugin.PLUGIN_ID, null);
 								}
 							};
 

@@ -43,6 +43,8 @@ import ch.fhnw.mdt.forthdebugger.ForthDebuggerPlugin;
 import ch.fhnw.mdt.forthdebugger.communication.ForthCommunicator;
 import ch.fhnw.mdt.forthdebugger.debugmodel.ForthDebugTarget;
 import ch.fhnw.mdt.forthdebugger.debugmodel.IForthConstants;
+import ch.fhnw.mdt.platform.MDTPlatformPlugin;
+import ch.fhnw.mdt.platform.PlatformStrings;
 import ch.fhnw.mdt.preferences.MDTPreferencesPlugin;
 
 // TODO implement ILaunchShortcut
@@ -52,6 +54,8 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 	public static final String GFORTH_PATH_VARIABLE = "GFORTHPATH";
 	private static final String DEBUG_MODE = "debug";
 	private static final String DEBUG_FILE_NAME = "debugCFunction.fs";
+	
+	private PlatformStrings platformStrings = MDTPlatformPlugin.getDefault().getPlatformStrings();
 
 	@Override
 	public void launch(final ILaunchConfiguration configuration, final String mode, final ILaunch launch, final IProgressMonitor monitor) throws CoreException {
@@ -64,8 +68,7 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 			final IEnvironmentVariable gforthPathEnvironmentVariable = environmentVariableProvider.getVariable(GFORTH_PATH_VARIABLE,
 					buildInfo.getManagedProject().getConfigurations()[0], true);
 
-			// final String[] gforthPaths = gforthPathEnvironmentVariable.getValue().split(":");
-			final String[] gforthPaths = gforthPathEnvironmentVariable.getValue().split(";");
+			final String[] gforthPaths = gforthPathEnvironmentVariable.getValue().split(platformStrings.getEnvironmentSeparators());
 			final String workingDirectory = gforthPaths[gforthPaths.length - 1];
 			final String executableFilePath = launch.getLaunchConfiguration().getAttribute(IForthConstants.ATTR_FORTH_EXECUTABLE_FILE, "");
 			final IFile executableFile = (IFile) project.findMember(executableFilePath);
@@ -183,7 +186,7 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 	/**
 	 * Launches gforth and the debugger if necessary.
 	 */
-	private static class LaunchJob extends Job {
+	private class LaunchJob extends Job {
 
 		private boolean isDebugMode;
 		private ILaunch launch;
@@ -250,8 +253,7 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 			try {
 				launch.setAttribute(DebugPlugin.ATTR_PROCESS_FACTORY_ID, "ch.fhnw.mdt.launch.forthprocessfactory");
 
-				final String shellName = System.getProperty("os.name").equals("Windows") ? "cmd" : "/bin/bash";
-				final ProcessBuilder processBuilder = new ProcessBuilder(shellName);
+				final ProcessBuilder processBuilder = new ProcessBuilder(platformStrings.getShellPath());
 				
 				processBuilder.directory(new File(workingDirectory));
 				

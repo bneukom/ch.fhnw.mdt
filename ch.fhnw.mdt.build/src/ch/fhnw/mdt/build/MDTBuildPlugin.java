@@ -4,21 +4,22 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
 import ch.fhnw.mdt.build.nature.McoreNatureCore;
+import ch.fhnw.mdt.platform.MDTPlatformPlugin;
 
 /**
  * The activator class controls the plug-in life cycle
  */
-public class Activator extends AbstractUIPlugin {
+public class MDTBuildPlugin extends AbstractUIPlugin {
 
 	public static final String PLUGIN_ID = "ch.fhnw.mdt.build"; //$NON-NLS-1$
 	
 	
-	private static Activator plugin;
+	private static MDTBuildPlugin plugin;
 
 	/**
 	 * The constructor
 	 */
-	public Activator() {
+	public MDTBuildPlugin() {
 	}
 
 	/*
@@ -52,7 +53,7 @@ public class Activator extends AbstractUIPlugin {
 	 *
 	 * @return the shared instance
 	 */
-	public static Activator getDefault() {
+	public static MDTBuildPlugin getDefault() {
 		return plugin;
 	}
 

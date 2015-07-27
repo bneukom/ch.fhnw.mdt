@@ -81,5 +81,15 @@
             name="MDT Line Breakpoint">
       </breakpoint>
    </extension>
+   <extension
+         point="org.eclipse.core.runtime.adapters">
+      <factory
+            adaptableType="org.eclipse.ui.texteditor.ITextEditor"
+            class="ch.fhnw.mdt.forthdebugger.ui.breakpoints.ForthBreakpointAdapterFactory">
+         <adapter
+               type="org.eclipse.debug.ui.actions.IToggleBreakpointsTarget">
+         </adapter>
+      </factory>
+   </extension>
 
 </plugin>
