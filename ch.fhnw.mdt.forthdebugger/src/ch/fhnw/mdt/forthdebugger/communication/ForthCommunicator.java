@@ -99,8 +99,9 @@ public class ForthCommunicator {
 	}
 
 	/**
-	 * Sends the given command and returns immediately. Calls the {@link CommandCompleted} callback when the process
-	 * has returned the expected result for the given {@link WaitFor}.
+	 * Sends the given command and returns immediately. Calls the
+	 * {@link CommandCompleted} callback when the process has returned the
+	 * expected result for the given {@link WaitFor}.
 	 * 
 	 * @param command
 	 * @param waitFor
@@ -130,8 +131,9 @@ public class ForthCommunicator {
 	}
 
 	/**
-	 * Sends the given command and returns immediately. Calls the {@link CommandCompleted} callback when the process
-	 * has returned the expected result for the given {@link WaitFor}.
+	 * Sends the given command and returns immediately. Calls the
+	 * {@link CommandCompleted} callback when the process has returned the
+	 * expected result for the given {@link WaitFor}.
 	 * 
 	 * @param command
 	 * @param waitFor
@@ -141,7 +143,8 @@ public class ForthCommunicator {
 	}
 
 	/**
-	 * Adds the given {@link CommandTimedOutListener} callback which will get called when a command has timed out.
+	 * Adds the given {@link CommandTimedOutListener} callback which will get
+	 * called when a command has timed out.
 	 * 
 	 * 
 	 * @param listener
@@ -263,7 +266,8 @@ public class ForthCommunicator {
 
 	/**
 	 * Creates a {@link WaitForResult} object which can be used to wait for a
-	 * given result from the forth process reader at a later time. Call {@link WaitFor#await()} to wait.
+	 * given result from the forth process reader at a later time. Call
+	 * {@link WaitFor#await()} to wait.
 	 * 
 	 * @param result
 	 * @return
@@ -280,7 +284,8 @@ public class ForthCommunicator {
 
 	/**
 	 * Creates a {@link WaitForMatch} object which can be used to wait for a
-	 * given match from the forth process reader at a later time. Call {@link WaitFor#await()} to wait.
+	 * given match from the forth process reader at a later time. Call
+	 * {@link WaitFor#await()} to wait.
 	 * 
 	 * @param result
 	 * @return
@@ -327,8 +332,7 @@ public class ForthCommunicator {
 	}
 
 	/**
-	 * TODO implement timeout!
-	 * Thread safe communication for the forth process.
+	 * TODO implement timeout! Thread safe communication for the forth process.
 	 */
 	public final class ForthCommandQueue extends Thread {
 		private final BufferedWriter processWriter;
@@ -351,7 +355,6 @@ public class ForthCommunicator {
 			interrupt();
 		}
 
-
 		@Override
 		public void run() {
 			while (!shutdown) {
@@ -364,10 +367,12 @@ public class ForthCommunicator {
 							writeCommand(command);
 
 							try {
-								// wait for the result before processing further commands
+								// wait for the result before processing further
+								// commands
 								command.waitFor.await();
 
-								// after we are finished with waiting apply callback
+								// after we are finished with waiting apply
+								// callback
 								if (command.commandCompleted != null) {
 									command.commandCompleted.commandCompleted(command.waitFor);
 								}
@@ -468,9 +473,11 @@ public class ForthCommunicator {
 					// read next char
 					final int nextCharacter = input.read();
 
-					// TODO ordering is important due to clearing (how to make that
+					// TODO ordering is important due to clearing (how to make
+					// that
 					// consistent)
-					// notify everyone who was waiting for the available count to
+					// notify everyone who was waiting for the available count
+					// to
 					// hit zero
 					try {
 						availableLock.lock();
@@ -644,7 +651,8 @@ public class ForthCommunicator {
 				while (isWaiting) {
 					boolean finished = waitCondition.await(DEFAULT_TIME_OUT_MILLIS, TimeUnit.MILLISECONDS);
 
-					// TODO is throwing an InterruptedException the correct way to handle this?
+					// TODO is throwing an InterruptedException the correct way
+					// to handle this?
 					if (!finished) {
 						throw new InterruptedException();
 					}

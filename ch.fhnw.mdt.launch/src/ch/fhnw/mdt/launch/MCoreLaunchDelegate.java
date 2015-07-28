@@ -254,6 +254,7 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 				launch.setAttribute(DebugPlugin.ATTR_PROCESS_FACTORY_ID, "ch.fhnw.mdt.launch.forthprocessfactory");
 
 				final ProcessBuilder processBuilder = new ProcessBuilder(platformStrings.getShellPath());
+				processBuilder.redirectErrorStream();
 				
 				processBuilder.directory(new File(workingDirectory));
 				
@@ -265,7 +266,6 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 				ConsolePlugin.getDefault().getConsoleManager().addConsoles(new IConsole[] { gforthConsole });
 
 				final BufferedWriter processWriter = new BufferedWriter(new OutputStreamWriter(process.getOutputStream()));
-
 				final ForthCommunicator forthCommunicator = new ForthCommunicator(processWriter, process.getInputStream(), process);
 				final InputThread inputThread = new InputThread(gforthConsole.getInputStream(), forthCommunicator);
 				inputThread.start();
@@ -273,7 +273,7 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 				final IOConsoleOutputStream consoleOutputStream = gforthConsole.newOutputStream();
 				forthCommunicator.forwardOutput(System.out);
 				forthCommunicator.forwardOutput(consoleOutputStream);
-
+				
 				forthCommunicator.addCommandTimeOutListener(() -> {
 					Display.getDefault().asyncExec(() -> {
 						try {
