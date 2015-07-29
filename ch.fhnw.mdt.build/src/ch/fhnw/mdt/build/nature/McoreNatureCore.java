@@ -48,7 +48,7 @@ public class McoreNatureCore {
 
 						final IManagedBuildInfo buildInfo = ManagedBuildManager.getBuildInfo(affectedResource);
 
-						if (buildInfo.getManagedProject().getName().equals(MCORE_EXECUTABLE_NAME)) {
+						if (buildInfo != null && buildInfo.getManagedProject().getName().equals(MCORE_EXECUTABLE_NAME)) {
 							final IProject project = (IProject) affectedResource;
 
 							final WorkspaceJob job = new WorkspaceJob("Add Mcore Nature") {

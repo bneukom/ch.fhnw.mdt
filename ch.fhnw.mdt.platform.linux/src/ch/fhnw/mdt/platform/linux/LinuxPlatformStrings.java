@@ -1,8 +1,8 @@
 package ch.fhnw.mdt.platform.linux;
 
-import ch.fhnw.mdt.platform.PlatformStrings;
+import ch.fhnw.mdt.platform.IPlatformStrings;
 
-public class LinuxPlatformStrings implements PlatformStrings {
+public class LinuxPlatformStrings implements IPlatformStrings {
 
 	public LinuxPlatformStrings() {
 	}

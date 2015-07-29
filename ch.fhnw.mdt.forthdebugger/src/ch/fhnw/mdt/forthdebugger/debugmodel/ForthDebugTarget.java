@@ -33,7 +33,7 @@ import ch.fhnw.mdt.forthdebugger.communication.ForthCommunicator;
  */
 public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget {
 
-	// associated system process (VM)
+	// associated system process
 	private final IProcess process;
 
 	// containing launch object
@@ -447,7 +447,7 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 		private final Pattern debugFunctionPattern = Pattern.compile("([^\\s]+)(\\s+)(-{15})");
 
 		private final Pattern stepPattern = Pattern
-				.compile("([A-Fa-f0-9]{8}): ([A-Fa-f0-9 ]{8})(([^\\s]+ [^\\s]+)|( [^\\s]+[A-Fa-f0-9 ]+ (call))|([^\\s]+))((-?[A-Fa-f0-9 ])*) (>+)");
+				.compile("([A-Fa-f0-9]{8}): ([A-Fa-f0-9 ]{8}) ?(([^\\s]+ [^\\s]+)|( [^\\s]+[A-Fa-f0-9 ]+ (call))|([^\\s]+))((-?[A-Fa-f0-9 ])*) (>+)");
 
 		public DebugStreamListener(InputStream stream) {
 			this.stream = stream;
@@ -605,7 +605,5 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 			DebugPlugin.getDefault().getBreakpointManager().removeBreakpointListener(ForthDebugTarget.this);
 			fireTerminateEvent();
 		}
-
 	}
-
 }

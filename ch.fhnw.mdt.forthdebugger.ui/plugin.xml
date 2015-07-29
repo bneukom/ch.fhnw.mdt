@@ -91,5 +91,51 @@
          </adapter>
       </factory>
    </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            categoryId="org.eclipse.debug.ui.category.run"
+            defaultHandler="ch.fhnw.mdt.forthdebugger.ui.commands.JumpCommandHandler"
+            description="Jumps until after the next branch instruction"
+            id="ch.fhnw.mdt.forthdebugger.ui.jumpcommand"
+            name="Jump">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            id="ch.fhnw.mdt.forthdebugger.ui.debuggeractions"
+            label="Debug Action Set"
+            visible="false">
+         <action
+               class="ch.fhnw.mdt.forthdebugger.ui.commands.JumpCommandActionDelegate"
+               definitionId="ch.fhnw.mdt.forthdebugger.ui.jumpcommand"
+               icon="icons/jump.png"
+               id="ch.fhnw.mdt.forthdebugger.ui.jumpaction"
+               label="Jump"
+               menubarPath="org.eclipse.ui.run/emptyStepGroup"
+               toolbarPath="org.eclipse.debug.ui.main.toolbar/renderGroup">
+         </action>
+      </actionSet>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="org.eclipse.debug.ui.DebugPerspective">
+         <actionSet
+               id="ch.fhnw.mdt.forthdebugger.ui.debuggeractions">
+         </actionSet>
+      </perspectiveExtension>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.adapters">
+      <factory
+            adaptableType="ch.fhnw.mdt.forthdebugger.debugmodel.IJumpExtension"
+            class="ch.fhnw.mdt.forthdebugger.ui.adapters.ForthCommandAdapterFactory">
+         <adapter
+               type="ch.fhnw.mdt.forthdebugger.ui.commands.IJumpHandler">
+         </adapter>
+      </factory>
+   </extension>
 
 </plugin>

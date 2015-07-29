@@ -4,6 +4,12 @@ import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+/**
+ * Functional either class. Holds either a left or a right value.
+ *
+ * @param <L>
+ * @param <R>
+ */
 public final class Either<L, R> {
 
 	public static <L, R> Either<L, R> left(final L value) {
@@ -21,7 +27,6 @@ public final class Either<L, R> {
 		left = l;
 		right = r;
 	}
-
 
 	public <T> Either<T, R> mapLeft(final Function<? super L, ? extends T> lFunc) {
 		return new Either<>(left.map(lFunc), right);

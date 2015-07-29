@@ -8,7 +8,8 @@ import org.eclipse.debug.core.sourcelookup.ISourcePathComputerDelegate;
 import org.eclipse.debug.core.sourcelookup.containers.WorkspaceSourceContainer;
 
 /**
- * Computes the default source lookup path for a PDA launch configuration. The default source lookup path is the folder or project containing the PDA program being launched. If the
+ * Computes the default source lookup path for a Forth launch configuration. 
+ * The default source lookup path is the folder or project containing the Forth program being launched. If the
  * program is not specified, the workspace is searched by default.
  */
 public class ForthSourcePathComputerDelegate implements ISourcePathComputerDelegate {

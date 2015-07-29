@@ -44,7 +44,7 @@ import ch.fhnw.mdt.forthdebugger.communication.ForthCommunicator;
 import ch.fhnw.mdt.forthdebugger.debugmodel.ForthDebugTarget;
 import ch.fhnw.mdt.forthdebugger.debugmodel.IForthConstants;
 import ch.fhnw.mdt.platform.MDTPlatformPlugin;
-import ch.fhnw.mdt.platform.PlatformStrings;
+import ch.fhnw.mdt.platform.IPlatformStrings;
 import ch.fhnw.mdt.preferences.MDTPreferencesPlugin;
 
 // TODO implement ILaunchShortcut
@@ -55,7 +55,7 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 	private static final String DEBUG_MODE = "debug";
 	private static final String DEBUG_FILE_NAME = "debugCFunction.fs";
 	
-	private PlatformStrings platformStrings = MDTPlatformPlugin.getDefault().getPlatformStrings();
+	private IPlatformStrings iPlatformStrings = MDTPlatformPlugin.getDefault().getPlatformStrings();
 
 	@Override
 	public void launch(final ILaunchConfiguration configuration, final String mode, final ILaunch launch, final IProgressMonitor monitor) throws CoreException {
@@ -68,7 +68,7 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 			final IEnvironmentVariable gforthPathEnvironmentVariable = environmentVariableProvider.getVariable(GFORTH_PATH_VARIABLE,
 					buildInfo.getManagedProject().getConfigurations()[0], true);
 
-			final String[] gforthPaths = gforthPathEnvironmentVariable.getValue().split(platformStrings.getEnvironmentSeparators());
+			final String[] gforthPaths = gforthPathEnvironmentVariable.getValue().split(iPlatformStrings.getEnvironmentSeparators());
 			final String workingDirectory = gforthPaths[gforthPaths.length - 1];
 			final String executableFilePath = launch.getLaunchConfiguration().getAttribute(IForthConstants.ATTR_FORTH_EXECUTABLE_FILE, "");
 			final IFile executableFile = (IFile) project.findMember(executableFilePath);
@@ -253,7 +253,7 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 			try {
 				launch.setAttribute(DebugPlugin.ATTR_PROCESS_FACTORY_ID, "ch.fhnw.mdt.launch.forthprocessfactory");
 
-				final ProcessBuilder processBuilder = new ProcessBuilder(platformStrings.getShellPath());
+				final ProcessBuilder processBuilder = new ProcessBuilder(iPlatformStrings.getShellPath());
 				processBuilder.redirectErrorStream();
 				
 				processBuilder.directory(new File(workingDirectory));

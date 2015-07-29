@@ -15,7 +15,7 @@ import org.eclipse.debug.core.sourcelookup.AbstractSourceLookupDirector;
 import org.eclipse.debug.core.sourcelookup.ISourceLookupParticipant;
 
 /**
- * PDA source lookup director. For PDA source lookup there is one source lookup participant.
+ * Forth source lookup director. For Forth source lookup there is one source lookup participant.
  */
 public class ForthSourceLookupDirector extends AbstractSourceLookupDirector {
 	/*

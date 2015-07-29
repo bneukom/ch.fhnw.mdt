@@ -23,9 +23,6 @@ import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IBreakpoint;
 import org.eclipse.debug.core.model.IStackFrame;
 import org.eclipse.debug.core.model.IThread;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
 
 import ch.fhnw.mdt.forthdebugger.communication.ForthCommunicator;
 import ch.fhnw.mdt.forthdebugger.communication.ForthCommunicator.WaitForMatch;
@@ -33,7 +30,7 @@ import ch.fhnw.mdt.forthdebugger.communication.ForthCommunicator.WaitForMatch;
 /**
  * A forth thread. Forth Environment is single threaded.
  */
-public class ForthThread extends ForthDebugElement implements IThread {
+public class ForthThread extends ForthDebugElement implements IThread, IJumpExtension {
 
 	private IBreakpoint[] breakpoints;
 	private final IFile forthFile;
@@ -170,7 +167,7 @@ public class ForthThread extends ForthDebugElement implements IThread {
 	public boolean isSuspended() {
 		return getDebugTarget().isSuspended();
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -189,7 +186,7 @@ public class ForthThread extends ForthDebugElement implements IThread {
 	@Override
 	public void resume() throws DebugException {
 		if (isSuspended()) {
-			forthCommunicator.sendCommand("end-trace" +  ForthCommunicator.NL);
+			forthCommunicator.sendCommand("end-trace" + ForthCommunicator.NL);
 		}
 	}
 
@@ -201,7 +198,7 @@ public class ForthThread extends ForthDebugElement implements IThread {
 	@Override
 	public void suspend() throws DebugException {
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -229,6 +226,16 @@ public class ForthThread extends ForthDebugElement implements IThread {
 	 */
 	@Override
 	public boolean canStepOver() {
+		return isSuspended();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.debug.core.model.IStep#stepOver()
+	 */
+	@Override
+	public boolean canJump() throws DebugException {
 		return isSuspended();
 	}
 
@@ -270,32 +277,16 @@ public class ForthThread extends ForthDebugElement implements IThread {
 	@Override
 	public void stepOver() throws DebugException {
 		forthCommunicator.sendCommand(ForthCommunicator.CR);
-		// final String stepPattern = "([A-Fa-f0-9]{8}): ([A-Fa-f0-9 ]{8})(([^\\s]+ [^\\s]+)|( [^\\s]+[A-Fa-f0-9 ]+ (call))|([^\\s]+))((-?[A-Fa-f0-9 ])*) (>+)";
-		//
-		// final WaitForMatch waitForMatchLater = forthCommunicator.waitForMatchLater(stepPattern);
-		//
-		// forthCommunicator.sendCommandForResult(ForthCommunicator.CR, waitForMatchLater, waitFor -> {
-		//
-		// final String currentLine = waitFor.getResult();
-		// final Pattern pattern = Pattern.compile(stepPattern);
-		// Matcher matcher = pattern.matcher(currentLine);
-		// matcher.find();
-		// final String address = matcher.group(2);
-		// final String stack = matcher.group(8);
-		//
-		// // update stack
-		// synchronized (dataStack) {
-		// final String[] stackValues = stack.trim().split(" ");
-		// dataStack = Arrays.stream(stackValues).map(s -> new ForthValue(target, s)).collect(Collectors.toList());
-		// Collections.reverse(dataStack);
-		// }
-		//
-		// // update the current address
-		// currentAddress = address;
-		//
-		// fireSuspendEvent(DebugEvent.STEP_END);
-		// });
+	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.debug.core.model.IStep#stepOver()
+	 */
+	@Override
+	public void jump() throws DebugException {
+		forthCommunicator.sendCommand("jump" + ForthCommunicator.NL);
 	}
 
 	/*
@@ -557,9 +548,10 @@ public class ForthThread extends ForthDebugElement implements IThread {
 		public int getLineNumber(final String currentFunction, final String currentAddress) {
 			return functionLineMap.get(currentFunction).get(currentAddress);
 		}
-		
+
 		/**
-		 * 	Returns all functions which have a line numbers associated
+		 * Returns all functions which have a line numbers associated
+		 * 
 		 * @return
 		 */
 		public Set<String> getFunctions() {

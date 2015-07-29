@@ -1,8 +1,8 @@
 package ch.fhnw.mdt.platform.windows;
 
-import ch.fhnw.mdt.platform.PlatformStrings;
+import ch.fhnw.mdt.platform.IPlatformStrings;
 
-public class WindowsPlatformStrings implements PlatformStrings {
+public class WindowsPlatformStrings implements IPlatformStrings {
 
 	public WindowsPlatformStrings() {
 	}
