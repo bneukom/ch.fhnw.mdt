@@ -1,4 +1,4 @@
-package ch.fhnw.mdt.forthdebugger.ui.commands;
+package ch.fhnw.mdt.forthdebugger.ui.commands.jump;
 
 import org.eclipse.debug.internal.ui.commands.actions.DebugCommandActionDelegate;
 

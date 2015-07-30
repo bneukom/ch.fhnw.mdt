@@ -1,4 +1,4 @@
-package ch.fhnw.mdt.forthdebugger.ui.commands;
+package ch.fhnw.mdt.forthdebugger.ui.commands.jump;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -7,7 +7,7 @@ import org.eclipse.debug.core.commands.AbstractDebugCommand;
 import org.eclipse.debug.core.commands.IEnabledStateRequest;
 
 import ch.fhnw.mdt.forthdebugger.debugmodel.ForthThread;
-import ch.fhnw.mdt.forthdebugger.debugmodel.IJumpExtension;
+import ch.fhnw.mdt.forthdebugger.debugmodel.extensions.IJumpExtension;
 
 public class JumpCommand extends AbstractDebugCommand implements IJumpHandler {
 

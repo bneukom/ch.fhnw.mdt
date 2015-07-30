@@ -9,14 +9,18 @@
  *     IBM Corporation - initial API and implementation
  *     Bjorn Freeman-Benson - initial API and implementation
  *******************************************************************************/
-package ch.fhnw.mdt.forthdebugger.ui;
+package ch.fhnw.mdt.forthdebugger.ui.memoryrendering;
+
+import java.math.BigInteger;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.ILineBreakpoint;
+import org.eclipse.debug.core.model.IMemoryBlock;
 import org.eclipse.debug.core.model.IValue;
 import org.eclipse.debug.ui.IDebugModelPresentation;
 import org.eclipse.debug.ui.IValueDetailListener;
+import org.eclipse.debug.ui.memory.IMemoryBlockTablePresentation;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
@@ -26,9 +30,9 @@ import org.eclipse.ui.part.FileEditorInput;
 import ch.fhnw.mdt.forthdebugger.debugmodel.ForthValue;
 
 /**
- * Renders PDA debug elements
+ * Renders Forth debug elements
  */
-public class ForthModelPresentation extends LabelProvider implements IDebugModelPresentation {
+public class ForthModelPresentation extends LabelProvider implements IDebugModelPresentation, IMemoryBlockTablePresentation {
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -105,5 +109,22 @@ public class ForthModelPresentation extends LabelProvider implements IDebugModel
 			return "org.eclipse.cdt.ui.editor.CEditor";
 		}
 		return null;
+	}
+
+	@Override
+	public String[] getColumnLabels(IMemoryBlock blk, int bytesPerLine, int numColumns) {
+		
+		final String[] columnLabel = new String[numColumns];
+		
+		for (int columIndex = 0; columIndex < columnLabel.length; columIndex++) {
+			columnLabel[columIndex] = "column " + columIndex;
+		}
+		
+		return columnLabel;
+	}
+
+	@Override
+	public String getRowLabel(IMemoryBlock blk, BigInteger address) {
+		return "row lol";
 	}
 }

@@ -32,7 +32,6 @@ import ch.fhnw.mdt.forthdebugger.debugmodel.IForthConstants;
 
 /**
  * View which is able to display the data stack for the Forth Debugger.
- *
  */
 public class DataStackView extends AbstractDebugView implements ISelectionListener {
 

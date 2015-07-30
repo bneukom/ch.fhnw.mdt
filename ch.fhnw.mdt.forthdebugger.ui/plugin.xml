@@ -45,7 +45,7 @@
    <extension
          point="org.eclipse.debug.ui.debugModelPresentations">
       <debugModelPresentation
-            class="ch.fhnw.mdt.forthdebugger.ui.ForthModelPresentation"
+            class="ch.fhnw.mdt.forthdebugger.ui.memoryrendering.ForthModelPresentation"
             id="ch.fhnw.mdt.forthdebugger.forthDebugModelPresentation">
       </debugModelPresentation>
    </extension>
@@ -59,15 +59,15 @@
    <extension
          point="org.eclipse.debug.ui.memoryRenderings">
       <renderingBindings
-            primaryId="org.eclipse.debug.ui.rendering.hexint"
-            renderingIds="org.eclipse.debug.ui.rendering.raw_memory, org.eclipse.debug.ui.rendering.hexint">
+            primaryId="ch.fhnw.mdt.forthdebugger.ui.forthmemoryrendering"
+            renderingIds="org.eclipse.debug.ui.rendering.raw_memory, org.eclipse.debug.ui.rendering.hexint,ch.fhnw.mdt.forthdebugger.ui.forthmemoryrendering">
          <enablement>
             <instanceof
                   value="ch.fhnw.mdt.forthdebugger.debugmodel.ForthMemoryBlock">
             </instanceof></enablement>
       </renderingBindings>
       <renderingType
-            class="ch.fhnw.mdt.forthdebugger.ui.ForthMemoryRenderingTypeDelegate"
+            class="ch.fhnw.mdt.forthdebugger.ui.memoryrendering.ForthMemoryRenderingTypeDelegate"
             id="ch.fhnw.mdt.forthdebugger.ui.forthmemoryrendering"
             name="Forth Memory Rendering">
       </renderingType>
@@ -95,10 +95,17 @@
          point="org.eclipse.ui.commands">
       <command
             categoryId="org.eclipse.debug.ui.category.run"
-            defaultHandler="ch.fhnw.mdt.forthdebugger.ui.commands.JumpCommandHandler"
-            description="Jumps until after the next branch instruction"
+            defaultHandler="ch.fhnw.mdt.forthdebugger.ui.commands.jump.JumpCommandHandler"
+            description="Jumps over the current instruction."
             id="ch.fhnw.mdt.forthdebugger.ui.jumpcommand"
             name="Jump">
+      </command>
+      <command
+            categoryId="org.eclipse.debug.ui.category.run"
+            defaultHandler="ch.fhnw.mdt.forthdebugger.ui.commands.jump.JumpCommandHandler"
+            description="Executes the remainder of the loop without interruption until after the next branch instruction"
+            id="ch.fhnw.mdt.forthdebugger.ui.aftercommand"
+            name="After">
       </command>
    </extension>
    <extension
@@ -108,11 +115,20 @@
             label="Debug Action Set"
             visible="false">
          <action
-               class="ch.fhnw.mdt.forthdebugger.ui.commands.JumpCommandActionDelegate"
+               class="ch.fhnw.mdt.forthdebugger.ui.commands.jump.JumpCommandActionDelegate"
                definitionId="ch.fhnw.mdt.forthdebugger.ui.jumpcommand"
                icon="icons/jump.png"
                id="ch.fhnw.mdt.forthdebugger.ui.jumpaction"
                label="Jump"
+               menubarPath="org.eclipse.ui.run/emptyStepGroup"
+               toolbarPath="org.eclipse.debug.ui.main.toolbar/renderGroup">
+         </action>
+         <action
+               class="ch.fhnw.mdt.forthdebugger.ui.commands.after.AfterCommandActionDelegate"
+               definitionId="ch.fhnw.mdt.forthdebugger.ui.aftercommand"
+               icon="icons/after.png"
+               id="ch.fhnw.mdt.forthdebugger.ui.afteraction"
+               label="After"
                menubarPath="org.eclipse.ui.run/emptyStepGroup"
                toolbarPath="org.eclipse.debug.ui.main.toolbar/renderGroup">
          </action>
@@ -130,12 +146,40 @@
    <extension
          point="org.eclipse.core.runtime.adapters">
       <factory
-            adaptableType="ch.fhnw.mdt.forthdebugger.debugmodel.IJumpExtension"
+            adaptableType="ch.fhnw.mdt.forthdebugger.debugmodel.extensions.IJumpExtension"
             class="ch.fhnw.mdt.forthdebugger.ui.adapters.ForthCommandAdapterFactory">
          <adapter
-               type="ch.fhnw.mdt.forthdebugger.ui.commands.IJumpHandler">
+               type="ch.fhnw.mdt.forthdebugger.ui.commands.jump.IJumpHandler">
+         </adapter>
+         <adapter
+               type="ch.fhnw.mdt.forthdebugger.ui.commands.jump.JumpCommand">
          </adapter>
       </factory>
+      <factory
+            adaptableType="ch.fhnw.mdt.forthdebugger.debugmodel.extensions.IAfterExtension"
+            class="ch.fhnw.mdt.forthdebugger.ui.adapters.ForthCommandAdapterFactory">
+         <adapter
+               type="ch.fhnw.mdt.forthdebugger.ui.commands.after.IAfterHandler">
+         </adapter>
+         <adapter
+               type="ch.fhnw.mdt.forthdebugger.ui.commands.after.AfterCommand">
+         </adapter>
+      </factory>
+   </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+      <key
+            commandId="ch.fhnw.mdt.forthdebugger.ui.jumpcommand"
+            contextId="org.eclipse.debug.ui.debugging"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="F9">
+      </key>
+      <key
+            commandId="ch.fhnw.mdt.forthdebugger.ui.aftercommand"
+            contextId="org.eclipse.debug.ui.debugging"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="F10">
+      </key>
    </extension>
 
 </plugin>

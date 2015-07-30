@@ -1,17 +1,17 @@
-package ch.fhnw.mdt.forthdebugger.ui.commands;
+package ch.fhnw.mdt.forthdebugger.ui.commands.after;
 
 import org.eclipse.debug.ui.actions.DebugCommandAction;
 import org.eclipse.jface.resource.ImageDescriptor;
 
-public class JumpCommandAction extends DebugCommandAction {
+public class AfterCommandAction extends DebugCommandAction {
 
-	public JumpCommandAction() {
-		setActionDefinitionId("ch.fhnw.mdt.forthdebugger.ui.jumpcommand");
+	public AfterCommandAction() {
+		setActionDefinitionId("ch.fhnw.mdt.forthdebugger.ui.aftercommand");
 	}
 
 	@Override
 	protected Class<?> getCommandType() {
-		return IJumpHandler.class;
+		return IAfterHandler.class;
 	}
 
 	@Override
@@ -21,12 +21,12 @@ public class JumpCommandAction extends DebugCommandAction {
 
 	@Override
 	public String getId() {
-		return null;
+		return "ch.fhnw.mdt.forthdebugger.ui.afteraction";
 	}
 
 	@Override
 	public String getText() {
-		return "jump";
+		return "After";
 	}
 
 	@Override

@@ -26,11 +26,13 @@ import org.eclipse.debug.core.model.IThread;
 
 import ch.fhnw.mdt.forthdebugger.communication.ForthCommunicator;
 import ch.fhnw.mdt.forthdebugger.communication.ForthCommunicator.WaitForMatch;
+import ch.fhnw.mdt.forthdebugger.debugmodel.extensions.IAfterExtension;
+import ch.fhnw.mdt.forthdebugger.debugmodel.extensions.IJumpExtension;
 
 /**
  * A forth thread. Forth Environment is single threaded.
  */
-public class ForthThread extends ForthDebugElement implements IThread, IJumpExtension {
+public class ForthThread extends ForthDebugElement implements IThread, IJumpExtension, IAfterExtension {
 
 	private IBreakpoint[] breakpoints;
 	private final IFile forthFile;
@@ -232,10 +234,20 @@ public class ForthThread extends ForthDebugElement implements IThread, IJumpExte
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.debug.core.model.IStep#stepOver()
+	 * @see ch.fhnw.mdt.forthdebugger.debugmodel.extensions.IJumpExtension#canJump()
 	 */
 	@Override
 	public boolean canJump() throws DebugException {
+		return isSuspended();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see ch.fhnw.mdt.forthdebugger.debugmodel.extensions.IAfterExtension#canAfter()
+	 */
+	@Override
+	public boolean canAfter() throws DebugException {
 		return isSuspended();
 	}
 
@@ -287,6 +299,16 @@ public class ForthThread extends ForthDebugElement implements IThread, IJumpExte
 	@Override
 	public void jump() throws DebugException {
 		forthCommunicator.sendCommand("jump" + ForthCommunicator.NL);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see ch.fhnw.mdt.forthdebugger.debugmodel.extensions.IAfterExtension#after()
+	 */
+	@Override
+	public void after() throws DebugException {
+		forthCommunicator.sendCommand("after" + ForthCommunicator.NL);
 	}
 
 	/*

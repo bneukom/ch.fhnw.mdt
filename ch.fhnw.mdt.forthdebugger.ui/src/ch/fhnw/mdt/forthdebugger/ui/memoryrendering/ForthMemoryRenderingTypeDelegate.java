@@ -1,18 +1,19 @@
-package ch.fhnw.mdt.forthdebugger.ui;
+package ch.fhnw.mdt.forthdebugger.ui.memoryrendering;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.ui.memory.IMemoryRendering;
 import org.eclipse.debug.ui.memory.IMemoryRenderingTypeDelegate;
 
+import ch.fhnw.mdt.forthdebugger.ui.ForthTableRendering;
+
 public class ForthMemoryRenderingTypeDelegate implements IMemoryRenderingTypeDelegate {
 
 	public ForthMemoryRenderingTypeDelegate() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public IMemoryRendering createRendering(String id) throws CoreException {
-		return null;
+		return new ForthTableRendering(id);
 	}
 
 }

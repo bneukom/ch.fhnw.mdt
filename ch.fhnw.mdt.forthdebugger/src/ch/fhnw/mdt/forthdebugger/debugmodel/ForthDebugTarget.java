@@ -22,6 +22,8 @@ import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.model.IBreakpoint;
 import org.eclipse.debug.core.model.IDebugTarget;
 import org.eclipse.debug.core.model.IMemoryBlock;
+import org.eclipse.debug.core.model.IMemoryBlockExtension;
+import org.eclipse.debug.core.model.IMemoryBlockRetrievalExtension;
 import org.eclipse.debug.core.model.IProcess;
 import org.eclipse.debug.core.model.IThread;
 import org.eclipse.debug.core.model.IValue;
@@ -355,7 +357,7 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 	public IMemoryBlock getMemoryBlock(final long startAddress, final long length) throws DebugException {
 		return new ForthMemoryBlock(target, startAddress, length, forthCommunicator);
 	}
-
+	
 	/**
 	 * Sets whether the internal debug stream listener should ignore its input.
 	 * 
@@ -606,4 +608,6 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 			fireTerminateEvent();
 		}
 	}
+
+
 }
