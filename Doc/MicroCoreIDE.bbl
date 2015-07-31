@@ -1,0 +1,13 @@
+\begin{thebibliography}{1}
+
+\bibitem{extensionpoints}
+Vogella.
+\newblock
+  \url{http://www.vogella.com/tutorials/EclipseExtensionPoint/article.html},
+  2013.
+
+\bibitem{xtext}
+Xtext.
+\newblock \url{https://eclipse.org/Xtext/}, 2013.
+
+\end{thebibliography}

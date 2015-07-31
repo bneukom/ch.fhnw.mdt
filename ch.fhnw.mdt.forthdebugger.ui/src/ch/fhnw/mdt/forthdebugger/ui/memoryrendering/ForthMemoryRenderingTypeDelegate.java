@@ -11,7 +11,7 @@ public class ForthMemoryRenderingTypeDelegate implements IMemoryRenderingTypeDel
 
 	@Override
 	public IMemoryRendering createRendering(String id) throws CoreException {
-		return new ForthTableRendering2(id);
+		return new ForthTableRendering(id);
 	}
 
 }

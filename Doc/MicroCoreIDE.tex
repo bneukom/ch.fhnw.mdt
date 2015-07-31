@@ -1,0 +1,76 @@
+
+\documentclass[listof=totocnumbered,bibliography=totocnumbered]{scrreprt}
+
+% imports
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{cite}
+\usepackage{graphicx}
+\usepackage[ngerman]{babel}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{enumerate}
+\usepackage{url}
+\usepackage[font=small,format=plain,labelfont=bf,up,textfont=normal,up, justification=centering,singlelinecheck=false]{caption}
+\usepackage{multirow}
+\usepackage{bm} % bold in mathmode
+\usepackage[binary-units=true]{siunitx} % units
+\usepackage{eurosym}
+
+% options
+\setcounter{tocdepth}{2}
+\numberwithin{equation}{subsection}
+\renewcommand\theequation{\arabic{equation}}
+
+% trennhilfen
+\hyphenation{
+er-rei-chen
+}
+
+\begin{document}
+%\titlehead{\includegraphics[scale=1]{logo.eps}}
+\subject{Bachelor-Thesis}
+\title{Eclipse Entwicklungsumgebung für MicroCore}
+\author{Benjamin Neukom}
+\date{August 2015\\\center{\includegraphics[scale=0.2]{title.png}}}
+\publishers{Betreuer: Carlo Nicola}
+
+\maketitle
+
+\tableofcontents
+
+% hauptteil
+\include{abstract/abstract}
+\include{introduction/introduction}
+\include{platform/platform}
+\include{compiler/compiler}
+\include{forthcommunication/forthcommunication}
+\include{debugger/debugger}
+\include{optimizer/optimizer}
+
+% schluss
+
+\appendix
+
+\bibliography{MicroCoreIDE}{}
+\bibliographystyle{unsrt}
+\newpage
+
+\listoffigures
+\listoftables
+
+\newpage
+\chapter{Ehrlichkeitserklärung}
+Hiermit bestätigen die Autoren, diese Arbeit ohne fremde Hilfe und unter Einhaltung der gebotenen Regeln erstellt zu haben.
+\\
+\\
+\\
+\textbf{Benjamin Neukom}
+\\
+\\
+\\
+\rule{0.75\textwidth}{0.4pt} \\
+Ort, Datum \hspace * {4cm} Unterschrift
+
+
+\end{document}
