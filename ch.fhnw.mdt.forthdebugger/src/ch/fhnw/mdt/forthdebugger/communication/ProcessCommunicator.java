@@ -19,11 +19,14 @@ import java.util.regex.Pattern;
 
 import ch.fhnw.mdt.forthdebugger.util.Either;
 
-public class ForthCommunicator {
+/**
+ * Class which is able to communicate with a 
+ */
+public class ProcessCommunicator {
 
-	private final ForthCommandQueue commandQueue;
-	private final ForthReader reader;
-
+	private final ProcessCommandQueue commandQueue;
+	private final ProcessReader reader;
+	
 	public static final String OK = "ok";
 	public static final String NL = "\n";
 	public static final String LINE_SEPERATOR = "\n";
@@ -58,10 +61,10 @@ public class ForthCommunicator {
 	private final Condition commandCompletionCondition;
 	private transient boolean isWorking = false;
 
-	public ForthCommunicator(BufferedWriter processWriter, InputStream input, Process process) {
+	public ProcessCommunicator(BufferedWriter processWriter, InputStream input, Process process) {
 		this.process = process;
-		this.commandQueue = new ForthCommandQueue(processWriter);
-		this.reader = new ForthReader(input);
+		this.commandQueue = new ProcessCommandQueue(processWriter);
+		this.reader = new ProcessReader(input);
 		this.commandCompletionCondition = commandCompletionLock.newCondition();
 
 		commandQueue.start();
@@ -334,11 +337,11 @@ public class ForthCommunicator {
 	/**
 	 * TODO implement timeout! Thread safe communication for the forth process.
 	 */
-	public final class ForthCommandQueue extends Thread {
+	public final class ProcessCommandQueue extends Thread {
 		private final BufferedWriter processWriter;
 		private volatile boolean shutdown = false;
 
-		public ForthCommandQueue(final BufferedWriter processWriter) {
+		public ProcessCommandQueue(final BufferedWriter processWriter) {
 			this.processWriter = processWriter;
 		}
 
@@ -441,13 +444,13 @@ public class ForthCommunicator {
 	 * Thread which reads from the Forth process.
 	 *
 	 */
-	public final class ForthReader extends Thread {
+	public final class ProcessReader extends Thread {
 
 		private final InputStream input;
 
 		private volatile boolean isRunning;
 
-		public ForthReader(final InputStream input) {
+		public ProcessReader(final InputStream input) {
 			super();
 			this.input = input;
 			this.isRunning = true;

@@ -3,12 +3,15 @@ package ch.fhnw.mdt.forthdebugger.communication.process;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class DefaultForthProcess implements IForthProcess {
+/**
+ * Default implementation which just forwards to a {@link Process}.
+ *
+ */
+public class DefaultProcess implements IProcessDectorator {
 
 	private final Process process;
 
-	public DefaultForthProcess(Process process) {
-		super();
+	public DefaultProcess(Process process) {
 		this.process = process;
 	}
 

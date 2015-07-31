@@ -4,10 +4,11 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
- * Encapsulates an underlying {@link Process}. Can be used to implement a dummy process for testing.
+ * Decorates an underlying {@link Process}. Can be used to implement a dummy process for testing.
  *
+ * @see DefaultProcess
  */
-public interface IForthProcess {
+public interface IProcessDectorator {
 
 	/**
 	 * @see Process#destroy()

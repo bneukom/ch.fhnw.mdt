@@ -28,7 +28,7 @@ import org.eclipse.debug.core.model.IProcess;
 import org.eclipse.debug.core.model.IThread;
 import org.eclipse.debug.core.model.IValue;
 
-import ch.fhnw.mdt.forthdebugger.communication.ForthCommunicator;
+import ch.fhnw.mdt.forthdebugger.communication.ProcessCommunicator;
 
 /**
  * Forth Debug Target.
@@ -48,7 +48,7 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 	private boolean suspended = false;
 
 	// process communication
-	private final ForthCommunicator forthCommunicator;
+	private final ProcessCommunicator processCommunicator;
 	private DebugStreamListener debugStreamListener;
 	
 	// TODO implement something like a command listener and add command origin to the commands
@@ -74,20 +74,20 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 	 *            the associated launch
 	 * @param process
 	 *            the forth process
-	 * @param forthCommunicator
+	 * @param processCommunicator
 	 *            the communicator used to communicate with the process
 	 * @throws CoreException
 	 */
-	public ForthDebugTarget(final IFile forthFile, final List<String> forthSource, final ILaunch launch, final IProcess process, final ForthCommunicator forthCommunicator)
+	public ForthDebugTarget(final IFile forthFile, final List<String> forthSource, final ILaunch launch, final IProcess process, final ProcessCommunicator processCommunicator)
 			throws CoreException {
 		super(null);
 		this.forthFile = forthFile;
 		this.launch = launch;
 		this.process = process;
-		this.forthCommunicator = forthCommunicator;
+		this.processCommunicator = processCommunicator;
 		this.target = this;
 
-		this.forthThread = new ForthThread(this, forthFile, forthSource, forthCommunicator);
+		this.forthThread = new ForthThread(this, forthFile, forthSource, processCommunicator);
 		this.threads = new IThread[] { forthThread };
 
 		try {
@@ -97,7 +97,7 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 			this.debugStreamListener = new DebugStreamListener(in);
 			this.debugStreamListener.start();
 
-			this.forthCommunicator.forwardOutput(out);
+			this.processCommunicator.forwardOutput(out);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -358,7 +358,7 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 	 */
 	@Override
 	public IMemoryBlock getMemoryBlock(final long startAddress, final long length) throws DebugException {
-		return new ForthMemoryBlock(target, startAddress, length, forthCommunicator);
+		return new ForthMemoryBlock(target, startAddress, length, processCommunicator);
 	}
 	
 	/**
@@ -430,7 +430,7 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 	 * @throws DebugException
 	 */
 	protected void addFunctionBreakpoint(final String function) throws DebugException {
-		forthCommunicator.sendCommand("debug _" + function + NL);
+		processCommunicator.sendCommand("debug _" + function + NL);
 	}
 
 	/**
@@ -440,7 +440,7 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 	 * @throws DebugException
 	 */
 	protected void removeFunctionBreakpoint(final String function) throws DebugException {
-		forthCommunicator.sendCommand("unbug _" + function + NL);
+		processCommunicator.sendCommand("unbug _" + function + NL);
 	}
 
 	/**

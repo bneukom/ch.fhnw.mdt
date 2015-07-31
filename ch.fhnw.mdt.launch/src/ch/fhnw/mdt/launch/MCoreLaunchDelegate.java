@@ -40,7 +40,7 @@ import org.eclipse.ui.console.IOConsole;
 import org.eclipse.ui.console.IOConsoleOutputStream;
 
 import ch.fhnw.mdt.forthdebugger.ForthDebuggerPlugin;
-import ch.fhnw.mdt.forthdebugger.communication.ForthCommunicator;
+import ch.fhnw.mdt.forthdebugger.communication.ProcessCommunicator;
 import ch.fhnw.mdt.forthdebugger.debugmodel.ForthDebugTarget;
 import ch.fhnw.mdt.forthdebugger.debugmodel.IForthConstants;
 import ch.fhnw.mdt.platform.MDTPlatformPlugin;
@@ -235,7 +235,7 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 		 * @throws CoreException
 		 */
 		private void startDebugger(final ILaunch launch, final MCoreLaunch mcoreLaunch) throws CoreException {
-			final IDebugTarget target = new ForthDebugTarget(executableFile, forthSource, launch, mcoreLaunch.eclipseProcess, mcoreLaunch.forthCommunicator);
+			final IDebugTarget target = new ForthDebugTarget(executableFile, forthSource, launch, mcoreLaunch.eclipseProcess, mcoreLaunch.processCommunicator);
 			launch.addDebugTarget(target);
 		}
 
@@ -266,15 +266,15 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 				ConsolePlugin.getDefault().getConsoleManager().addConsoles(new IConsole[] { gforthConsole });
 
 				final BufferedWriter processWriter = new BufferedWriter(new OutputStreamWriter(process.getOutputStream()));
-				final ForthCommunicator forthCommunicator = new ForthCommunicator(processWriter, process.getInputStream(), process);
-				final InputThread inputThread = new InputThread(gforthConsole.getInputStream(), forthCommunicator);
+				final ProcessCommunicator processCommunicator = new ProcessCommunicator(processWriter, process.getInputStream(), process);
+				final InputThread inputThread = new InputThread(gforthConsole.getInputStream(), processCommunicator);
 				inputThread.start();
 
 				final IOConsoleOutputStream consoleOutputStream = gforthConsole.newOutputStream();
-				forthCommunicator.forwardOutput(System.out);
-				forthCommunicator.forwardOutput(consoleOutputStream);
+				processCommunicator.forwardOutput(System.out);
+				processCommunicator.forwardOutput(consoleOutputStream);
 				
-				forthCommunicator.addCommandTimeOutListener(() -> {
+				processCommunicator.addCommandTimeOutListener(() -> {
 					Display.getDefault().asyncExec(() -> {
 						try {
 							consoleOutputStream.write(System.lineSeparator() + System.lineSeparator() + "The debugger has timed out as the process is not responding");
@@ -286,14 +286,14 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 				});
 
 				// forth.sendCommand("cd " + workingDirectory + ForthCommandQueue.NL);
-				forthCommunicator.sendCommand("gforth ./load_eclipse.fs" + ForthCommunicator.NL);
+				processCommunicator.sendCommand("gforth ./load_eclipse.fs" + ProcessCommunicator.NL);
 
-				forthCommunicator.awaitReadCompletion();
+				processCommunicator.awaitReadCompletion();
 
-				forthCommunicator.sendCommandAwaitResult("umbilical: " + umbilical + ForthCommunicator.NL, forthCommunicator.waitForResultLater(ForthCommunicator.OK));
-				forthCommunicator.sendCommandAwaitResult("run" + ForthCommunicator.NL, forthCommunicator.waitForResultLater("HANDSHAKE"));
+				processCommunicator.sendCommandAwaitResult("umbilical: " + umbilical + ProcessCommunicator.NL, processCommunicator.waitForResultLater(ProcessCommunicator.OK));
+				processCommunicator.sendCommandAwaitResult("run" + ProcessCommunicator.NL, processCommunicator.waitForResultLater("HANDSHAKE"));
 
-				return new MCoreLaunch(process, eclipseProcess, consoleOutputStream, forthCommunicator);
+				return new MCoreLaunch(process, eclipseProcess, consoleOutputStream, processCommunicator);
 
 			} catch (final IOException e) {
 				e.printStackTrace();
@@ -305,18 +305,18 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 	}
 
 	/**
-	 * Reads from the Console and passes the input as commands to {@link ForthCommunicator}.
+	 * Reads from the Console and passes the input as commands to {@link ProcessCommunicator}.
 	 */
 	private static class InputThread extends Thread {
 
 		private final InputStream inputStream;
-		private final ForthCommunicator forthCommunicator;
+		private final ProcessCommunicator processCommunicator;
 		private static final char CR = 10;
 
-		public InputThread(InputStream inputStream, ForthCommunicator forthCommandQueue) {
+		public InputThread(InputStream inputStream, ProcessCommunicator forthCommandQueue) {
 			super();
 			this.inputStream = inputStream;
-			this.forthCommunicator = forthCommandQueue;
+			this.processCommunicator = forthCommandQueue;
 		}
 
 		@Override
@@ -327,7 +327,7 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 					final char read = (char) inputStream.read();
 
 					if (read == CR) {
-						forthCommunicator.sendCommand(commandBuffer.toString().trim() + ForthCommunicator.NL);
+						processCommunicator.sendCommand(commandBuffer.toString().trim() + ProcessCommunicator.NL);
 						commandBuffer.setLength(0);
 					} else {
 						commandBuffer.append(read);
@@ -348,15 +348,15 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 	private static class MCoreLaunch {
 		private final Process process;
 		private IProcess eclipseProcess;
-		private final ForthCommunicator forthCommunicator;
+		private final ProcessCommunicator processCommunicator;
 		private IOConsoleOutputStream consoleOutputStream;
 
-		public MCoreLaunch(Process process, IProcess eclipseProcess, IOConsoleOutputStream consoleOutputStream, ForthCommunicator forthCommunicator) {
+		public MCoreLaunch(Process process, IProcess eclipseProcess, IOConsoleOutputStream consoleOutputStream, ProcessCommunicator processCommunicator) {
 			super();
 			this.process = process;
 			this.eclipseProcess = eclipseProcess;
 			this.consoleOutputStream = consoleOutputStream;
-			this.forthCommunicator = forthCommunicator;
+			this.processCommunicator = processCommunicator;
 		}
 
 		/**
@@ -371,7 +371,7 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 			}
 
 			// cleanup
-			forthCommunicator.shutdown();
+			processCommunicator.shutdown();
 
 			try {
 				consoleOutputStream.close();

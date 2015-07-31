@@ -24,8 +24,8 @@ import org.eclipse.debug.core.model.IBreakpoint;
 import org.eclipse.debug.core.model.IStackFrame;
 import org.eclipse.debug.core.model.IThread;
 
-import ch.fhnw.mdt.forthdebugger.communication.ForthCommunicator;
-import ch.fhnw.mdt.forthdebugger.communication.ForthCommunicator.WaitForMatch;
+import ch.fhnw.mdt.forthdebugger.communication.ProcessCommunicator;
+import ch.fhnw.mdt.forthdebugger.communication.ProcessCommunicator.WaitForMatch;
 import ch.fhnw.mdt.forthdebugger.debugmodel.extensions.IAfterExtension;
 import ch.fhnw.mdt.forthdebugger.debugmodel.extensions.IJumpExtension;
 
@@ -38,7 +38,7 @@ public class ForthThread extends ForthDebugElement implements IThread, IJumpExte
 	private final IFile forthFile;
 
 	// forth communication
-	private final ForthCommunicator forthCommunicator;
+	private final ProcessCommunicator processCommunicator;
 
 	// debugger state
 	private boolean isStepping = false;
@@ -57,10 +57,10 @@ public class ForthThread extends ForthDebugElement implements IThread, IJumpExte
 	 * @param forthCommandQueue
 	 * @param forthSource
 	 */
-	public ForthThread(final ForthDebugTarget target, final IFile forthFile, final List<String> forthSource, final ForthCommunicator forthCommunicator) {
+	public ForthThread(final ForthDebugTarget target, final IFile forthFile, final List<String> forthSource, final ProcessCommunicator processCommunicator) {
 		super(target);
 		this.forthFile = forthFile;
-		this.forthCommunicator = forthCommunicator;
+		this.processCommunicator = processCommunicator;
 
 		this.addressMapping = new LineMapping();
 
@@ -188,7 +188,7 @@ public class ForthThread extends ForthDebugElement implements IThread, IJumpExte
 	@Override
 	public void resume() throws DebugException {
 		if (isSuspended()) {
-			forthCommunicator.sendCommand("end-trace" + ForthCommunicator.NL);
+			processCommunicator.sendCommand("end-trace" + ProcessCommunicator.NL);
 		}
 	}
 
@@ -278,7 +278,7 @@ public class ForthThread extends ForthDebugElement implements IThread, IJumpExte
 	 */
 	@Override
 	public void stepInto() throws DebugException {
-		forthCommunicator.sendCommand("nest" + ForthCommunicator.NL);
+		processCommunicator.sendCommand("nest" + ProcessCommunicator.NL);
 	}
 
 	/*
@@ -288,7 +288,7 @@ public class ForthThread extends ForthDebugElement implements IThread, IJumpExte
 	 */
 	@Override
 	public void stepOver() throws DebugException {
-		forthCommunicator.sendCommand(ForthCommunicator.CR);
+		processCommunicator.sendCommand(ProcessCommunicator.CR);
 	}
 
 	/*
@@ -298,7 +298,7 @@ public class ForthThread extends ForthDebugElement implements IThread, IJumpExte
 	 */
 	@Override
 	public void jump() throws DebugException {
-		forthCommunicator.sendCommand("jump" + ForthCommunicator.NL);
+		processCommunicator.sendCommand("jump" + ProcessCommunicator.NL);
 	}
 
 	/*
@@ -308,7 +308,7 @@ public class ForthThread extends ForthDebugElement implements IThread, IJumpExte
 	 */
 	@Override
 	public void after() throws DebugException {
-		forthCommunicator.sendCommand("after" + ForthCommunicator.NL);
+		processCommunicator.sendCommand("after" + ProcessCommunicator.NL);
 	}
 
 	/*
@@ -438,28 +438,28 @@ public class ForthThread extends ForthDebugElement implements IThread, IJumpExte
 			final String functionName = function.getKey();
 			final List<String> disassembledFunction = new ArrayList<String>();
 
-			final WaitForMatch waitForMatchLater = forthCommunicator
+			final WaitForMatch waitForMatchLater = processCommunicator
 					.waitForMatchLater("([A-Fa-f0-9]{8}): ([A-Fa-f0-9 ]{8}) ?(([A-Fa-f0-9]+ [A-Fa-f0-9]+)|( [^\\s]+[A-Fa-f0-9 ]+ (call))|([^\\s]+))");
-			forthCommunicator.sendCommandAwaitResult("show " + functionName + ForthCommunicator.NL, waitForMatchLater);
-			forthCommunicator.awaitReadCompletion();
+			processCommunicator.sendCommandAwaitResult("show " + functionName + ProcessCommunicator.NL, waitForMatchLater);
+			processCommunicator.awaitReadCompletion();
 
-			String currentLine = forthCommunicator.getCurrentLine();
+			String currentLine = processCommunicator.getCurrentLine();
 
 			int lineNumber = 1;
 			lineRead(disasemblerLinePattern, disassembledFunction, functionName, currentLine, lineNumber++);
 
 			// one based line numbering
 			while (!currentLine.contains("exit")) {
-				forthCommunicator.awaitReadCompletion();
-				forthCommunicator.sendCommandAwaitResult(ForthCommunicator.ANY, forthCommunicator.waitForResultLater(ForthCommunicator.NL));
-				forthCommunicator.awaitReadCompletion();
+				processCommunicator.awaitReadCompletion();
+				processCommunicator.sendCommandAwaitResult(ProcessCommunicator.ANY, processCommunicator.waitForResultLater(ProcessCommunicator.NL));
+				processCommunicator.awaitReadCompletion();
 
-				currentLine = forthCommunicator.getCurrentLine();
+				currentLine = processCommunicator.getCurrentLine();
 
 				lineRead(disasemblerLinePattern, disassembledFunction, functionName, currentLine, lineNumber++);
 			}
 
-			forthCommunicator.sendCommand(ForthCommunicator.CR);
+			processCommunicator.sendCommand(ProcessCommunicator.CR);
 
 			final IPath debugFolderPath = forthFile.getParent().getFullPath().append("debugger");
 			final IPath debugFile = debugFolderPath.append(functionName).addFileExtension("fs");

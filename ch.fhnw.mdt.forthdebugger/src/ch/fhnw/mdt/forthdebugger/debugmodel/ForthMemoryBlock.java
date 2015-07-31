@@ -9,8 +9,8 @@ import java.util.stream.Collectors;
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IMemoryBlock;
 
-import ch.fhnw.mdt.forthdebugger.communication.ForthCommunicator;
-import ch.fhnw.mdt.forthdebugger.communication.ForthCommunicator.ForthCommandQueue;
+import ch.fhnw.mdt.forthdebugger.communication.ProcessCommunicator;
+import ch.fhnw.mdt.forthdebugger.communication.ProcessCommunicator.ProcessCommandQueue;
 import ch.fhnw.mdt.forthdebugger.debugmodel.extensions.IForthMemoryBlockExtension;
 
 // TODO Forth accepts hex integer values for dump, for eclipse we need byte values. how to convert?
@@ -22,11 +22,11 @@ public class ForthMemoryBlock extends ForthDebugElement implements IMemoryBlock,
 	
 	private final long startAddress;
 	private final long length;
-	private final ForthCommunicator forthCommunicator;
+	private final ProcessCommunicator processCommunicator;
 
-	public ForthMemoryBlock(final ForthDebugTarget target, final long startAddress, final long length, final ForthCommunicator forthCommunicator) {
+	public ForthMemoryBlock(final ForthDebugTarget target, final long startAddress, final long length, final ProcessCommunicator processCommunicator) {
 		super(target);
-		this.forthCommunicator = forthCommunicator;
+		this.processCommunicator = processCommunicator;
 
 		this.startAddress = startAddress;
 		this.length = length;
@@ -35,16 +35,16 @@ public class ForthMemoryBlock extends ForthDebugElement implements IMemoryBlock,
 	}
 
 	private void loadMemory() {
-		forthCommunicator.awaitCommandCompletion();
-		forthCommunicator.awaitReadCompletion();
+		processCommunicator.awaitCommandCompletion();
+		processCommunicator.awaitReadCompletion();
 
 		// let the debug target ignore the input
 		target.setIgnoreInput(true);
-		forthCommunicator.sendCommandAwaitResult(String.valueOf(startAddress / 4) + " " + String.valueOf(length / 4) + " dump" + ForthCommunicator.NL,
-				forthCommunicator.waitForResultLater(">"));
+		processCommunicator.sendCommandAwaitResult(String.valueOf(startAddress / 4) + " " + String.valueOf(length / 4) + " dump" + ProcessCommunicator.NL,
+				processCommunicator.waitForResultLater(">"));
 		target.setIgnoreInput(false);
 
-		final List<String> readLines = forthCommunicator.getReadLines();
+		final List<String> readLines = processCommunicator.getReadLines();
 
 		// read backwards until the word dump is found
 		int currentIndex = readLines.size() - 1;

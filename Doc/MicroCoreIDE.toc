@@ -26,6 +26,8 @@
 \contentsline {subsection}{\numberline {4.3.3}Await auf Resultate}{11}
 \contentsline {chapter}{\numberline {5}Debugger}{12}
 \contentsline {section}{\numberline {5.1}Breakpoints in C}{12}
+\contentsline {subsection}{\numberline {5.1.1}Per Konsole}{12}
+\contentsline {subsection}{\numberline {5.1.2}Im Source Code}{12}
 \contentsline {section}{\numberline {5.2}Konsolen basierter Debugger}{12}
 \contentsline {section}{\numberline {5.3}Forth Debugger}{12}
 \contentsline {subsection}{\numberline {5.3.1}Neue Debugger Aktionen}{12}

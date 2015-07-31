@@ -19,4 +19,8 @@ Bruno Medeiros.
 \newblock D development tools.
 \newblock \url{https://github.com/bruno-medeiros/DDT}.
 
+\bibitem{gdb}
+The gdb/mi interface.
+\newblock \url{https://sourceware.org/gdb/onlinedocs/gdb/GDB_002fMI.html}.
+
 \end{thebibliography}
