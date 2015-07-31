@@ -4,8 +4,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.ui.memory.IMemoryRendering;
 import org.eclipse.debug.ui.memory.IMemoryRenderingTypeDelegate;
 
-import ch.fhnw.mdt.forthdebugger.ui.ForthTableRendering;
-
 public class ForthMemoryRenderingTypeDelegate implements IMemoryRenderingTypeDelegate {
 
 	public ForthMemoryRenderingTypeDelegate() {
@@ -13,7 +11,7 @@ public class ForthMemoryRenderingTypeDelegate implements IMemoryRenderingTypeDel
 
 	@Override
 	public IMemoryRendering createRendering(String id) throws CoreException {
-		return new ForthTableRendering(id);
+		return new ForthTableRendering2(id);
 	}
 
 }

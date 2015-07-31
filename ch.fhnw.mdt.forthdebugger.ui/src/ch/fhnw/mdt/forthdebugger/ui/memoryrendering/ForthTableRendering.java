@@ -1,4 +1,4 @@
-package ch.fhnw.mdt.forthdebugger.ui;
+package ch.fhnw.mdt.forthdebugger.ui.memoryrendering;
 
 import java.math.BigInteger;
 
@@ -13,12 +13,27 @@ public class ForthTableRendering extends AbstractTableRendering {
 	
 	@Override
 	public int getAddressableUnitPerLine() {
-		return 8;
+		return 1;
+	}
+	
+	@Override
+	public int getAddressableSize() {
+		return 1;
+	}
+	
+	@Override
+	public int getBytesPerColumn() {
+		return 1;
+	}
+	
+	@Override
+	public int getAddressableUnitPerColumn() {
+		return 1;
 	}
 	
 	@Override
 	public int getBytesPerLine() {
-		return super.getBytesPerLine();
+		return 32;
 	}
 
 	@Override

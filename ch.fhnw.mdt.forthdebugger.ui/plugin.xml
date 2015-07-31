@@ -45,7 +45,7 @@
    <extension
          point="org.eclipse.debug.ui.debugModelPresentations">
       <debugModelPresentation
-            class="ch.fhnw.mdt.forthdebugger.ui.memoryrendering.ForthModelPresentation"
+            class="ch.fhnw.mdt.forthdebugger.ui.ForthModelPresentation"
             id="ch.fhnw.mdt.forthdebugger.forthDebugModelPresentation">
       </debugModelPresentation>
    </extension>

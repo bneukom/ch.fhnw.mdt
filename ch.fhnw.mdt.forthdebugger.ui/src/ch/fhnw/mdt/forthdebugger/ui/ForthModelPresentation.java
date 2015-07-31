@@ -9,7 +9,7 @@
  *     IBM Corporation - initial API and implementation
  *     Bjorn Freeman-Benson - initial API and implementation
  *******************************************************************************/
-package ch.fhnw.mdt.forthdebugger.ui.memoryrendering;
+package ch.fhnw.mdt.forthdebugger.ui;
 
 import java.math.BigInteger;
 
