@@ -9,10 +9,13 @@ import org.eclipse.debug.core.model.IStreamMonitor;
 import org.eclipse.debug.core.model.IStreamsProxy;
 import org.eclipse.debug.core.model.RuntimeProcess;
 
+/**
+ * Forth specific process. The internal {@link IStreamsProxy} ignores
+ */
 public class ForthProcess extends RuntimeProcess {
 
 	private ForthStreamProxy forthStreamProxy = new ForthStreamProxy();
-	
+
 	public ForthProcess(ILaunch launch, Process process, String name, Map<String, String> attributes) {
 		super(launch, process, name, attributes);
 	}

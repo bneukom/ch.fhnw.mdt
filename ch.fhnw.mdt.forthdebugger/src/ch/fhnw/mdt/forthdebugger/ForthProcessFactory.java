@@ -6,6 +6,9 @@ import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.IProcessFactory;
 import org.eclipse.debug.core.model.IProcess;
 
+/**
+ * Process Factory used to launch the launch a specific {@link IProcess} for the debugger.
+ */
 public class ForthProcessFactory implements IProcessFactory {
 
 	@Override

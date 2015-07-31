@@ -15,27 +15,31 @@
 \contentsline {subsection}{\numberline {3.1.1}CDT Extension Points}{9}
 \contentsline {section}{\numberline {3.2}Error Parsing}{9}
 \contentsline {chapter}{\numberline {4}Forth Kommunikation}{10}
-\contentsline {section}{\numberline {4.1}Process Kommunikation}{10}
-\contentsline {subsection}{\numberline {4.1.1}GDB/MI-Commands}{10}
-\contentsline {subsection}{\numberline {4.1.2}Direkte Kommunikation mit dem Target}{10}
-\contentsline {section}{\numberline {4.2}Implementierungs Details}{10}
-\contentsline {subsection}{\numberline {4.2.1}Kommunikation mittels Commands}{10}
-\contentsline {subsection}{\numberline {4.2.2}Forth Output Parsing}{10}
-\contentsline {subsection}{\numberline {4.2.3}Await auf Resultate}{10}
-\contentsline {chapter}{\numberline {5}Debugger}{11}
-\contentsline {section}{\numberline {5.1}Breakpoints in C}{11}
-\contentsline {section}{\numberline {5.2}Konsolen basierter Debugger}{11}
-\contentsline {section}{\numberline {5.3}Forth Debugger}{11}
-\contentsline {subsection}{\numberline {5.3.1}Neue Debugger Aktionen}{11}
-\contentsline {subsubsection}{\nonumberline Jump Action}{11}
-\contentsline {subsubsection}{\nonumberline Over Action}{11}
-\contentsline {subsection}{\numberline {5.3.2}Stack View}{11}
-\contentsline {subsection}{\numberline {5.3.3}Memory View}{11}
-\contentsline {section}{\numberline {5.4}C Debugger}{11}
-\contentsline {chapter}{\numberline {6}Optimierungen}{12}
-\contentsline {section}{\numberline {6.1}Optimierungen}{12}
-\contentsline {subsection}{\numberline {6.1.1}Peephole Optimierung}{12}
-\contentsline {chapter}{\numberline {A}Literaturverzeichnis}{13}
-\contentsline {chapter}{\numberline {B}Abbildungsverzeichnis}{14}
-\contentsline {chapter}{\numberline {C}Tabellenverzeichnis}{15}
-\contentsline {chapter}{\numberline {D}Ehrlichkeitserkl\IeC {\"a}rung}{16}
+\contentsline {section}{\numberline {4.1}Prozess Kommunikation}{10}
+\contentsline {subsection}{\numberline {4.1.1}Probleme bei der Kommunikation}{10}
+\contentsline {subsection}{\numberline {4.1.2}GDB/MI-Commands}{10}
+\contentsline {subsection}{\numberline {4.1.3}Direkte Kommunikation mit dem Prozess}{10}
+\contentsline {section}{\numberline {4.2}API Design}{10}
+\contentsline {section}{\numberline {4.3}Implementierungs Details}{10}
+\contentsline {subsection}{\numberline {4.3.1}Kommunikation mittels Commands}{11}
+\contentsline {subsection}{\numberline {4.3.2}Forth Output Parsing}{11}
+\contentsline {subsection}{\numberline {4.3.3}Await auf Resultate}{11}
+\contentsline {chapter}{\numberline {5}Debugger}{12}
+\contentsline {section}{\numberline {5.1}Breakpoints in C}{12}
+\contentsline {section}{\numberline {5.2}Konsolen basierter Debugger}{12}
+\contentsline {section}{\numberline {5.3}Forth Debugger}{12}
+\contentsline {subsection}{\numberline {5.3.1}Neue Debugger Aktionen}{12}
+\contentsline {subsubsection}{\nonumberline Jump Action}{12}
+\contentsline {subsubsection}{\nonumberline Over Action}{12}
+\contentsline {subsection}{\numberline {5.3.2}Stack View}{12}
+\contentsline {subsubsection}{\nonumberline User Interface}{12}
+\contentsline {subsection}{\numberline {5.3.3}Memory View}{12}
+\contentsline {subsubsection}{\nonumberline User Interface}{12}
+\contentsline {section}{\numberline {5.4}C Debugger}{12}
+\contentsline {chapter}{\numberline {6}Optimierungen}{13}
+\contentsline {section}{\numberline {6.1}Optimierungen}{13}
+\contentsline {subsection}{\numberline {6.1.1}Peephole Optimierung}{13}
+\contentsline {chapter}{\numberline {A}Literaturverzeichnis}{14}
+\contentsline {chapter}{\numberline {B}Abbildungsverzeichnis}{15}
+\contentsline {chapter}{\numberline {C}Tabellenverzeichnis}{16}
+\contentsline {chapter}{\numberline {D}Ehrlichkeitserkl\IeC {\"a}rung}{17}

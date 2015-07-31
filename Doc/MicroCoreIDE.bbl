@@ -10,4 +10,13 @@ Vogella.
 Xtext.
 \newblock \url{https://eclipse.org/Xtext/}, 2013.
 
+\bibitem{antlr}
+Antlr.
+\newblock \url{http://www.antlr.org/}.
+
+\bibitem{ddt}
+Bruno Medeiros.
+\newblock D development tools.
+\newblock \url{https://github.com/bruno-medeiros/DDT}.
+
 \end{thebibliography}

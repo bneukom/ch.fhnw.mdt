@@ -1,12 +1,33 @@
 \chapter{Forth Kommunikation}
+\label{forthcommunication}
 
-\section{Process Kommunikation}
+In diesem Kapitel wird beschrieben wie die Entwicklungsumgebung mit dem Forth Prozess kommuniziert. Die Kommunikation mit dem Forth Prozess ist von zentraler Bedeutung, da viel der Funkionalität der Entwicklungsumgebung davon abhängt. Es wird gezeigt wie die Kommunikation designt implementiert und getestet wurde.
+
+TODO asynchronität?
+
+
+\section{Prozess Kommunikation}
+Um mit dem Prozess zu kommunizieren gibt es einige Alternativen welche ich aufzeigen möchte.
+
+\subsection{Probleme bei der Kommunikation}
+
+TODO 
 
 \subsection{GDB/MI-Commands}
 
-\subsection{Direkte Kommunikation mit dem Target}
+TODO sehr komplex! (http://www.ibm.com/developerworks/library/os-eclipse-cdt-debug2/ complicated)
+
+Eine Möglichkeit mit dem Prozess zu kommunizieren wäre ein MaschineInterface wie es der GDB macht mittels MachineInterface (MI)  Commands. GDB/MI ist ein linien basiertes Maschinen orientiertes Text Interface zu dem GDB. Es wurde dazu entwickelt um 
+
+\subsection{Direkte Kommunikation mit dem Prozess}
+
+\section{API Design}
+
+In einem ersten Schritt wurde ein API designt, welches verwendet werden soll um die Kommunikation mit dem Prozess möglichst einfach zu halten.
 
 \section{Implementierungs Details}
+
+TODO class hi
 
 \subsection{Kommunikation mittels Commands}
 

@@ -5,7 +5,7 @@ In diesem Kapitel wird gezeigt, was Eclipse für Möglichkeiten anbietet, um ein
 
 \section{Eclipse als Platform}
 
-Eclipse RCP bietet eine Basis um beliebige (nicht zwingendermassen Entwicklungsumgebungen) Betriebssystem unabhängige Applikationen zu entwickeln. Es bietet Mechanismen, wie Plugins und Extension Points, um modulares programmieren zu unterstützen und vereinfachen. Auch bietet das Framework Features, wie das Konzept von Views und Editoren und vielem mehr, welche häufig in Applikationen gebraucht werden.
+Eclipse RCP bietet eine Basis um beliebige, (nicht zwingendermassen Entwicklungsumgebungen) Betriebssystem unabhängige Applikationen zu entwickeln. Es bietet Mechanismen, wie Plugins und Extension Points, um modulares programmieren zu unterstützen und vereinfachen. Auch bietet das Framework Features, wie das Konzept von Views und Editoren und vielem mehr, welche häufig in Applikationen gebraucht werden.
 
 \section{Plugins}
 
@@ -32,25 +32,27 @@ Es ist auch möglich eigene Extension Points zu definieren, falls ein eigens Plu
 Eclipse als Grundlage für eine Entwicklungsumgebung zu verwenden eignet sich besonders gut, da Eclipse schon einiges an Funktionalität für eine IDE zur Verfügung stellt und schon einige Entwicklungsumgebungen mit Eclipse RCP entwickelt wurden. Auch existieren einige Tools, auf welche ich noch genauer eingehen werde, wie Xtext und DLTK, welche das entwickeln einer Entwicklungsumgebung weiter vereinfachen.
 
 \subsection{JDT}
-Eine Möglichkeit die MCore Entwicklungsumgebung zu implementieren, wäre über normalen Features (Plugins und Extension Points) von dem Eclipse Java Development Tools (JDT). Dies bringt aber einige Nachteile mit sich. Es müssten sehr viel von Hand 
+Eine Möglichkeit die MCore Entwicklungsumgebung zu implementieren wäre die standard Features von dem Eclipse Java Development Tools (JDT) zu verwenden. Dies wäre eine sehr Aufwändige 
 
 \subsection{Xtext}
 XText ist ein Framework, welches es erleichtert eine auf Eclipse basierte Entwicklungsumgebungen zu programmieren. Es ermöglicht auf schnelle Weise ein Grundgerüst einer IDE mit Features wie:
 
 \begin{itemize} 
-	\item Ein Editor mit Syntax Highligting
+	\item Ein Editor mit Syntax Coloring
 	\item Code Completion
 	\item Compiler Integration
 	\item Ein Java-basierter Debugger
+	\item Outline
+	\item Indexing
 \end{itemize}
 
-zu generieren. \cite{xtext} Es muss lediglich eine Grammatik für die Sprache definiert werden. Der grosse Nachteil ist, dass C, inklusive Preprozessor, zu parsen sehr schwierig ist und auch mit Xtext nicht einfach zu implementieren ist.
+zu generieren. \cite{xtext} Es muss lediglich eine ANTLR\cite{antlr} Grammatik für die Sprache definiert werden. Der grosse Nachteil ist, dass C, inklusive Preprozessor, zu parsen sehr schwierig ist und eine Entwicklungsumgebung somit auch mit Xtext nicht einfach zu implementieren ist.
 
 \subsection{DLTK}
-Das Dynamic Language Toolkit ist ein weiteres Framework, welches Grundgerüste für Entwicklungsumgebungen generiert. Ursprünglicherweise war das Framework nur für dynamische Sprachen geignet, es können aber auch für statische Sprachen verwendet werden. Die D
+Das Dynamic Language Toolkit (DLTK) ist ein weiteres Framework, welches ein Grundgerüst für eine Entwicklungsumgebungen generieren kann. Ursprünglicherweise war das Framework nur für dynamische Sprachen geignet, es kann aber auch für statische Sprachen verwendet werden. Die D Entwicklungsumgebung wurde mittels DLTK realisiert\cite{ddt}. Es bestehen aber wieder dieselben Nachteile wie bei Xtext. Da C schwierig zu parsen ist, müsste trotz dem Framework noch viel selbst implementiert werden. Da D keinen Preprozessor besitzt, konnte für diese Entwicklungsumgebung das DLTK Framework verwendet werden.
 
 \subsection{Eclipse CDT}
 Das Eclipse C-Development Tools (CDT) ist eine Eclipse Distribution mit Sprach Unterstützung für C und C++. Das CDT bietet alle Features welche man von einer Entwicklungsumgebung erwartet und stellt Extension Points zur Verfügung um diese für eine eigene Entwicklungsumgebung zu gebrauchen. So kann man mit relativ wenig Aufwand einen neues Compiler Backend in die Entwicklungsumgebung einbinden, welche den C Code kompiliert.
 
 \subsection{Verwendung für MCore Eclipse}
-Ich habe mich dazu entschieden, das Eclipse CDT als Target Platform zu wählen. Ich kann somit alle Features welche das Eclipse CDT zur Verfügung stellt brauchen und einfach mögliche Anpassungen machen. Die Frameworks, welche ein Grundgerüst einer Entwicklungsumgebung generieren funktionieren leider für C nicht vollständig und sind somit keine guten Alternativen.
+Ich habe mich dazu entschieden, das Eclipse CDT als Target Platform zu wählen. Somit können alle Features, welche das Eclipse CDT zur Verfügung stellt, gebraucht werden. Frameworks, welche ein Grundgerüst einer Entwicklungsumgebung generieren, funktionieren für C nicht vollständig und sind somit keine guten Alternativen.
