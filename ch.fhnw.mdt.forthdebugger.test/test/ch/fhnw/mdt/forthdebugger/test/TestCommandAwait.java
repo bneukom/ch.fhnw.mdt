@@ -22,6 +22,26 @@ public class TestCommandAwait {
 		
 		assertEquals(lastLine, "bar");
 	}
+	
+	@Test
+	public void testCommandCompletion() {
+		final Object waiter = new Object();
+		communicator.sendCommandForResult("foo", communicator.waitForMatchLater(".*r"), w -> {
+			assertEquals(w.getResult(), "bar");
+			
+			synchronized (waiter) {
+				waiter.notify();
+			}
+		});
+		
+		synchronized (waiter) {
+			try {
+				waiter.wait();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
 	@Before
 	public void before() {

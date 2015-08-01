@@ -184,8 +184,10 @@ public class ProcessCommunicator {
 	}
 
 	/**
-	 * Awaits until the command queue has been completed meaning all commands
+	 * Awaits until the command queue has been completed, meaning all commands
 	 * have been written and if necessary received their results.
+	 * Note that this does not mean that the result is ready to process unless an appropriate {@link WaitFor} has been supplied
+	 * to the command.
 	 */
 	public void awaitCommandCompletion() {
 		try {
