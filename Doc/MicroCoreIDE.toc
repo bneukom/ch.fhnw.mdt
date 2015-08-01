@@ -16,11 +16,11 @@
 \contentsline {section}{\numberline {3.2}Error Parsing}{9}
 \contentsline {chapter}{\numberline {4}Forth Kommunikation}{10}
 \contentsline {section}{\numberline {4.1}Prozess Kommunikation}{10}
-\contentsline {subsection}{\numberline {4.1.1}Probleme bei der Kommunikation}{10}
-\contentsline {subsection}{\numberline {4.1.2}GDB/MI-Commands}{10}
-\contentsline {subsection}{\numberline {4.1.3}Direkte Kommunikation mit dem Prozess}{10}
+\contentsline {subsection}{\numberline {4.1.1}GDB/MI-Commands}{10}
+\contentsline {subsection}{\numberline {4.1.2}Direkte Kommunikation mit dem Prozess}{10}
+\contentsline {subsubsection}{\nonumberline Probleme bei der Kommunikation}{10}
 \contentsline {section}{\numberline {4.2}API Design}{10}
-\contentsline {section}{\numberline {4.3}Implementierungs Details}{10}
+\contentsline {section}{\numberline {4.3}Implementierungs Details}{11}
 \contentsline {subsection}{\numberline {4.3.1}Kommunikation mittels Commands}{11}
 \contentsline {subsection}{\numberline {4.3.2}Forth Output Parsing}{11}
 \contentsline {subsection}{\numberline {4.3.3}Await auf Resultate}{11}

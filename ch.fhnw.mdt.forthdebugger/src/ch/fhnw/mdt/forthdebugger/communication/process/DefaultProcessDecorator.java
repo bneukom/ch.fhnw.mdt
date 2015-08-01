@@ -7,11 +7,11 @@ import java.io.OutputStream;
  * Default implementation which just forwards to a {@link Process}.
  *
  */
-public class DefaultProcess implements IProcessDectorator {
+public class DefaultProcessDecorator implements IProcessDectorator {
 
 	private final Process process;
 
-	public DefaultProcess(Process process) {
+	public DefaultProcessDecorator(Process process) {
 		this.process = process;
 	}
 

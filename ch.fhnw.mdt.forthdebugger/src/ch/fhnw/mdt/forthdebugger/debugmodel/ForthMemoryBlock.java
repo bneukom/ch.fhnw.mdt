@@ -10,7 +10,6 @@ import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IMemoryBlock;
 
 import ch.fhnw.mdt.forthdebugger.communication.ProcessCommunicator;
-import ch.fhnw.mdt.forthdebugger.communication.ProcessCommunicator.ProcessCommandQueue;
 import ch.fhnw.mdt.forthdebugger.debugmodel.extensions.IForthMemoryBlockExtension;
 
 // TODO Forth accepts hex integer values for dump, for eclipse we need byte values. how to convert?

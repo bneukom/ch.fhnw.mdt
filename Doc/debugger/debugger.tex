@@ -2,8 +2,8 @@
 
 In diesem Kapitel wird beschrieben, wie der Debugger in Eclipse integriert wurde. Es wird aufgezeigt, was für Möglichkeiten existieren einen Debugger in Eclipse zu integrieren und welche implementiert wurden.
 
-\section{Breakpoints in C}
-Als erstes müssen Breakpoints
+\section{Breakpoints}
+Als erstes müssen für den Debugger Breakpoints für Forth gesetzt werden können.
 
 \subsection{Per Konsole}
 
@@ -12,9 +12,11 @@ Als erstes müssen Breakpoints
 
 \section{Konsolen basierter Debugger}
 
-Eine einfache Implementation des Debuggers ist die Konsole zu verwenden. Da schon ein Konsolen Debugger existiert kann dieser mit dem im Kapitel \ref{forthcommunication} beschriebenen Prozess Kommunikationsmitteln angesteuert und in einer Eclipse Konsole angezeigt werden.
+Eine erste Implementation des Debuggers ist, die den schon existierenden Forth Konsolen Debugger im Eclipse zu integrieren. Dieser kann mit dem im Kapitel \ref{forthcommunication} beschriebenen Prozess Kommunikationsmitteln angesteuert und in einer Eclipse Konsole View angezeigt werden.
 
 \section{Forth Debugger}
+
+Frontend für Konsolen Debugger.
 
 \subsection{Neue Debugger Aktionen}
 

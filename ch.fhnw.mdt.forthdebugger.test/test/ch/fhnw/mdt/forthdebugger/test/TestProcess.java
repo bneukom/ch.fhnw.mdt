@@ -19,7 +19,7 @@ public class TestProcess implements IProcessDectorator {
 
 	private final PipedInputStream inputStream = new PipedInputStream();
 	private OutputStreamWriter writeTo;
-	
+
 	private final ProcessFunction processFunction;
 	private final ProcessThread processThread = new ProcessThread();
 
@@ -27,14 +27,14 @@ public class TestProcess implements IProcessDectorator {
 
 	public TestProcess(ProcessFunction processFunction) {
 		this.processFunction = processFunction;
-		
+
 		try {
 			readFrom = new PipedInputStream(outputStream);
 			writeTo = new OutputStreamWriter(new PipedOutputStream(inputStream));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		processThread.start();
 	}
 
@@ -64,28 +64,28 @@ public class TestProcess implements IProcessDectorator {
 
 		@Override
 		public void run() {
+			final StringBuffer lineBuffer = new StringBuffer();
 			while (true) {
-				final StringBuffer lineBuffer = new StringBuffer();
 				try {
 					final char read = (char) readFrom.read();
 					lineBuffer.append(read);
 
-					if (lineBuffer.toString().endsWith(LINE_SEPARATOR)) {
+					final Output result = processFunction.apply(lineBuffer.toString());
 
-						final Output result = processFunction.apply(lineBuffer.toString());
-						
+					if (result != null) {
 						if (result.delay > 0) {
 							try {
 								Thread.sleep(result.delay);
 							} catch (InterruptedException e) {
 							}
 						}
-						
+
 						writeTo.write(result.output);
 						writeTo.flush();
-						
-						lineBuffer.setLength(0);
+						lineBuffer.setLength(0); 
 					}
+
+
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -93,11 +93,11 @@ public class TestProcess implements IProcessDectorator {
 		}
 	}
 
-	private static interface ProcessFunction {
+	public static interface ProcessFunction {
 		public Output apply(String input);
 	}
 
-	private static final class Output {
+	public static final class Output {
 		public final String output;
 		public final long delay;
 

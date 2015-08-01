@@ -1,7 +1,7 @@
 \chapter{Forth Kommunikation}
 \label{forthcommunication}
 
-In diesem Kapitel wird beschrieben, wie die Entwicklungsumgebung mit dem Forth Prozess kommuniziert. Die Kommunikation mit dem Forth Prozess ist von zentraler Bedeutung, da viel der Funkionalität der Entwicklungsumgebung davon abhängt. Es wird gezeigt wie die Kommunikation designt implementiert und getestet wurde.
+In diesem Kapitel wird beschrieben, wie die Entwicklungsumgebung mit dem Forth Prozess kommuniziert. Die Kommunikation mit dem Forth Prozess ist von zentraler Bedeutung, da viel der Funkionalität der Entwicklungsumgebung davon abhängt, dass die Kommunikation stabil läuft. Es wird gezeigt wie die Kommunikation designt, implementiert und getestet wurde.
 
 TODO asynchronität?
 
@@ -9,25 +9,29 @@ TODO asynchronität?
 \section{Prozess Kommunikation}
 Um mit dem Prozess zu kommunizieren gibt es einige Alternativen welche ich aufzeigen möchte.
 
-\subsection{Probleme bei der Kommunikation}
-
-TODO 
-
 \subsection{GDB/MI-Commands}
 
 TODO sehr komplex! (http://www.ibm.com/developerworks/library/os-eclipse-cdt-debug2/ complicated)
 
-Eine Möglichkeit mit dem Prozess zu kommunizieren wäre ein MaschineInterface wie es der GDB macht mittels MachineInterface (MI)  Commands. GDB/MI ist ein Linien basiertes Maschinen orientiertes Text Interface zu dem GDB. Es wurde dazu entwickelt um den GDB als Debugger in ein grössers System einzubinden. \cite{gdb}
+Eine Möglichkeit mit dem Prozess zu kommunizieren wäre ein MaschineInterface wie es der GDB macht mittels MachineInterface (MI)  Commands. GDB/MI ist ein Linien basiertes Maschinen orientiertes Text Interface zu dem GDB. Es wurde dazu entwickelt um den GDB als Debugger in ein grössers System einzubinden.\cite{gdb} Eine MI ähnliches Interface wäre mit grossem Aufwand verbunden, aber dafür könnte dann viel des CDT Debugging Mechanismus wiederverwendet werden. 
 
 \subsection{Direkte Kommunikation mit dem Prozess}
+
+Eine weitere Möglichkeit wäre, direkt die Befehle an den Prozess senden und auf Antworten warten.
+
+\subsubsection{Probleme bei der Kommunikation}
+
+Bei der
 
 \section{API Design}
 
 In einem ersten Schritt wurde ein API designt, welches verwendet werden soll um die Kommunikation mit dem Prozess möglichst einfach zu halten.
 
+TODO API
+
 \section{Implementierungs Details}
 
-TODO class hi
+TODO class diagramms
 
 \subsection{Kommunikation mittels Commands}
 

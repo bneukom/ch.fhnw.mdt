@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -17,23 +18,24 @@ import java.util.concurrent.locks.ReentrantLock;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import ch.fhnw.mdt.forthdebugger.communication.process.IProcessDectorator;
 import ch.fhnw.mdt.forthdebugger.util.Either;
 
 /**
- * Class which is able to communicate with a 
+ * Class which is able to communicate with a
  */
 public class ProcessCommunicator {
 
 	private final ProcessCommandQueue commandQueue;
 	private final ProcessReader reader;
-	
+
 	public static final String OK = "ok";
 	public static final String NL = "\n";
 	public static final String LINE_SEPERATOR = "\n";
 	public static final int CR = 13;
 	public static final int ANY = 65;
 
-	private Process process;
+	private IProcessDectorator process;
 
 	private final List<WaitFor> waitQueue = Collections.synchronizedList(new ArrayList<WaitFor>());
 
@@ -61,10 +63,10 @@ public class ProcessCommunicator {
 	private final Condition commandCompletionCondition;
 	private transient boolean isWorking = false;
 
-	public ProcessCommunicator(BufferedWriter processWriter, InputStream input, Process process) {
+	public ProcessCommunicator(IProcessDectorator process) {
 		this.process = process;
-		this.commandQueue = new ProcessCommandQueue(processWriter);
-		this.reader = new ProcessReader(input);
+		this.commandQueue = new ProcessCommandQueue(new BufferedWriter(new OutputStreamWriter(process.getOutputStream())));
+		this.reader = new ProcessReader(process.getInputStream());
 		this.commandCompletionCondition = commandCompletionLock.newCondition();
 
 		commandQueue.start();
@@ -335,9 +337,10 @@ public class ProcessCommunicator {
 	}
 
 	/**
-	 * TODO implement timeout! Thread safe communication for the forth process.
+	 * Thread safe communication for a process.
+	 * TODO implement timeout!
 	 */
-	public final class ProcessCommandQueue extends Thread {
+	private final class ProcessCommandQueue extends Thread {
 		private final BufferedWriter processWriter;
 		private volatile boolean shutdown = false;
 
@@ -444,7 +447,7 @@ public class ProcessCommunicator {
 	 * Thread which reads from the Forth process.
 	 *
 	 */
-	public final class ProcessReader extends Thread {
+	private final class ProcessReader extends Thread {
 
 		private final InputStream input;
 
@@ -580,7 +583,7 @@ public class ProcessCommunicator {
 		protected volatile boolean isWaiting;
 
 		// await for 10 seconds before time out
-		public static final int DEFAULT_TIME_OUT_MILLIS = 10_000;
+		public static final int DEFAULT_TIME_OUT_MILLIS = 1_000_000;
 
 		public WaitFor() {
 			this.isWaiting = true;

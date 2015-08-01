@@ -6,7 +6,7 @@ import java.io.OutputStream;
 /**
  * Decorates an underlying {@link Process}. Can be used to implement a dummy process for testing.
  *
- * @see DefaultProcess
+ * @see DefaultProcessDecorator
  */
 public interface IProcessDectorator {
 

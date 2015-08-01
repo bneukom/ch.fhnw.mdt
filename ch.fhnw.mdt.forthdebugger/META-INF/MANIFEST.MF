@@ -19,6 +19,7 @@ Bundle-ActivationPolicy: lazy
 Import-Package: org.eclipse.ui.part
 Export-Package: ch.fhnw.mdt.forthdebugger,
  ch.fhnw.mdt.forthdebugger.communication,
+ ch.fhnw.mdt.forthdebugger.communication.process,
  ch.fhnw.mdt.forthdebugger.debugmodel,
  ch.fhnw.mdt.forthdebugger.debugmodel.extensions,
  ch.fhnw.mdt.forthdebugger.util

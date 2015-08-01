@@ -13,12 +13,12 @@ NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1441
 NormalPos.bottom=539
-Class=BibTeXView
-Document=MicroCoreIDE.bib
+Class=LaTeXView
+Document=debugger\debugger.tex
 
 [Frame0_View0,0]
-TopLine=3
-Cursor=547
+TopLine=0
+Cursor=660
 
 [Frame1]
 Flags=0
@@ -32,11 +32,11 @@ NormalPos.top=26
 NormalPos.right=1441
 NormalPos.bottom=539
 Class=LaTeXView
-Document=platform\platform.tex
+Document=forthcommunication\forthcommunication.tex
 
 [Frame1_View0,0]
-TopLine=48
-Cursor=3478
+TopLine=9
+Cursor=1028
 
 [Frame2]
 Flags=0
@@ -49,12 +49,12 @@ NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1441
 NormalPos.bottom=539
-Class=LaTeXView
-Document=optimizer\optimizer.tex
+Class=BibTeXView
+Document=MicroCoreIDE.bib
 
 [Frame2_View0,0]
-TopLine=0
-Cursor=80
+TopLine=15
+Cursor=893
 
 [Frame3]
 Flags=0
@@ -68,11 +68,11 @@ NormalPos.top=26
 NormalPos.right=1441
 NormalPos.bottom=539
 Class=LaTeXView
-Document=abstract\abstract.tex
+Document=platform\platform.tex
 
 [Frame3_View0,0]
-TopLine=0
-Cursor=138
+TopLine=2
+Cursor=1260
 
 [Frame4]
 Flags=0
@@ -86,11 +86,11 @@ NormalPos.top=26
 NormalPos.right=1441
 NormalPos.bottom=539
 Class=LaTeXView
-Document=MicroCoreIDE.tex
+Document=optimizer\optimizer.tex
 
 [Frame4_View0,0]
-TopLine=49
-Cursor=1264
+TopLine=0
+Cursor=80
 
 [Frame5]
 Flags=0
@@ -104,11 +104,11 @@ NormalPos.top=26
 NormalPos.right=1441
 NormalPos.bottom=539
 Class=LaTeXView
-Document=introduction\introduction.tex
+Document=abstract\abstract.tex
 
 [Frame5_View0,0]
 TopLine=0
-Cursor=47
+Cursor=138
 
 [Frame6]
 Flags=0
@@ -122,11 +122,11 @@ NormalPos.top=26
 NormalPos.right=1441
 NormalPos.bottom=539
 Class=LaTeXView
-Document=compiler\compiler.tex
+Document=MicroCoreIDE.tex
 
 [Frame6_View0,0]
-TopLine=0
-Cursor=68
+TopLine=49
+Cursor=1266
 
 [Frame7]
 Flags=0
@@ -140,11 +140,11 @@ NormalPos.top=26
 NormalPos.right=1441
 NormalPos.bottom=539
 Class=LaTeXView
-Document=forthcommunication\forthcommunication.tex
+Document=introduction\introduction.tex
 
 [Frame7_View0,0]
 TopLine=0
-Cursor=0
+Cursor=47
 
 [Frame8]
 Flags=0
@@ -158,33 +158,15 @@ NormalPos.top=26
 NormalPos.right=1441
 NormalPos.bottom=539
 Class=LaTeXView
-Document=debugger\debugger.tex
+Document=compiler\compiler.tex
 
 [Frame8_View0,0]
 TopLine=0
-Cursor=198
-
-[Frame9]
-Flags=0
-ShowCmd=1
-MinPos.x=-1
-MinPos.y=-1
-MaxPos.x=-1
-MaxPos.y=-1
-NormalPos.left=4
-NormalPos.top=26
-NormalPos.right=1441
-NormalPos.bottom=539
-Class=LaTeXView
-Document=..\..\..\..\Program Files (x86)\MiKTeX 2.9\tex\latex\caption\caption.sty
-
-[Frame9_View0,0]
-TopLine=267
-Cursor=11880
+Cursor=0
 
 [SessionInfo]
-FrameCount=10
-ActiveFrame=1
+FrameCount=9
+ActiveFrame=3
 
 [Bookmarks]
 mesh\mesh.tex=6 

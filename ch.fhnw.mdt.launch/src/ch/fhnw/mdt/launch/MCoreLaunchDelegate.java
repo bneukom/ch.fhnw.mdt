@@ -41,6 +41,8 @@ import org.eclipse.ui.console.IOConsoleOutputStream;
 
 import ch.fhnw.mdt.forthdebugger.ForthDebuggerPlugin;
 import ch.fhnw.mdt.forthdebugger.communication.ProcessCommunicator;
+import ch.fhnw.mdt.forthdebugger.communication.process.DefaultProcessDecorator;
+import ch.fhnw.mdt.forthdebugger.communication.process.IProcessDectorator;
 import ch.fhnw.mdt.forthdebugger.debugmodel.ForthDebugTarget;
 import ch.fhnw.mdt.forthdebugger.debugmodel.IForthConstants;
 import ch.fhnw.mdt.platform.MDTPlatformPlugin;
@@ -54,7 +56,7 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 	public static final String GFORTH_PATH_VARIABLE = "GFORTHPATH";
 	private static final String DEBUG_MODE = "debug";
 	private static final String DEBUG_FILE_NAME = "debugCFunction.fs";
-	
+
 	private IPlatformStrings iPlatformStrings = MDTPlatformPlugin.getDefault().getPlatformStrings();
 
 	@Override
@@ -255,9 +257,9 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 
 				final ProcessBuilder processBuilder = new ProcessBuilder(iPlatformStrings.getShellPath());
 				processBuilder.redirectErrorStream();
-				
+
 				processBuilder.directory(new File(workingDirectory));
-				
+
 				final Process process = processBuilder.start();
 				final IProcess eclipseProcess = DebugPlugin.newProcess(launch, process, "gforth");
 
@@ -265,15 +267,14 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 
 				ConsolePlugin.getDefault().getConsoleManager().addConsoles(new IConsole[] { gforthConsole });
 
-				final BufferedWriter processWriter = new BufferedWriter(new OutputStreamWriter(process.getOutputStream()));
-				final ProcessCommunicator processCommunicator = new ProcessCommunicator(processWriter, process.getInputStream(), process);
+				final ProcessCommunicator processCommunicator = new ProcessCommunicator(new DefaultProcessDecorator(process));
 				final InputThread inputThread = new InputThread(gforthConsole.getInputStream(), processCommunicator);
 				inputThread.start();
 
 				final IOConsoleOutputStream consoleOutputStream = gforthConsole.newOutputStream();
 				processCommunicator.forwardOutput(System.out);
 				processCommunicator.forwardOutput(consoleOutputStream);
-				
+
 				processCommunicator.addCommandTimeOutListener(() -> {
 					Display.getDefault().asyncExec(() -> {
 						try {
