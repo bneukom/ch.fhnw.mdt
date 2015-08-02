@@ -14,7 +14,7 @@
              id="ch.fhnw.mdt.build.mcoreconfiguration"
              name="Release">
           <toolChain
-                errorParsers="ch.fhnw.mdt.build.lccerrorparser"
+                errorParsers="org.eclipse.cdt.core.MakeErrorParser;org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GLDErrorParser;org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.VCErrorParser"
                 id="ch.fhnw.mdt.ui.mcoretoolchain"
                 isAbstract="false"
                 isToolChainSupported="ch.fhnw.mdt.build.IsMCoreToolChainSupported"
