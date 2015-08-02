@@ -19,11 +19,12 @@ import org.eclipse.debug.core.model.IVariable;
 
 import ch.fhnw.mdt.forthdebugger.debugmodel.extensions.IAfterExtension;
 import ch.fhnw.mdt.forthdebugger.debugmodel.extensions.IJumpExtension;
+import ch.fhnw.mdt.forthdebugger.debugmodel.extensions.IKillProcessExtension;
 
 /**
  * Forth stack frame.
  */
-public class ForthStackFrame extends ForthDebugElement implements IStackFrame, IJumpExtension, IAfterExtension {
+public class ForthStackFrame extends ForthDebugElement implements IStackFrame, IJumpExtension, IAfterExtension, IKillProcessExtension {
 
 	private ForthThread thread;
 	private String functionName;
@@ -179,9 +180,30 @@ public class ForthStackFrame extends ForthDebugElement implements IStackFrame, I
 	public boolean canJump() throws DebugException {
 		return thread.canJump();
 	}
-	
+
 	/*
 	 * (non-Javadoc)
+	 * 
+	 * @see ch.fhnw.mdt.forthdebugger.debugmodel.extensions.IKillProcessExtension#kill()
+	 */
+	@Override
+	public void kill() throws DebugException {
+		thread.kill();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see ch.fhnw.mdt.forthdebugger.debugmodel.extensions.IKillProcessExtension#canKill()
+	 */
+	@Override
+	public boolean canKill() throws DebugException {
+		return thread.canKill();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see ch.fhnw.mdt.forthdebugger.debugmodel.extensions.IAfterExtension#after()
 	 */
 	@Override
@@ -191,6 +213,7 @@ public class ForthStackFrame extends ForthDebugElement implements IStackFrame, I
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see ch.fhnw.mdt.forthdebugger.debugmodel.extensions.IAfterExtension#canAfter()
 	 */
 	@Override
@@ -390,7 +413,5 @@ public class ForthStackFrame extends ForthDebugElement implements IStackFrame, I
 	public String getCurrentAddress() {
 		return currentAddress;
 	}
-
-
 
 }

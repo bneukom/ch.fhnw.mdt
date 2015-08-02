@@ -28,11 +28,12 @@ import ch.fhnw.mdt.forthdebugger.communication.ProcessCommunicator;
 import ch.fhnw.mdt.forthdebugger.communication.ProcessCommunicator.WaitForMatch;
 import ch.fhnw.mdt.forthdebugger.debugmodel.extensions.IAfterExtension;
 import ch.fhnw.mdt.forthdebugger.debugmodel.extensions.IJumpExtension;
+import ch.fhnw.mdt.forthdebugger.debugmodel.extensions.IKillProcessExtension;
 
 /**
  * A forth thread. Forth Environment is single threaded.
  */
-public class ForthThread extends ForthDebugElement implements IThread, IJumpExtension, IAfterExtension {
+public class ForthThread extends ForthDebugElement implements IThread, IJumpExtension, IAfterExtension, IKillProcessExtension {
 
 	private IBreakpoint[] breakpoints;
 	private final IFile forthFile;
@@ -314,6 +315,26 @@ public class ForthThread extends ForthDebugElement implements IThread, IJumpExte
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see ch.fhnw.mdt.forthdebugger.debugmodel.extensions.IKillProcessExtension#kill()
+	 */
+	@Override
+	public void kill() throws DebugException {
+		target.kill();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see ch.fhnw.mdt.forthdebugger.debugmodel.extensions.IKillProcessExtension#canKill()
+	 */
+	@Override
+	public boolean canKill() throws DebugException {
+		return target.canKill();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.debug.core.model.IStep#stepReturn()
 	 */
 	@Override
@@ -439,7 +460,7 @@ public class ForthThread extends ForthDebugElement implements IThread, IJumpExte
 			final List<String> disassembledFunction = new ArrayList<String>();
 
 			final WaitForMatch waitForMatchLater = processCommunicator
-					.waitForMatchLater("([A-Fa-f0-9]{8}): ([A-Fa-f0-9 ]{8}) ?(([A-Fa-f0-9]+ [A-Fa-f0-9]+)|( [^\\s]+[A-Fa-f0-9 ]+ (call))|([^\\s]+))");
+					.newWaitForMatchLater("([A-Fa-f0-9]{8}): ([A-Fa-f0-9 ]{8}) ?(([A-Fa-f0-9]+ [A-Fa-f0-9]+)|( [^\\s]+[A-Fa-f0-9 ]+ (call))|([^\\s]+))");
 			processCommunicator.sendCommandAwaitResult("show " + functionName + ProcessCommunicator.NL, waitForMatchLater);
 			processCommunicator.awaitReadCompletion();
 
@@ -451,7 +472,7 @@ public class ForthThread extends ForthDebugElement implements IThread, IJumpExte
 			// one based line numbering
 			while (!currentLine.contains("exit")) {
 				processCommunicator.awaitReadCompletion();
-				processCommunicator.sendCommandAwaitResult(ProcessCommunicator.ANY, processCommunicator.waitForResultLater(ProcessCommunicator.NL));
+				processCommunicator.sendCommandAwaitResult(ProcessCommunicator.ANY, processCommunicator.newWaitForResultLater(ProcessCommunicator.NL));
 				processCommunicator.awaitReadCompletion();
 
 				currentLine = processCommunicator.getCurrentLine();

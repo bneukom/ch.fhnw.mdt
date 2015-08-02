@@ -26,5 +26,4 @@ public class LCCDebugger implements ICDIDebugger2 {
 		return new LCCSession();
 	}
 
-
 }

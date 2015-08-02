@@ -2,13 +2,14 @@ package ch.fhnw.mdt.forthdebugger.debugmodel.extensions;
 
 import org.eclipse.debug.core.DebugException;
 
-public interface IAfterExtension {
+public interface IKillProcessExtension {
+
 	/**
-	 * Jumps until after the next branch instruction therefore jumping out of a loop.
+	 * Kills the forth process.
 	 * 
 	 * @throws DebugException
 	 */
-	public void after() throws DebugException;
+	public void kill() throws DebugException;
 
 	/**
 	 * Returns <code>true</code> if {@link #kill()}ing is currently enabled.
@@ -16,5 +17,5 @@ public interface IAfterExtension {
 	 * @return <code>true</code> if {@link #kill()}ing is currently enabled.
 	 * @throws DebugException
 	 */
-	public boolean canAfter() throws DebugException;
+	public boolean canKill() throws DebugException;
 }

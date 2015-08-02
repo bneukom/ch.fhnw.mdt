@@ -22,7 +22,8 @@ import ch.fhnw.mdt.forthdebugger.communication.process.IProcessDectorator;
 import ch.fhnw.mdt.forthdebugger.util.Either;
 
 /**
- * Class which is able to communicate with a
+ * Class which is able to communicate via {@link Command}s with a process.
+ * 
  */
 public class ProcessCommunicator {
 
@@ -61,7 +62,12 @@ public class ProcessCommunicator {
 	private final BlockingQueue<Command> queue = new LinkedBlockingQueue<Command>();
 	private final Lock commandCompletionLock = new ReentrantLock();
 	private final Condition commandCompletionCondition;
-	private transient boolean isWorking = false;
+	private transient boolean commandQueueIsWorking = false;
+
+	// shutdown
+	private final Lock shutdownLock = new ReentrantLock();
+	private final Condition shutdownCondition = shutdownLock.newCondition();
+	private transient boolean isShutDown = false;
 
 	public ProcessCommunicator(IProcessDectorator process) {
 		this.process = process;
@@ -74,13 +80,49 @@ public class ProcessCommunicator {
 	}
 
 	/**
-	 * Shuts down Forth and also closes the underlying Forth {@link Process}.
+	 * Shuts down the {@link ProcessCommunicator} and also closes the underlying {@link Process}.
+	 * Notifies all thread which are waiting for shutdown by calling {@link #awaitShutdown()}.
+	 * If the {@link ProcessCommunicator} has already been shut down this method returns immediately. <br>
+	 * <br>
+	 * Waiting Threads
 	 */
 	public void shutdown() {
-		commandQueue.terminate();
-		reader.terminate();
+		if (isShutDown) {
+			return;
+		}
 
+		// notify shutdown
+		try {
+			shutdownLock.lock();
+
+			isShutDown = true;
+
+			shutdownCondition.signalAll();
+		} finally {
+			shutdownLock.unlock();
+		}
+
+		// terminate internal threads
+		reader.terminate();
+		commandQueue.terminate();
+
+		// destory the process
 		process.destroy();
+	}
+
+	/**
+	 * Blocks until the {@link ProcessCommunicator} has shutdown via {@link #shutdown()}.
+	 */
+	public void awaitShutdown() {
+		try {
+			shutdownLock.lock();
+			while (!isShutDown) {
+				shutdownCondition.awaitUninterruptibly();
+			}
+		} finally {
+			shutdownLock.unlock();
+		}
+
 	}
 
 	/**
@@ -169,10 +211,11 @@ public class ProcessCommunicator {
 		try {
 			commandCompletionLock.lock();
 
-			isWorking = true;
+			commandQueueIsWorking = true;
 			queue.put(command);
 
-			if (command.block) {
+			// block if necessary
+			if (command.blocks) {
 				awaitCommandCompletion();
 			}
 		} catch (final InterruptedException e) {
@@ -180,7 +223,6 @@ public class ProcessCommunicator {
 		} finally {
 			commandCompletionLock.unlock();
 		}
-
 	}
 
 	/**
@@ -188,13 +230,20 @@ public class ProcessCommunicator {
 	 * have been written and if necessary received their results.
 	 * Note that this does not mean that the result is ready to process unless an appropriate {@link WaitFor} has been supplied
 	 * to the command.
+	 * 
+	 * @throws InterruptedException
 	 */
-	public void awaitCommandCompletion() {
+	public void awaitCommandCompletion() throws InterruptedException {
 		try {
 			commandCompletionLock.lock();
 
-			while (isWorking) {
+			while (commandQueueIsWorking) {
 				commandCompletionCondition.await();
+
+				// throw interrupted exception in case the c
+				if (commandQueue.aborted) {
+					throw new InterruptedException();
+				}
 			}
 		} catch (final InterruptedException e) {
 			e.printStackTrace();
@@ -251,7 +300,7 @@ public class ProcessCommunicator {
 
 	/**
 	 * Returns the line which is currently being read. This line might not be
-	 * complete.
+	 * complete, so be careful using it.
 	 * 
 	 * @return
 	 */
@@ -279,7 +328,7 @@ public class ProcessCommunicator {
 	 * @param result
 	 * @return
 	 */
-	public synchronized WaitForResult waitForResultLater(final String result) {
+	public synchronized WaitForResult newWaitForResultLater(final String result) {
 		final WaitForResult wait = new WaitForResult(result);
 
 		synchronized (waitQueue) {
@@ -297,7 +346,7 @@ public class ProcessCommunicator {
 	 * @param result
 	 * @return
 	 */
-	public synchronized WaitForMatch waitForMatchLater(final String regex) {
+	public synchronized WaitForMatch newWaitForMatchLater(final String regex) {
 		final WaitForMatch wait = new WaitForMatch(regex);
 
 		synchronized (waitQueue) {
@@ -340,21 +389,21 @@ public class ProcessCommunicator {
 
 	/**
 	 * Thread safe communication for a process.
-	 * TODO implement timeout!
 	 */
 	private final class ProcessCommandQueue extends Thread {
 		private final BufferedWriter processWriter;
-		private volatile boolean shutdown = false;
+		private volatile boolean terminated = false;
+		private volatile boolean aborted = false;
 
 		public ProcessCommandQueue(final BufferedWriter processWriter) {
 			this.processWriter = processWriter;
 		}
 
 		/**
-		 * Terminates the command queue
+		 * Terminates the command queue.
 		 */
 		public void terminate() {
-			shutdown = true;
+			terminated = true;
 			try {
 				processWriter.close();
 			} catch (IOException e) {
@@ -365,7 +414,7 @@ public class ProcessCommunicator {
 
 		@Override
 		public void run() {
-			while (!shutdown) {
+			while (!terminated) {
 				try {
 					// get next command or wait if there are none
 					final Command command = queue.take();
@@ -375,23 +424,26 @@ public class ProcessCommunicator {
 							writeCommand(command);
 
 							try {
-								// wait for the result before processing further
-								// commands
+								// wait for the result before processing further commands
 								command.waitFor.await();
 
-								// after we are finished with waiting apply
-								// callback
+								// after we are finished with waiting apply callback
 								if (command.commandCompleted != null) {
 									command.commandCompleted.commandCompleted(command.waitFor);
 								}
 							} catch (InterruptedException e) {
-								if (!shutdown) {
+								aborted = true;
+
+								// if the thread has not been terminated we need to fire time out events
+								if (!terminated) {
 									synchronized (commandTimedOutListeners) {
 										for (CommandTimedOutListener commandTimedOutListener : commandTimedOutListeners) {
 											commandTimedOutListener.timedOut();
 										}
 									}
 								}
+
+								signalCommandAbort();
 
 								// abort after a timeout has happened
 								return;
@@ -405,7 +457,7 @@ public class ProcessCommunicator {
 
 							// signal commandQueue empty
 							if (queue.isEmpty()) {
-								isWorking = false;
+								commandQueueIsWorking = false;
 								commandCompletionCondition.signalAll();
 							}
 						} finally {
@@ -413,15 +465,33 @@ public class ProcessCommunicator {
 						}
 
 					} catch (final IOException e) {
-						break;
+						signalCommandAbort();
+						return;
 					}
 
 				} catch (final InterruptedException e) {
-					break;
+					signalCommandAbort();
+					return;
 				}
 			}
+		}
 
-			shutdown = true;
+		/**
+		 * Signals all Threads which might wait for the command queue to get empty. 
+		 * This method gets called in case the command queue is in an invalid state so the waiting threads
+		 * can wake up.
+		 */
+		private void signalCommandAbort() {
+			// signal all threads which might be waiting for the command queue to clear up
+			// the command queue might not be empty
+			try {
+				commandCompletionLock.lock();
+
+				aborted = true;
+				commandCompletionCondition.signalAll();
+			} finally {
+				commandCompletionLock.unlock();
+			}
 		}
 
 		private void writeCommand(final Command command) throws IOException {
@@ -453,40 +523,44 @@ public class ProcessCommunicator {
 
 		private final InputStream input;
 
-		private volatile boolean isRunning;
+		private volatile boolean terminated;
 
 		public ProcessReader(final InputStream input) {
 			super();
 			this.input = input;
-			this.isRunning = true;
 		}
 
 		/**
 		 * Terminates the reader and closes its associated input stream.
 		 */
 		public void terminate() {
-			isRunning = false;
+			terminated = true;
 			try {
 				input.close();
 			} catch (IOException e) {
-				e.printStackTrace();
 			}
 		}
 
 		@Override
 		public void run() {
-			while (isRunning) {
+			while (!terminated) {
 
 				try {
 					// read next char
 					final int nextCharacter = input.read();
 
-					// TODO ordering is important due to clearing (how to make
-					// that
-					// consistent)
-					// notify everyone who was waiting for the available count
-					// to
-					// hit zero
+					// shutdown command queue if the end of the stream has been reached
+					if (nextCharacter == -1) {
+						shutdown();
+						return;
+					}
+
+					// abort in case is terminate has been called while a read was blocked or the end of the stream has been reached
+					if (terminated) {
+						return;
+					}
+
+					// notify everyone who was waiting for the available count to hit zero
 					try {
 						availableLock.lock();
 
@@ -540,7 +614,9 @@ public class ProcessCommunicator {
 					}
 
 				} catch (final IOException e) {
-					return;
+
+					// abort and in case of input error
+					break;
 				}
 			}
 		}
@@ -554,13 +630,13 @@ public class ProcessCommunicator {
 	public static final class Command {
 		public final Either<String, Integer> request;
 		public final WaitFor waitFor;
-		public boolean block;
+		public boolean blocks;
 		public CommandCompleted commandCompleted;
 
 		public Command(final String request, final WaitFor waitFor, CommandCompleted commandCompleted, boolean block) {
 			super();
 			this.commandCompleted = commandCompleted;
-			this.block = block;
+			this.blocks = block;
 			this.request = Either.left(request);
 			this.waitFor = waitFor;
 
@@ -569,7 +645,7 @@ public class ProcessCommunicator {
 		public Command(final int request, final WaitFor waitFor, CommandCompleted commandCompleted, boolean block) {
 			super();
 			this.commandCompleted = commandCompleted;
-			this.block = block;
+			this.blocks = block;
 			this.request = Either.right(request);
 			this.waitFor = waitFor;
 		}

@@ -34,13 +34,17 @@ public class ForthMemoryBlock extends ForthDebugElement implements IMemoryBlock,
 	}
 
 	private void loadMemory() {
-		processCommunicator.awaitCommandCompletion();
+		try {
+			processCommunicator.awaitCommandCompletion();
+		} catch (InterruptedException e) {
+			return;
+		}
 		processCommunicator.awaitReadCompletion();
 
 		// let the debug target ignore the input
 		target.setIgnoreInput(true);
 		processCommunicator.sendCommandAwaitResult(String.valueOf(startAddress / 4) + " " + String.valueOf(length / 4) + " dump" + ProcessCommunicator.NL,
-				processCommunicator.waitForResultLater(">"));
+				processCommunicator.newWaitForResultLater(">"));
 		target.setIgnoreInput(false);
 
 		final List<String> readLines = processCommunicator.getReadLines();

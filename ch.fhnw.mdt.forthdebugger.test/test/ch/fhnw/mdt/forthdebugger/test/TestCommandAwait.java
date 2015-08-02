@@ -17,7 +17,7 @@ public class TestCommandAwait {
 
 	@Test
 	public void testAwaitResult() {
-		communicator.sendCommandAwaitResult("foo", communicator.waitForResultLater("bar"));
+		communicator.sendCommandAwaitResult("foo", communicator.newWaitForResultLater("bar"));
 		String lastLine = communicator.getCurrentLine();
 		
 		assertEquals(lastLine, "bar");
@@ -26,7 +26,7 @@ public class TestCommandAwait {
 	@Test
 	public void testCommandCompletion() {
 		final Object waiter = new Object();
-		communicator.sendCommandForResult("foo", communicator.waitForMatchLater(".*r"), w -> {
+		communicator.sendCommandForResult("foo", communicator.newWaitForMatchLater(".*r"), w -> {
 			assertEquals(w.getResult(), "bar");
 			
 			synchronized (waiter) {
@@ -58,7 +58,6 @@ public class TestCommandAwait {
 
 	@After
 	public void after() {
-		communicator.shutdown();
 	}
 
 }

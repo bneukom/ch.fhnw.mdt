@@ -264,7 +264,6 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 				final IProcess eclipseProcess = DebugPlugin.newProcess(launch, process, "gforth");
 
 				final IOConsole gforthConsole = new IOConsole("gforth console", null);
-
 				ConsolePlugin.getDefault().getConsoleManager().addConsoles(new IConsole[] { gforthConsole });
 
 				final ProcessCommunicator processCommunicator = new ProcessCommunicator(new DefaultProcessDecorator(process));
@@ -291,8 +290,8 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 
 				processCommunicator.awaitReadCompletion();
 
-				processCommunicator.sendCommandAwaitResult("umbilical: " + umbilical + ProcessCommunicator.NL, processCommunicator.waitForResultLater(ProcessCommunicator.OK));
-				processCommunicator.sendCommandAwaitResult("run" + ProcessCommunicator.NL, processCommunicator.waitForResultLater("HANDSHAKE"));
+				processCommunicator.sendCommandAwaitResult("umbilical: " + umbilical + ProcessCommunicator.NL, processCommunicator.newWaitForResultLater(ProcessCommunicator.OK));
+				processCommunicator.sendCommandAwaitResult("run" + ProcessCommunicator.NL, processCommunicator.newWaitForResultLater("HANDSHAKE"));
 
 				return new MCoreLaunch(process, eclipseProcess, consoleOutputStream, processCommunicator);
 
@@ -364,15 +363,9 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 		 * Waits until the process has finished and then does a cleanup.
 		 */
 		public void await() {
-			// wait for done
-			try {
-				process.waitFor();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
 
-			// cleanup
-			processCommunicator.shutdown();
+			// wait until the process communicator has been shut down
+			processCommunicator.awaitShutdown();
 
 			try {
 				consoleOutputStream.close();

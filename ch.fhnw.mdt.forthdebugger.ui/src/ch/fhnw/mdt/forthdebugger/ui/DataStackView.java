@@ -71,8 +71,6 @@ public class DataStackView extends AbstractDebugView implements ISelectionListen
 		});
 		tableColumnLayout.setColumnData(tosColumn.getColumn(), new ColumnWeightData(20, 200, true));
 
-		// viewer.getTable().setLayout(tableLayout);
-
 		viewer.setContentProvider(new IStructuredContentProvider() {
 
 			@Override

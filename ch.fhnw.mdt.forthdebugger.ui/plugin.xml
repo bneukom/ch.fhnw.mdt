@@ -107,6 +107,13 @@
             id="ch.fhnw.mdt.forthdebugger.ui.aftercommand"
             name="After">
       </command>
+      <command
+            categoryId="org.eclipse.debug.ui.category.run"
+            defaultHandler="ch.fhnw.mdt.forthdebugger.ui.commands.kill.KillCommandHandler"
+            description="Kills the forth process."
+            id="ch.fhnw.mdt.forthdebugger.ui.killcommand"
+            name="Kill">
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.actionSets">
@@ -129,6 +136,15 @@
                icon="icons/after.png"
                id="ch.fhnw.mdt.forthdebugger.ui.afteraction"
                label="After"
+               menubarPath="org.eclipse.ui.run/emptyStepGroup"
+               toolbarPath="org.eclipse.debug.ui.main.toolbar/renderGroup">
+         </action>
+         <action
+               class="ch.fhnw.mdt.forthdebugger.ui.commands.kill.KillCommandActionDelegate"
+               definitionId="ch.fhnw.mdt.forthdebugger.ui.killcommand"
+               icon="icons/killprocess.png"
+               id="ch.fhnw.mdt.forthdebugger.ui.killaction"
+               label="Kill"
                menubarPath="org.eclipse.ui.run/emptyStepGroup"
                toolbarPath="org.eclipse.debug.ui.main.toolbar/renderGroup">
          </action>
@@ -163,6 +179,16 @@
          </adapter>
          <adapter
                type="ch.fhnw.mdt.forthdebugger.ui.commands.after.AfterCommand">
+         </adapter>
+      </factory>
+      <factory
+            adaptableType="ch.fhnw.mdt.forthdebugger.debugmodel.extensions.IKillProcessExtension"
+            class="ch.fhnw.mdt.forthdebugger.ui.adapters.ForthCommandAdapterFactory">
+         <adapter
+               type="ch.fhnw.mdt.forthdebugger.ui.commands.kill.IKillHandler">
+         </adapter>
+         <adapter
+               type="ch.fhnw.mdt.forthdebugger.ui.commands.kill.KillCommand">
          </adapter>
       </factory>
    </extension>

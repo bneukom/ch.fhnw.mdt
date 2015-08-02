@@ -29,11 +29,12 @@ import org.eclipse.debug.core.model.IThread;
 import org.eclipse.debug.core.model.IValue;
 
 import ch.fhnw.mdt.forthdebugger.communication.ProcessCommunicator;
+import ch.fhnw.mdt.forthdebugger.debugmodel.extensions.IKillProcessExtension;
 
 /**
  * Forth Debug Target.
  */
-public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget {
+public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget, IKillProcessExtension {
 
 	// associated system process
 	private final IProcess process;
@@ -50,7 +51,7 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 	// process communication
 	private final ProcessCommunicator processCommunicator;
 	private DebugStreamListener debugStreamListener;
-	
+
 	// TODO implement something like a command listener and add command origin to the commands
 	// then we could disable if the commands are from the user or from the forth thread
 	private transient boolean ignoreInput;
@@ -205,7 +206,35 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 	 */
 	@Override
 	public void terminate() throws DebugException {
+		try {
+			processCommunicator.awaitCommandCompletion();
+		} catch (InterruptedException e) {
+		}
+		
+		// graceful termination
+		processCommunicator.sendCommand("bye" + ProcessCommunicator.NL); // exit debugger
+		processCommunicator.sendCommand("bye" + ProcessCommunicator.NL); // exit forth
+		processCommunicator.sendCommand("exit" + ProcessCommunicator.NL); // exit shell
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see ch.fhnw.mdt.forthdebugger.debugmodel.extensions.IKillProcessExtension#kill()
+	 */
+	@Override
+	public void kill() throws DebugException {
 		process.terminate();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see ch.fhnw.mdt.forthdebugger.debugmodel.extensions.IKillProcessExtension#canKill()
+	 */
+	@Override
+	public boolean canKill() throws DebugException {
+		return !getProcess().isTerminated();
 	}
 
 	/*
@@ -237,7 +266,7 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 	public void resume() throws DebugException {
 		forthThread.resume();
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -247,7 +276,6 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 	public boolean canSuspend() {
 		return false;
 	}
-
 
 	/*
 	 * (non-Javadoc)
@@ -360,7 +388,7 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 	public IMemoryBlock getMemoryBlock(final long startAddress, final long length) throws DebugException {
 		return new ForthMemoryBlock(target, startAddress, length, processCommunicator);
 	}
-	
+
 	/**
 	 * Sets whether the internal debug stream listener should ignore its input.
 	 * 
@@ -528,10 +556,13 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 
 		/**
 		 * Returns whether this line is a function call. A function call has the following pattern
+		 * 
 		 * <pre>
 		 * uCore> _function ok
 		 * </pre>
+		 * 
 		 * where _function can be replaced with any function loaded by the debugger. (Any function from the running C-File).
+		 * 
 		 * @param current
 		 * @return
 		 */
@@ -611,6 +642,5 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget 
 			fireTerminateEvent();
 		}
 	}
-
 
 }

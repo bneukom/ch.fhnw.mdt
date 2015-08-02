@@ -4,6 +4,10 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.ui.memory.IMemoryRendering;
 import org.eclipse.debug.ui.memory.IMemoryRenderingTypeDelegate;
 
+/**
+ * Factory used to create the {@link ForthTableRendering}.
+ *
+ */
 public class ForthMemoryRenderingTypeDelegate implements IMemoryRenderingTypeDelegate {
 
 	public ForthMemoryRenderingTypeDelegate() {

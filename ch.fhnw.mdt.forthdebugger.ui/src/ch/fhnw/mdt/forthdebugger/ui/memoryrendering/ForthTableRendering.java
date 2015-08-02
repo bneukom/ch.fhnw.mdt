@@ -22,7 +22,7 @@ import ch.fhnw.mdt.forthdebugger.debugmodel.extensions.IForthMemoryBlockExtensio
 import ch.fhnw.mdt.forthdebugger.debugmodel.extensions.IForthMemoryBlockExtension.MemoryCell;
 
 /**
- * Can render a Forth dump as a table.
+ * Can render a Forth dump in a table.
  */
 public class ForthTableRendering extends AbstractMemoryRendering {
 
