@@ -1,0 +1,42 @@
+package ch.fhnw.mdt.forthdebugger.test;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.junit.Assert.*;
+
+import ch.fhnw.mdt.forthdebugger.communication.ProcessCommunicator;
+import ch.fhnw.mdt.forthdebugger.communication.process.IProcessDectorator;
+import ch.fhnw.mdt.forthdebugger.test.TestProcess.Output;
+
+public class TestCommandTimeout {
+
+	private IProcessDectorator process;
+	private ProcessCommunicator communicator;
+
+	@Test(expected = InterruptedException.class)
+	public void testTimeout() throws InterruptedException {
+		communicator.sendCommandAwaitResult("foo", communicator.newWaitForResultLater("bar"));
+
+		fail();
+	}
+
+	@Before
+	public void before() {
+		process = new TestProcess(s -> {
+			switch (s) {
+			case "foo":
+				return new Output("bar", 15000);
+			}
+			return null;
+		});
+
+		communicator = new ProcessCommunicator(process);
+	}
+
+	@After
+	public void after() {
+	}
+
+}

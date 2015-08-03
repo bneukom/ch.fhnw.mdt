@@ -15,9 +15,14 @@ public class TestCommandAwait {
 	private IProcessDectorator process;
 	private ProcessCommunicator communicator;
 
+	
 	@Test
 	public void testAwaitResult() {
-		communicator.sendCommandAwaitResult("foo", communicator.newWaitForResultLater("bar"));
+		try {
+			communicator.sendCommandAwaitResult("foo", communicator.newWaitForResultLater("bar"));
+		} catch (InterruptedException e) {
+			fail();
+		}
 		String lastLine = communicator.getCurrentLine();
 		
 		assertEquals(lastLine, "bar");
@@ -26,13 +31,17 @@ public class TestCommandAwait {
 	@Test
 	public void testCommandCompletion() {
 		final Object waiter = new Object();
-		communicator.sendCommandForResult("foo", communicator.newWaitForMatchLater(".*r"), w -> {
-			assertEquals(w.getResult(), "bar");
-			
-			synchronized (waiter) {
-				waiter.notify();
-			}
-		});
+		try {
+			communicator.sendCommandForResult("foo", communicator.newWaitForMatchLater(".*r"), w -> {
+				assertEquals(w.getResult(), "bar");
+				
+				synchronized (waiter) {
+					waiter.notify();
+				}
+			});
+		} catch (InterruptedException e1) {
+			fail();
+		}
 		
 		synchronized (waiter) {
 			try {

@@ -6,7 +6,7 @@
 \contentsline {section}{\numberline {2.3}Extension Points}{6}
 \contentsline {section}{\numberline {2.4}Eclipse basierte MCore Entwicklungsumgebung}{7}
 \contentsline {subsection}{\numberline {2.4.1}JDT}{7}
-\contentsline {subsection}{\numberline {2.4.2}Xtext}{7}
+\contentsline {subsection}{\numberline {2.4.2}XText}{7}
 \contentsline {subsection}{\numberline {2.4.3}DLTK}{8}
 \contentsline {subsection}{\numberline {2.4.4}Eclipse CDT}{8}
 \contentsline {subsection}{\numberline {2.4.5}Verwendung f\IeC {\"u}r MCore Eclipse}{8}
@@ -14,12 +14,13 @@
 \contentsline {section}{\numberline {3.1}Integration mittels CDT}{9}
 \contentsline {subsection}{\numberline {3.1.1}CDT Extension Points}{9}
 \contentsline {section}{\numberline {3.2}Error Parsing}{9}
+\contentsline {section}{\numberline {3.3}C Programmierung im Eclipse}{9}
 \contentsline {chapter}{\numberline {4}Forth Kommunikation}{10}
 \contentsline {section}{\numberline {4.1}Prozess Kommunikation}{10}
 \contentsline {subsection}{\numberline {4.1.1}GDB/MI-Commands}{10}
 \contentsline {subsection}{\numberline {4.1.2}Direkte Kommunikation mit dem Prozess}{10}
 \contentsline {subsubsection}{\nonumberline Probleme bei der Kommunikation}{10}
-\contentsline {section}{\numberline {4.2}API Design}{10}
+\contentsline {section}{\numberline {4.2}API Design}{11}
 \contentsline {section}{\numberline {4.3}Implementierungs Details}{11}
 \contentsline {subsection}{\numberline {4.3.1}Kommunikation mittels Commands}{11}
 \contentsline {subsection}{\numberline {4.3.2}Forth Output Parsing}{11}

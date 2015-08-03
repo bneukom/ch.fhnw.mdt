@@ -9,17 +9,18 @@ Eclipse RCP bietet eine Basis um beliebige, (nicht zwingendermassen Entwicklungs
 
 \section{Plugins}
 
-Eclipse Applikationen nützen eine auf der OSGi Speizifikation basierten Runtime. Eine Komponente in dieser Runtime ist ein Plugin. Eine Eclipse RCP Applikation besteht aus einer Ansammlung dieser Plugins. Ein Eclipse Plugin ist ein Modul, welches Extension Points konsumiert und somit andere Plugins erweitert und ein API und Extension Points anbieten kann. 
+Eclipse Applikationen nützen eine auf der OSGi Speizifikation basierten Runtime. Eine Komponente in dieser Runtime ist ein Plugin. Eine Eclipse RCP Applikation besteht aus einer Ansammlung dieser Plugins. Ein Eclipse Plugin kann Extension Points \ref{extensionpointssection} anderer Plugins ansteuern und eigene Extension Points oder APIs anbieten.
 
 \section{Extension Points}
+\label{extensionpointssection}
 
-Um Plugins erweitern zu können, bietet Eclipse das Konzept von Extension Points an. Über Extension Points können Plugins ein bestimmte Funktionalität anbieten, welches von anderen Plugins aufgerufen werden kann. 
+Um Plugins erweitern zu können, bietet Eclipse das Konzept von Extension Points an. Über Extension Points können Plugins ein bestimmte Funktionalität anbieten, welches von anderen Plugins per XML deklarativ angesteuert werden kann. 
 \newline
-So existiert zum Beispiel ein Plugin, welches einen Extension Point für Views definiert. Ein anderes Plugin kann über diesen Extension Point, deklarativ in einem XML File eine neue View erstellen. \cite{extensionpoints}
+So existiert zum Beispiel ein Plugin, welches einen Extension Point für Views definiert. Plugins können nun über diesen Extension Point, deklarativ in einem XML File, eine neue View erstellen und sie konfigurieren. \cite{extensionpoints}
 
 \begin{figure}[H]
 	\centering
-		\includegraphics[scale=0.5]{platform/extensionpoint.png}
+		\includegraphics[scale=0.5]{platform/extensionpoint.eps}
 		\caption{Ein Plugin, welches einen Extension Point anbietet. Andere Plugins können}
 		\captionsetup{margin=0cm,font={footnotesize}}
 		\label{fig:extensionpoint}
@@ -32,17 +33,17 @@ Es ist auch möglich eigene Extension Points zu definieren, falls ein eigens Plu
 Eclipse als Grundlage für eine Entwicklungsumgebung zu verwenden eignet sich besonders gut, da Eclipse schon einiges an Funktionalität für eine IDE zur Verfügung stellt und schon viele Entwicklungsumgebungen (PHP, C/C++, Pyhton, D unter anderem) als Eclipse RCP entwickelt wurden. Auch existieren einige Tools, auf welche ich noch genauer eingehen werde, wie Xtext und DLTK, welche das entwickeln einer Entwicklungsumgebung weiter vereinfachen.
 
 \subsection{JDT}
-Eine Möglichkeit die MCore Entwicklungsumgebung zu implementieren wäre die standard Features von dem Eclipse Java Development Tools (JDT) zu verwenden. Dies wäre eine sehr Aufwändige 
+Eine Möglichkeit die MCore Entwicklungsumgebung zu implementieren wäre die standard Features von dem Eclipse Java Development Tools (JDT) zu verwenden. Dies wäre sehr Aufwendig, da alle Features, wie Syntax Highlighting, Code Completion oder eine Outline neu implentiert werden müssten.
 
-\subsection{Xtext}
-XText ist ein Framework, welches es erleichtert eine auf Eclipse basierte Entwicklungsumgebungen zu programmieren. Es ermöglicht auf schnelle Weise ein Grundgerüst einer IDE mit Features wie:
+\subsection{XText}
+XText ist ein Framework, welches es erleichtert, eine auf Eclipse basierte Entwicklungsumgebungen zu programmieren. Es ermöglicht auf schnelle Weise ein Grundgerüst einer IDE mit Features wie:
 
 \begin{itemize} 
 	\item Ein Editor mit Syntax Coloring
 	\item Code Completion
 	\item Compiler Integration
 	\item Ein Java-basierter Debugger
-	\item Outline
+	\item Eine Outline
 	\item Indexing
 \end{itemize}
 

@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarkerDelta;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.debug.core.DebugEvent;
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.DebugPlugin;
@@ -208,13 +209,16 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget,
 	public void terminate() throws DebugException {
 		try {
 			processCommunicator.awaitCommandCompletion();
+
+			// graceful termination
+			processCommunicator.sendCommand("bye" + ProcessCommunicator.NL); // exit debugger
+			processCommunicator.sendCommand("bye" + ProcessCommunicator.NL); // exit forth
+			processCommunicator.sendCommand("exit" + ProcessCommunicator.NL); // exit shell
 		} catch (InterruptedException e) {
+			// in case of an interrupt kill the process
+			kill();
 		}
 		
-		// graceful termination
-		processCommunicator.sendCommand("bye" + ProcessCommunicator.NL); // exit debugger
-		processCommunicator.sendCommand("bye" + ProcessCommunicator.NL); // exit forth
-		processCommunicator.sendCommand("exit" + ProcessCommunicator.NL); // exit shell
 	}
 
 	/*
@@ -458,7 +462,11 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget,
 	 * @throws DebugException
 	 */
 	protected void addFunctionBreakpoint(final String function) throws DebugException {
-		processCommunicator.sendCommand("debug _" + function + NL);
+		try {
+			processCommunicator.sendCommand("debug _" + function + NL);
+		} catch (InterruptedException e) {
+			abort("timeout", e);
+		}
 	}
 
 	/**
@@ -468,7 +476,11 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget,
 	 * @throws DebugException
 	 */
 	protected void removeFunctionBreakpoint(final String function) throws DebugException {
-		processCommunicator.sendCommand("unbug _" + function + NL);
+		try {
+			processCommunicator.sendCommand("unbug _" + function + NL);
+		} catch (InterruptedException e) {
+			abort("timeout", e);
+		}
 	}
 
 	/**

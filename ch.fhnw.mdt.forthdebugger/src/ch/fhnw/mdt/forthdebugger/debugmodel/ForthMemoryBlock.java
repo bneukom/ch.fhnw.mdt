@@ -12,11 +12,12 @@ import org.eclipse.debug.core.model.IMemoryBlock;
 import ch.fhnw.mdt.forthdebugger.communication.ProcessCommunicator;
 import ch.fhnw.mdt.forthdebugger.debugmodel.extensions.IForthMemoryBlockExtension;
 
-// TODO Forth accepts hex integer values for dump, for eclipse we need byte values. how to convert?
-// 00000000: 12 0 7 3B6 10127 5 9 9
+/**
+ * Represents a forth memory block.
+ */
 public class ForthMemoryBlock extends ForthDebugElement implements IMemoryBlock, IForthMemoryBlockExtension {
 
-	private byte[] memory;
+	private byte[] memory = new byte[0];
 	private MemoryCell[] memoryCells;
 	
 	private final long startAddress;
@@ -37,14 +38,20 @@ public class ForthMemoryBlock extends ForthDebugElement implements IMemoryBlock,
 		try {
 			processCommunicator.awaitCommandCompletion();
 		} catch (InterruptedException e) {
+			// stop loading
 			return;
 		}
 		processCommunicator.awaitReadCompletion();
 
 		// let the debug target ignore the input
 		target.setIgnoreInput(true);
-		processCommunicator.sendCommandAwaitResult(String.valueOf(startAddress / 4) + " " + String.valueOf(length / 4) + " dump" + ProcessCommunicator.NL,
-				processCommunicator.newWaitForResultLater(">"));
+		try {
+			processCommunicator.sendCommandAwaitResult(String.valueOf(startAddress / 4) + " " + String.valueOf(length / 4) + " dump" + ProcessCommunicator.NL,
+					processCommunicator.newWaitForResultLater(">"));
+		} catch (InterruptedException e) {
+			// stop loading
+			return;
+		}
 		target.setIgnoreInput(false);
 
 		final List<String> readLines = processCommunicator.getReadLines();

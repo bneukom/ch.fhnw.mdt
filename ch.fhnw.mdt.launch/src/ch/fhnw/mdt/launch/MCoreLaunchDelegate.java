@@ -1,12 +1,10 @@
 package ch.fhnw.mdt.launch;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -42,11 +40,10 @@ import org.eclipse.ui.console.IOConsoleOutputStream;
 import ch.fhnw.mdt.forthdebugger.ForthDebuggerPlugin;
 import ch.fhnw.mdt.forthdebugger.communication.ProcessCommunicator;
 import ch.fhnw.mdt.forthdebugger.communication.process.DefaultProcessDecorator;
-import ch.fhnw.mdt.forthdebugger.communication.process.IProcessDectorator;
 import ch.fhnw.mdt.forthdebugger.debugmodel.ForthDebugTarget;
 import ch.fhnw.mdt.forthdebugger.debugmodel.IForthConstants;
-import ch.fhnw.mdt.platform.MDTPlatformPlugin;
 import ch.fhnw.mdt.platform.IPlatformStrings;
+import ch.fhnw.mdt.platform.MDTPlatformPlugin;
 import ch.fhnw.mdt.preferences.MDTPreferencesPlugin;
 
 // TODO implement ILaunchShortcut
@@ -213,7 +210,11 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 		protected IStatus run(IProgressMonitor monitor) {
 			// start gforth
 			final MCoreLaunch mcoreLaunch = startGforth(launch, workingDirectory, umbilical, executableFile);
-
+			
+			if (mcoreLaunch == null) {
+				return new Status(IStatus.ERROR, ForthDebuggerPlugin.PLUGIN_ID, "Could not start gforth");
+			}
+			
 			// start debugger if necessary
 			if (isDebugMode) {
 				try {
@@ -243,7 +244,7 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 
 		/**
 		 * Starts gforth. This method blocks until gforth has been completely
-		 * set up.
+		 * set up. Returns null in case forth could not be started.
 		 * 
 		 * @param launch
 		 * @param workingDirectory
@@ -256,7 +257,7 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 				launch.setAttribute(DebugPlugin.ATTR_PROCESS_FACTORY_ID, "ch.fhnw.mdt.launch.forthprocessfactory");
 
 				final ProcessBuilder processBuilder = new ProcessBuilder(iPlatformStrings.getShellPath());
-				processBuilder.redirectErrorStream();
+				processBuilder.redirectErrorStream(true);
 
 				processBuilder.directory(new File(workingDirectory));
 
@@ -286,12 +287,17 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 				});
 
 				// forth.sendCommand("cd " + workingDirectory + ForthCommandQueue.NL);
-				processCommunicator.sendCommand("gforth ./load_eclipse.fs" + ProcessCommunicator.NL);
+				try {
+					processCommunicator.sendCommand("gforth ./load_eclipse.fs" + ProcessCommunicator.NL);
 
-				processCommunicator.awaitReadCompletion();
+					processCommunicator.awaitReadCompletion();
+					
+					processCommunicator.sendCommandAwaitResult("umbilical: " + umbilical + ProcessCommunicator.NL, processCommunicator.newWaitForResultLater(ProcessCommunicator.OK));
+					processCommunicator.sendCommandAwaitResult("run" + ProcessCommunicator.NL, processCommunicator.newWaitForResultLater("HANDSHAKE"));
+				} catch (InterruptedException e) {
+					return null;
+				}
 
-				processCommunicator.sendCommandAwaitResult("umbilical: " + umbilical + ProcessCommunicator.NL, processCommunicator.newWaitForResultLater(ProcessCommunicator.OK));
-				processCommunicator.sendCommandAwaitResult("run" + ProcessCommunicator.NL, processCommunicator.newWaitForResultLater("HANDSHAKE"));
 
 				return new MCoreLaunch(process, eclipseProcess, consoleOutputStream, processCommunicator);
 
@@ -327,7 +333,11 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 					final char read = (char) inputStream.read();
 
 					if (read == CR) {
-						processCommunicator.sendCommand(commandBuffer.toString().trim() + ProcessCommunicator.NL);
+						try {
+							processCommunicator.sendCommand(commandBuffer.toString().trim() + ProcessCommunicator.NL);
+						} catch (InterruptedException e) {
+							return; 
+						}
 						commandBuffer.setLength(0);
 					} else {
 						commandBuffer.append(read);

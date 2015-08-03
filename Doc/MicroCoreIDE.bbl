@@ -23,4 +23,9 @@ Bruno Medeiros.
 The gdb/mi interface.
 \newblock \url{https://sourceware.org/gdb/onlinedocs/gdb/GDB_002fMI.html}.
 
+\bibitem{mieclipse}
+Understanding the gnu debugger machine interface (gdb/mi).
+\newblock
+  \url{http://www.ibm.com/developerworks/library/os-eclipse-cdt-debug2/}.
+
 \end{thebibliography}
