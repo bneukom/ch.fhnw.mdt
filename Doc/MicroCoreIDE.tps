@@ -17,8 +17,8 @@ Class=LaTeXView
 Document=platform\platform.tex
 
 [Frame0_View0,0]
-TopLine=32
-Cursor=2862
+TopLine=2
+Cursor=439
 
 [Frame1]
 Flags=0
@@ -36,7 +36,7 @@ Document=compiler\compiler.tex
 
 [Frame1_View0,0]
 TopLine=0
-Cursor=276
+Cursor=273
 
 [Frame2]
 Flags=0
@@ -54,7 +54,7 @@ Document=introduction\introduction.tex
 
 [Frame2_View0,0]
 TopLine=0
-Cursor=47
+Cursor=0
 
 [Frame3]
 Flags=0
@@ -72,7 +72,7 @@ Document=debugger\debugger.tex
 
 [Frame3_View0,0]
 TopLine=0
-Cursor=364
+Cursor=522
 
 [Frame4]
 Flags=0
@@ -89,8 +89,8 @@ Class=LaTeXView
 Document=forthcommunication\forthcommunication.tex
 
 [Frame4_View0,0]
-TopLine=0
-Cursor=821
+TopLine=19
+Cursor=2134
 
 [Frame5]
 Flags=0
@@ -107,8 +107,8 @@ Class=BibTeXView
 Document=MicroCoreIDE.bib
 
 [Frame5_View0,0]
-TopLine=0
-Cursor=433
+TopLine=19
+Cursor=909
 
 [Frame6]
 Flags=0
@@ -161,12 +161,12 @@ Class=LaTeXView
 Document=MicroCoreIDE.tex
 
 [Frame8_View0,0]
-TopLine=49
-Cursor=1266
+TopLine=42
+Cursor=1254
 
 [SessionInfo]
 FrameCount=9
-ActiveFrame=4
+ActiveFrame=8
 
 [Bookmarks]
 mesh\mesh.tex=6 

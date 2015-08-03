@@ -51,8 +51,6 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget,
 	private final ProcessCommunicator processCommunicator;
 	private DebugStreamListener debugStreamListener;
 
-	// TODO implement something like a command listener and add command origin to the commands
-	// then we could disable if the commands are from the user or from the forth thread
 	private transient boolean ignoreInput;
 
 	// threads

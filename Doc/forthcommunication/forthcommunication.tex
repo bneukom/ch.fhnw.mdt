@@ -4,11 +4,11 @@
 In diesem Kapitel wird beschrieben, wie die Entwicklungsumgebung mit dem Forth Prozess kommuniziert. Die Kommunikation mit dem Forth Prozess ist von zentraler Bedeutung, da viel der Funktionalität der Entwicklungsumgebung davon abhängt, dass die Kommunikation stabil läuft. Es wird gezeigt wie die Kommunikation designt, implementiert und getestet wurde.
 
 \section{Prozess Kommunikation}
-Um mit dem Prozess zu kommunizieren gibt es einige Alternativen welche ich aufzeigen möchte.
+Um mit dem Prozess zu kommunizieren, gibt es grundsätzlich zwei Möglichkeiten. Die erste ist ein Machine Interface zu implementieren, oder direkt mit dem Prozess kommunizieren. In folgenden Kapiteln werden die beiden Möglichkeiten kurz besprochen.
 
 \subsection{GDB/MI-Commands}
 
-Eine Möglichkeit mit dem Prozess zu kommunizieren wäre, ein MaschineInterface (MI) wie es für den GDB implementiert wurde, zu gebrauchen. GDB/MI ist ein Linien basiertes Maschinen orientiertes Text Interface zu dem GDB. Es wurde dazu entwickelt, damit der GDB als Debugger in ein grössers System einfacher einbindbar ist.\cite{gdb} Eine MI ähnliches Interface wäre mit grossem Aufwand verbunden, da das ganze Interface definiert werden müsste. Dafür könnte aber viel des CDT Debugging Mechanismus verwendet werden, da das CDT Debugging auch auf MI basiert. Auch ist der CDT Debugger sehr kompliziert und es wäre ein grosser Einarbeitungsaufwand notwendig um den Forth Debugger darauf basieren zu können.\cite{mieclipse}
+Eine Möglichkeit mit dem Prozess zu kommunizieren wäre, ein MachineInterface (MI) wie es für den GDB implementiert wurde, zu gebrauchen. GDB/MI ist ein Linien basiertes Maschinen orientiertes Text Interface zu dem GDB. Es wurde dazu entwickelt, damit der GDB als Debugger in ein grössers System einfacher einbindbar ist.\cite{gdb} Eine MI ähnliches Interface wäre mit grossem Aufwand verbunden, da das ganze Interface definiert werden müsste. Dafür könnte aber viel des CDT Debugging Mechanismus verwendet werden, da das CDT Debugging auch auf MI basiert. Auch ist der CDT Debugger sehr kompliziert und es wäre ein grosser Einarbeitungsaufwand notwendig um den Forth Debugger darauf basieren zu können.\cite{mieclipse}
 
 \subsection{Direkte Kommunikation mit dem Prozess}
 
@@ -18,15 +18,31 @@ Eine weitere Möglichkeit wäre, direkt die Befehle an den Prozess senden und au
 
 Bei der Kommunikation mit dem Prozess können einige Probleme Auftreten. Es kann sein, dass der Prozess plötzlich keine Antworten mehr gibt. Auch weiss man nicht, wie lange es dauern wird, bis der Prozess Antwort gibt. Diese Probleme müssen mit den im vorigen genannten Klassen sauber gelöst werden.
 
+\section{Kommunikation}
+
+Ich habe mich dafür entschieden, die Kommunikaton nicht über ein MI ähnliches Interface zu implementieren. Der Aufwand ein solches Interface zu designen und die Einarbeitungszeit für den CDT Debugger wären zu gross. Die Kommunikation wird also direkt mit dem Prozess erfolgen. Das Design und die Implementation wird in folgenden Kapiteln besprochen.
+
+
 \section{API Design}
 
 In einem ersten Schritt wurde ein API designt, welches verwendet werden soll um die Kommunikation mit dem Prozess möglichst einfach zu halten.
 
-TODO API
+\begin{figure}[H]
+	\centering
+		\includegraphics[scale=0.5]{forthcommunication/api.png}
+		\caption{Ein erstes Design des Prozess API. Die zentrale Kommunikation geschieht über die Communicator Klasse. Es können Commands abgesetzt werden und es kann auf Resultate gewartet werden.}
+		\captionsetup{margin=0cm,font={footnotesize}}
+		\label{fig:extensionpoint}
+\end{figure}
+
+Bei der Implementierung kamen dann einige Änderungen hinzu. Auf die endgültige Implementation werde ich im nächsten Kapitel genauer eingehen.
 
 \section{Implementierungs Details}
 
 TODO class diagramms
+TODO some source code of the central dispatch of the commands?
+
+\subsection{Klassenbeschreibung}
 
 \subsection{Kommunikation mittels Commands}
 
