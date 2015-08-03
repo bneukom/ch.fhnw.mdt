@@ -7,9 +7,22 @@ Als erstes müssen für den Debugger Breakpoints für Forth gesetzt werden könn
 
 \subsection{Per Konsole}
 
+Die erste Möglichkeit ist, die Breakpoints per Konsole zu setzen. Das senden der Commands funktioniert mit den im Kapitel \ref{forthcommunication} beschriebenen Klassen. In der Konsole kann der Command
+
+%
+\begin{verbatim}
+debug _function
+\end{verbatim}
+%
+abgesetzt werden, um einen Breakpoint zu setzen.
+
 TODO Konsolen Screenshot
 
 \subsection{Im Source Code}
+
+Eine weitere Möglichkeit ist, Breakpoints im C-File zu setzen. Dies wurde so umgesetzt, dass der Breakpoint nur auf eine Funktionsdefinition gesetzt werden kann. Alle anderen Zeilen des C-Source Codes können nicht direkt auf den übersetzten Forth Code abgebildet werden und sind deshalb nicht erlaubt für die Breakpoints.
+\newline
+Eclipse CDT stellt den Abstract Synatx Tree (AST) des C-Files zur Verfügung. Mit Hilfe des AST kann überprüft werden, ob sich der Breakpoint wirklich auf einer Funktionsdefinition befindet.
 
 TODO Screenshot
 

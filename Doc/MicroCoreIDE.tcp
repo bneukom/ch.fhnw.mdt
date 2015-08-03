@@ -6,7 +6,7 @@ Version=4
 MainFile=MicroCoreIDE.tex
 UseBibTeX=1
 UseMakeIndex=0
-ActiveProfile=LaTeX ⇨ PS ⇨ PDF
+ActiveProfile=LaTeX ⇨ PDF
 ProjectLanguage=de
 ProjectDialect=DE
 
