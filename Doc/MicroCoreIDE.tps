@@ -14,11 +14,11 @@ NormalPos.top=26
 NormalPos.right=1441
 NormalPos.bottom=539
 Class=LaTeXView
-Document=platform\platform.tex
+Document=compiler\compiler.tex
 
 [Frame0_View0,0]
-TopLine=2
-Cursor=439
+TopLine=0
+Cursor=407
 
 [Frame1]
 Flags=0
@@ -32,11 +32,11 @@ NormalPos.top=26
 NormalPos.right=1441
 NormalPos.bottom=539
 Class=LaTeXView
-Document=compiler\compiler.tex
+Document=introduction\introduction.tex
 
 [Frame1_View0,0]
 TopLine=0
-Cursor=273
+Cursor=0
 
 [Frame2]
 Flags=0
@@ -50,11 +50,11 @@ NormalPos.top=26
 NormalPos.right=1441
 NormalPos.bottom=539
 Class=LaTeXView
-Document=introduction\introduction.tex
+Document=debugger\debugger.tex
 
 [Frame2_View0,0]
-TopLine=0
-Cursor=0
+TopLine=29
+Cursor=1359
 
 [Frame3]
 Flags=0
@@ -68,31 +68,13 @@ NormalPos.top=26
 NormalPos.right=1441
 NormalPos.bottom=539
 Class=LaTeXView
-Document=debugger\debugger.tex
+Document=forthcommunication\forthcommunication.tex
 
 [Frame3_View0,0]
 TopLine=0
-Cursor=522
+Cursor=1213
 
 [Frame4]
-Flags=0
-ShowCmd=1
-MinPos.x=-1
-MinPos.y=-1
-MaxPos.x=-1
-MaxPos.y=-1
-NormalPos.left=4
-NormalPos.top=26
-NormalPos.right=1441
-NormalPos.bottom=539
-Class=LaTeXView
-Document=forthcommunication\forthcommunication.tex
-
-[Frame4_View0,0]
-TopLine=19
-Cursor=2134
-
-[Frame5]
 Flags=0
 ShowCmd=1
 MinPos.x=-1
@@ -106,11 +88,11 @@ NormalPos.bottom=539
 Class=BibTeXView
 Document=MicroCoreIDE.bib
 
-[Frame5_View0,0]
-TopLine=19
+[Frame4_View0,0]
+TopLine=18
 Cursor=909
 
-[Frame6]
+[Frame5]
 Flags=0
 ShowCmd=1
 MinPos.x=-1
@@ -124,11 +106,11 @@ NormalPos.bottom=539
 Class=LaTeXView
 Document=optimizer\optimizer.tex
 
-[Frame6_View0,0]
+[Frame5_View0,0]
 TopLine=0
-Cursor=0
+Cursor=24
 
-[Frame7]
+[Frame6]
 Flags=0
 ShowCmd=1
 MinPos.x=-1
@@ -142,11 +124,11 @@ NormalPos.bottom=539
 Class=LaTeXView
 Document=abstract\abstract.tex
 
-[Frame7_View0,0]
+[Frame6_View0,0]
 TopLine=0
 Cursor=138
 
-[Frame8]
+[Frame7]
 Flags=0
 ShowCmd=1
 MinPos.x=-1
@@ -160,13 +142,67 @@ NormalPos.bottom=539
 Class=LaTeXView
 Document=MicroCoreIDE.tex
 
+[Frame7_View0,0]
+TopLine=27
+Cursor=1270
+
+[Frame8]
+Flags=0
+ShowCmd=1
+MinPos.x=-1
+MinPos.y=-1
+MaxPos.x=-1
+MaxPos.y=-1
+NormalPos.left=4
+NormalPos.top=26
+NormalPos.right=1441
+NormalPos.bottom=539
+Class=LaTeXView
+Document=idesettings\idesettings.tex
+
 [Frame8_View0,0]
-TopLine=42
-Cursor=1254
+TopLine=0
+Cursor=316
+
+[Frame9]
+Flags=0
+ShowCmd=1
+MinPos.x=-1
+MinPos.y=-1
+MaxPos.x=-1
+MaxPos.y=-1
+NormalPos.left=4
+NormalPos.top=26
+NormalPos.right=1441
+NormalPos.bottom=539
+Class=LaTeXView
+Document=launch\launch.tex
+
+[Frame9_View0,0]
+TopLine=0
+Cursor=0
+
+[Frame10]
+Flags=0
+ShowCmd=1
+MinPos.x=-1
+MinPos.y=-1
+MaxPos.x=-1
+MaxPos.y=-1
+NormalPos.left=4
+NormalPos.top=26
+NormalPos.right=1441
+NormalPos.bottom=539
+Class=LaTeXView
+Document=platform\platform.tex
+
+[Frame10_View0,0]
+TopLine=57
+Cursor=4912
 
 [SessionInfo]
-FrameCount=9
-ActiveFrame=8
+FrameCount=11
+ActiveFrame=0
 
 [Bookmarks]
 mesh\mesh.tex=6 
