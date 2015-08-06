@@ -1,12 +1,14 @@
 package ch.fhnw.mdt.forthdebugger.test;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 import ch.fhnw.mdt.forthdebugger.communication.ProcessCommunicator;
+import ch.fhnw.mdt.forthdebugger.communication.ProcessCommunicator.CommandTimeOutException;
 import ch.fhnw.mdt.forthdebugger.communication.process.IProcessDectorator;
 import ch.fhnw.mdt.forthdebugger.test.TestProcess.Output;
 
@@ -20,7 +22,7 @@ public class TestCommandAwait {
 	public void testAwaitResult() {
 		try {
 			communicator.sendCommandAwaitResult("foo", communicator.newWaitForResultLater("bar"));
-		} catch (InterruptedException e) {
+		} catch (CommandTimeOutException e) {
 			fail();
 		}
 		String lastLine = communicator.getCurrentLine();
@@ -39,7 +41,7 @@ public class TestCommandAwait {
 					waiter.notify();
 				}
 			});
-		} catch (InterruptedException e1) {
+		} catch (CommandTimeOutException e1) {
 			fail();
 		}
 		

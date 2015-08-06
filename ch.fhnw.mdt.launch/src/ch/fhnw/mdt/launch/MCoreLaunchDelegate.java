@@ -39,6 +39,7 @@ import org.eclipse.ui.console.IOConsoleOutputStream;
 
 import ch.fhnw.mdt.forthdebugger.ForthDebuggerPlugin;
 import ch.fhnw.mdt.forthdebugger.communication.ProcessCommunicator;
+import ch.fhnw.mdt.forthdebugger.communication.ProcessCommunicator.CommandTimeOutException;
 import ch.fhnw.mdt.forthdebugger.communication.process.DefaultProcessDecorator;
 import ch.fhnw.mdt.forthdebugger.debugmodel.ForthDebugTarget;
 import ch.fhnw.mdt.forthdebugger.debugmodel.IForthConstants;
@@ -212,7 +213,7 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 			final MCoreLaunch mcoreLaunch = startGforth(launch, workingDirectory, umbilical, executableFile);
 			
 			if (mcoreLaunch == null) {
-				return new Status(IStatus.ERROR, ForthDebuggerPlugin.PLUGIN_ID, "Could not start gforth");
+				return new Status(IStatus.ERROR, ForthDebuggerPlugin.PLUGIN_ID, "Could not start the forth process.");
 			}
 			
 			// start debugger if necessary
@@ -275,10 +276,11 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 				processCommunicator.forwardOutput(System.out);
 				processCommunicator.forwardOutput(consoleOutputStream);
 
-				processCommunicator.addCommandTimeOutListener(() -> {
+				// display timeouts
+				processCommunicator.addCommandTimeOutListener(c -> {
 					Display.getDefault().asyncExec(() -> {
 						try {
-							consoleOutputStream.write(System.lineSeparator() + System.lineSeparator() + "The debugger has timed out as the process is not responding");
+							consoleOutputStream.write(System.lineSeparator() + System.lineSeparator() + "The command " + c.toString().trim() + " has not received its expected result and has therefore timed out.");
 							consoleOutputStream.flush();
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -286,7 +288,6 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 					});
 				});
 
-				// forth.sendCommand("cd " + workingDirectory + ForthCommandQueue.NL);
 				try {
 					processCommunicator.sendCommand("gforth ./load_eclipse.fs" + ProcessCommunicator.NL);
 
@@ -294,7 +295,7 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 					
 					processCommunicator.sendCommandAwaitResult("umbilical: " + umbilical + ProcessCommunicator.NL, processCommunicator.newWaitForResultLater(ProcessCommunicator.OK));
 					processCommunicator.sendCommandAwaitResult("run" + ProcessCommunicator.NL, processCommunicator.newWaitForResultLater("HANDSHAKE"));
-				} catch (InterruptedException e) {
+				} catch (CommandTimeOutException e) {
 					return null;
 				}
 
@@ -332,10 +333,15 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 				try {
 					final char read = (char) inputStream.read();
 
+					// done
+					if (read == -1) {
+						return;
+					}
+					
 					if (read == CR) {
 						try {
 							processCommunicator.sendCommand(commandBuffer.toString().trim() + ProcessCommunicator.NL);
-						} catch (InterruptedException e) {
+						} catch (CommandTimeOutException e) {
 							return; 
 						}
 						commandBuffer.setLength(0);

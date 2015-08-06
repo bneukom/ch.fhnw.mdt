@@ -25,6 +25,7 @@ import org.eclipse.debug.core.model.IStackFrame;
 import org.eclipse.debug.core.model.IThread;
 
 import ch.fhnw.mdt.forthdebugger.communication.ProcessCommunicator;
+import ch.fhnw.mdt.forthdebugger.communication.ProcessCommunicator.CommandTimeOutException;
 import ch.fhnw.mdt.forthdebugger.communication.ProcessCommunicator.WaitForMatch;
 import ch.fhnw.mdt.forthdebugger.debugmodel.extensions.IAfterExtension;
 import ch.fhnw.mdt.forthdebugger.debugmodel.extensions.IJumpExtension;
@@ -191,7 +192,7 @@ public class ForthThread extends ForthDebugElement implements IThread, IJumpExte
 		if (isSuspended()) {
 			try {
 				processCommunicator.sendCommand("end-trace" + ProcessCommunicator.NL);
-			} catch (InterruptedException e) {
+			} catch (CommandTimeOutException e) {
 				abort("timeout", e);
 			}
 		}
@@ -285,7 +286,7 @@ public class ForthThread extends ForthDebugElement implements IThread, IJumpExte
 	public void stepInto() throws DebugException {
 		try {
 			processCommunicator.sendCommand("nest" + ProcessCommunicator.NL);
-		} catch (InterruptedException e) {
+		} catch (CommandTimeOutException e) {
 			abort("timeout", e);
 		}
 	}
@@ -299,7 +300,7 @@ public class ForthThread extends ForthDebugElement implements IThread, IJumpExte
 	public void stepOver() throws DebugException {
 		try {
 			processCommunicator.sendCommand(ProcessCommunicator.CR);
-		} catch (InterruptedException e) {
+		} catch (CommandTimeOutException e) {
 			abort("timeout", e);		}
 	}
 
@@ -312,7 +313,7 @@ public class ForthThread extends ForthDebugElement implements IThread, IJumpExte
 	public void jump() throws DebugException {
 		try {
 			processCommunicator.sendCommand("jump" + ProcessCommunicator.NL);
-		} catch (InterruptedException e) {
+		} catch (CommandTimeOutException e) {
 			abort("timeout", e);
 		}
 	}
@@ -326,7 +327,7 @@ public class ForthThread extends ForthDebugElement implements IThread, IJumpExte
 	public void after() throws DebugException {
 		try {
 			processCommunicator.sendCommand("after" + ProcessCommunicator.NL);
-		} catch (InterruptedException e) {
+		} catch (CommandTimeOutException e) {
 			abort("timeout", e);
 		}
 	}
@@ -482,7 +483,7 @@ public class ForthThread extends ForthDebugElement implements IThread, IJumpExte
 					.newWaitForMatchLater("([A-Fa-f0-9]{8}): ([A-Fa-f0-9 ]{8}) ?(([A-Fa-f0-9]+ [A-Fa-f0-9]+)|( [^\\s]+[A-Fa-f0-9 ]+ (call))|([^\\s]+))");
 			try {
 				processCommunicator.sendCommandAwaitResult("show " + functionName + ProcessCommunicator.NL, waitForMatchLater);
-			} catch (InterruptedException e1) {
+			} catch (CommandTimeOutException e) {
 				return;
 			}
 			processCommunicator.awaitReadCompletion();
@@ -497,7 +498,7 @@ public class ForthThread extends ForthDebugElement implements IThread, IJumpExte
 				processCommunicator.awaitReadCompletion();
 				try {
 					processCommunicator.sendCommandAwaitResult(ProcessCommunicator.ANY, processCommunicator.newWaitForResultLater(ProcessCommunicator.NL));
-				} catch (InterruptedException e) {
+				} catch (CommandTimeOutException e) {
 					return;
 				}
 				processCommunicator.awaitReadCompletion();
@@ -509,7 +510,7 @@ public class ForthThread extends ForthDebugElement implements IThread, IJumpExte
 
 			try {
 				processCommunicator.sendCommand(ProcessCommunicator.CR);
-			} catch (InterruptedException e1) {
+			} catch (CommandTimeOutException e) {
 				return;
 			}
 

@@ -10,6 +10,7 @@ import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IMemoryBlock;
 
 import ch.fhnw.mdt.forthdebugger.communication.ProcessCommunicator;
+import ch.fhnw.mdt.forthdebugger.communication.ProcessCommunicator.CommandTimeOutException;
 import ch.fhnw.mdt.forthdebugger.debugmodel.extensions.IForthMemoryBlockExtension;
 
 /**
@@ -19,12 +20,13 @@ public class ForthMemoryBlock extends ForthDebugElement implements IMemoryBlock,
 
 	private byte[] memory = new byte[0];
 	private MemoryCell[] memoryCells;
-	
+
 	private final long startAddress;
 	private final long length;
 	private final ProcessCommunicator processCommunicator;
 
-	public ForthMemoryBlock(final ForthDebugTarget target, final long startAddress, final long length, final ProcessCommunicator processCommunicator) {
+	public ForthMemoryBlock(final ForthDebugTarget target, final long startAddress, final long length,
+			final ProcessCommunicator processCommunicator) {
 		super(target);
 		this.processCommunicator = processCommunicator;
 
@@ -37,7 +39,7 @@ public class ForthMemoryBlock extends ForthDebugElement implements IMemoryBlock,
 	private void loadMemory() {
 		try {
 			processCommunicator.awaitCommandCompletion();
-		} catch (InterruptedException e) {
+		} catch (CommandTimeOutException e1) {
 			// stop loading
 			return;
 		}
@@ -46,9 +48,10 @@ public class ForthMemoryBlock extends ForthDebugElement implements IMemoryBlock,
 		// let the debug target ignore the input
 		target.setIgnoreInput(true);
 		try {
-			processCommunicator.sendCommandAwaitResult(String.valueOf(startAddress / 4) + " " + String.valueOf(length / 4) + " dump" + ProcessCommunicator.NL,
+			processCommunicator.sendCommandAwaitResult(String.valueOf(startAddress / 4) + " "
+					+ String.valueOf(length / 4) + " dump" + ProcessCommunicator.NL,
 					processCommunicator.newWaitForResultLater(">"));
-		} catch (InterruptedException e) {
+		} catch (CommandTimeOutException e) {
 			// stop loading
 			return;
 		}
@@ -60,11 +63,14 @@ public class ForthMemoryBlock extends ForthDebugElement implements IMemoryBlock,
 		int currentIndex = readLines.size() - 1;
 		String line = readLines.get(currentIndex);
 
-		// if the memory block was called after the first line of a function call, the function will be outputed to the console too, so ignore this line.
+		// if the memory block was called after the first line of a function
+		// call, the function will be outputed to the console too, so ignore
+		// this line.
 		if (line.endsWith("---------------\n")) { // FIXME line separator
 			line = readLines.get(--currentIndex);
 		}
-		line = line.substring(0, line.length() - 3); // remove the trailing ok for the last line
+		line = line.substring(0, line.length() - 3); // remove the trailing ok
+														// for the last line
 
 		final List<String> stringMemoryDump = new ArrayList<>();
 		while (!line.contains("dump")) {
@@ -76,12 +82,14 @@ public class ForthMemoryBlock extends ForthDebugElement implements IMemoryBlock,
 		// convert the dump
 		final List<Integer> memoryDumpValues = new ArrayList<>();
 		final List<MemoryCell> memoryCellList = new ArrayList<>();
-		
+
 		for (final String dumpLine : stringMemoryDump) {
 			final String[] stringValues = dumpLine.trim().split("\\s+");
-			final List<Integer> dumpValues = Arrays.stream(stringValues).skip(1).map(s -> Integer.parseInt(s, 16)).collect(Collectors.toList());
-			
-			memoryCellList.add(new MemoryCell(stringValues[0].substring(0, stringValues[0].length() - 1), dumpValues.stream().mapToInt(i -> i).toArray()));
+			final List<Integer> dumpValues = Arrays.stream(stringValues).skip(1).map(s -> Integer.parseInt(s, 16))
+					.collect(Collectors.toList());
+
+			memoryCellList.add(new MemoryCell(stringValues[0].substring(0, stringValues[0].length() - 1),
+					dumpValues.stream().mapToInt(i -> i).toArray()));
 			memoryDumpValues.addAll(dumpValues);
 		}
 		memoryCells = memoryCellList.toArray(new MemoryCell[memoryCellList.size()]);
@@ -120,7 +128,7 @@ public class ForthMemoryBlock extends ForthDebugElement implements IMemoryBlock,
 	@Override
 	public MemoryCell[] getMemoryCells() {
 		loadMemory();
-		
+
 		return memoryCells;
 	}
 
@@ -132,6 +140,5 @@ public class ForthMemoryBlock extends ForthDebugElement implements IMemoryBlock,
 	@Override
 	public void setValue(final long offset, final byte[] bytes) throws DebugException {
 	}
-
 
 }
