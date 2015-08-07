@@ -1,4 +1,4 @@
-package ch.fhnw.po;
+package ch.fhnw.peepholeoptimizer;
 
 public class Tuple2<X, Y> {
 	public final X x;

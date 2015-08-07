@@ -1,4 +1,4 @@
-package ch.fhnw.po.values;
+package ch.fhnw.peepholeoptimizer.values;
 
 public class DyadicValue extends AbstractValue {
 	private final AbstractValue v1;

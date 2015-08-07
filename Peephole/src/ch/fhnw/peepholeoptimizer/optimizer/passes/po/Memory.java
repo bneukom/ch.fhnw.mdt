@@ -1,11 +1,11 @@
-package ch.fhnw.po;
+package ch.fhnw.peepholeoptimizer.optimizer.passes.po;
 
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import ch.fhnw.po.values.SymbolicValue;
-import ch.fhnw.po.values.AbstractValue;
+import ch.fhnw.peepholeoptimizer.values.AbstractValue;
+import ch.fhnw.peepholeoptimizer.values.SymbolicValue;
 
 public class Memory {
 	public final LinkedList<AbstractValue> stack = new LinkedList<>();

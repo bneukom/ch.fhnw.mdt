@@ -1,4 +1,4 @@
-package ch.fhnw.po.values;
+package ch.fhnw.peepholeoptimizer.values;
 
 public class SymbolicValue extends AbstractValue {
 	private final String symbol;

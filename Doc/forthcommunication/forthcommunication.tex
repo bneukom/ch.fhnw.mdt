@@ -8,7 +8,7 @@ Um mit dem Prozess zu kommunizieren, gibt es grundsätzlich zwei Möglichkeiten.
 
 \subsection{GDB/MI-Commands}
 
-Eine Möglichkeit mit dem Prozess zu kommunizieren wäre, ein MachineInterface (MI) wie es für den GDB implementiert wurde, zu gebrauchen. GDB/MI ist ein Linien basiertes Maschinen orientiertes Text Interface zu dem GDB. Es wurde dazu entwickelt, damit der GDB als Debugger in ein grössers System einfacher einbindbar ist.\cite{gdb} Eine MI ähnliches Interface wäre mit grossem Aufwand verbunden, da das ganze Interface definiert werden müsste. Dafür könnte aber viel des CDT Debugging Mechanismus verwendet werden, da das CDT Debugging auch auf MI basiert. Auch ist der CDT Debugger sehr kompliziert und es wäre ein grosser Einarbeitungsaufwand notwendig um den Forth Debugger darauf basieren zu können.\cite{mieclipse}
+Eine Möglichkeit mit dem Prozess zu kommunizieren wäre, ein MachineInterface (MI) wie es für den GDB implementiert wurde, zu gebrauchen. GDB/MI ist ein Linien basiertes Maschinen orientiertes Text Interface zu dem GDB. Es wurde dazu entwickelt, damit der GDB als Debugger in ein grössers System einfacher einbindbar ist.\cite{gdb} Eine MI ähnliches Interface wäre mit grossem Aufwand verbunden, da das Interface zuerst definiert werden müsste. Dafür könnte aber viel des CDT Debugging Mechanismus verwendet werden, da der CDT Debugger auch auf dem GDB/MI basiert. Auch ist der CDT Debugger sehr kompliziert\cite{mieclipse} und es wäre ein grosser Einarbeitungsaufwand notwendig um den Forth Debugger darauf basieren zu können.\cite{mieclipse}
 
 \subsection{Direkte Kommunikation mit dem Prozess}
 

@@ -12,13 +12,13 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1441
-NormalPos.bottom=539
+NormalPos.bottom=541
 Class=LaTeXView
 Document=compiler\compiler.tex
 
 [Frame0_View0,0]
 TopLine=0
-Cursor=407
+Cursor=567
 
 [Frame1]
 Flags=0
@@ -30,7 +30,7 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1441
-NormalPos.bottom=539
+NormalPos.bottom=541
 Class=LaTeXView
 Document=introduction\introduction.tex
 
@@ -48,7 +48,7 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1441
-NormalPos.bottom=539
+NormalPos.bottom=541
 Class=LaTeXView
 Document=debugger\debugger.tex
 
@@ -66,7 +66,7 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1441
-NormalPos.bottom=539
+NormalPos.bottom=541
 Class=LaTeXView
 Document=forthcommunication\forthcommunication.tex
 
@@ -84,7 +84,7 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1441
-NormalPos.bottom=539
+NormalPos.bottom=541
 Class=BibTeXView
 Document=MicroCoreIDE.bib
 
@@ -102,7 +102,7 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1441
-NormalPos.bottom=539
+NormalPos.bottom=541
 Class=LaTeXView
 Document=optimizer\optimizer.tex
 
@@ -120,7 +120,7 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1441
-NormalPos.bottom=539
+NormalPos.bottom=541
 Class=LaTeXView
 Document=abstract\abstract.tex
 
@@ -138,7 +138,7 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1441
-NormalPos.bottom=539
+NormalPos.bottom=541
 Class=LaTeXView
 Document=MicroCoreIDE.tex
 
@@ -156,7 +156,7 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1441
-NormalPos.bottom=539
+NormalPos.bottom=541
 Class=LaTeXView
 Document=idesettings\idesettings.tex
 
@@ -174,7 +174,7 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1441
-NormalPos.bottom=539
+NormalPos.bottom=541
 Class=LaTeXView
 Document=launch\launch.tex
 
@@ -192,7 +192,7 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1441
-NormalPos.bottom=539
+NormalPos.bottom=541
 Class=LaTeXView
 Document=platform\platform.tex
 

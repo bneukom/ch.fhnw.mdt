@@ -1,3 +1,69 @@
 \chapter{Optimierungen}
-\section{Optimierungen}
-\subsection{Peephole Optimierung}
+
+In diesem Kapitel wird beschrieben, was für Optimierungen für den Compiler vorgenommen wurden. Wie diese implementiert wurden und was für Resultate diese liefern.
+
+\section{Peephole Optimierung}
+
+Peephole Optimierungen ist eine Art von Optimierung, welche auf einer kleinen Sequenz von generiertem Code durchgeführt wird. Dieses Sequenz wird Peephole oder Window genannt. Code Generatoren generieren häufig Instruktionen, welche ohne Seiteneneffekte, entfernt werden können. Peephole Optimierungen können die grösse der Codes um 15-40 Prozent verkleinern und sind heute in allen gängigen Compilern implementiert.\cite{peepdavidson} Zu der Peephole Optimierung gehören unter anderen folgende Arten von Optimierungen:
+
+\begin{itemize} 
+	\item Constant Folding - Konstante Expressions auswerten
+	\item Constant Propagation - Konstante Werte in Expressions substituieren
+	\item Strength Reduction - Langsame Instruktionen mit äquivalenten schnellen Instruktionen ersetzen.
+	\item Combine Operations - Mehrere Oprationen mit einer äquivalenten ersetzen
+	\item Null Sequences - Unötige Operationen entfernen\cite{peepwiki}
+\end{itemize}
+
+
+\subsection{Beispiele}
+\subsubsection{Constant Propagation}
+\label{constantprogationsection}
+
+Folgende Instruktionen
+%
+\begin{verbatim}
+1
+2
+swap
++
+dup
+\end{verbatim}
+%
+können durch:
+%
+\begin{verbatim}
+2
+2
+\end{verbatim}
+%
+ersetzt werden. Die Instruktionen swap, + und dup können schon zur Kompilierzeit durchgeführt werden.
+\subsubsection{Combine Operations}
+Folgende zwei Instruktionen
+%
+\begin{verbatim}
+rot
+rot
+\end{verbatim}
+%
+können durch
+%
+\begin{verbatim}
+-rot
+\end{verbatim}
+%
+ersetzt werden. Die zwei rot Instruktionen sind äquivalent zu einer -rot Instruktion.
+\subsection{Optimierungen}
+
+TODO Ablauf Diagram
+
+\subsection{Automatische Generierung von Peephole Optimierungen}
+
+\subsection{Constant Propagation}
+Unter Constant Propagation versteht man, dass substituieren von Konstanten werden im Code. Dies kann zur Folge haben, dass mehrere Instruktionen schon zur Kompilierzeit ausgwertet werden können wie bei den Beispielen \ref{constantprogationsection} zu sehen ist.
+
+Die Constant Pro
+\subsection{Resultate und Tests}
+
+
+\subsection{Mögliche Erweiterungen}
+SSA
