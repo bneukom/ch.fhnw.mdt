@@ -4,10 +4,19 @@
 \contentsline {figure}{\numberline {2.1}{\ignorespaces Ein Plugin, welches einen Extension Point anbietet. Andere Plugins k\IeC {\"o}nnen diese deklarativ in einem XML File ansteuern.\relax }}{7}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Der Launch Configuration Dialog. Im Dialog kann eine neue MCore Launch Konfiguration erstellt werden. Um eine g\IeC {\"u}ltige Konfiguration zu erstellen muss das Projekt und das Forth File, welches gestartet werden soll angegeben werden.\relax }}{11}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Dialog, welcher angezeigt wird, wenn ein Program gestartet wird und der Umbilical Port nicht g\IeC {\"u}ltig ist. Der Port kann in der MCore Preference Page ge\IeC {\"a}ndert werden.\relax }}{12}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Ein erstes Design des Prozess API. Die zentrale Kommunikation geschieht \IeC {\"u}ber die Communicator Klasse. Es k\IeC {\"o}nnen Commands abgesetzt werden und es kann auf Resultate gewartet werden.\relax }}{12}
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Ein erstes Design des Prozess API. Die zentrale Kommunikation geschieht \IeC {\"u}ber die Communicator Klasse. Es k\IeC {\"o}nnen Commands abgesetzt werden und es kann auf Resultate gewartet werden.\relax }}{14}
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Konsolen basierter Debugger. Der Debugger kann \IeC {\"u}ber die Eclipse Console View gesteuert werden.\relax }}{16}
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Step Aktion.\relax }}{17}
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Konsolen basierter Debugger. Der Debugger kann \IeC {\"u}ber die Eclipse Console View gesteuert werden.\relax }}{17}
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Konsolen basierter Debugger. Der Debugger kann \IeC {\"u}ber die Eclipse Console View gesteuert werden.\relax }}{17}
+\contentsline {figure}{\numberline {6.5}{\ignorespaces Stack View mit aktuellem Dstack Inhalt. Der Top Of Stack (TOS) ist zuoberst in der Liste.\relax }}{18}
+\contentsline {figure}{\numberline {6.6}{\ignorespaces Eine Memory Dump, welcher\relax }}{18}
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {7.1}{\ignorespaces Dialog \IeC {\"u}ber welchen der Umbilical Port gesetzt werden kann.\relax }}{20}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

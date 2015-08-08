@@ -11,57 +11,61 @@
 \contentsline {subsection}{\numberline {2.4.4}Eclipse C/C++ Development Tools}{8}
 \contentsline {subsection}{\numberline {2.4.5}Verwendung f\IeC {\"u}r MCore Eclipse}{8}
 \contentsline {chapter}{\numberline {3}Compiler Integration}{9}
-\contentsline {section}{\numberline {3.1}Integration in CDT}{9}
-\contentsline {subsection}{\numberline {3.1.1}CDT Extension Points}{9}
-\contentsline {subsection}{\numberline {3.1.2}Tool}{9}
-\contentsline {subsection}{\numberline {3.1.3}Toolchain}{9}
+\contentsline {section}{\numberline {3.1}Integration im Eclipse CDT}{9}
+\contentsline {subsection}{\numberline {3.1.1}Configuration}{9}
+\contentsline {subsubsection}{\nonumberline Verwendung}{9}
+\contentsline {subsection}{\numberline {3.1.2}Toolchain}{9}
+\contentsline {subsubsection}{\nonumberline Verwendung}{9}
+\contentsline {subsection}{\numberline {3.1.3}Tool}{9}
 \contentsline {section}{\numberline {3.2}Builder}{9}
-\contentsline {section}{\numberline {3.3}Error Parsing}{9}
-\contentsline {section}{\numberline {3.4}C Programmierung im Eclipse}{9}
-\contentsline {chapter}{\numberline {4}Programm Launch}{10}
-\contentsline {section}{\numberline {4.1}Launch}{10}
-\contentsline {subsection}{\numberline {4.1.1}Run}{10}
-\contentsline {subsection}{\numberline {4.1.2}Debug}{10}
-\contentsline {chapter}{\numberline {5}Forth Kommunikation}{11}
-\contentsline {section}{\numberline {5.1}Prozess Kommunikation}{11}
-\contentsline {subsection}{\numberline {5.1.1}GDB/MI-Commands}{11}
-\contentsline {subsection}{\numberline {5.1.2}Direkte Kommunikation mit dem Prozess}{11}
-\contentsline {subsubsection}{\nonumberline Probleme bei der Kommunikation}{11}
-\contentsline {section}{\numberline {5.2}Kommunikation}{12}
-\contentsline {section}{\numberline {5.3}API Design}{12}
-\contentsline {section}{\numberline {5.4}Implementierungs Details}{12}
-\contentsline {subsection}{\numberline {5.4.1}Klassenbeschreibung}{12}
-\contentsline {subsection}{\numberline {5.4.2}Kommunikation mittels Commands}{12}
-\contentsline {subsection}{\numberline {5.4.3}Forth Output Parsing}{12}
-\contentsline {subsection}{\numberline {5.4.4}Await auf Resultate}{12}
-\contentsline {chapter}{\numberline {6}Debugger}{13}
-\contentsline {section}{\numberline {6.1}Breakpoints}{13}
-\contentsline {subsection}{\numberline {6.1.1}Per Konsole}{13}
-\contentsline {subsection}{\numberline {6.1.2}Im Source Code}{13}
-\contentsline {section}{\numberline {6.2}Konsolen basierter Debugger}{13}
-\contentsline {section}{\numberline {6.3}Forth Debugger}{14}
-\contentsline {subsection}{\numberline {6.3.1}Neue Debugger Aktionen}{14}
-\contentsline {subsubsection}{\nonumberline Jump Action}{14}
-\contentsline {subsubsection}{\nonumberline Over Action}{14}
-\contentsline {subsection}{\numberline {6.3.2}Stack View}{14}
-\contentsline {subsubsection}{\nonumberline User Interface}{14}
-\contentsline {subsection}{\numberline {6.3.3}Memory View}{14}
-\contentsline {subsubsection}{\nonumberline User Interface}{14}
-\contentsline {section}{\numberline {6.4}C Debugger}{14}
-\contentsline {chapter}{\numberline {7}Entwicklungsumgebungs Einstellungen}{15}
-\contentsline {section}{\numberline {7.1}Umbilical}{15}
-\contentsline {section}{\numberline {7.2}Loader}{15}
-\contentsline {chapter}{\numberline {8}Optimierungen}{16}
-\contentsline {section}{\numberline {8.1}Peephole Optimierung}{16}
-\contentsline {subsection}{\numberline {8.1.1}Beispiele}{16}
-\contentsline {subsubsection}{\nonumberline Constant Propagation}{16}
-\contentsline {subsubsection}{\nonumberline Combine Operations}{17}
-\contentsline {subsection}{\numberline {8.1.2}Optimierungen}{17}
-\contentsline {subsection}{\numberline {8.1.3}Automatische Generierung von Peephole Optimierungen}{17}
-\contentsline {subsection}{\numberline {8.1.4}Constant Propagation}{17}
-\contentsline {subsection}{\numberline {8.1.5}Resultate und Tests}{17}
-\contentsline {subsection}{\numberline {8.1.6}M\IeC {\"o}gliche Erweiterungen}{17}
-\contentsline {chapter}{\numberline {A}Literaturverzeichnis}{18}
-\contentsline {chapter}{\numberline {B}Abbildungsverzeichnis}{19}
-\contentsline {chapter}{\numberline {C}Tabellenverzeichnis}{20}
-\contentsline {chapter}{\numberline {D}Ehrlichkeitserkl\IeC {\"a}rung}{21}
+\contentsline {section}{\numberline {3.3}C Programmierung im Eclipse}{10}
+\contentsline {chapter}{\numberline {4}Programm Launch}{11}
+\contentsline {section}{\numberline {4.1}Launch}{11}
+\contentsline {subsection}{\numberline {4.1.1}Run}{12}
+\contentsline {subsection}{\numberline {4.1.2}Debug}{12}
+\contentsline {chapter}{\numberline {5}Forth Kommunikation}{13}
+\contentsline {section}{\numberline {5.1}Prozess Kommunikation}{13}
+\contentsline {subsection}{\numberline {5.1.1}GDB/MI-Commands}{13}
+\contentsline {subsection}{\numberline {5.1.2}Direkte Kommunikation mit dem Prozess}{13}
+\contentsline {subsubsection}{\nonumberline Probleme bei der Kommunikation}{13}
+\contentsline {section}{\numberline {5.2}Kommunikation}{14}
+\contentsline {section}{\numberline {5.3}API Design}{14}
+\contentsline {section}{\numberline {5.4}Implementierung}{14}
+\contentsline {subsection}{\numberline {5.4.1}Klassenbeschreibung}{14}
+\contentsline {subsection}{\numberline {5.4.2}Kommunikation mittels Commands}{14}
+\contentsline {subsection}{\numberline {5.4.3}Forth Output Parsing}{14}
+\contentsline {subsection}{\numberline {5.4.4}Await auf Resultate}{14}
+\contentsline {chapter}{\numberline {6}Debugger}{15}
+\contentsline {section}{\numberline {6.1}Breakpoints}{15}
+\contentsline {subsection}{\numberline {6.1.1}Per Konsole}{15}
+\contentsline {subsection}{\numberline {6.1.2}Im Source Code}{15}
+\contentsline {section}{\numberline {6.2}Konsolen basierter Debugger}{16}
+\contentsline {section}{\numberline {6.3}Forth Debugger}{16}
+\contentsline {subsection}{\numberline {6.3.1}CDT oder JDT Debuggint Mechanismen}{16}
+\contentsline {subsection}{\numberline {6.3.2}Debugger Aktionen}{16}
+\contentsline {subsubsection}{\nonumberline Step}{17}
+\contentsline {subsubsection}{\nonumberline Step Into}{17}
+\contentsline {subsubsection}{\nonumberline Jump}{17}
+\contentsline {subsubsection}{\nonumberline Over}{17}
+\contentsline {subsubsection}{\nonumberline Terminate}{17}
+\contentsline {subsubsection}{\nonumberline Kill}{17}
+\contentsline {subsection}{\numberline {6.3.3}Stack View}{17}
+\contentsline {subsection}{\numberline {6.3.4}Memory View}{18}
+\contentsline {section}{\numberline {6.4}C-Debugger}{18}
+\contentsline {chapter}{\numberline {7}Entwicklungsumgebungs Einstellungen}{20}
+\contentsline {section}{\numberline {7.1}Umbilical}{20}
+\contentsline {section}{\numberline {7.2}Loader}{20}
+\contentsline {chapter}{\numberline {8}Optimierungen}{21}
+\contentsline {section}{\numberline {8.1}Peephole Optimierung}{21}
+\contentsline {subsection}{\numberline {8.1.1}Beispiele}{22}
+\contentsline {subsubsection}{\nonumberline Constant Propagation}{22}
+\contentsline {subsubsection}{\nonumberline Combine Operations}{22}
+\contentsline {subsection}{\numberline {8.1.2}Optimierungen}{23}
+\contentsline {subsection}{\numberline {8.1.3}Automatische Generierung von Peephole Optimierungen}{23}
+\contentsline {subsection}{\numberline {8.1.4}Constant Propagation}{23}
+\contentsline {subsection}{\numberline {8.1.5}Resultate und Tests}{23}
+\contentsline {subsection}{\numberline {8.1.6}M\IeC {\"o}gliche Erweiterungen}{23}
+\contentsline {chapter}{\numberline {A}Literaturverzeichnis}{24}
+\contentsline {chapter}{\numberline {B}Abbildungsverzeichnis}{25}
+\contentsline {chapter}{\numberline {C}Tabellenverzeichnis}{26}
+\contentsline {chapter}{\numberline {D}Ehrlichkeitserkl\IeC {\"a}rung}{27}

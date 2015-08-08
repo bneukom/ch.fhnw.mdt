@@ -3,7 +3,7 @@
 In diesem Kapitel wird beschrieben, wie der Debugger in Eclipse integriert wurde. Es wird aufgezeigt, was für Möglichkeiten existieren einen Debugger in Eclipse zu integrieren und welche implementiert wurden.
 
 \section{Breakpoints}
-Als erstes müssen für den Debugger Breakpoints für Forth gesetzt werden können. Dafür stehen zwei Möglichkeiten zur Verfügung auf welche ich kurz eingehen möchte.
+Als erstes müssen für den Debugger Breakpoints gesetzt werden können. Dafür stehen zwei Möglichkeiten zur Verfügung, welche in den nächsten Kapiteln erläutert und verglichen werden.
 
 \subsection{Per Konsole}
 
@@ -16,38 +16,98 @@ debug _function
 %
 abgesetzt werden, um einen Breakpoint zu setzen.
 
-TODO Konsolen Screenshot
-
 \subsection{Im Source Code}
 
 Eine weitere Möglichkeit ist, Breakpoints im C-File zu setzen. Dies wurde so umgesetzt, dass der Breakpoint nur auf eine Funktionsdefinition gesetzt werden kann. Alle anderen Zeilen des C-Source Codes können nicht direkt auf den übersetzten Forth Code abgebildet werden und sind deshalb nicht erlaubt für die Breakpoints.
 \newline
 Eclipse CDT stellt den Abstract Synatx Tree (AST) des C-Files zur Verfügung. Mit Hilfe des AST kann überprüft werden, ob sich der Breakpoint wirklich auf einer Funktionsdefinition befindet.
-
-TODO Screenshot
-
+\newpage
 \section{Konsolen basierter Debugger}
 
 Eine erste Implementation des Debuggers ist, den schon existierenden Forth Konsolen Debugger im Eclipse zu integrieren. Dieser kann mit dem im Kapitel \ref{forthcommunication} beschriebenen Prozess Kommunikationsmitteln angesteuert und in einer Eclipse Console View angezeigt werden.
 
-TODO Screenshot
+\begin{figure}[H]
+	\centering
+		\includegraphics[scale=0.35]{debugger/consoledebugger.png}
+		\caption{Konsolen basierter Debugger. Der Debugger kann über die Eclipse Console View gesteuert werden.}
+		\captionsetup{margin=0cm,font={footnotesize}}
+		\label{fig:extensionpoint}
+\end{figure}
 
 \section{Forth Debugger}
 
-Frontend für Konsolen Debugger.
+Eine weiter Möglichkeit ist, das Debug User Interface von Eclipse zu verwenden um den Debugger zu steuern. Dies ist für den Endanwender angenehmer, da  alle Informationen des Debuggers in einem User Interface ersichtlich sind.
 
-\subsection{Neue Debugger Aktionen}
+\subsection{CDT oder JDT Debuggint Mechanismen}
 
-\subsubsection{Jump Action}
+Das Eclipse JDT stellt  mehrere Möglichkeiten zur Verfügung, wie ein Debugger integriert werden kann. Es können die vom Eclipse JDT verwendeten Mechanismen (vorallem das Plugin org.eclipse.debug.core), oder die vom CDT erweiterten Mechanismen (vorallem das Plugin org.eclipse.cdt.debug.core), welche verwendet werden um einen C oder C++ Debugger zu integrieren. Das vom CDT zur Verfügung gestellte Plugin wird vorallem dazu verwendet, um ein neuer C oder C++ Debugger zu integrieren, da es sich aber um einen Forth Debugger handelt, werden diese Erweiterungen nicht gebraucht. Ich habe mich deshalb dazu entschieden, das JDT Debugging zu verwenden.
 
-\subsubsection{Over Action}
+\subsection{Debugger Aktionen}
+
+Für den Debugger wurden einige Aktionen, welche schon im Eclipse verwendet werden, implementiert und einige neue Forth spezifische Aktionen hinzugefügt.
+
+\subsubsection{Step}
+Mit der Step Aktion kann ein normaler single step ausgeführt werden. Es wird dafür ein \verb! CR! Command an den Forth Prozess gesendet.
+\begin{figure}[H]
+	\centering
+		\includegraphics[scale=1]{debugger/step.png}
+		\caption{Step Aktion.}
+		\captionsetup{margin=0cm,font={footnotesize}}
+		\label{fig:extensionpoint}
+\end{figure}
+
+\subsubsection{Step Into}
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[scale=1]{debugger/stepinto.png}
+		\caption{Konsolen basierter Debugger. Der Debugger kann über die Eclipse Console View gesteuert werden.}
+		\captionsetup{margin=0cm,font={footnotesize}}
+		\label{fig:extensionpoint}
+\end{figure}
+
+\subsubsection{Jump}
+
+\subsubsection{Over}
+
+\subsubsection{Terminate}
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[scale=1]{debugger/terminate.png}
+		\caption{Konsolen basierter Debugger. Der Debugger kann über die Eclipse Console View gesteuert werden.}
+		\captionsetup{margin=0cm,font={footnotesize}}
+		\label{fig:extensionpoint}
+\end{figure}
+
+\subsubsection{Kill}
 
 \subsection{Stack View}
 
-\subsubsection{User Interface}
+In der Stack View wird er aktuelle Dstack angezeigt. Die Stack View wird automatisch nach jedem steppen des Debuggers aktualisiert.
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[scale=0.35]{debugger/stack.png}
+		\caption{Stack View mit aktuellem Dstack Inhalt. Der Top Of Stack (TOS) ist zuoberst in der Liste.}
+		\captionsetup{margin=0cm,font={footnotesize}}
+		\label{fig:extensionpoint}
+\end{figure}
+
 
 \subsection{Memory View}
 
-\subsubsection{User Interface}
+In der Memory View kann ein Memory Dump, welcher mit dem \verb! dump! Befehl von uForth abgefragt werden kann, angezeigt werden. Der Memory Dump wird automatisch nach jedem steppen des Debuggers aktualisiert.
 
-\section{C Debugger}
+\begin{figure}[H]
+	\centering
+		\includegraphics[scale=0.35]{debugger/dump.png}
+		\caption{Eine Memory Dump, welcher}
+		\captionsetup{margin=0cm,font={footnotesize}}
+		\label{fig:extensionpoint}
+\end{figure}
+
+
+\section{C-Debugger}
+
+Eine mögliche Erweiterung, wäre den Debugger so zu integrieren, das er direkt auf dem C-Source Code arbeitet (nicht wie bis jetzt, auf dem generierten Forth Code). Dies konnte nicht umgesetzt werden, da Debug Informationen des Compilers fehlen. Der C-Source Code kann nicht auf den entsprechenden generierten Forth Source Code abgebildet werden.

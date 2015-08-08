@@ -3,21 +3,31 @@
 
 In diesem Kapitel wird beschrieben, wie der Compiler in die Entwicklungsumgebung eingebunden wurde um ein C-File nach Forth zu übersetzten. Und welche Möglichkeiten mit dem CDT für das Editieren von C-Files zur Verfügung stehen.
 
-\section{Integration in CDT}
+\section{Integration im Eclipse CDT}
 
-Für die Integration in das CDT stehen einige notwendige Plugins und Extension zur Verfügung. 
+Das CDT stellt Extension Points zur Verfügung, welche gebraucht werden können um einen Compiler zu integrieren. Diese Extension Points werden in den nächsten Kapitel erläutert und es wird erklärt wie der LCC dadurch in die Entwicklungsumgebung eingebunden wird.
 
-\subsection{CDT Extension Points}
+\subsection{Configuration}
+
+Eine Konfiguration wird gebraucht um verschiedene Standard Tools und Optionen bereit zu stellen um ein Projekt auf eine gewisse weise zu kompilieren. 
+
+\subsubsection{Verwendung}
+Es gibt nur eine Konfiguration für den Release Build. Debug spezifische Files werden von dem Launch generiert, da der Kompiler damit nichts zu tun hat.
+
+\subsection{Toolchain}
+Eine geordente Liste von Tools welche gebraucht werden um den Output des Projekts zu generieren. 
+
+\subsubsection{Verwendung}
+Es wird nur ein Tool verwendet, welches den LCC Compiler aufruft und somit das Forth File generiert.
 
 \subsection{Tool}
 
-\subsection{Toolchain}
+Ein Tool
 
 \section{Builder}
 
 TODO findet Errors im Path (falls Eclipse nicht richtig aufgesetzt wurde)
 
-\section{Error Parsing}
-
 \section{C Programmierung im Eclipse}
 
+TODO Screenshots

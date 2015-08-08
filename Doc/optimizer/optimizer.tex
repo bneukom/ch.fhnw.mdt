@@ -1,10 +1,10 @@
 \chapter{Optimierungen}
 
-In diesem Kapitel wird beschrieben, was für Optimierungen für den Compiler vorgenommen wurden. Wie diese implementiert wurden und was für Resultate diese liefern.
+In diesem Kapitel wird beschrieben, was für Optimierungen für den Compiler implementiert wurden. Im Forth Cross-Compiler sind schon einige Peephole Optimierungen implementiert. In diesem Kapitel werden die neu implementierten Optimierungen mit dessen des Cross-Compilers verglichen und gezeigt wo noch bessere Optimierungsstrategien verwendet werden können.
 
 \section{Peephole Optimierung}
 
-Peephole Optimierungen ist eine Art von Optimierung, welche auf einer kleinen Sequenz von generiertem Code durchgeführt wird. Dieses Sequenz wird Peephole oder Window genannt. Code Generatoren generieren häufig Instruktionen, welche ohne Seiteneneffekte, entfernt werden können. Peephole Optimierungen können die grösse der Codes um 15-40 Prozent verkleinern und sind heute in allen gängigen Compilern implementiert.\cite{peepdavidson} Zu der Peephole Optimierung gehören unter anderen folgende Arten von Optimierungen:
+Peephole Optimierungen ist eine Art von Optimierung, welche auf einer kleinen Sequenz von Instruktionen durchgeführt wird. Dieses Sequenz wird Peephole oder auch Window genannt. Die Peephole Optimierung verucht Sets von Instruktionen durch kürzere oder schnellere Instruktionen zu ersetzen.\cite{peepwiki} Peephole Optimierungen können die grösse der Codes um 15--40 Prozent verkleinern und sind heute in allen gängigen Compilern implementiert.\cite{peepdavidson} Zu der Peephole Optimierung gehören unter anderen folgende Arten von Optimierungen:
 
 \begin{itemize} 
 	\item Constant Folding - Konstante Expressions auswerten
@@ -14,8 +14,12 @@ Peephole Optimierungen ist eine Art von Optimierung, welche auf einer kleinen Se
 	\item Null Sequences - Unötige Operationen entfernen\cite{peepwiki}
 \end{itemize}
 
+\newpage
 
 \subsection{Beispiele}
+
+Folgend einige Peephole Optimierungs Beispiele anhand von Forth Code.
+
 \subsubsection{Constant Propagation}
 \label{constantprogationsection}
 
@@ -51,9 +55,27 @@ können durch
 -rot
 \end{verbatim}
 %
-ersetzt werden. Die zwei rot Instruktionen sind äquivalent zu einer -rot Instruktion.
+ersetzt werden. Die zwei rot Instruktionen sind äquivalent zu einer -rot Instruktion. Oder die folgenden zwei Instruktionen
+%
+\begin{verbatim}
+dup
+drop
+\end{verbatim}
+%
+können durch
+%
+\begin{verbatim}
+nop
+\end{verbatim}
+%
+ersetzt werden. Die zwei Instruktionen heben sich auf und können entfernt werden.
+
+\newpage
+
 \subsection{Optimierungen}
 
+TODO Optimierungen des Cross-Compilers
+TODO Für Projekt zwei Arten implementiert
 TODO Ablauf Diagram
 
 \subsection{Automatische Generierung von Peephole Optimierungen}
@@ -61,7 +83,6 @@ TODO Ablauf Diagram
 \subsection{Constant Propagation}
 Unter Constant Propagation versteht man, dass substituieren von Konstanten werden im Code. Dies kann zur Folge haben, dass mehrere Instruktionen schon zur Kompilierzeit ausgwertet werden können wie bei den Beispielen \ref{constantprogationsection} zu sehen ist.
 
-Die Constant Pro
 \subsection{Resultate und Tests}
 
 

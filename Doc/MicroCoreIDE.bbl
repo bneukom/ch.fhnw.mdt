@@ -29,13 +29,13 @@ Understanding the gnu debugger machine interface (gdb/mi).
 \newblock
   \url{http://www.ibm.com/developerworks/library/os-eclipse-cdt-debug2/}.
 
+\bibitem{peepwiki}
+Peephole optimization.
+\newblock \url{https://en.wikipedia.org/wiki/Peephole_optimization}.
+
 \bibitem{peepdavidson}
 J.~W. Davidson and C.~W. Fraser.
 \newblock The design and application of a retargetable peephole optimizer.
 \newblock In {\em ACM Trans. Program. Lang. Syst.}, pages 191--202, 1980.
-
-\bibitem{peepwiki}
-Peephole optimization.
-\newblock \url{https://en.wikipedia.org/wiki/Peephole_optimization}.
 
 \end{thebibliography}

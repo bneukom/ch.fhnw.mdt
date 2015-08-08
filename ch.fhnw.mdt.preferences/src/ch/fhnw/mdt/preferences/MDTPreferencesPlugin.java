@@ -81,9 +81,6 @@ public class MDTPreferencesPlugin extends AbstractUIPlugin {
 		String loader = MDTPreferencesPlugin.getDefault().getPreferenceStore().getString(MCorePreferencePage.GFORTH_LOADER_PREFERENCE);
 		loader = loader.replace("$INPUT_FILE", inputFile);
 
-		// loader = loader.replace("$DEBUG_INCLUDE", isDebugMode ? "include debugCFunction.fs" : "");
-		loader = loader.replace("$DEBUG_INCLUDE", "");
-
 		return loader;
 	}
 
