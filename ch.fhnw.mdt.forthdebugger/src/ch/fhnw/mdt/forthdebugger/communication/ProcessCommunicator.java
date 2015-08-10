@@ -23,7 +23,12 @@ import ch.fhnw.mdt.forthdebugger.util.Either;
 
 /**
  * Class which is able to communicate via {@link Command}s with a process.
+ * The typical use case is sending a command and waiting for its result.
  * 
+ * <pre>
+ * 
+ * 
+ * </pre>
  */
 public class ProcessCommunicator {
 
@@ -176,7 +181,7 @@ public class ProcessCommunicator {
 
 	/**
 	 * Sends the given command and blocks until the process has returned the
-	 * given result.
+	 * result expected by the given {@link WaitFor}.
 	 * 
 	 * @param command
 	 * @param waitFor
@@ -223,7 +228,7 @@ public class ProcessCommunicator {
 			commandCompletionLock.lock();
 
 			commandQueueIsWorking = true;
-			
+
 			queue.put(command);
 
 			// block if necessary
@@ -231,7 +236,7 @@ public class ProcessCommunicator {
 				awaitCommandCompletion();
 			}
 		} catch (InterruptedException e) {
-			
+
 		} finally {
 			commandCompletionLock.unlock();
 		}
@@ -672,7 +677,7 @@ public class ProcessCommunicator {
 			this.request = Either.right(request);
 			this.waitFor = waitFor;
 		}
-		
+
 		@Override
 		public String toString() {
 			return request.map(s -> s, i -> String.valueOf(i));
@@ -685,10 +690,14 @@ public class ProcessCommunicator {
 	 */
 	public static final class CommandTimeOutException extends Exception {
 
+		private static final long serialVersionUID = 7373433288586293807L;
 	}
 
 	/**
-	 * Abstract base class for all possible await classes.
+	 * Abstract base class for all possible {@link WaitFor} classes. A {@link WaitFor} is used to wait for a result from the thread.
+	 * They must be supplied to the {@link ProcessCommunicator#sendCommandAwaitResult(int, WaitFor) and {@link ProcessCommunicator#sendCommandAwaitResult(String, WaitFor)}
+	 * functions.
+	 * 
 	 */
 	public static abstract class WaitFor {
 		protected final Lock lock = new ReentrantLock();

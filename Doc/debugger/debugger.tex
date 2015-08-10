@@ -46,8 +46,46 @@ Das Eclipse JDT stellt  mehrere Möglichkeiten zur Verfügung, wie ein Debugger 
 
 Für den Debugger wurden einige Aktionen, welche schon im Eclipse verwendet werden, implementiert und einige neue Forth spezifische Aktionen hinzugefügt.
 
+\subsubsection{Resume}
+
+Mit der Resume Aktion kann der während dem Debuggen fortgeführt werden. Dafür wird ein \verb! end-trace! Command an den Forth Prozess gesendet. Der \verb! end-trace! Command entfernt auch alle Breakpoints, diese werden automatisch nach der Ausführung neu gesetzt. 
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[scale=1]{debugger/resume.png}
+		\caption{Resume Aktion.}
+		\captionsetup{margin=0cm,font={footnotesize}}
+		\label{fig:extensionpoint}
+\end{figure}
+
+\subsubsection{Terminate}
+
+Mit der Kill Aktion kann der Prozess heruntergefahren werden, in dem der \verb! bye! Command gesendet wird. Falls der Prozess nicht mehr reagiert, sollte die Kill Aktion verwendet werden.
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[scale=1]{debugger/terminate.png}
+		\caption{Terminate Aktion.}
+		\captionsetup{margin=0cm,font={footnotesize}}
+		\label{fig:extensionpoint}
+\end{figure}
+
+\subsubsection{Step Into}
+
+Mit der Step Into Aktion kann in eine Funktion gesprungen werden, falls die nächste Zeile ein Funktionsaufruf ist. Dafür wird ein \verb! nest! Command an den Forth Prozess gesendet
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[scale=1]{debugger/stepinto.png}
+		\caption{Step Into Aktion.}
+		\captionsetup{margin=0cm,font={footnotesize}}
+		\label{fig:extensionpoint}
+\end{figure}
+
 \subsubsection{Step}
-Mit der Step Aktion kann ein normaler single step ausgeführt werden. Es wird dafür ein \verb! CR! Command an den Forth Prozess gesendet.
+
+Mit der Step Aktion kann ein normaler single step ausgeführt werden. Dafür wird ein \verb! CR! Command an den Forth Prozess gesendet.
+
 \begin{figure}[H]
 	\centering
 		\includegraphics[scale=1]{debugger/step.png}
@@ -56,31 +94,44 @@ Mit der Step Aktion kann ein normaler single step ausgeführt werden. Es wird da
 		\label{fig:extensionpoint}
 \end{figure}
 
-\subsubsection{Step Into}
+\subsubsection{Kill}
+
+Mit der Kill Aktion kann der Prozess terminiert werden, in dem das Kill Signal gesendet wird. Im Normalfall sollte die Terminate Aktion verwendet werden, da sie den Forth Prozess über den \verb! bye! Command beendet.
 
 \begin{figure}[H]
 	\centering
-		\includegraphics[scale=1]{debugger/stepinto.png}
-		\caption{Konsolen basierter Debugger. Der Debugger kann über die Eclipse Console View gesteuert werden.}
+		\includegraphics[scale=1]{debugger/kill.png}
+		\caption{Kill Aktion.}
+		\captionsetup{margin=0cm,font={footnotesize}}
+		\label{fig:extensionpoint}
+\end{figure}
+
+\subsubsection{After}
+
+Die After Aktion setzt den Breakpoint nach der nächsten Instruktion, falls es sich um einen Rückwärts Sprung handelt, welcher möglicherweise von einer 
+\verb! UNTIL!, \verb! REPEAT!, \verb! LOOP! oder \verb! NEXT! Instruktion kompiliert wurde. Der Rest der Schleife wird deshalb ohne Unterbruch ausgeführt.
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[scale=1]{debugger/after.png}
+		\caption{After Aktion.}
 		\captionsetup{margin=0cm,font={footnotesize}}
 		\label{fig:extensionpoint}
 \end{figure}
 
 \subsubsection{Jump}
 
-\subsubsection{Over}
-
-\subsubsection{Terminate}
+Mit der Jump Aktion kann über die nächste auszuführende Instruktion gesprungen werden. Dafür wird ein \verb! jump! Command an den Forth Prozess gesendet.
 
 \begin{figure}[H]
 	\centering
-		\includegraphics[scale=1]{debugger/terminate.png}
-		\caption{Konsolen basierter Debugger. Der Debugger kann über die Eclipse Console View gesteuert werden.}
+		\includegraphics[scale=1]{debugger/jump.png}
+		\caption{Jump Aktion.}
 		\captionsetup{margin=0cm,font={footnotesize}}
 		\label{fig:extensionpoint}
 \end{figure}
 
-\subsubsection{Kill}
+\newpage
 
 \subsection{Stack View}
 

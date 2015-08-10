@@ -1,7 +1,7 @@
 \chapter{Forth Kommunikation}
 \label{forthcommunication}
 
-In diesem Kapitel wird beschrieben, wie die Entwicklungsumgebung mit dem Forth Prozess kommuniziert. Die Kommunikation mit dem Forth Prozess ist von zentraler Bedeutung, da viel der Funktionalität der Entwicklungsumgebung davon abhängt, dass die Kommunikation stabil läuft. Es wird gezeigt wie die Kommunikation designt, implementiert und getestet wurde.
+In diesem Kapitel wird beschrieben, wie die Entwicklungsumgebung mit dem Forth Prozess kommuniziert. Die Kommunikation mit dem Forth Prozess ist von zentraler Bedeutung, da viel der Funktionalität der Entwicklungsumgebung davon abhängt, dass die Kommunikation stabil läuft. Es wird gezeigt, wie die Kommunikation designt, implementiert und getestet wurde.
 
 \section{Prozess Kommunikation}
 Um mit dem Prozess zu kommunizieren, gibt es grundsätzlich zwei Möglichkeiten. Die erste ist ein Machine Interface zu implementieren, oder direkt mit dem Prozess kommunizieren. In folgenden Kapiteln werden die beiden Möglichkeiten kurz besprochen.
@@ -29,24 +29,57 @@ In einem ersten Schritt wurde ein API designt, welches verwendet werden soll um 
 
 \begin{figure}[H]
 	\centering
-		\includegraphics[scale=0.5]{forthcommunication/api.png}
+		\includegraphics[scale=0.6]{forthcommunication/api.png}
 		\caption{Ein erstes Design des Prozess API. Die zentrale Kommunikation geschieht über die Communicator Klasse. Es können Commands abgesetzt werden und es kann auf Resultate gewartet werden.}
 		\captionsetup{margin=0cm,font={footnotesize}}
 		\label{fig:extensionpoint}
 \end{figure}
 
-Bei der Implementierung kamen dann einige Änderungen hinzu. Auf die endgültige Implementation werde ich im nächsten Kapitel genauer eingehen.
-
 \section{Implementierung}
 
-TODO class diagramms
-TODO some source code of the central dispatch of the commands?
+Bei der Implementierung kamen dann einige Änderungen hinzu. In folgendem Klassendiagramm sind die Änderungen ersichtlich und die Klassenstruktur wird noch genauer erläutert.
+
+\begin{sidewaysfigure}[p]
+
+	\centering
+		\includegraphics[scale=0.75]{forthcommunication/communicator.png}
+		\caption{Klassendiagramm der.}
+		\captionsetup{margin=0cm,font={footnotesize}}
+		\label{fig:extensionpoint}
+
+\end{sidewaysfigure}
+
+\newpage
 
 \subsection{Klassenbeschreibung}
 
-\subsection{Kommunikation mittels Commands}
+Über das ProcessCommunicator API können Commands an den Prozess gesendet werden. Das API stellt blockierende und nicht blockierende Funktionen für das senden von Commands an. So können Commands über die \verb!sendCommand! Funktion einen Command abschicken, ohne zu blockieren. Falls auf ein bestimmtes Resultat gewartet werden muss, kann die Funktion \verb!sendCommandAwaitResult! verwendet werden. 
 
-\subsection{Forth Output Parsing}
+\subsubsection{ProcessCommunicator}
 
-\subsection{Await auf Resultate}
+Der \verb!ProcessCommunicator! ist die zentrale Kommunikationsstelle. Über den \verb!ProcessCommunicator! können die \verb!Commands! abgesetzt werden und gleichzeitig auch auf die angeforderten Resultate warten.
+
+\subsubsection{ProcessReader}
+
+Der \verb!ProcessReader! ist eine verschachtelte Klasse des \verb!ProcessCommunicator!, welche als Thread im Hintergrund den Stream des Prozesses liest und verarbeitet. Der \verb!ProcessReader! notifiziert alle Threads, welche auf ein Resultat warten, falls dies eingetroffen ist.
+
+\subsubsection{ProcessCommandQueue}
+
+Die \verb!ProcessCommandQueue! ist eine verschachtelte Klasse des \verb!ProcessCommunicator!, welche als Thread im Hintergrund Commands verarbeitet und an den Prozess sendet. Die \verb!ProcessCommandQueue! blockiert, falls dies von einem Command spezifiert wurde. Wenn die \verb!ProcessCommandQueue! blockiert werden keine weiteren Commands mehr verarbeitet, bis das der \verb!WaitFor! Klasse spezifizierten Resultat von dem Prozess geschrieben wurde.
+
+\subsubsection{Command}
+
+Die \verb!Command! Klasse repräsentiert ein Command, welcher über den \verb!ProcessCommunicator! an den Prozess gesendet werden kann.
+
+\subsubsection{WaitForResult}
+
+Mit der abstrakten \verb!WaitFor! Klasse können auf Resultate des Prozesses gewartet werden. Dafür wurden verschiedene Implementationen bereitgestellt. Mit der \verb!WaitForResult! können auf String Resultate gewartet werden. Mit der \verb!WaitForMatch! Klasse kann per Regex auf ein Resultat gewartet werden. In folgendem Pseudocode wird die Funktionalität der \verb!WaitForMatch! Klasse im Zusammenhang mit dem senden eines Commands gezeigt.
+
+\begin{verbatim}
+sendCommandAwaitMatch("foo", "[1-9]")
+\end{verbatim}
+
+Der aktuelle Thread wird blockiert, bis der Prozess eine Ziffer zwischen 0 und 9 schreibt. Für das warten auf ein Resultat wurde ein Timeout von 10 Sekunden implementiert. Falls der Prozess in dieser Zeit keine Antwort gibt, wird eine \verb!CommandTimeOutException! geworfen und der \verb!ProcessCommunicator! wird heruntergefahren, das keine weiteren Commands mehr gesendet werden können.
+
+
 

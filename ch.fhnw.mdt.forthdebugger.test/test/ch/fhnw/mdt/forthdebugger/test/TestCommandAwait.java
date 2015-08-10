@@ -18,6 +18,7 @@ public class TestCommandAwait {
 	private ProcessCommunicator communicator;
 
 	
+	
 	@Test
 	public void testAwaitResult() {
 		try {

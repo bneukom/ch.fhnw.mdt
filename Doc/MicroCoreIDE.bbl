@@ -1,5 +1,10 @@
 \begin{thebibliography}{1}
 
+\bibitem{whatisaplugin}
+John Arthorne.
+\newblock Faq what is a plug-in?
+\newblock \url{https://wiki.eclipse.org/FAQ_What_is_a_plug-in%3F}, 2011.
+
 \bibitem{extensionpoints}
 Vogella.
 \newblock Eclipse extension points and extensions - tutorial.

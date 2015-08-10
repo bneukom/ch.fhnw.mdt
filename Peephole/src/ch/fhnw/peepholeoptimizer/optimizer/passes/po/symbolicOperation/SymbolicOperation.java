@@ -29,6 +29,36 @@ public class SymbolicOperation extends AbstractOperation {
 		o.stack.push(nos);
 	});
 
+	public static final SymbolicOperation OVER = new SymbolicOperation("over", true, o -> {
+		final AbstractValue tos = o.stack.pop();
+		final AbstractValue nos = o.stack.pop();
+		o.stack.push(nos);
+		o.stack.push(tos);
+		o.stack.push(nos);
+	});
+	
+	public static final SymbolicOperation UNDER = new SymbolicOperation("under", true, o -> {
+		final AbstractValue tos = o.stack.pop();
+		final AbstractValue nos = o.stack.pop();
+		o.stack.push(nos);
+		o.stack.push(nos);
+		o.stack.push(tos);
+	});
+	
+	public static final SymbolicOperation TUCK = new SymbolicOperation("tuck", true, o -> {
+		final AbstractValue tos = o.stack.pop();
+		final AbstractValue nos = o.stack.pop();
+		o.stack.push(tos);
+		o.stack.push(nos);
+		o.stack.push(tos);
+	});
+	
+	public static final SymbolicOperation NIP = new SymbolicOperation("nip", true, o -> {
+		final AbstractValue tos = o.stack.pop();
+		o.stack.pop();
+		o.stack.push(tos);
+	});
+
 	public static final SymbolicOperation ADD = new SymbolicOperation("+", true, o -> {
 		o.stack.push(new DyadicValue(o.stack.pop(), o.stack.pop(), Operator.PLUS));
 	});
@@ -44,7 +74,7 @@ public class SymbolicOperation extends AbstractOperation {
 		e.stack.push(v3);
 		e.stack.push(v1);
 	});
-	
+
 	public static final SymbolicOperation NEG_ROT = new SymbolicOperation("-rot", true, e -> {
 		final AbstractValue v3 = e.stack.pop();
 		final AbstractValue v2 = e.stack.pop();
@@ -55,7 +85,7 @@ public class SymbolicOperation extends AbstractOperation {
 		e.stack.push(v2);
 	});
 
-	public static final List<SymbolicOperation> OPERATIONS = Arrays.asList(PUSH, DROP, DUP, SWAP, ADD, ROT, NEG_ROT, NOP);
+	public static final List<SymbolicOperation> OPERATIONS = Arrays.asList(PUSH, DROP, DUP, SWAP, ADD, ROT, NEG_ROT, OVER, UNDER, TUCK, NOP);
 
 	private final Consumer<Memory> operation;
 	private final String name;

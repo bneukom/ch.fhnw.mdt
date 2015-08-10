@@ -4,12 +4,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
 
-public class ConstantPropagationOperation implements Function<List<Integer>, List<Integer>> {
+public class ConstantPropagationOperation implements Function<List<Long>, List<Long>> {
 	private final int requiredStackSize;
 	private final String operationName;
-	private final Function<List<Integer>, List<Integer>> function;
+	private final Function<List<Long>, List<Long>> function;
 
-	public ConstantPropagationOperation(int requiredStackSize, String operationName, Function<List<Integer>, List<Integer>> function) {
+	public ConstantPropagationOperation(int requiredStackSize, String operationName, Function<List<Long>, List<Long>> function) {
 		this.requiredStackSize = requiredStackSize;
 		this.operationName = operationName;
 		this.function = function;
@@ -34,8 +34,13 @@ public class ConstantPropagationOperation implements Function<List<Integer>, Lis
 	}
 
 	@Override
-	public List<Integer> apply(List<Integer> t) {
+	public List<Long> apply(List<Long> t) {
 		return function.apply(t);
+	}
+	
+	@Override
+	public String toString() {
+		return operationName;
 	}
 
 }

@@ -36,7 +36,7 @@ Document=idesettings\idesettings.tex
 
 [Frame1_View0,0]
 TopLine=0
-Cursor=645
+Cursor=743
 
 [Frame2]
 Flags=0
@@ -89,8 +89,8 @@ Class=LaTeXView
 Document=debugger\debugger.tex
 
 [Frame4_View0,0]
-TopLine=25
-Cursor=1942
+TopLine=110
+Cursor=5742
 
 [Frame5]
 Flags=0
@@ -107,8 +107,8 @@ Class=LaTeXView
 Document=forthcommunication\forthcommunication.tex
 
 [Frame5_View0,0]
-TopLine=39
-Cursor=3315
+TopLine=36
+Cursor=729
 
 [Frame6]
 Flags=0
@@ -143,8 +143,8 @@ Class=LaTeXView
 Document=optimizer\optimizer.tex
 
 [Frame7_View0,0]
-TopLine=70
-Cursor=2347
+TopLine=0
+Cursor=1391
 
 [Frame8]
 Flags=0
@@ -198,11 +198,11 @@ Document=launch\launch.tex
 
 [Frame10_View0,0]
 TopLine=0
-Cursor=0
+Cursor=722
 
 [SessionInfo]
 FrameCount=11
-ActiveFrame=7
+ActiveFrame=4
 
 [Bookmarks]
 mesh\mesh.tex=6 

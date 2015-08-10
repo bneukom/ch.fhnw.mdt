@@ -9,25 +9,27 @@ Das CDT stellt Extension Points zur Verfügung, welche gebraucht werden können 
 
 \subsection{Configuration}
 
-Eine Konfiguration wird gebraucht um verschiedene Standard Tools und Optionen bereit zu stellen um ein Projekt auf eine gewisse weise zu kompilieren. 
+Eine Konfiguration wird gebraucht um verschiedene Standard Tools und Optionen bereit zu stellen, um ein Projekt auf eine gewisse Weise zu kompilieren. Normalerweise existieren für ein Projekt zwei Konfigurationen. Eine Debug- und eine Releasekonfiguration.
 
 \subsubsection{Verwendung}
 Es gibt nur eine Konfiguration für den Release Build. Debug spezifische Files werden von dem Launch generiert, da der Kompiler damit nichts zu tun hat.
 
-\subsection{Toolchain}
-Eine geordente Liste von Tools welche gebraucht werden um den Output des Projekts zu generieren. 
+\subsection{Tool}
+Definiert ein Tool, wie zum Beispiel ein Compiler oder Linker, welches verwendet wird im Buildprozess.
 
 \subsubsection{Verwendung}
-Es wird nur ein Tool verwendet, welches den LCC Compiler aufruft und somit das Forth File generiert.
+Es wird nur ein Tool verwendet, welches den LCC Compiler aufruft und somit das Forth File generiert. Für dieses Tool wurde noch eine Option (\verb!-S-Q!) definiert, welche den Peephole Optimizer deaktiviert.
 
-\subsection{Tool}
+\subsection{Toolchain}
+Eine Liste von Tools welche gebraucht werden um den Output des Projekts zu generieren. 
 
-Ein Tool
+\subsubsection{Verwendung}
+Die Toolchain beinhaltet nur das vorhin beschriebene Tool um den LCC Compiler aufzurufen.
 
-\section{Builder}
+\subsection{CDT Builder}
+
+TODO benennt die Forth Files um (WHY?)
+
+\section{Project Nature}
 
 TODO findet Errors im Path (falls Eclipse nicht richtig aufgesetzt wurde)
-
-\section{C Programmierung im Eclipse}
-
-TODO Screenshots
