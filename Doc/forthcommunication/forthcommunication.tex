@@ -4,7 +4,7 @@
 In diesem Kapitel wird beschrieben, wie die Entwicklungsumgebung mit dem Forth Prozess kommuniziert. Die Kommunikation mit dem Forth Prozess ist von zentraler Bedeutung, da viel der Funktionalität der Entwicklungsumgebung davon abhängt, dass die Kommunikation stabil läuft. Es wird gezeigt, wie die Kommunikation designt, implementiert und getestet wurde.
 
 \section{Prozess Kommunikation}
-Um mit dem Prozess zu kommunizieren, gibt es grundsätzlich zwei Möglichkeiten. Die erste ist ein Machine Interface zu implementieren, oder direkt mit dem Prozess kommunizieren. In folgenden Kapiteln werden die beiden Möglichkeiten kurz besprochen.
+Um mit dem Prozess zu kommunizieren, gibt es grundsätzlich zwei Möglichkeiten. Die erste ist ein Machine Interface zu implementieren, oder direkt mit dem Prozess kommunizieren. In folgenden Kapiteln werden die beiden Möglichkeiten kurz beschrieben.
 
 \subsection{GDB/MI-Commands}
 
@@ -16,7 +16,7 @@ Eine weitere Möglichkeit wäre, direkt die Befehle an den Prozess senden und au
 
 \subsubsection{Probleme bei der Kommunikation}
 
-Bei der Kommunikation mit dem Prozess können einige Probleme Auftreten. Es kann sein, dass der Prozess plötzlich keine Antworten mehr gibt. Auch weiss man nicht, wie lange es dauern wird, bis der Prozess Antwort gibt. Diese Probleme müssen mit den im vorigen genannten Klassen sauber gelöst werden.
+Bei der Kommunikation mit dem Prozess können einige Probleme Auftreten. Es kann sein, dass der Prozess plötzlich keine Antworten mehr gibt. Auch weiss man nicht, wie lange es dauern wird, bis der Prozess Antwort gibt. Diese Probleme müssen mit den im vorigen genannten Klassen gelöst werden.
 
 \section{Kommunikation}
 
@@ -53,11 +53,11 @@ Bei der Implementierung kamen dann einige Änderungen hinzu. In folgendem Klasse
 
 \subsection{Klassenbeschreibung}
 
-Über das ProcessCommunicator API können Commands an den Prozess gesendet werden. Das API stellt blockierende und nicht blockierende Funktionen für das senden von Commands an. So können Commands über die \verb!sendCommand! Funktion einen Command abschicken, ohne zu blockieren. Falls auf ein bestimmtes Resultat gewartet werden muss, kann die Funktion \verb!sendCommandAwaitResult! verwendet werden. 
+Über das \verb!ProcessCommunicator! API können Commands an den Prozess gesendet werden. Das API stellt blockierende und nicht blockierende Methoden für das senden von Commands an. So können Commands über die \verb!sendCommand! Funktion einen Command abschicken, ohne zu blockieren. Falls auf ein bestimmtes Resultat gewartet werden muss, kann die Funktion \verb!sendCommandAwaitResult! verwendet werden, welche den aufrufenden Thread blockiert, bis das Resultat eingetroffen ist. 
 
 \subsubsection{ProcessCommunicator}
 
-Der \verb!ProcessCommunicator! ist die zentrale Kommunikationsstelle. Über den \verb!ProcessCommunicator! können die \verb!Commands! abgesetzt werden und gleichzeitig auch auf die angeforderten Resultate warten.
+Der \verb!ProcessCommunicator! ist die zentrale Kommunikationsstelle. Über den \verb!ProcessCommunicator! können die \verb!Commands! gesendet werden und gleichzeitig auch auf die angeforderten Resultate warten.
 
 \subsubsection{ProcessReader}
 
@@ -69,9 +69,10 @@ Die \verb!ProcessCommandQueue! ist eine verschachtelte Klasse des \verb!ProcessC
 
 \subsubsection{Command}
 
-Die \verb!Command! Klasse repräsentiert ein Command, welcher über den \verb!ProcessCommunicator! an den Prozess gesendet werden kann.
+Die \verb!Command! Klasse repräsentiert ein Command, welcher über den \verb!ProcessCommunicator! an den Prozess gesendet werden kann. In einem Command kann eine \verb!WaitFor! spezifiziert werden, fall der Command blockieren soll, bis ein Resultat von dem Prozess geliefert wird.
 
-\subsubsection{WaitForResult}
+\newpage
+\subsubsection{WaitFor}
 
 Mit der abstrakten \verb!WaitFor! Klasse können auf Resultate des Prozesses gewartet werden. Dafür wurden verschiedene Implementationen bereitgestellt. Mit der \verb!WaitForResult! können auf String Resultate gewartet werden. Mit der \verb!WaitForMatch! Klasse kann per Regex auf ein Resultat gewartet werden. In folgendem Pseudocode wird die Funktionalität der \verb!WaitForMatch! Klasse im Zusammenhang mit dem senden eines Commands gezeigt.
 

@@ -459,9 +459,19 @@ public class ForthThread extends ForthDebugElement implements IThread, IJumpExte
 	public boolean hasFunctionLoaded(String function) {
 		return addressMapping.getFunctions().contains(function);
 	}
+	
+	/**
+	 * Returns the current line number or -1 if the {@link ForthThread} is not active.
+	 * @return
+	 */
+	public int getCurrentLineNumber() {
+		if (currentFunction == null || currentAddress == null) {
+			return -1;
+		}
+		return addressMapping.getLineNumber(currentFunction, currentAddress);
+	}
 
-	// TODO should this method be here or at the same place where the other pre
-	// processing files lie?
+	// TODO should this method be here or at the same place where the other preprocessing files lie?
 	/**
 	 * Creates files with disassembled source code for the debugger.
 	 * 

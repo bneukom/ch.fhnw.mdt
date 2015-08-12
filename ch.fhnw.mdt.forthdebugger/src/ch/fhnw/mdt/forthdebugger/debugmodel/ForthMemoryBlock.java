@@ -64,13 +64,12 @@ public class ForthMemoryBlock extends ForthDebugElement implements IMemoryBlock,
 		String line = readLines.get(currentIndex);
 
 		// if the memory block was called after the first line of a function
-		// call, the function will be outputed to the console too, so ignore
+		// call, the function will be printed to the console too, so ignore
 		// this line.
-		if (line.endsWith("---------------\n")) { // FIXME line separator
+		if (line.trim().endsWith("---------------")) {
 			line = readLines.get(--currentIndex);
 		}
-		line = line.substring(0, line.length() - 3); // remove the trailing ok
-														// for the last line
+		line = line.substring(0, line.length() - 3); // remove the trailing ok for the last line
 
 		final List<String> stringMemoryDump = new ArrayList<>();
 		while (!line.contains("dump")) {

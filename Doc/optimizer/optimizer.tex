@@ -4,7 +4,7 @@ In diesem Kapitel wird beschrieben, was für Optimierungen für den Compiler imp
 
 \section{Peephole Optimierung}
 
-Peephole Optimierungen ist eine Art von Optimierung, welche auf einer kleinen Sequenz von Instruktionen durchgeführt wird. Dieses Sequenz wird Peephole oder auch Window genannt. Die Peephole Optimierung verucht Sets von Instruktionen durch kürzere oder schnellere Instruktionen zu ersetzen.\cite{peepwiki} Peephole Optimierungen können die grösse der Codes um 15--40 Prozent verkleinern und sind heute in allen gängigen Compilern implementiert.\cite{peepdavidson} Zu der Peephole Optimierung gehören unter anderen folgende Arten von Optimierungen:
+Peephole Optimierungen ist eine Art von Optimierung, welche auf einer kleinen Sequenz von Instruktionen durchgeführt wird. Dieses Sequenz wird Peephole oder auch Window genannt. Die Peephole Optimierung verucht Sets von Instruktionen durch kürzere oder schnellere Instruktionen zu ersetzen.\cite{peepwiki} Peephole Optimierungen können die grösse des Codes um 15--40 Prozent verkleinern und sind heute in allen gängigen Compilern implementiert.\cite{peepdavidson} Zu den Peephole Optimierungen gehören unter anderen folgende Arten von Optimierungen:
 
 \begin{itemize} 
 	\item Constant Folding - Konstante Expressions auswerten
@@ -74,11 +74,7 @@ ersetzt werden. Die zwei Instruktionen heben sich auf und können somit entfernt
 
 \subsection{Optimierungen}
 
-Für den Compiler wurden Prototypen mässig zwei Optimierungen in Java implementiert. Die erste Optimierung versucht benachbarte Instruktionen zu vereinfachen. Die zweite Optimierung ist eine einfache Constant Propagation. Die beiden Optimierungen werden in den nächsten Kapiteln genauer beschrieben. 
-
-TODO Aktuelle implementation
-
-Der neue Optimizer wird in zwei Phasen durchgeführt:
+Für den Compiler wurden Prototypen mässig zwei Optimierungen in Java implementiert. Die erste Optimierung versucht benachbarte Instruktionen zu vereinfachen. Die zweite Optimierung ist eine einfache Constant Propagation. Die beiden Optimierungen werden in den nächsten Kapiteln genauer beschrieben. Der neue Optimizer wird in zwei Phasen durchgeführt:
 
 \begin{figure}[H]
 	\centering
@@ -88,32 +84,52 @@ Der neue Optimizer wird in zwei Phasen durchgeführt:
 		\label{fig:extensionpoint}
 \end{figure}
 
+Im Cross-Compiler wurden unter anderem folgende Peephole Optimierungen schon implementiert.
 
-Der Peephole Optimizer wird dann 
-TODO Optimierungen des Cross-Compilers
-TODO Für Projekt zwei Arten implementiert
-TODO Ablauf Diagram
+\begin{enumerate}
+  \item \verb!<lit> + ld, <lit> + st, <lit> + @!, and \verb!<lit> + \!! werden mit automatisch inkrementierenden Speicherzugriff Instruktionen ersetzt, wenn \verb!<lit>! sich zwischen \-4 und 3 befindet
+  \item Folgende Stack Operationen: \\
+				$swap, swap \rightarrow nop$\\
+				$-rot, rot \rightarrow nop$\\
+				$swap, + \rightarrow +$\\
 
+\end{enumerate}
+
+Für eine komplette Liste siehe "real time, object oriented with debugger" \cite{uforth}.
+
+\newpage
 \subsection{Automatische Generierung von Peephole Optimierungen}
 
-Klassische Peephole Optimierer versuchen häufig einige Maschinenspezifische Patterns zu korrigieren. Der von Davidson et al. beschriebene Algorithmus (PO) verwendet eine Machine Description und simuliert  benachbarte Instruktionen und versucht diese mit äquivalenten schnelleren Instruktionen zu ersetzen. Für den Forth Optimierer wurde ein Teil des PO objektorientiert implementiert.
+Klassische Peephole Optimizer versuchen häufig einige Maschinenspezifische Patterns zu korrigieren. Der von Davidson und Fraser\cite{peepdavidson} beschriebene Algorithmus (PO) verwendet eine Machine Description, simuliert benachbarte Instruktionen und versucht diese mit äquivalenten, schnelleren Instruktionen zu ersetzen. Für den Forth Optimizer wurde ein Teil des PO objektorientiert implementiert.
 
 \subsection{Constant Propagation}
-Unter Constant Propagation versteht man, dass substituieren von Konstanten werden im Code. Dies kann zur Folge haben, dass mehrere Instruktionen schon zur Kompilierzeit ausgewertet werden können wie bei den Beispielen \ref{constantprogationsection} zu sehen ist.
+Unter Constant Propagation versteht man, dass vorwärts substituieren von Konstanten im Code. Dies kann zur Folge haben, dass mehrere Instruktionen schon zur Kompilierzeit ausgewertet werden können, wie bei den Beispielen \ref{constantprogationsection} zu sehen ist.
 
 \subsection{Resultate und Tests}
 Die Resultate des Optimierers wurden mit verschiedenen Forth Funktionen getestet und die Resultate mit dem Peephole Optimizer des uForth Cross-Compilers verglichen. Die Funktionen sind im Anhang zu finden.
 
+\begin{table}[H]
 \begin{center}
     \begin{tabular}{ | l | l | l | l | p{8cm} |}
     \hline
     \textbf{Funktion} & \textbf{Orig} & \textbf{Ref} & \textbf{Neu} & \textbf{Kommentar} \\ \hline
-    \_Init & 124 & 110 & 116 & Beide Optimizer konnten Code weg optimieren. Die Referenz Implementation konnte vorallem wegen der Regel 3 mehr Instruktionen weg optimieren. Constant Propagation konnte bei der neuen Implementation keine durchgeführt werden.  \\ 
+    \_Init & 124 & 110 & 116 & Beide Optimizer konnten Code weg optimieren. Die Referenz Implementation produziert vor allem wegen der Speicherzugriffsoptimierung kürzeren Code. Constant Propagation konnte keine durchgeführt werden.  \\ 
     \hline
+		
     \end{tabular}
+		\caption{Resultate des neuen Optimizers verglichen mit dem Cross-Compiler Optimizer.}
+		\label{tab:peepresults}
 \end{center}
+\end{table}
 
-Es kann
+Es hat sich herausgestellt, dass bei allen Realen Beispielen, die Constant Propagation nur wenig Code optimieren konnte. Dies ist vermutlich der Fall, weil Konstante Expressions schon vom Compiler optimiert werden und die implementierte Constant Propagation zu primitiv ist. Im nächsten Kapitel werden einige Erweiterungen vorgeschlagen um diese effizienter zu gestalten. \\ PO konnte Regeln finden, welche vom Forth-Cross Compiler noch nicht erkannt wurden. Unter anderem folgende:\\ \\
+%
+$swap, swap \rightarrow nop$\\
+$-rot, rot \rightarrow nop$\\
+$swap, + \rightarrow +$\\
+%
+
+Diese Regeln könnten im Forth Cross-Compiler integriert werden. Im Moment wurden nur Operationen auf dem Stack von PO simuliert, das heisst, es könnten noch mehr Patterns gefunden werden. Im nächsten Kapiteln werden auch noch mögliche Änderungen an PO aufgezeigt.
 
 \subsection{Mögliche Erweiterungen}
 SSA

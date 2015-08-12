@@ -1,4 +1,4 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 
 \bibitem{whatisaplugin}
 John Arthorne.
@@ -42,5 +42,9 @@ Peephole optimization.
 J.~W. Davidson and C.~W. Fraser.
 \newblock The design and application of a retargetable peephole optimizer.
 \newblock In {\em ACM Trans. Program. Lang. Syst.}, pages 191--202, 1980.
+
+\bibitem{uforth}
+Klaus Schleisiek.
+\newblock uforth real time, object oriented with debugger, 2013.
 
 \end{thebibliography}

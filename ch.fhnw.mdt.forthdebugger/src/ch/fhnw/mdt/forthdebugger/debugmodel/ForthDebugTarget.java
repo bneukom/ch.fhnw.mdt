@@ -488,6 +488,7 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget,
 		private final Pattern stepPattern = Pattern
 				.compile("([A-Fa-f0-9]{8}): ([A-Fa-f0-9 ]{8}) ?(([^\\s]+ [^\\s]+)|( [^\\s]+[A-Fa-f0-9 ]+ (call))|([^\\s]+))((-?[A-Fa-f0-9 ])*) (>+)");
 
+		private boolean firstFunctionLine = true;
 		public DebugStreamListener(InputStream stream) {
 			this.stream = stream;
 		}
@@ -522,7 +523,6 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget,
 			}
 		}
 
-		// TODO the first line won't contain the uCore> start...
 		/**
 		 * Fires event based on the output of the forth debugger
 		 * 
@@ -533,8 +533,22 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget,
 			final Matcher stepMatcher = stepPattern.matcher(current);
 
 			if (debugFunctionMatcher.matches()) {
+				final String functionName = debugFunctionMatcher.group(1);
+				
+				// this is needed because the forth debugger prints the function name again if there was a wrong 
+				// input (like an invalid call to nest) on the first line of the function, and we want to ignore this since it
+				// would wrongly grow the call stack.
+				try {
+					if (forthThread.getTopStackFrame() != null && forthThread.getTopStackFrame().getName().equals(functionName) && forthThread.getCurrentLineNumber() == 1) {
+						return false;
+					}
+				} catch (DebugException e) {
+					return false;
+				}
+				
 				// breakpoint hit
-				functionBegin(debugFunctionMatcher.group(1));
+				functionBegin(functionName);
+				
 				return true;
 			} else if (stepMatcher.matches()) {
 				// update stack
@@ -550,35 +564,16 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget,
 				if ("exit".equals(stepMatcher.group(3))) {
 					functionExit();
 				}
+				
 				return true;
 			} else if (current.endsWith("uCore>")) {
-				functionEnd();
+				if (isSuspended()) {
+					functionEnd();
+				}
 			} else if (current.endsWith("bye")) {
 				terminated();
 			}
 
-			return false;
-		}
-
-		/**
-		 * Returns whether this line is a function call. A function call has the following pattern
-		 * 
-		 * <pre>
-		 * uCore> _function ok
-		 * </pre>
-		 * 
-		 * where _function can be replaced with any function loaded by the debugger. (Any function from the running C-File).
-		 * 
-		 * @param current
-		 * @return
-		 */
-		private boolean isFunctionCall(String current) {
-			// note that we can not just use a simple Regex here, because we need to check if the function really is a loaded function otherwise
-			// a command like "uCore> 3 ok" would pass the Regex too.
-			if (current.startsWith("uCore> ") && current.endsWith("ok")) {
-				final String function = current.substring(7, current.length() - 3);
-				return forthThread.hasFunctionLoaded(function);
-			}
 			return false;
 		}
 
@@ -616,8 +611,6 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget,
 			}
 
 			forthThread.functionEnter(function);
-			// TODO if this is here the forth memory block will get loaded earlier than expected (before the single step event).
-			// suspended(DebugEvent.BREAKPOINT);
 		}
 
 		/**

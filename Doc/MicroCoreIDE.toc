@@ -37,7 +37,7 @@
 \contentsline {subsubsection}{\nonumberline ProcessReader}{16}
 \contentsline {subsubsection}{\nonumberline ProcessCommandQueue}{16}
 \contentsline {subsubsection}{\nonumberline Command}{16}
-\contentsline {subsubsection}{\nonumberline WaitForResult}{16}
+\contentsline {subsubsection}{\nonumberline WaitFor}{17}
 \contentsline {chapter}{\numberline {6}Debugger}{18}
 \contentsline {section}{\numberline {6.1}Breakpoints}{18}
 \contentsline {subsection}{\numberline {6.1.1}Per Konsole}{18}
@@ -65,11 +65,11 @@
 \contentsline {subsubsection}{\nonumberline Constant Propagation}{26}
 \contentsline {subsubsection}{\nonumberline Combine Operations}{26}
 \contentsline {subsection}{\numberline {8.1.2}Optimierungen}{27}
-\contentsline {subsection}{\numberline {8.1.3}Automatische Generierung von Peephole Optimierungen}{27}
-\contentsline {subsection}{\numberline {8.1.4}Constant Propagation}{27}
+\contentsline {subsection}{\numberline {8.1.3}Automatische Generierung von Peephole Optimierungen}{28}
+\contentsline {subsection}{\numberline {8.1.4}Constant Propagation}{28}
 \contentsline {subsection}{\numberline {8.1.5}Resultate und Tests}{28}
-\contentsline {subsection}{\numberline {8.1.6}M\IeC {\"o}gliche Erweiterungen}{28}
-\contentsline {chapter}{\numberline {A}Literaturverzeichnis}{29}
-\contentsline {chapter}{\numberline {B}Abbildungsverzeichnis}{30}
-\contentsline {chapter}{\numberline {C}Tabellenverzeichnis}{31}
-\contentsline {chapter}{\numberline {D}Ehrlichkeitserkl\IeC {\"a}rung}{32}
+\contentsline {subsection}{\numberline {8.1.6}M\IeC {\"o}gliche Erweiterungen}{29}
+\contentsline {chapter}{\numberline {A}Literaturverzeichnis}{30}
+\contentsline {chapter}{\numberline {B}Abbildungsverzeichnis}{31}
+\contentsline {chapter}{\numberline {C}Tabellenverzeichnis}{32}
+\contentsline {chapter}{\numberline {D}Ehrlichkeitserkl\IeC {\"a}rung}{33}
