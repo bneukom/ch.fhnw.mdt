@@ -80,7 +80,7 @@ public class ForthThread extends ForthDebugElement implements IThread, IJumpExte
 		if (isSuspended() && isStepping && currentAddress != null && currentFunction != null) {
 
 			final IStackFrame[] resultFrames = new IStackFrame[stackFrames.size() + 1];
-			resultFrames[0] = new ForthStackFrame(this, currentFunction, currentFunction + ".fs", addressMapping.getLineNumber(currentFunction, currentAddress), currentAddress, 0);
+			resultFrames[0] = createStackFrame(0);
 
 			int resultIndex = 1;
 			for (final IStackFrame frame : stackFrames) {
@@ -301,7 +301,8 @@ public class ForthThread extends ForthDebugElement implements IThread, IJumpExte
 		try {
 			processCommunicator.sendCommand(ProcessCommunicator.CR);
 		} catch (CommandTimeOutException e) {
-			abort("timeout", e);		}
+			abort("timeout", e);
+		}
 	}
 
 	/*
@@ -399,8 +400,7 @@ public class ForthThread extends ForthDebugElement implements IThread, IJumpExte
 	public void functionEnter(final String function) {
 		// save old stack frame
 		if (currentFunction != null && currentAddress != null) {
-			stackFrames.add(new ForthStackFrame(this, currentFunction, currentFunction + ".fs", addressMapping.getLineNumber(currentFunction, currentAddress), currentAddress,
-					stackFrames.size() + 1));
+			stackFrames.add(createStackFrame(stackFrames.size() + 1));
 		}
 
 		// set new stack frame
@@ -459,9 +459,10 @@ public class ForthThread extends ForthDebugElement implements IThread, IJumpExte
 	public boolean hasFunctionLoaded(String function) {
 		return addressMapping.getFunctions().contains(function);
 	}
-	
+
 	/**
 	 * Returns the current line number or -1 if the {@link ForthThread} is not active.
+	 * 
 	 * @return
 	 */
 	public int getCurrentLineNumber() {
@@ -484,13 +485,16 @@ public class ForthThread extends ForthDebugElement implements IThread, IJumpExte
 
 		final Pattern disasemblerLinePattern = Pattern.compile("([A-Fa-f0-9]{8}): ([A-Fa-f0-9 ]{8}) ?(.*)");
 
-		for (final Entry<String, Integer> function : forthFunctions.entrySet()) {
-			// the code for the function starts two lines after the actual function defintion
-			final String functionName = function.getKey();
-			final List<String> disassembledFunction = new ArrayList<String>();
+		final List<String> disassembledSource = new ArrayList<>();
+		int lineNumber = 1;
 
-			final WaitForMatch waitForMatchLater = processCommunicator
-					.newWaitForMatchLater("([A-Fa-f0-9]{8}): ([A-Fa-f0-9 ]{8}) ?(([A-Fa-f0-9]+ [A-Fa-f0-9]+)|( [^\\s]+[A-Fa-f0-9 ]+ (call))|([^\\s]+))");
+		for (final Entry<String, Integer> function : forthFunctions.entrySet()) {
+			final String functionName = function.getKey();
+
+			disassembledSource.add(": " + functionName);
+			lineNumber++;
+
+			final WaitForMatch waitForMatchLater = processCommunicator.newWaitForMatchLater("([A-Fa-f0-9]{8}): ([A-Fa-f0-9 ]{8}) ?(([A-Fa-f0-9]+ [A-Fa-f0-9]+)|( [^\\s]+[A-Fa-f0-9 ]+ (call))|([^\\s]+))");
 			try {
 				processCommunicator.sendCommandAwaitResult("show " + functionName + ProcessCommunicator.NL, waitForMatchLater);
 			} catch (CommandTimeOutException e) {
@@ -500,8 +504,7 @@ public class ForthThread extends ForthDebugElement implements IThread, IJumpExte
 
 			String currentLine = processCommunicator.getCurrentLine();
 
-			int lineNumber = 1;
-			lineRead(disasemblerLinePattern, disassembledFunction, functionName, currentLine, lineNumber++);
+			lineRead(disasemblerLinePattern, disassembledSource, functionName, currentLine, lineNumber++);
 
 			// one based line numbering
 			while (!currentLine.contains("exit")) {
@@ -515,7 +518,7 @@ public class ForthThread extends ForthDebugElement implements IThread, IJumpExte
 
 				currentLine = processCommunicator.getCurrentLine();
 
-				lineRead(disasemblerLinePattern, disassembledFunction, functionName, currentLine, lineNumber++);
+				lineRead(disasemblerLinePattern, disassembledSource, functionName, currentLine, lineNumber++);
 			}
 
 			try {
@@ -524,33 +527,36 @@ public class ForthThread extends ForthDebugElement implements IThread, IJumpExte
 				return;
 			}
 
-			final IPath debugFolderPath = forthFile.getParent().getFullPath().append("debugger");
-			final IPath debugFile = debugFolderPath.append(functionName).addFileExtension("fs");
+			disassembledSource.add(";");
+			lineNumber++;
 
-			final IFolder debugFolder = ResourcesPlugin.getWorkspace().getRoot().getFolder(debugFolderPath);
-			final IProgressMonitor monitor = new NullProgressMonitor();
+		}
+		final IPath debugFolderPath = forthFile.getParent().getFullPath().append("debugger");
+		final IPath debugFile = debugFolderPath.append(createDisassemblySourceName());
 
-			// create debug folder if it does not exist
-			if (!debugFolder.exists()) {
-				try {
-					debugFolder.create(true, true, monitor);
-				} catch (final CoreException e) {
-					e.printStackTrace();
-				}
-			}
+		final IFolder debugFolder = ResourcesPlugin.getWorkspace().getRoot().getFolder(debugFolderPath);
+		final IProgressMonitor monitor = new NullProgressMonitor();
 
-			// create the file with the disassembled function
-			final String debugFileContent = disassembledFunction.stream().reduce("", (a, b) -> a + b + System.lineSeparator());
-			final IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(debugFile);
+		// create debug folder if it does not exist
+		if (!debugFolder.exists()) {
 			try {
-				// delete old file
-				if (file.exists()) {
-					file.delete(true, false, monitor);
-				}
-				file.create(new ByteArrayInputStream(debugFileContent.getBytes(StandardCharsets.UTF_8)), true, monitor);
+				debugFolder.create(true, true, monitor);
 			} catch (final CoreException e) {
 				e.printStackTrace();
 			}
+		}
+
+		// create the file with the disassembled function
+		final String debugFileContent = disassembledSource.stream().reduce("", (a, b) -> a + b + System.lineSeparator());
+		final IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(debugFile);
+		try {
+			// delete old file
+			if (file.exists()) {
+				file.delete(true, false, monitor);
+			}
+			file.create(new ByteArrayInputStream(debugFileContent.getBytes(StandardCharsets.UTF_8)), true, monitor);
+		} catch (final CoreException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -599,6 +605,25 @@ public class ForthThread extends ForthDebugElement implements IThread, IJumpExte
 		}
 
 		return forthFunctions;
+	}
+
+	/**
+	 * Creates a new {@link ForthStackFrame} with the given id.
+	 * 
+	 * @param id
+	 * @return
+	 */
+	private ForthStackFrame createStackFrame(int id) {
+		return new ForthStackFrame(this, currentFunction, createDisassemblySourceName(), addressMapping.getLineNumber(currentFunction, currentAddress), currentAddress, id);
+	}
+
+	/**
+	 * Creates the name used for the disassembly file.
+	 */
+	private String createDisassemblySourceName() {
+		final String sourceFile = forthFile.getName().substring(0, forthFile.getName().length() - 1 - forthFile.getFileExtension().length());
+
+		return "disassembled_" + sourceFile + "." + forthFile.getFileExtension();
 	}
 
 	/**
