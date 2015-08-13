@@ -1,0 +1,48 @@
+grammar ch.fhnw.mdt.UForth with org.eclipse.xtext.common.Terminals
+
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+generate uForth "http://www.fhnw.ch/mdt/UForth"
+
+Forth:
+	instructions+=GlobalInstruction*;
+
+terminal fragment DIGIT:
+	'0'..'9';
+
+terminal fragment DECINT:
+	DIGIT+;
+
+terminal SL_COMMENT:
+	'(' !('\n' | '\r')* ')' WS*;
+
+terminal INT returns ecore::EInt:
+	('-'? ('0'..'9' | 'A'..'F')+);
+
+terminal DOUBLE returns ecore::EDouble:
+	DECINT (('.' DIGIT*) | (('.' DIGIT*)? ('E' | 'e') ('-' | '+')? DECINT));
+
+terminal ID:
+	'^'? ('a'..'z' | 'A'..'Z' | '_' | '!' | '@' | '?' | ',' | '<' | '>' | '=') ('a'..'z' | 'A'..'Z' | '_' | '!' | '?' | '@' | '<' | '>'  | '0'..'9' | ',' | '=')*;
+
+terminal OPERATOR:
+	'+' | '-' | '*' | '/';
+
+GlobalInstruction:
+	Function | Instruction;
+
+Function:
+	':' name=ID words+=Instruction* ';';
+
+Keywords:
+	name=('SWAP' | 'OVER' | 'NIP' | 'UNDER' | 'TUCK' | 'ROT' | '-ROT' | 'NEGATE' | 'DUP' | 'CALL');
+
+Instruction:
+	 Keywords | Word | lit=Literal;
+
+Literal:
+	INT | DOUBLE;
+
+Word:
+	name=(ID | OPERATOR);
+
+
