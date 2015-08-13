@@ -31,8 +31,6 @@ public class MDTPlugin extends AbstractUIPlugin {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
-		
-		MDTPlatformPlugin default1 = MDTPlatformPlugin.getDefault();
 	}
 
 	/*

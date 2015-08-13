@@ -10,14 +10,13 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.core.resources.IResourceDelta;
-import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.resources.WorkspaceJob;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.xtext.ui.XtextProjectHelper;
 
 import ch.fhnw.mdt.build.MDTBuildPlugin;
 
@@ -79,9 +78,10 @@ public class McoreNatureCore {
 			return;
 		}
 		
-		final String[] newNatures = new String[natures.length + 1];
+		final String[] newNatures = new String[natures.length + 2];
 		System.arraycopy(natures, 0, newNatures, 0, natures.length);
 		newNatures[natures.length] = MCoreNature.NATURE_ID;
+		newNatures[natures.length + 1] = XtextProjectHelper.NATURE_ID;
 		description.setNatureIds(newNatures);
 		project.setDescription(description, null);
 

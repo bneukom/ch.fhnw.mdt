@@ -68,6 +68,7 @@ public class PO implements OptimizerPass {
 				break;
 			case FUNCTION:
 				if (cur.trim().matches(";")) {
+					prev = null;
 					state = OTHER;
 				} else {
 					if (prev != null) {

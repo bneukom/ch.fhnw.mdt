@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="ch.fhnw.mdt.ui.fortheditor.ForthEditor"
+            contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
+            icon="icons/forth.png"
+            id="ch.fhnw.mdt.ui.fortheditor.ForthEditor"
+            name="uForth Editor">
+      </editor>
+   </extension>
+
+</plugin>
