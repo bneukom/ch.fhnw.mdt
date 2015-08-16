@@ -10,13 +10,13 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.core.resources.IResourceDelta;
+import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.resources.WorkspaceJob;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.xtext.ui.XtextProjectHelper;
 
 import ch.fhnw.mdt.build.MDTBuildPlugin;
 
@@ -33,9 +33,18 @@ public class McoreNatureCore {
 	 * {@link IProject} added to the workspace with an MCore Tool-Chain set.
 	 */
 	public static void initialize() {
-		
-		// TODO build all projects on initialize
-		
+		// trigger full build on startup
+		final IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
+		for (IProject project : projects) {
+			try {
+				if (project.getNature(MCoreNature.NATURE_ID) != null) {
+					project.build(IncrementalProjectBuilder.FULL_BUILD, null);
+				}
+			} catch (CoreException e) {
+				e.printStackTrace();
+			}
+		}
+
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(new IResourceChangeListener() {
 
 			@Override
@@ -55,7 +64,7 @@ public class McoreNatureCore {
 								@Override
 								public IStatus runInWorkspace(IProgressMonitor monitor) throws CoreException {
 									addMCoreNature(project);
-									
+
 									return new Status(IStatus.OK, MDTBuildPlugin.PLUGIN_ID, null);
 								}
 							};
@@ -72,12 +81,12 @@ public class McoreNatureCore {
 	private static void addMCoreNature(final IProject project) throws CoreException {
 		final IProjectDescription description = project.getDescription();
 		final String[] natures = description.getNatureIds();
-		
+
 		// check if it has already been added
 		if (Arrays.stream(natures).anyMatch(nature -> nature.equals(MCoreNature.NATURE_ID))) {
 			return;
 		}
-		
+
 		final String[] newNatures = new String[natures.length + 1];
 		System.arraycopy(natures, 0, newNatures, 0, natures.length);
 		newNatures[natures.length] = MCoreNature.NATURE_ID;

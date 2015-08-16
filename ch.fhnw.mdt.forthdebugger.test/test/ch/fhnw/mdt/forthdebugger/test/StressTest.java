@@ -33,7 +33,7 @@ public class StressTest {
 			threads[thread] = new Thread(() -> {
 				for (int i = 0; i < COMMAND_COUNT; ++i) {
 					try {
-						WaitForResult newWaitForResultLater = communicator.newWaitForResultLater("bar");
+						WaitForResult newWaitForResultLater = communicator.newAwaitResult("bar");
 						communicator.sendCommandAwaitResult("foo", newWaitForResultLater);
 						
 						final String result = newWaitForResultLater.getResult();
@@ -65,12 +65,12 @@ public class StressTest {
 		process = new TestProcess(s -> {
 			switch (s) {
 			case "foo": 
-				return new Output("bar", 1000);
+				return new Output("bar", 100);
 			}
 			return null;
 		});
 		
-		communicator = new ProcessCommunicator(process);
+		communicator = new ProcessCommunicator(process, 1000);
 	}
 
 	@After

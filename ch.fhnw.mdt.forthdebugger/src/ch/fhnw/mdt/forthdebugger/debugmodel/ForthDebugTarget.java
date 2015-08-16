@@ -76,8 +76,7 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget,
 	 *            the communicator used to communicate with the process
 	 * @throws CoreException
 	 */
-	public ForthDebugTarget(final IFile forthFile, final List<String> forthSource, final ILaunch launch, final IProcess process, final ProcessCommunicator processCommunicator)
-			throws CoreException {
+	public ForthDebugTarget(final IFile forthFile, final List<String> forthSource, final ILaunch launch, final IProcess process, final ProcessCommunicator processCommunicator) throws CoreException {
 		super(null);
 		this.forthFile = forthFile;
 		this.launch = launch;
@@ -203,16 +202,13 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget,
 	 */
 	@Override
 	public void terminate() throws DebugException {
-		try {
-			processCommunicator.awaitCommandCompletion();
+		processCommunicator.awaitCommandCompletion();
 
-			// graceful termination
-			processCommunicator.sendCommand("bye" + ProcessCommunicator.NL); // exit debugger
-			processCommunicator.sendCommand("bye" + ProcessCommunicator.NL); // exit forth
-			processCommunicator.sendCommand("exit" + ProcessCommunicator.NL); // exit shell
-		} catch (CommandTimeOutException e) {
-		}
-		
+		// graceful termination
+		processCommunicator.sendCommand("bye" + ProcessCommunicator.NL); // exit debugger
+		processCommunicator.sendCommand("bye" + ProcessCommunicator.NL); // exit forth
+		processCommunicator.sendCommand("exit" + ProcessCommunicator.NL); // exit shell
+
 	}
 
 	/*
@@ -456,11 +452,7 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget,
 	 * @throws DebugException
 	 */
 	protected void addFunctionBreakpoint(final String function) throws DebugException {
-		try {
-			processCommunicator.sendCommand("debug _" + function + NL);
-		} catch (CommandTimeOutException e) {
-			abort("timeout", e);
-		}
+		processCommunicator.sendCommand("debug _" + function + NL);
 	}
 
 	/**
@@ -470,11 +462,7 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget,
 	 * @throws DebugException
 	 */
 	protected void removeFunctionBreakpoint(final String function) throws DebugException {
-		try {
-			processCommunicator.sendCommand("unbug _" + function + NL);
-		} catch (CommandTimeOutException e) {
-			abort("timeout", e);
-		}
+		processCommunicator.sendCommand("unbug _" + function + NL);
 	}
 
 	/**
@@ -485,10 +473,9 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget,
 		private final InputStream stream;
 		private final Pattern debugFunctionPattern = Pattern.compile("([^\\s]+)(\\s+)(-{15})");
 
-		private final Pattern stepPattern = Pattern
-				.compile("([A-Fa-f0-9]{8}): ([A-Fa-f0-9 ]{8}) ?(([^\\s]+ [^\\s]+)|( [^\\s]+[A-Fa-f0-9 ]+ (call))|([^\\s]+))((-?[A-Fa-f0-9 ])*) (>+)");
+		private final Pattern stepPattern = Pattern.compile("([A-Fa-f0-9]{8}): ([A-Fa-f0-9 ]{8}) ?(([^\\s]+ [^\\s]+)|( [^\\s]+[A-Fa-f0-9 ]+ (call))|([^\\s]+))((-?[A-Fa-f0-9 ])*) (>+)");
 
-		private boolean firstFunctionLine = true;
+
 		public DebugStreamListener(InputStream stream) {
 			this.stream = stream;
 		}
@@ -534,8 +521,8 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget,
 
 			if (debugFunctionMatcher.matches()) {
 				final String functionName = debugFunctionMatcher.group(1);
-				
-				// this is needed because the forth debugger prints the function name again if there was a wrong 
+
+				// this is needed because the forth debugger prints the function name again if there was a wrong
 				// input (like an invalid call to nest) on the first line of the function, and we want to ignore this since it
 				// would wrongly grow the call stack.
 				try {
@@ -545,10 +532,10 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget,
 				} catch (DebugException e) {
 					return false;
 				}
-				
+
 				// breakpoint hit
 				functionBegin(functionName);
-				
+
 				return true;
 			} else if (stepMatcher.matches()) {
 				// update stack
@@ -564,7 +551,7 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget,
 				if ("exit".equals(stepMatcher.group(3))) {
 					functionExit();
 				}
-				
+
 				return true;
 			} else if (current.endsWith("uCore>")) {
 				if (isSuspended()) {

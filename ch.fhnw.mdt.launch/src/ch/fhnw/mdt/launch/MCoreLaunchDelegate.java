@@ -55,7 +55,7 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 	private static final String DEBUG_MODE = "debug";
 	private static final String DEBUG_FILE_NAME = "debugCFunction.fs";
 
-	private IPlatformStrings iPlatformStrings = MDTPlatformPlugin.getDefault().getPlatformStrings();
+	private IPlatformStrings platformStrings = MDTPlatformPlugin.getDefault().getPlatformStrings();
 
 	@Override
 	public void launch(final ILaunchConfiguration configuration, final String mode, final ILaunch launch, final IProgressMonitor monitor) throws CoreException {
@@ -68,7 +68,7 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 			final IEnvironmentVariable gforthPathEnvironmentVariable = environmentVariableProvider.getVariable(GFORTH_PATH_VARIABLE,
 					buildInfo.getManagedProject().getConfigurations()[0], true);
 
-			final String[] gforthPaths = gforthPathEnvironmentVariable.getValue().split(iPlatformStrings.getEnvironmentSeparators());
+			final String[] gforthPaths = gforthPathEnvironmentVariable.getValue().split(platformStrings.getEnvironmentSeparators());
 			final String workingDirectory = gforthPaths[gforthPaths.length - 1];
 			final String executableFilePath = launch.getLaunchConfiguration().getAttribute(IForthConstants.ATTR_FORTH_EXECUTABLE_FILE, "");
 			final IFile executableFile = (IFile) project.findMember(executableFilePath);
@@ -257,7 +257,7 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 			try {
 				launch.setAttribute(DebugPlugin.ATTR_PROCESS_FACTORY_ID, "ch.fhnw.mdt.launch.forthprocessfactory");
 
-				final ProcessBuilder processBuilder = new ProcessBuilder(iPlatformStrings.getShellPath());
+				final ProcessBuilder processBuilder = new ProcessBuilder(platformStrings.getShellPath());
 				processBuilder.redirectErrorStream(true);
 
 				processBuilder.directory(new File(workingDirectory));
@@ -268,7 +268,7 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 				final IOConsole gforthConsole = new IOConsole("gforth console", null);
 				ConsolePlugin.getDefault().getConsoleManager().addConsoles(new IConsole[] { gforthConsole });
 
-				final ProcessCommunicator processCommunicator = new ProcessCommunicator(new DefaultProcessDecorator(process));
+				final ProcessCommunicator processCommunicator = new ProcessCommunicator(new DefaultProcessDecorator(process), 10000);
 				final InputThread inputThread = new InputThread(gforthConsole.getInputStream(), processCommunicator);
 				inputThread.start();
 
@@ -276,11 +276,11 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 				processCommunicator.forwardOutput(System.out);
 				processCommunicator.forwardOutput(consoleOutputStream);
 
-				// display timeouts
-				processCommunicator.addCommandTimeOutListener(c -> {
+				// display timeout
+				processCommunicator.addCommandTimeOutListener(() -> {
 					Display.getDefault().asyncExec(() -> {
 						try {
-							consoleOutputStream.write(System.lineSeparator() + System.lineSeparator() + "The command " + c.toString().trim() + " has not received its expected result and has therefore timed out.");
+							consoleOutputStream.write(System.lineSeparator() + System.lineSeparator() + "The process has timed out.");
 							consoleOutputStream.flush();
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -293,8 +293,8 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 
 					processCommunicator.awaitReadCompletion();
 					
-					processCommunicator.sendCommandAwaitResult("umbilical: " + umbilical + ProcessCommunicator.NL, processCommunicator.newWaitForResultLater(ProcessCommunicator.OK));
-					processCommunicator.sendCommandAwaitResult("run" + ProcessCommunicator.NL, processCommunicator.newWaitForResultLater("HANDSHAKE"));
+					processCommunicator.sendCommandAwaitResult("umbilical: " + umbilical + ProcessCommunicator.NL, processCommunicator.newAwaitResult(ProcessCommunicator.OK));
+					processCommunicator.sendCommandAwaitResult("run" + ProcessCommunicator.NL, processCommunicator.newAwaitResult("HANDSHAKE"));
 				} catch (CommandTimeOutException e) {
 					return null;
 				}

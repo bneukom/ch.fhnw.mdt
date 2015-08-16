@@ -6,7 +6,6 @@ import org.eclipse.debug.core.IRequest;
 import org.eclipse.debug.core.commands.AbstractDebugCommand;
 import org.eclipse.debug.core.commands.IEnabledStateRequest;
 
-import ch.fhnw.mdt.forthdebugger.debugmodel.extensions.IJumpExtension;
 import ch.fhnw.mdt.forthdebugger.debugmodel.extensions.IKillProcessExtension;
 
 public class KillCommand extends AbstractDebugCommand implements IKillHandler {

@@ -49,6 +49,7 @@ public class ForthThread extends ForthDebugElement implements IThread, IJumpExte
 	private final LinkedList<ForthStackFrame> stackFrames = new LinkedList<ForthStackFrame>();
 
 	private final LineMapping addressMapping;
+	private final Pattern literalPattern = Pattern.compile("[0-9a-fA-F]+ [0-9a-fA-F]+");
 	private boolean exitFunction;
 
 	/**
@@ -485,6 +486,7 @@ public class ForthThread extends ForthDebugElement implements IThread, IJumpExte
 
 		final Pattern disasemblerLinePattern = Pattern.compile("([A-Fa-f0-9]{8}): ([A-Fa-f0-9 ]{8}) ?(.*)");
 
+
 		final List<String> disassembledSource = new ArrayList<>();
 		int lineNumber = 1;
 
@@ -494,7 +496,7 @@ public class ForthThread extends ForthDebugElement implements IThread, IJumpExte
 			disassembledSource.add(": " + functionName);
 			lineNumber++;
 
-			final WaitForMatch waitForMatchLater = processCommunicator.newWaitForMatchLater("([A-Fa-f0-9]{8}): ([A-Fa-f0-9 ]{8}) ?(([A-Fa-f0-9]+ [A-Fa-f0-9]+)|( [^\\s]+[A-Fa-f0-9 ]+ (call))|([^\\s]+))");
+			final WaitForMatch waitForMatchLater = processCommunicator.newAwaitMatch("([A-Fa-f0-9]{8}): ([A-Fa-f0-9 ]{8}) ?(([A-Fa-f0-9]+ [A-Fa-f0-9]+)|( [^\\s]+[A-Fa-f0-9 ]+ (call))|([^\\s]+))");
 			try {
 				processCommunicator.sendCommandAwaitResult("show " + functionName + ProcessCommunicator.NL, waitForMatchLater);
 			} catch (CommandTimeOutException e) {
@@ -510,7 +512,7 @@ public class ForthThread extends ForthDebugElement implements IThread, IJumpExte
 			while (!currentLine.contains("exit")) {
 				processCommunicator.awaitReadCompletion();
 				try {
-					processCommunicator.sendCommandAwaitResult(ProcessCommunicator.ANY, processCommunicator.newWaitForResultLater(ProcessCommunicator.NL));
+					processCommunicator.sendCommandAwaitResult(ProcessCommunicator.ANY, processCommunicator.newAwaitResult(ProcessCommunicator.NL));
 				} catch (CommandTimeOutException e) {
 					return;
 				}
@@ -573,11 +575,18 @@ public class ForthThread extends ForthDebugElement implements IThread, IJumpExte
 		matcher.find();
 
 		final String address = matcher.group(1);
-		final String word = matcher.group(3);
-		disassembledFunction.add(word);
-
+		final String group = matcher.group(3);
+		
+		final Matcher literalMatcher = literalPattern.matcher(group);
+		
+		// the debugger returns the same literal twice but we only need one
+		if (literalMatcher.find()) {
+			disassembledFunction.add(literalMatcher.group(1));
+		} else {
+			disassembledFunction.add(group);
+		}
+		
 		addressMapping.mapAddress(function, address, lineNumber);
-
 	}
 
 	/**
@@ -632,8 +641,6 @@ public class ForthThread extends ForthDebugElement implements IThread, IJumpExte
 	 */
 	private static class LineMapping {
 
-		// TODO some more information parsing? like if the line is a function
-		// call or not (for stepping purposes)
 		private final Map<String, Map<String, Integer>> functionLineMap = new HashMap<String, Map<String, Integer>>();
 
 		/**

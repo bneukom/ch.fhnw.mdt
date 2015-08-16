@@ -6,9 +6,12 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
@@ -26,8 +29,8 @@ import ch.fhnw.mdt.forthdebugger.util.Either;
  * The typical use case is sending a command and waiting for its result.
  * 
  * <pre>
- * 
- * 
+ * ProcessCommunicator communicator = new ProccessCommunicator();
+ * communicator.sendCommandAwaitResult("foo", communicator.newAwaitResult("bar")); // blocks until the process has returned bar or has timed out.
  * </pre>
  */
 public class ProcessCommunicator {
@@ -68,19 +71,19 @@ public class ProcessCommunicator {
 	private final Lock commandCompletionLock = new ReentrantLock();
 	private final Condition commandCompletionCondition;
 	private transient boolean commandQueueIsWorking = false;
+	private long timeoutTime;
 
 	// shutdown
 	private final Lock shutdownLock = new ReentrantLock();
 	private final Condition shutdownCondition = shutdownLock.newCondition();
 	private transient boolean isShutDown = false;
 
-	public ProcessCommunicator(IProcessDectorator process) {
+	public ProcessCommunicator(IProcessDectorator process, long timeoutTime) {
 		this.process = process;
-		this.commandQueue = new ProcessCommandQueue(
-				new BufferedWriter(new OutputStreamWriter(process.getOutputStream())));
+		this.commandQueue = new ProcessCommandQueue(new BufferedWriter(new OutputStreamWriter(process.getOutputStream())));
 		this.reader = new ProcessReader(process.getInputStream());
 		this.commandCompletionCondition = commandCompletionLock.newCondition();
-
+		this.timeoutTime = timeoutTime;
 		commandQueue.start();
 		reader.start();
 	}
@@ -139,7 +142,7 @@ public class ProcessCommunicator {
 	 * @param command
 	 * @throws InterruptedException
 	 */
-	public void sendCommand(final String command) throws CommandTimeOutException {
+	public void sendCommand(final String command) {
 		sendCommand(new Command(command, null, null, false));
 	}
 
@@ -151,7 +154,7 @@ public class ProcessCommunicator {
 	 * @param waitFor
 	 * @throws InterruptedException
 	 */
-	public void sendCommandAwaitResult(final String command, final WaitFor waitFor) throws CommandTimeOutException {
+	public void sendCommandAwaitResult(final String command, final WaitFor waitFor) {
 		sendCommand(new Command(command, waitFor, null, true));
 	}
 
@@ -164,8 +167,7 @@ public class ProcessCommunicator {
 	 * @param waitFor
 	 * @throws InterruptedException
 	 */
-	public void sendCommandForResult(final String command, final WaitFor waitFor, CommandCompleted commandCompleted)
-			throws CommandTimeOutException {
+	public void sendCommandForResult(final String command, final WaitFor waitFor, CommandCompleted commandCompleted) {
 		sendCommand(new Command(command, waitFor, commandCompleted, false));
 	}
 
@@ -175,7 +177,7 @@ public class ProcessCommunicator {
 	 * @param command
 	 * @throws InterruptedException
 	 */
-	public void sendCommand(final int command) throws CommandTimeOutException {
+	public void sendCommand(final int command) {
 		sendCommand(new Command(command, null, null, false));
 	}
 
@@ -187,7 +189,7 @@ public class ProcessCommunicator {
 	 * @param waitFor
 	 * @throws InterruptedException
 	 */
-	public void sendCommandAwaitResult(final int command, final WaitFor waitFor) throws CommandTimeOutException {
+	public void sendCommandAwaitResult(final int command, final WaitFor waitFor) {
 		sendCommand(new Command(command, waitFor, null, true));
 	}
 
@@ -200,8 +202,7 @@ public class ProcessCommunicator {
 	 * @param waitFor
 	 * @throws InterruptedException
 	 */
-	public void sendCommandForResult(final int command, final WaitFor waitFor, CommandCompleted commandCompleted)
-			throws CommandTimeOutException {
+	public void sendCommandForResult(final int command, final WaitFor waitFor, CommandCompleted commandCompleted) {
 		sendCommand(new Command(command, waitFor, commandCompleted, false));
 	}
 
@@ -224,6 +225,10 @@ public class ProcessCommunicator {
 	 * @param command
 	 */
 	private void sendCommand(final Command command) throws CommandTimeOutException {
+		if (isShutDown) {
+			return;
+		}
+
 		try {
 			commandCompletionLock.lock();
 
@@ -234,6 +239,10 @@ public class ProcessCommunicator {
 			// block if necessary
 			if (command.blocks) {
 				awaitCommandCompletion();
+
+				if (command.hasTimedOut()) {
+					throw new CommandTimeOutException();
+				}
 			}
 		} catch (InterruptedException e) {
 
@@ -245,21 +254,20 @@ public class ProcessCommunicator {
 	/**
 	 * Awaits until the command queue has been completed, meaning all commands
 	 * have been written and if necessary received their results. Note that this
-	 * does not mean that the result is ready to process unless an appropriate
+	 * does not mean that the result of the reader is ready to process unless an appropriate
 	 * {@link WaitFor} has been supplied to the command.
 	 * 
 	 */
-	public void awaitCommandCompletion() throws CommandTimeOutException {
+	public void awaitCommandCompletion() {
+		if (isShutDown) {
+			return;
+		}
+
 		try {
 			commandCompletionLock.lock();
 
 			while (commandQueueIsWorking) {
 				commandCompletionCondition.awaitUninterruptibly();
-
-				// throw interrupted exception in case the c
-				if (commandQueue.timeout) {
-					throw new CommandTimeOutException();
-				}
 			}
 		} finally {
 			commandCompletionLock.unlock();
@@ -342,8 +350,8 @@ public class ProcessCommunicator {
 	 * @param result
 	 * @return
 	 */
-	public synchronized WaitForResult newWaitForResultLater(final String result) {
-		final WaitForResult wait = new WaitForResult(result);
+	public synchronized WaitForResult newAwaitResult(final String result) {
+		final WaitForResult wait = new WaitForResult(result, timeoutTime);
 
 		synchronized (waitQueue) {
 			waitQueue.add(wait);
@@ -360,8 +368,8 @@ public class ProcessCommunicator {
 	 * @param result
 	 * @return
 	 */
-	public synchronized WaitForMatch newWaitForMatchLater(final String regex) {
-		final WaitForMatch wait = new WaitForMatch(regex);
+	public synchronized WaitForMatch newAwaitMatch(final String regex) {
+		final WaitForMatch wait = new WaitForMatch(regex, timeoutTime);
 
 		synchronized (waitQueue) {
 			waitQueue.add(wait);
@@ -386,6 +394,10 @@ public class ProcessCommunicator {
 	 * Immediately returns if there is nothing to read.
 	 */
 	public void awaitReadCompletion() {
+		if (isShutDown) {
+			return;
+		}
+
 		try {
 			availableLock.lock();
 			while (available > 0) {
@@ -407,20 +419,13 @@ public class ProcessCommunicator {
 	private final class ProcessCommandQueue extends Thread {
 		private final BufferedWriter processWriter;
 		private volatile boolean terminated = false;
-
-		/**
-		 * Aborted flag gets set in case of a timeout or IO error.
-		 */
-		private volatile boolean timeout = false;
+		private volatile Command current;
 
 		public ProcessCommandQueue(final BufferedWriter processWriter) {
 			this.processWriter = processWriter;
 		}
 
-		/**
-		 * Terminates the command queue.
-		 */
-		public void terminate() {
+		private void terminate() {
 			terminated = true;
 			try {
 				processWriter.close();
@@ -435,42 +440,21 @@ public class ProcessCommunicator {
 			while (!terminated) {
 				try {
 					// get next command or wait if there are none
-					final Command command = queue.take();
+					current = queue.take();
 
 					try {
-						if (command.waitFor != null) {
-							writeCommand(command);
+						if (current.waitFor != null) {
+							writeCommand(current);
 
-							try {
-								// wait for the result before processing further
-								// commands
-								command.waitFor.await();
+							// wait for the result before processing further commands
+							current.waitFor.await();
 
-								// after we are finished with waiting apply
-								// callback
-								if (command.commandCompleted != null) {
-									command.commandCompleted.commandCompleted(command.waitFor);
-								}
-							} catch (CommandTimeOutException e) {
-								timeout = true;
-
-								// if the thread has not been terminated we need
-								// to fire time out events
-								if (!terminated) {
-									synchronized (commandTimedOutListeners) {
-										for (CommandTimedOutListener commandTimedOutListener : commandTimedOutListeners) {
-											commandTimedOutListener.timedOut(command);
-										}
-									}
-								}
-
-								abort();
-
-								// abort after a timeout has happened
-								return;
+							// after we are finished with waiting apply callback
+							if (current.commandCompleted != null) {
+								current.commandCompleted.commandCompleted(current.waitFor);
 							}
 						} else {
-							writeCommand(command);
+							writeCommand(current);
 						}
 
 						try {
@@ -486,41 +470,19 @@ public class ProcessCommunicator {
 						}
 
 					} catch (final IOException e) {
-						abort();
 						return;
 					}
 
 				} catch (final InterruptedException e) {
-					abort();
 					return;
 				}
 			}
 		}
 
-		/**
-		 * Signals all Threads which might wait for the command queue to get
-		 * empty. This method gets called in case the command queue is in an
-		 * invalid state so the waiting threads can wake up.
-		 */
-		private void abort() {
-			// signal all threads which might be waiting for the command queue
-			// to clear up
-			// the command queue might not be empty
-			try {
-				commandCompletionLock.lock();
-
-				timeout = true;
-				commandCompletionCondition.signalAll();
-			} finally {
-				commandCompletionLock.unlock();
-			}
-
-			// shuts the communicator down
-			shutdown();
-		}
-
 		private void writeCommand(final Command command) throws IOException {
 			// write request
+			reader.scheduleTimeout();
+
 			command.request.apply(s -> {
 				try {
 					processWriter.write(s);
@@ -550,19 +512,34 @@ public class ProcessCommunicator {
 
 		private volatile boolean terminated;
 
+		private volatile Timer timeoutTimer = new Timer();
+		private volatile TimerTask currentTask;
+
 		public ProcessReader(final InputStream input) {
-			super();
 			this.input = input;
 		}
 
 		/**
 		 * Terminates the reader and closes its associated input stream.
 		 */
-		public void terminate() {
+		private void terminate() {
 			terminated = true;
 			try {
 				input.close();
 			} catch (IOException e) {
+			}
+		}
+
+		/**
+		 * Starts the timeout timer which will get canceled once the process has read its next character.
+		 */
+		private void scheduleTimeout() {
+			synchronized (timeoutTimer) {
+				if (currentTask != null) {
+					currentTask.cancel();
+				}
+				currentTask = new TimeoutTask();
+				timeoutTimer.schedule(new TimeoutTask(), timeoutTime);
 			}
 		}
 
@@ -573,6 +550,11 @@ public class ProcessCommunicator {
 				try {
 					// read next char
 					final int nextCharacter = input.read();
+
+					synchronized (timeoutTimer) {
+						timeoutTimer.cancel();
+						timeoutTimer = new Timer();
+					}
 
 					// shutdown command queue if the end of the stream has been
 					// reached
@@ -587,8 +569,7 @@ public class ProcessCommunicator {
 						return;
 					}
 
-					// notify everyone who was waiting for the available count
-					// to hit zero
+					// notify everyone who was waiting for the available count to hit zero
 					try {
 						availableLock.lock();
 
@@ -642,9 +623,47 @@ public class ProcessCommunicator {
 					}
 
 				} catch (final IOException e) {
+					// notify that nothing more is available
+					try {
+						availableLock.lock();
+						available = 0;
+						availableCondition.signalAll();
+					} finally {
+						availableLock.unlock();
+					}
 
 					// abort and in case of input error
 					break;
+				}
+			}
+		}
+
+		private final class TimeoutTask extends TimerTask {
+			@Override
+			public void run() {
+				shutdown();
+		
+				// signal all threads which might be waiting for the command queue to clear up as
+				// the command queue might not be empty
+				try {
+					commandCompletionLock.lock();
+		
+					// set timeout of current command and all all
+					commandQueue.current.timedOut();
+					queue.forEach(c -> c.timedOut());
+					queue.clear();
+		
+					commandQueueIsWorking = false;
+					commandCompletionCondition.signalAll();
+				} finally {
+					commandCompletionLock.unlock();
+				}
+		
+				// if the thread has not been terminated we need to fire time out events
+				synchronized (commandTimedOutListeners) {
+					for (CommandTimedOutListener commandTimedOutListener : commandTimedOutListeners) {
+						commandTimedOutListener.timedOut();
+					}
 				}
 			}
 		}
@@ -658,8 +677,9 @@ public class ProcessCommunicator {
 	public static final class Command {
 		public final Either<String, Integer> request;
 		public final WaitFor waitFor;
-		public boolean blocks;
-		public CommandCompleted commandCompleted;
+		public final boolean blocks;
+		public final CommandCompleted commandCompleted;
+		private volatile boolean hasTimedOut = false;
 
 		public Command(final String request, final WaitFor waitFor, CommandCompleted commandCompleted, boolean block) {
 			super();
@@ -682,13 +702,21 @@ public class ProcessCommunicator {
 		public String toString() {
 			return request.map(s -> s, i -> String.valueOf(i));
 		}
+
+		public boolean hasTimedOut() {
+			return hasTimedOut;
+		}
+
+		public void timedOut() {
+			hasTimedOut = true;
+		}
 	}
 
 	/**
 	 * Exception thrown when a {@link Command} sent to the {@link ProcessCommunicator} has timed out.
 	 *
 	 */
-	public static final class CommandTimeOutException extends Exception {
+	public static final class CommandTimeOutException extends RuntimeException {
 
 		private static final long serialVersionUID = 7373433288586293807L;
 	}
@@ -708,7 +736,7 @@ public class ProcessCommunicator {
 		// await for 10 seconds before time out
 		public static final int DEFAULT_TIME_OUT_MILLIS = 10_000;
 
-		public WaitFor() {
+		private WaitFor() {
 			this.isWaiting = true;
 			this.waitCondition = lock.newCondition();
 		}
@@ -725,7 +753,7 @@ public class ProcessCommunicator {
 		 * 
 		 * @throws InterruptedException
 		 */
-		public abstract void await() throws CommandTimeOutException;
+		public abstract void await();
 
 		/**
 		 * Returns the result which has been waited for.
@@ -748,8 +776,11 @@ public class ProcessCommunicator {
 		private StringBuffer currentLine = new StringBuffer();
 		private Matcher currentMatcher;
 
-		public WaitForMatch(final String regex) {
-			pattern = Pattern.compile(regex);
+		private long timeout;
+
+		private WaitForMatch(final String regex, long timeout) {
+			this.timeout = timeout;
+			this.pattern = Pattern.compile(regex);
 		}
 
 		@Override
@@ -773,19 +804,15 @@ public class ProcessCommunicator {
 		}
 
 		@Override
-		public void await() throws CommandTimeOutException {
+		public void await() {
 			try {
 				lock.lock();
 
 				while (isWaiting) {
 					try {
-						boolean finished = waitCondition.await(DEFAULT_TIME_OUT_MILLIS, TimeUnit.MILLISECONDS);
-						if (!finished) {
-							throw new CommandTimeOutException();
-						}
+						waitCondition.await(timeout, TimeUnit.MILLISECONDS);
 					} catch (InterruptedException e) {
 					}
-
 				}
 			} finally {
 				lock.unlock();
@@ -805,9 +832,11 @@ public class ProcessCommunicator {
 	public static final class WaitForResult extends WaitFor {
 		private final String waitFor;
 		private final StringBuffer currentLine = new StringBuffer();
+		private long timeout;
 
-		public WaitForResult(final String waitFor) {
+		private WaitForResult(final String waitFor, long timeout) {
 			this.waitFor = waitFor;
+			this.timeout = timeout;
 		}
 
 		@Override
@@ -826,16 +855,13 @@ public class ProcessCommunicator {
 		}
 
 		@Override
-		public void await() throws CommandTimeOutException {
+		public void await() {
 			try {
 				lock.lock();
 
 				while (isWaiting) {
 					try {
-						boolean finished = waitCondition.await(DEFAULT_TIME_OUT_MILLIS, TimeUnit.MILLISECONDS);
-						if (!finished) {
-							throw new CommandTimeOutException();
-						}
+						waitCondition.await(timeout, TimeUnit.MILLISECONDS);
 					} catch (InterruptedException e) {
 					}
 
@@ -875,10 +901,8 @@ public class ProcessCommunicator {
 
 		/**
 		 * Callback when a {@link Command} has timed out.
-		 * 
-		 * @param command
 		 */
-		public void timedOut(Command command);
+		public void timedOut();
 	}
 
 	/**

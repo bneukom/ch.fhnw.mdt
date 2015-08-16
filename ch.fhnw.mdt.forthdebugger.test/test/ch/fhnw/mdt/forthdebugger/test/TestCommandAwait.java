@@ -22,7 +22,7 @@ public class TestCommandAwait {
 	@Test
 	public void testAwaitResult() {
 		try {
-			communicator.sendCommandAwaitResult("foo", communicator.newWaitForResultLater("bar"));
+			communicator.sendCommandAwaitResult("foo", communicator.newAwaitResult("bar"));
 		} catch (CommandTimeOutException e) {
 			fail();
 		}
@@ -35,7 +35,7 @@ public class TestCommandAwait {
 	public void testCommandCompletion() {
 		final Object waiter = new Object();
 		try {
-			communicator.sendCommandForResult("foo", communicator.newWaitForMatchLater(".*r"), w -> {
+			communicator.sendCommandForResult("foo", communicator.newAwaitMatch(".*r"), w -> {
 				assertEquals(w.getResult(), "bar");
 				
 				synchronized (waiter) {
@@ -65,7 +65,7 @@ public class TestCommandAwait {
 			return null;
 		});
 		
-		communicator = new ProcessCommunicator(process);
+		communicator = new ProcessCommunicator(process, 5000);
 	}
 
 	@After

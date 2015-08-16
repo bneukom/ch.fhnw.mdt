@@ -7,8 +7,7 @@ import org.eclipse.core.resources.IProjectNature;
 import org.eclipse.core.runtime.CoreException;
 
 /**
- * Represents 
- * @author Benjamin
+ * Added to each MDT Project. Used later for identification during the build.
  *
  */
 public class MCoreNature implements IProjectNature {
@@ -56,10 +55,9 @@ public class MCoreNature implements IProjectNature {
 			if (commands[i].getBuilderName().equals(MCoreProjectBuilder.BUILDER_ID)) {
 				ICommand[] newCommands = new ICommand[commands.length - 1];
 				System.arraycopy(commands, 0, newCommands, 0, i);
-				System.arraycopy(commands, i + 1, newCommands, i,
-						commands.length - i - 1);
+				System.arraycopy(commands, i + 1, newCommands, i, commands.length - i - 1);
 				description.setBuildSpec(newCommands);
-				project.setDescription(description, null);			
+				project.setDescription(description, null);
 				return;
 			}
 		}
