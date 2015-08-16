@@ -67,6 +67,7 @@ public class UForthFactoryImpl extends EFactoryImpl implements UForthFactory
       case UForthPackage.FORTH: return createForth();
       case UForthPackage.GLOBAL_INSTRUCTION: return createGlobalInstruction();
       case UForthPackage.FUNCTION: return createFunction();
+      case UForthPackage.CREATE: return createCreate();
       case UForthPackage.KEYWORDS: return createKeywords();
       case UForthPackage.INSTRUCTION: return createInstruction();
       case UForthPackage.WORD: return createWord();
@@ -106,6 +107,17 @@ public class UForthFactoryImpl extends EFactoryImpl implements UForthFactory
   {
     FunctionImpl function = new FunctionImpl();
     return function;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Create createCreate()
+  {
+    CreateImpl create = new CreateImpl();
+    return create;
   }
 
   /**

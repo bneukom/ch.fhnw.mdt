@@ -12,5 +12,7 @@ public class UForthStandaloneSetup extends UForthStandaloneSetupGenerated{
 	public static void doSetup() {
 		new UForthStandaloneSetup().createInjectorAndDoEMFRegistration();
 	}
+	
+	
 }
 

@@ -12,9 +12,11 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="words" upperBound="-1"
         eType="#//Instruction" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Keywords" eSuperTypes="#//Instruction"/>
-  <eClassifiers xsi:type="ecore:EClass" name="Instruction" eSuperTypes="#//GlobalInstruction">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lit" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Create" eSuperTypes="#//GlobalInstruction">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lit" unique="false" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Keywords" eSuperTypes="#//Instruction"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Instruction" eSuperTypes="#//GlobalInstruction"/>
   <eClassifiers xsi:type="ecore:EClass" name="Word" eSuperTypes="#//Instruction"/>
 </ecore:EPackage>

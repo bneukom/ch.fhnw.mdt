@@ -150,6 +150,43 @@ public interface UForthPackage extends EPackage
   int FUNCTION_FEATURE_COUNT = GLOBAL_INSTRUCTION_FEATURE_COUNT + 1;
 
   /**
+   * The meta object id for the '{@link ch.fhnw.mdt.uForth.impl.CreateImpl <em>Create</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see ch.fhnw.mdt.uForth.impl.CreateImpl
+   * @see ch.fhnw.mdt.uForth.impl.UForthPackageImpl#getCreate()
+   * @generated
+   */
+  int CREATE = 3;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CREATE__NAME = GLOBAL_INSTRUCTION__NAME;
+
+  /**
+   * The feature id for the '<em><b>Lit</b></em>' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CREATE__LIT = GLOBAL_INSTRUCTION_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Create</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CREATE_FEATURE_COUNT = GLOBAL_INSTRUCTION_FEATURE_COUNT + 1;
+
+  /**
    * The meta object id for the '{@link ch.fhnw.mdt.uForth.impl.InstructionImpl <em>Instruction</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -157,7 +194,7 @@ public interface UForthPackage extends EPackage
    * @see ch.fhnw.mdt.uForth.impl.UForthPackageImpl#getInstruction()
    * @generated
    */
-  int INSTRUCTION = 4;
+  int INSTRUCTION = 5;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -169,22 +206,13 @@ public interface UForthPackage extends EPackage
   int INSTRUCTION__NAME = GLOBAL_INSTRUCTION__NAME;
 
   /**
-   * The feature id for the '<em><b>Lit</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int INSTRUCTION__LIT = GLOBAL_INSTRUCTION_FEATURE_COUNT + 0;
-
-  /**
    * The number of structural features of the '<em>Instruction</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int INSTRUCTION_FEATURE_COUNT = GLOBAL_INSTRUCTION_FEATURE_COUNT + 1;
+  int INSTRUCTION_FEATURE_COUNT = GLOBAL_INSTRUCTION_FEATURE_COUNT + 0;
 
   /**
    * The meta object id for the '{@link ch.fhnw.mdt.uForth.impl.KeywordsImpl <em>Keywords</em>}' class.
@@ -194,7 +222,7 @@ public interface UForthPackage extends EPackage
    * @see ch.fhnw.mdt.uForth.impl.UForthPackageImpl#getKeywords()
    * @generated
    */
-  int KEYWORDS = 3;
+  int KEYWORDS = 4;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -204,15 +232,6 @@ public interface UForthPackage extends EPackage
    * @ordered
    */
   int KEYWORDS__NAME = INSTRUCTION__NAME;
-
-  /**
-   * The feature id for the '<em><b>Lit</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int KEYWORDS__LIT = INSTRUCTION__LIT;
 
   /**
    * The number of structural features of the '<em>Keywords</em>' class.
@@ -231,7 +250,7 @@ public interface UForthPackage extends EPackage
    * @see ch.fhnw.mdt.uForth.impl.UForthPackageImpl#getWord()
    * @generated
    */
-  int WORD = 5;
+  int WORD = 6;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -241,15 +260,6 @@ public interface UForthPackage extends EPackage
    * @ordered
    */
   int WORD__NAME = INSTRUCTION__NAME;
-
-  /**
-   * The feature id for the '<em><b>Lit</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int WORD__LIT = INSTRUCTION__LIT;
 
   /**
    * The number of structural features of the '<em>Word</em>' class.
@@ -325,6 +335,27 @@ public interface UForthPackage extends EPackage
   EReference getFunction_Words();
 
   /**
+   * Returns the meta object for class '{@link ch.fhnw.mdt.uForth.Create <em>Create</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Create</em>'.
+   * @see ch.fhnw.mdt.uForth.Create
+   * @generated
+   */
+  EClass getCreate();
+
+  /**
+   * Returns the meta object for the attribute list '{@link ch.fhnw.mdt.uForth.Create#getLit <em>Lit</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute list '<em>Lit</em>'.
+   * @see ch.fhnw.mdt.uForth.Create#getLit()
+   * @see #getCreate()
+   * @generated
+   */
+  EAttribute getCreate_Lit();
+
+  /**
    * Returns the meta object for class '{@link ch.fhnw.mdt.uForth.Keywords <em>Keywords</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -343,17 +374,6 @@ public interface UForthPackage extends EPackage
    * @generated
    */
   EClass getInstruction();
-
-  /**
-   * Returns the meta object for the attribute '{@link ch.fhnw.mdt.uForth.Instruction#getLit <em>Lit</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Lit</em>'.
-   * @see ch.fhnw.mdt.uForth.Instruction#getLit()
-   * @see #getInstruction()
-   * @generated
-   */
-  EAttribute getInstruction_Lit();
 
   /**
    * Returns the meta object for class '{@link ch.fhnw.mdt.uForth.Word <em>Word</em>}'.
@@ -443,6 +463,24 @@ public interface UForthPackage extends EPackage
     EReference FUNCTION__WORDS = eINSTANCE.getFunction_Words();
 
     /**
+     * The meta object literal for the '{@link ch.fhnw.mdt.uForth.impl.CreateImpl <em>Create</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see ch.fhnw.mdt.uForth.impl.CreateImpl
+     * @see ch.fhnw.mdt.uForth.impl.UForthPackageImpl#getCreate()
+     * @generated
+     */
+    EClass CREATE = eINSTANCE.getCreate();
+
+    /**
+     * The meta object literal for the '<em><b>Lit</b></em>' attribute list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute CREATE__LIT = eINSTANCE.getCreate_Lit();
+
+    /**
      * The meta object literal for the '{@link ch.fhnw.mdt.uForth.impl.KeywordsImpl <em>Keywords</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -461,14 +499,6 @@ public interface UForthPackage extends EPackage
      * @generated
      */
     EClass INSTRUCTION = eINSTANCE.getInstruction();
-
-    /**
-     * The meta object literal for the '<em><b>Lit</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute INSTRUCTION__LIT = eINSTANCE.getInstruction_Lit();
 
     /**
      * The meta object literal for the '{@link ch.fhnw.mdt.uForth.impl.WordImpl <em>Word</em>}' class.

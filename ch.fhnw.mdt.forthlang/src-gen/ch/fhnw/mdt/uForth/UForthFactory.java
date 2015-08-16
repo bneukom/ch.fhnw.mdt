@@ -50,6 +50,15 @@ public interface UForthFactory extends EFactory
   Function createFunction();
 
   /**
+   * Returns a new object of class '<em>Create</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Create</em>'.
+   * @generated
+   */
+  Create createCreate();
+
+  /**
    * Returns a new object of class '<em>Keywords</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

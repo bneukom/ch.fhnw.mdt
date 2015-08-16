@@ -90,6 +90,11 @@ public class UForthAdapterFactory extends AdapterFactoryImpl
         return createFunctionAdapter();
       }
       @Override
+      public Adapter caseCreate(Create object)
+      {
+        return createCreateAdapter();
+      }
+      @Override
       public Adapter caseKeywords(Keywords object)
       {
         return createKeywordsAdapter();
@@ -167,6 +172,21 @@ public class UForthAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createFunctionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link ch.fhnw.mdt.uForth.Create <em>Create</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see ch.fhnw.mdt.uForth.Create
+   * @generated
+   */
+  public Adapter createCreateAdapter()
   {
     return null;
   }

@@ -43,11 +43,15 @@ public class UForthParser extends AbstractContentAssistParser {
 					put(grammarAccess.getLiteralAccess().getAlternatives(), "rule__Literal__Alternatives");
 					put(grammarAccess.getWordAccess().getNameAlternatives_0(), "rule__Word__NameAlternatives_0");
 					put(grammarAccess.getFunctionAccess().getGroup(), "rule__Function__Group__0");
+					put(grammarAccess.getCreateAccess().getGroup(), "rule__Create__Group__0");
+					put(grammarAccess.getCreateAccess().getGroup_2(), "rule__Create__Group_2__0");
 					put(grammarAccess.getForthAccess().getInstructionsAssignment(), "rule__Forth__InstructionsAssignment");
 					put(grammarAccess.getFunctionAccess().getNameAssignment_1(), "rule__Function__NameAssignment_1");
 					put(grammarAccess.getFunctionAccess().getWordsAssignment_2(), "rule__Function__WordsAssignment_2");
+					put(grammarAccess.getCreateAccess().getNameAssignment_1(), "rule__Create__NameAssignment_1");
+					put(grammarAccess.getCreateAccess().getLitAssignment_2_0(), "rule__Create__LitAssignment_2_0");
 					put(grammarAccess.getKeywordsAccess().getNameAssignment(), "rule__Keywords__NameAssignment");
-					put(grammarAccess.getInstructionAccess().getLitAssignment_2(), "rule__Instruction__LitAssignment_2");
+					put(grammarAccess.getInstructionAccess().getNameAssignment_2(), "rule__Instruction__NameAssignment_2");
 					put(grammarAccess.getWordAccess().getNameAssignment(), "rule__Word__NameAssignment");
 				}
 			};

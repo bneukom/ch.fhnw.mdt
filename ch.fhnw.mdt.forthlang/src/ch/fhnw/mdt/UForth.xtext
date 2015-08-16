@@ -22,22 +22,26 @@ terminal DOUBLE returns ecore::EDouble:
 	DECINT (('.' DIGIT*) | (('.' DIGIT*)? ('E' | 'e') ('-' | '+')? DECINT));
 
 terminal ID:
-	'^'? ('a'..'z' | 'A'..'Z' | '_' | '!' | '@' | '?' | ',' | '<' | '>' | '=') ('a'..'z' | 'A'..'Z' | '_' | '!' | '?' | '@' | '<' | '>'  | '0'..'9' | ',' | '=')*;
+	'^'? ('a'..'z' | 'A'..'Z' | '_' | '!' | '@' | '?' | ',' | '<' | '>' | '=') ('a'..'z' | 'A'..'Z' | '_' | '!' | '?' |
+	'@' | '<' | '>' | '0'..'9' | ',' | '=')*;
 
 terminal OPERATOR:
 	'+' | '-' | '*' | '/';
 
 GlobalInstruction:
-	Function | Instruction;
+	Create | Function | Instruction;
 
 Function:
 	':' name=ID words+=Instruction* ';';
+
+Create:
+	'create' name=ID (lit+=Literal ',')*;
 
 Keywords:
 	name=('SWAP' | 'OVER' | 'NIP' | 'UNDER' | 'TUCK' | 'ROT' | '-ROT' | 'NEGATE' | 'DUP' | 'CALL');
 
 Instruction:
-	 Keywords | Word | lit=Literal;
+	Keywords | Word | name=Literal;
 
 Literal:
 	INT | DOUBLE;

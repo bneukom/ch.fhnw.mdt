@@ -2,6 +2,7 @@
  */
 package ch.fhnw.mdt.uForth.impl;
 
+import ch.fhnw.mdt.uForth.Create;
 import ch.fhnw.mdt.uForth.Forth;
 import ch.fhnw.mdt.uForth.Function;
 import ch.fhnw.mdt.uForth.GlobalInstruction;
@@ -46,6 +47,13 @@ public class UForthPackageImpl extends EPackageImpl implements UForthPackage
    * @generated
    */
   private EClass functionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass createEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -196,6 +204,26 @@ public class UForthPackageImpl extends EPackageImpl implements UForthPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getCreate()
+  {
+    return createEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getCreate_Lit()
+  {
+    return (EAttribute)createEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getKeywords()
   {
     return keywordsEClass;
@@ -209,16 +237,6 @@ public class UForthPackageImpl extends EPackageImpl implements UForthPackage
   public EClass getInstruction()
   {
     return instructionEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getInstruction_Lit()
-  {
-    return (EAttribute)instructionEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -270,10 +288,12 @@ public class UForthPackageImpl extends EPackageImpl implements UForthPackage
     functionEClass = createEClass(FUNCTION);
     createEReference(functionEClass, FUNCTION__WORDS);
 
+    createEClass = createEClass(CREATE);
+    createEAttribute(createEClass, CREATE__LIT);
+
     keywordsEClass = createEClass(KEYWORDS);
 
     instructionEClass = createEClass(INSTRUCTION);
-    createEAttribute(instructionEClass, INSTRUCTION__LIT);
 
     wordEClass = createEClass(WORD);
   }
@@ -308,6 +328,7 @@ public class UForthPackageImpl extends EPackageImpl implements UForthPackage
 
     // Add supertypes to classes
     functionEClass.getESuperTypes().add(this.getGlobalInstruction());
+    createEClass.getESuperTypes().add(this.getGlobalInstruction());
     keywordsEClass.getESuperTypes().add(this.getInstruction());
     instructionEClass.getESuperTypes().add(this.getGlobalInstruction());
     wordEClass.getESuperTypes().add(this.getInstruction());
@@ -322,10 +343,12 @@ public class UForthPackageImpl extends EPackageImpl implements UForthPackage
     initEClass(functionEClass, Function.class, "Function", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getFunction_Words(), this.getInstruction(), null, "words", null, 0, -1, Function.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+    initEClass(createEClass, Create.class, "Create", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getCreate_Lit(), ecorePackage.getEString(), "lit", null, 0, -1, Create.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
     initEClass(keywordsEClass, Keywords.class, "Keywords", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(instructionEClass, Instruction.class, "Instruction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getInstruction_Lit(), ecorePackage.getEString(), "lit", null, 0, 1, Instruction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(wordEClass, Word.class, "Word", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

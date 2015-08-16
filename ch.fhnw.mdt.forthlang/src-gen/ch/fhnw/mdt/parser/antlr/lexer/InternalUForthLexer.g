@@ -18,6 +18,8 @@ import org.eclipse.xtext.parser.antlr.Lexer;
 
 NEGATE : ('N'|'n')('E'|'e')('G'|'g')('A'|'a')('T'|'t')('E'|'e');
 
+Create : ('C'|'c')('R'|'r')('E'|'e')('A'|'a')('T'|'t')('E'|'e');
+
 UNDER : ('U'|'u')('N'|'n')('D'|'d')('E'|'e')('R'|'r');
 
 ROT_1 : '-'('R'|'r')('O'|'o')('T'|'t');
@@ -35,6 +37,8 @@ DUP : ('D'|'d')('U'|'u')('P'|'p');
 NIP : ('N'|'n')('I'|'i')('P'|'p');
 
 ROT : ('R'|'r')('O'|'o')('T'|'t');
+
+Comma : ',';
 
 Colon : ':';
 

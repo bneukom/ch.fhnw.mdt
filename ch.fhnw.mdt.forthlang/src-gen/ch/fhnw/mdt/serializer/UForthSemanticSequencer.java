@@ -4,6 +4,7 @@
 package ch.fhnw.mdt.serializer;
 
 import ch.fhnw.mdt.services.UForthGrammarAccess;
+import ch.fhnw.mdt.uForth.Create;
 import ch.fhnw.mdt.uForth.Forth;
 import ch.fhnw.mdt.uForth.Function;
 import ch.fhnw.mdt.uForth.Instruction;
@@ -14,12 +15,15 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.serializer.acceptor.ISemanticSequenceAcceptor;
+import org.eclipse.xtext.serializer.acceptor.SequenceFeeder;
 import org.eclipse.xtext.serializer.diagnostic.ISemanticSequencerDiagnosticProvider;
 import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor;
 import org.eclipse.xtext.serializer.sequencer.AbstractDelegatingSemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.GenericSequencer;
+import org.eclipse.xtext.serializer.sequencer.ISemanticNodeProvider.INodesForEObjectProvider;
 import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
+import org.eclipse.xtext.serializer.sequencer.ITransientValueService.ValueTransient;
 
 @SuppressWarnings("all")
 public class UForthSemanticSequencer extends AbstractDelegatingSemanticSequencer {
@@ -30,6 +34,9 @@ public class UForthSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	@Override
 	public void createSequence(EObject context, EObject semanticObject) {
 		if(semanticObject.eClass().getEPackage() == UForthPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
+			case UForthPackage.CREATE:
+				sequence_Create(context, (Create) semanticObject); 
+				return; 
 			case UForthPackage.FORTH:
 				sequence_Forth(context, (Forth) semanticObject); 
 				return; 
@@ -51,6 +58,15 @@ public class UForthSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	
 	/**
 	 * Constraint:
+	 *     (name=ID lit+=Literal*)
+	 */
+	protected void sequence_Create(EObject context, Create semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     instructions+=GlobalInstruction*
 	 */
 	protected void sequence_Forth(EObject context, Forth semanticObject) {
@@ -69,10 +85,17 @@ public class UForthSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	
 	/**
 	 * Constraint:
-	 *     lit=Literal
+	 *     name=Literal
 	 */
 	protected void sequence_Instruction(EObject context, Instruction semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, UForthPackage.Literals.GLOBAL_INSTRUCTION__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, UForthPackage.Literals.GLOBAL_INSTRUCTION__NAME));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getInstructionAccess().getNameLiteralParserRuleCall_2_0(), semanticObject.getName());
+		feeder.finish();
 	}
 	
 	

@@ -37,21 +37,25 @@ public class UForthGrammarAccess extends AbstractGrammarElementFinder {
 	public class GlobalInstructionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "GlobalInstruction");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final RuleCall cFunctionParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cInstructionParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cCreateParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cFunctionParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cInstructionParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		
 		//GlobalInstruction:
-		//	Function | Instruction;
+		//	Create | Function | Instruction;
 		@Override public ParserRule getRule() { return rule; }
 
-		//Function | Instruction
+		//Create | Function | Instruction
 		public Alternatives getAlternatives() { return cAlternatives; }
 
+		//Create
+		public RuleCall getCreateParserRuleCall_0() { return cCreateParserRuleCall_0; }
+
 		//Function
-		public RuleCall getFunctionParserRuleCall_0() { return cFunctionParserRuleCall_0; }
+		public RuleCall getFunctionParserRuleCall_1() { return cFunctionParserRuleCall_1; }
 
 		//Instruction
-		public RuleCall getInstructionParserRuleCall_1() { return cInstructionParserRuleCall_1; }
+		public RuleCall getInstructionParserRuleCall_2() { return cInstructionParserRuleCall_2; }
 	}
 
 	public class FunctionElements extends AbstractParserRuleElementFinder {
@@ -88,6 +92,46 @@ public class UForthGrammarAccess extends AbstractGrammarElementFinder {
 
 		//";"
 		public Keyword getSemicolonKeyword_3() { return cSemicolonKeyword_3; }
+	}
+
+	public class CreateElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Create");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cCreateKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
+		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
+		private final Assignment cLitAssignment_2_0 = (Assignment)cGroup_2.eContents().get(0);
+		private final RuleCall cLitLiteralParserRuleCall_2_0_0 = (RuleCall)cLitAssignment_2_0.eContents().get(0);
+		private final Keyword cCommaKeyword_2_1 = (Keyword)cGroup_2.eContents().get(1);
+		
+		//Create:
+		//	"create" name=ID (lit+=Literal ",")*;
+		@Override public ParserRule getRule() { return rule; }
+
+		//"create" name=ID (lit+=Literal ",")*
+		public Group getGroup() { return cGroup; }
+
+		//"create"
+		public Keyword getCreateKeyword_0() { return cCreateKeyword_0; }
+
+		//name=ID
+		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
+
+		//ID
+		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
+
+		//(lit+=Literal ",")*
+		public Group getGroup_2() { return cGroup_2; }
+
+		//lit+=Literal
+		public Assignment getLitAssignment_2_0() { return cLitAssignment_2_0; }
+
+		//Literal
+		public RuleCall getLitLiteralParserRuleCall_2_0_0() { return cLitLiteralParserRuleCall_2_0_0; }
+
+		//","
+		public Keyword getCommaKeyword_2_1() { return cCommaKeyword_2_1; }
 	}
 
 	public class KeywordsElements extends AbstractParserRuleElementFinder {
@@ -151,14 +195,14 @@ public class UForthGrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final RuleCall cKeywordsParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cWordParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		private final Assignment cLitAssignment_2 = (Assignment)cAlternatives.eContents().get(2);
-		private final RuleCall cLitLiteralParserRuleCall_2_0 = (RuleCall)cLitAssignment_2.eContents().get(0);
+		private final Assignment cNameAssignment_2 = (Assignment)cAlternatives.eContents().get(2);
+		private final RuleCall cNameLiteralParserRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
 		
 		//Instruction:
-		//	Keywords | Word | lit=Literal;
+		//	Keywords | Word | name=Literal;
 		@Override public ParserRule getRule() { return rule; }
 
-		//Keywords | Word | lit=Literal
+		//Keywords | Word | name=Literal
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//Keywords
@@ -167,11 +211,11 @@ public class UForthGrammarAccess extends AbstractGrammarElementFinder {
 		//Word
 		public RuleCall getWordParserRuleCall_1() { return cWordParserRuleCall_1; }
 
-		//lit=Literal
-		public Assignment getLitAssignment_2() { return cLitAssignment_2; }
+		//name=Literal
+		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
 
 		//Literal
-		public RuleCall getLitLiteralParserRuleCall_2_0() { return cLitLiteralParserRuleCall_2_0; }
+		public RuleCall getNameLiteralParserRuleCall_2_0() { return cNameLiteralParserRuleCall_2_0; }
 	}
 
 	public class LiteralElements extends AbstractParserRuleElementFinder {
@@ -229,6 +273,7 @@ public class UForthGrammarAccess extends AbstractGrammarElementFinder {
 	private final TerminalRule tOPERATOR;
 	private final GlobalInstructionElements pGlobalInstruction;
 	private final FunctionElements pFunction;
+	private final CreateElements pCreate;
 	private final KeywordsElements pKeywords;
 	private final InstructionElements pInstruction;
 	private final LiteralElements pLiteral;
@@ -253,6 +298,7 @@ public class UForthGrammarAccess extends AbstractGrammarElementFinder {
 		this.tOPERATOR = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "OPERATOR");
 		this.pGlobalInstruction = new GlobalInstructionElements();
 		this.pFunction = new FunctionElements();
+		this.pCreate = new CreateElements();
 		this.pKeywords = new KeywordsElements();
 		this.pInstruction = new InstructionElements();
 		this.pLiteral = new LiteralElements();
@@ -340,7 +386,7 @@ public class UForthGrammarAccess extends AbstractGrammarElementFinder {
 	} 
 
 	//GlobalInstruction:
-	//	Function | Instruction;
+	//	Create | Function | Instruction;
 	public GlobalInstructionElements getGlobalInstructionAccess() {
 		return pGlobalInstruction;
 	}
@@ -359,6 +405,16 @@ public class UForthGrammarAccess extends AbstractGrammarElementFinder {
 		return getFunctionAccess().getRule();
 	}
 
+	//Create:
+	//	"create" name=ID (lit+=Literal ",")*;
+	public CreateElements getCreateAccess() {
+		return pCreate;
+	}
+	
+	public ParserRule getCreateRule() {
+		return getCreateAccess().getRule();
+	}
+
 	//Keywords:
 	//	name=("SWAP" | "OVER" | "NIP" | "UNDER" | "TUCK" | "ROT" | "-ROT" | "NEGATE" | "DUP" | "CALL");
 	public KeywordsElements getKeywordsAccess() {
@@ -370,7 +426,7 @@ public class UForthGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Instruction:
-	//	Keywords | Word | lit=Literal;
+	//	Keywords | Word | name=Literal;
 	public InstructionElements getInstructionAccess() {
 		return pInstruction;
 	}
