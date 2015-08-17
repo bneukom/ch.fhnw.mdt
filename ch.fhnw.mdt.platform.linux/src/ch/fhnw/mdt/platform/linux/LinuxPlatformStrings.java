@@ -17,4 +17,14 @@ public class LinuxPlatformStrings implements IPlatformStrings {
 		return "/bin/bash";
 	}
 
+	@Override
+	public boolean isPathVariable(String input) {
+		return input.startsWith("$");
+	}
+
+	@Override
+	public String getVariableName(String input) {
+		return input.substring(1);
+	}
+
 }

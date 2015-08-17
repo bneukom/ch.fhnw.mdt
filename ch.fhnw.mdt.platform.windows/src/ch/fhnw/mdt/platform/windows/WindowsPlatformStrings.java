@@ -17,4 +17,14 @@ public class WindowsPlatformStrings implements IPlatformStrings {
 		return "cmd";
 	}
 
+	@Override
+	public boolean isPathVariable(String input) {
+		return input.startsWith("%") && input.endsWith("%");
+	}
+
+	@Override
+	public String getVariableName(String input) {
+		return input.substring(1, input.length() - 1);
+	}
+
 }
