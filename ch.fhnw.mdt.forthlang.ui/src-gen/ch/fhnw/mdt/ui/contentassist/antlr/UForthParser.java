@@ -38,21 +38,27 @@ public class UForthParser extends AbstractContentAssistParser {
 				private static final long serialVersionUID = 1L;
 				{
 					put(grammarAccess.getGlobalInstructionAccess().getAlternatives(), "rule__GlobalInstruction__Alternatives");
-					put(grammarAccess.getKeywordsAccess().getNameAlternatives_0(), "rule__Keywords__NameAlternatives_0");
-					put(grammarAccess.getInstructionAccess().getAlternatives(), "rule__Instruction__Alternatives");
-					put(grammarAccess.getLiteralAccess().getAlternatives(), "rule__Literal__Alternatives");
-					put(grammarAccess.getWordAccess().getNameAlternatives_0(), "rule__Word__NameAlternatives_0");
+					put(grammarAccess.getLITERALAccess().getAlternatives(), "rule__LITERAL__Alternatives");
+					put(grammarAccess.getIntrinsicStackWordsAccess().getNameAlternatives_1_0(), "rule__IntrinsicStackWords__NameAlternatives_1_0");
+					put(grammarAccess.getIntrinsicMemoryWordsAccess().getNameAlternatives_1_0(), "rule__IntrinsicMemoryWords__NameAlternatives_1_0");
+					put(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameAlternatives_1_0(), "rule__IntrinsicArithmeticWords__NameAlternatives_1_0");
+					put(grammarAccess.getWordAccess().getAlternatives(), "rule__Word__Alternatives");
 					put(grammarAccess.getFunctionAccess().getGroup(), "rule__Function__Group__0");
 					put(grammarAccess.getCreateAccess().getGroup(), "rule__Create__Group__0");
 					put(grammarAccess.getCreateAccess().getGroup_2(), "rule__Create__Group_2__0");
+					put(grammarAccess.getIntrinsicStackWordsAccess().getGroup(), "rule__IntrinsicStackWords__Group__0");
+					put(grammarAccess.getIntrinsicMemoryWordsAccess().getGroup(), "rule__IntrinsicMemoryWords__Group__0");
+					put(grammarAccess.getIntrinsicArithmeticWordsAccess().getGroup(), "rule__IntrinsicArithmeticWords__Group__0");
 					put(grammarAccess.getForthAccess().getInstructionsAssignment(), "rule__Forth__InstructionsAssignment");
 					put(grammarAccess.getFunctionAccess().getNameAssignment_1(), "rule__Function__NameAssignment_1");
 					put(grammarAccess.getFunctionAccess().getWordsAssignment_2(), "rule__Function__WordsAssignment_2");
 					put(grammarAccess.getCreateAccess().getNameAssignment_1(), "rule__Create__NameAssignment_1");
 					put(grammarAccess.getCreateAccess().getLitAssignment_2_0(), "rule__Create__LitAssignment_2_0");
-					put(grammarAccess.getKeywordsAccess().getNameAssignment(), "rule__Keywords__NameAssignment");
-					put(grammarAccess.getInstructionAccess().getNameAssignment_2(), "rule__Instruction__NameAssignment_2");
-					put(grammarAccess.getWordAccess().getNameAssignment(), "rule__Word__NameAssignment");
+					put(grammarAccess.getIntrinsicStackWordsAccess().getNameAssignment_1(), "rule__IntrinsicStackWords__NameAssignment_1");
+					put(grammarAccess.getIntrinsicMemoryWordsAccess().getNameAssignment_1(), "rule__IntrinsicMemoryWords__NameAssignment_1");
+					put(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameAssignment_1(), "rule__IntrinsicArithmeticWords__NameAssignment_1");
+					put(grammarAccess.getWordAccess().getNameAssignment_3(), "rule__Word__NameAssignment_3");
+					put(grammarAccess.getWordAccess().getNameAssignment_4(), "rule__Word__NameAssignment_4");
 				}
 			};
 		}

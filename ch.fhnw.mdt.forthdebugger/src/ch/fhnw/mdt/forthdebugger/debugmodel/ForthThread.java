@@ -48,8 +48,8 @@ public class ForthThread extends ForthDebugElement implements IThread, IJumpExte
 	private volatile String currentFunction;
 	private final LinkedList<ForthStackFrame> stackFrames = new LinkedList<ForthStackFrame>();
 
-	private final LineMapping addressMapping;
-	private final Pattern literalPattern = Pattern.compile("[0-9a-fA-F]+ [0-9a-fA-F]+");
+	private final LineMapping lineMapping;
+	private final Pattern literalPattern = Pattern.compile("([0-9a-fA-F]+) ([0-9a-fA-F]+)");
 	private boolean exitFunction;
 
 	/**
@@ -65,7 +65,7 @@ public class ForthThread extends ForthDebugElement implements IThread, IJumpExte
 		this.forthFile = forthFile;
 		this.processCommunicator = processCommunicator;
 
-		this.addressMapping = new LineMapping();
+		this.lineMapping = new LineMapping();
 
 		disassemble(forthSource);
 
@@ -458,7 +458,7 @@ public class ForthThread extends ForthDebugElement implements IThread, IJumpExte
 	 * @param function
 	 */
 	public boolean hasFunctionLoaded(String function) {
-		return addressMapping.getFunctions().contains(function);
+		return lineMapping.getFunctions().contains(function);
 	}
 
 	/**
@@ -470,10 +470,22 @@ public class ForthThread extends ForthDebugElement implements IThread, IJumpExte
 		if (currentFunction == null || currentAddress == null) {
 			return -1;
 		}
-		return addressMapping.getLineNumber(currentFunction, currentAddress);
+		return lineMapping.getLineNumber(currentFunction, currentAddress);
 	}
 
-	// TODO should this method be here or at the same place where the other preprocessing files lie?
+	/**
+	 * Returns the start line number of the currently active function or -1 if the {@link ForthThread} is not active.
+	 * 
+	 * @return
+	 */
+	public int getCurrentFunctionStartLine() {
+		if (currentFunction == null || currentAddress == null) {
+			return -1;
+		}
+		
+		return lineMapping.getFunctionStart(currentFunction);
+	}
+
 	/**
 	 * Creates files with disassembled source code for the debugger.
 	 * 
@@ -482,10 +494,9 @@ public class ForthThread extends ForthDebugElement implements IThread, IJumpExte
 	 *            from
 	 */
 	private void disassemble(final List<String> forthSource) {
-		final Map<String, Integer> forthFunctions = getForthFunctions(forthSource);
+		Map<String, Integer> forthFunctions = getForthFunctions(forthSource);
 
 		final Pattern disasemblerLinePattern = Pattern.compile("([A-Fa-f0-9]{8}): ([A-Fa-f0-9 ]{8}) ?(.*)");
-
 
 		final List<String> disassembledSource = new ArrayList<>();
 		int lineNumber = 1;
@@ -495,6 +506,8 @@ public class ForthThread extends ForthDebugElement implements IThread, IJumpExte
 
 			disassembledSource.add(": " + functionName);
 			lineNumber++;
+			
+			lineMapping.mapFunction(functionName, lineNumber);
 
 			final WaitForMatch waitForMatchLater = processCommunicator.newAwaitMatch("([A-Fa-f0-9]{8}): ([A-Fa-f0-9 ]{8}) ?(([A-Fa-f0-9]+ [A-Fa-f0-9]+)|( [^\\s]+[A-Fa-f0-9 ]+ (call))|([^\\s]+))");
 			try {
@@ -576,17 +589,18 @@ public class ForthThread extends ForthDebugElement implements IThread, IJumpExte
 
 		final String address = matcher.group(1);
 		final String group = matcher.group(3);
-		
-		final Matcher literalMatcher = literalPattern.matcher(group);
-		
+
+		final Matcher literalMatcher = literalPattern.matcher(group.trim());
+		literalMatcher.find();
+
 		// the debugger returns the same literal twice but we only need one
-		if (literalMatcher.find()) {
+		if (literalMatcher.matches()) {
 			disassembledFunction.add(literalMatcher.group(1));
 		} else {
 			disassembledFunction.add(group);
 		}
-		
-		addressMapping.mapAddress(function, address, lineNumber);
+
+		lineMapping.mapAddress(function, address, lineNumber);
 	}
 
 	/**
@@ -623,7 +637,7 @@ public class ForthThread extends ForthDebugElement implements IThread, IJumpExte
 	 * @return
 	 */
 	private ForthStackFrame createStackFrame(int id) {
-		return new ForthStackFrame(this, currentFunction, createDisassemblySourceName(), addressMapping.getLineNumber(currentFunction, currentAddress), currentAddress, id);
+		return new ForthStackFrame(this, currentFunction, createDisassemblySourceName(), lineMapping.getLineNumber(currentFunction, currentAddress), currentAddress, id);
 	}
 
 	/**
@@ -642,6 +656,7 @@ public class ForthThread extends ForthDebugElement implements IThread, IJumpExte
 	private static class LineMapping {
 
 		private final Map<String, Map<String, Integer>> functionLineMap = new HashMap<String, Map<String, Integer>>();
+		private final Map<String, Integer> functionMap = new HashMap<>();
 
 		/**
 		 * Maps the given address of the given function to the given line number
@@ -673,6 +688,27 @@ public class ForthThread extends ForthDebugElement implements IThread, IJumpExte
 		 */
 		public Set<String> getFunctions() {
 			return functionLineMap.keySet();
+		}
+
+		/**
+		 * Maps the given function to the given start address.
+		 * 
+		 * @param function
+		 * @param lineNumber
+		 */
+		public void mapFunction(String function, int lineNumber) {
+			functionMap.put(function, lineNumber);
+		}
+
+		/**
+		 * Returns the start line number of the given function
+		 * 
+		 * @param function
+		 * @param address
+		 * @return
+		 */
+		public int getFunctionStart(String function) {
+			return functionMap.get(function);
 		}
 	}
 

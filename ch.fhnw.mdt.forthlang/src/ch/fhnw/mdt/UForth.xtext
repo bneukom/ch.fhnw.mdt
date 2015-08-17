@@ -25,28 +25,36 @@ terminal ID:
 	'^'? ('a'..'z' | 'A'..'Z' | '_' | '!' | '@' | '?' | ',' | '<' | '>' | '=') ('a'..'z' | 'A'..'Z' | '_' | '!' | '?' |
 	'@' | '<' | '>' | '0'..'9' | ',' | '=')*;
 
-terminal OPERATOR:
-	'+' | '-' | '*' | '/';
-
 GlobalInstruction:
-	Create | Function | Instruction;
+	Create | Function | Word;
 
 Function:
-	':' name=ID words+=Instruction* ';';
+	':' name=ID words+=Word* ';';
 
 Create:
-	'create' name=ID (lit+=Literal ',')*;
+	'create' name=ID (lit+=LITERAL ',')*;
 
-Keywords:
-	name=('SWAP' | 'OVER' | 'NIP' | 'UNDER' | 'TUCK' | 'ROT' | '-ROT' | 'NEGATE' | 'DUP' | 'CALL');
-
-Instruction:
-	Keywords | Word | name=Literal;
-
-Literal:
+LITERAL:
 	INT | DOUBLE;
 
+IntrinsicStackWords:
+	{IntrinsicStackWords}
+	name=('CLEAR' | 'DROP' | 'DUP' | '?DUP' | 'SWAP' | 'NIP' | 'OVER' | 'ROT' | '-ROT' | 'TUCK' | 'UNDER' | '2DROP' |
+	'2DUP' | '2SWAP' | '2OVER' | 'RCLEAR' | 'R@' | 'r>' | '>r' | 'RDROP');
+
+IntrinsicMemoryWords:
+	{IntrinsicMemoryWords}
+	name=('LD' | '@' | 'ST' | '!' | '2@' | '2!' | 'LLD' | 'L@' | 'LST' | 'L!' |
+	'TLD' | 'T@' | 'TST' | 'T!' | '+ST' | '+!' | 'INC' | 'DEC' | 'ON' | 'OFF' | 'ERASE' | 'FILL' | 'COUNT' | 'MOVE' |
+	'PLACE');
+
+IntrinsicArithmeticWords:
+	{IntrinsicArithmeticWords}
+	name=('+' | '-' | '*' | '/' | '2*' | '2/' | 'u2/' | 'ROR' | 'DROR' | 'ROL' | 'DROL' | 'PACK' | 'UNPACK' | 'SHIFT' |
+	'ASHIFT' | '2**' | '0=' | '0<>' | '0<' | 'd0=' | 'NEGATE' | 'DNEGATE' | '1+' | '1-' | 'TRUE' | 'FALSE' | 'CELL+' |
+	'CELL-' | 'CARRY_RESET' | 'CARRY-SET' | 'ABS' | 'DABS' | 'EXTEND');
+
 Word:
-	name=(ID | OPERATOR);
+	IntrinsicStackWords | IntrinsicMemoryWords | IntrinsicArithmeticWords | name=LITERAL | name=ID;
 
 

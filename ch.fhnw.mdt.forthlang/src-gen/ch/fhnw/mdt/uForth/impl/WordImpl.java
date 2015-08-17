@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.EClass;
  *
  * @generated
  */
-public class WordImpl extends InstructionImpl implements Word
+public class WordImpl extends GlobalInstructionImpl implements Word
 {
   /**
    * <!-- begin-user-doc -->

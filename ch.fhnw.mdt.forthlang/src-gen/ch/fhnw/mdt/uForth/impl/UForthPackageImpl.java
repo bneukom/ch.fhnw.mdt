@@ -6,8 +6,9 @@ import ch.fhnw.mdt.uForth.Create;
 import ch.fhnw.mdt.uForth.Forth;
 import ch.fhnw.mdt.uForth.Function;
 import ch.fhnw.mdt.uForth.GlobalInstruction;
-import ch.fhnw.mdt.uForth.Instruction;
-import ch.fhnw.mdt.uForth.Keywords;
+import ch.fhnw.mdt.uForth.IntrinsicArithmeticWords;
+import ch.fhnw.mdt.uForth.IntrinsicMemoryWords;
+import ch.fhnw.mdt.uForth.IntrinsicStackWords;
 import ch.fhnw.mdt.uForth.UForthFactory;
 import ch.fhnw.mdt.uForth.UForthPackage;
 import ch.fhnw.mdt.uForth.Word;
@@ -60,14 +61,21 @@ public class UForthPackageImpl extends EPackageImpl implements UForthPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass keywordsEClass = null;
+  private EClass intrinsicStackWordsEClass = null;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass instructionEClass = null;
+  private EClass intrinsicMemoryWordsEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass intrinsicArithmeticWordsEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -224,9 +232,9 @@ public class UForthPackageImpl extends EPackageImpl implements UForthPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getKeywords()
+  public EClass getIntrinsicStackWords()
   {
-    return keywordsEClass;
+    return intrinsicStackWordsEClass;
   }
 
   /**
@@ -234,9 +242,19 @@ public class UForthPackageImpl extends EPackageImpl implements UForthPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getInstruction()
+  public EClass getIntrinsicMemoryWords()
   {
-    return instructionEClass;
+    return intrinsicMemoryWordsEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getIntrinsicArithmeticWords()
+  {
+    return intrinsicArithmeticWordsEClass;
   }
 
   /**
@@ -291,9 +309,11 @@ public class UForthPackageImpl extends EPackageImpl implements UForthPackage
     createEClass = createEClass(CREATE);
     createEAttribute(createEClass, CREATE__LIT);
 
-    keywordsEClass = createEClass(KEYWORDS);
+    intrinsicStackWordsEClass = createEClass(INTRINSIC_STACK_WORDS);
 
-    instructionEClass = createEClass(INSTRUCTION);
+    intrinsicMemoryWordsEClass = createEClass(INTRINSIC_MEMORY_WORDS);
+
+    intrinsicArithmeticWordsEClass = createEClass(INTRINSIC_ARITHMETIC_WORDS);
 
     wordEClass = createEClass(WORD);
   }
@@ -329,9 +349,10 @@ public class UForthPackageImpl extends EPackageImpl implements UForthPackage
     // Add supertypes to classes
     functionEClass.getESuperTypes().add(this.getGlobalInstruction());
     createEClass.getESuperTypes().add(this.getGlobalInstruction());
-    keywordsEClass.getESuperTypes().add(this.getInstruction());
-    instructionEClass.getESuperTypes().add(this.getGlobalInstruction());
-    wordEClass.getESuperTypes().add(this.getInstruction());
+    intrinsicStackWordsEClass.getESuperTypes().add(this.getWord());
+    intrinsicMemoryWordsEClass.getESuperTypes().add(this.getWord());
+    intrinsicArithmeticWordsEClass.getESuperTypes().add(this.getWord());
+    wordEClass.getESuperTypes().add(this.getGlobalInstruction());
 
     // Initialize classes and features; add operations and parameters
     initEClass(forthEClass, Forth.class, "Forth", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -341,14 +362,16 @@ public class UForthPackageImpl extends EPackageImpl implements UForthPackage
     initEAttribute(getGlobalInstruction_Name(), ecorePackage.getEString(), "name", null, 0, 1, GlobalInstruction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(functionEClass, Function.class, "Function", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getFunction_Words(), this.getInstruction(), null, "words", null, 0, -1, Function.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getFunction_Words(), this.getWord(), null, "words", null, 0, -1, Function.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(createEClass, Create.class, "Create", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getCreate_Lit(), ecorePackage.getEString(), "lit", null, 0, -1, Create.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(keywordsEClass, Keywords.class, "Keywords", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEClass(intrinsicStackWordsEClass, IntrinsicStackWords.class, "IntrinsicStackWords", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-    initEClass(instructionEClass, Instruction.class, "Instruction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEClass(intrinsicMemoryWordsEClass, IntrinsicMemoryWords.class, "IntrinsicMemoryWords", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(intrinsicArithmeticWordsEClass, IntrinsicArithmeticWords.class, "IntrinsicArithmeticWords", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(wordEClass, Word.class, "Word", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

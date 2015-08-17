@@ -24,7 +24,7 @@ public interface Function extends GlobalInstruction
 {
   /**
    * Returns the value of the '<em><b>Words</b></em>' containment reference list.
-   * The list contents are of type {@link ch.fhnw.mdt.uForth.Instruction}.
+   * The list contents are of type {@link ch.fhnw.mdt.uForth.Word}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Words</em>' containment reference list isn't clear,
@@ -36,6 +36,6 @@ public interface Function extends GlobalInstruction
    * @model containment="true"
    * @generated
    */
-  EList<Instruction> getWords();
+  EList<Word> getWords();
 
 } // Function

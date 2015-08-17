@@ -13,6 +13,6 @@ package ch.fhnw.mdt.uForth;
  * @model
  * @generated
  */
-public interface Word extends Instruction
+public interface Word extends GlobalInstruction
 {
 } // Word

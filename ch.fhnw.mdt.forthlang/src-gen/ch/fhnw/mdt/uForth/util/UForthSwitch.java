@@ -102,20 +102,30 @@ public class UForthSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case UForthPackage.KEYWORDS:
+      case UForthPackage.INTRINSIC_STACK_WORDS:
       {
-        Keywords keywords = (Keywords)theEObject;
-        T result = caseKeywords(keywords);
-        if (result == null) result = caseInstruction(keywords);
-        if (result == null) result = caseGlobalInstruction(keywords);
+        IntrinsicStackWords intrinsicStackWords = (IntrinsicStackWords)theEObject;
+        T result = caseIntrinsicStackWords(intrinsicStackWords);
+        if (result == null) result = caseWord(intrinsicStackWords);
+        if (result == null) result = caseGlobalInstruction(intrinsicStackWords);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case UForthPackage.INSTRUCTION:
+      case UForthPackage.INTRINSIC_MEMORY_WORDS:
       {
-        Instruction instruction = (Instruction)theEObject;
-        T result = caseInstruction(instruction);
-        if (result == null) result = caseGlobalInstruction(instruction);
+        IntrinsicMemoryWords intrinsicMemoryWords = (IntrinsicMemoryWords)theEObject;
+        T result = caseIntrinsicMemoryWords(intrinsicMemoryWords);
+        if (result == null) result = caseWord(intrinsicMemoryWords);
+        if (result == null) result = caseGlobalInstruction(intrinsicMemoryWords);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case UForthPackage.INTRINSIC_ARITHMETIC_WORDS:
+      {
+        IntrinsicArithmeticWords intrinsicArithmeticWords = (IntrinsicArithmeticWords)theEObject;
+        T result = caseIntrinsicArithmeticWords(intrinsicArithmeticWords);
+        if (result == null) result = caseWord(intrinsicArithmeticWords);
+        if (result == null) result = caseGlobalInstruction(intrinsicArithmeticWords);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -123,7 +133,6 @@ public class UForthSwitch<T> extends Switch<T>
       {
         Word word = (Word)theEObject;
         T result = caseWord(word);
-        if (result == null) result = caseInstruction(word);
         if (result == null) result = caseGlobalInstruction(word);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -197,33 +206,49 @@ public class UForthSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Keywords</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Intrinsic Stack Words</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Keywords</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Intrinsic Stack Words</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseKeywords(Keywords object)
+  public T caseIntrinsicStackWords(IntrinsicStackWords object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Instruction</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Intrinsic Memory Words</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Instruction</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Intrinsic Memory Words</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseInstruction(Instruction object)
+  public T caseIntrinsicMemoryWords(IntrinsicMemoryWords object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Intrinsic Arithmetic Words</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Intrinsic Arithmetic Words</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseIntrinsicArithmeticWords(IntrinsicArithmeticWords object)
   {
     return null;
   }

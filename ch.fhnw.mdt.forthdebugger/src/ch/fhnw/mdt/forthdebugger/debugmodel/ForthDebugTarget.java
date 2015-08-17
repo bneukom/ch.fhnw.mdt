@@ -526,7 +526,7 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget,
 				// input (like an invalid call to nest) on the first line of the function, and we want to ignore this since it
 				// would wrongly grow the call stack.
 				try {
-					if (forthThread.getTopStackFrame() != null && forthThread.getTopStackFrame().getName().equals(functionName) && forthThread.getCurrentLineNumber() == 1) {
+					if (forthThread.getTopStackFrame() != null && forthThread.getTopStackFrame().getName().equals(functionName) && forthThread.getCurrentLineNumber() == forthThread.getCurrentFunctionStartLine()) {
 						return false;
 					}
 				} catch (DebugException e) {

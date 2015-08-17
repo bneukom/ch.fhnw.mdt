@@ -3,8 +3,8 @@
 package ch.fhnw.mdt.uForth.impl;
 
 import ch.fhnw.mdt.uForth.Function;
-import ch.fhnw.mdt.uForth.Instruction;
 import ch.fhnw.mdt.uForth.UForthPackage;
+import ch.fhnw.mdt.uForth.Word;
 
 import java.util.Collection;
 
@@ -41,7 +41,7 @@ public class FunctionImpl extends GlobalInstructionImpl implements Function
    * @generated
    * @ordered
    */
-  protected EList<Instruction> words;
+  protected EList<Word> words;
 
   /**
    * <!-- begin-user-doc -->
@@ -69,11 +69,11 @@ public class FunctionImpl extends GlobalInstructionImpl implements Function
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Instruction> getWords()
+  public EList<Word> getWords()
   {
     if (words == null)
     {
-      words = new EObjectContainmentEList<Instruction>(Instruction.class, this, UForthPackage.FUNCTION__WORDS);
+      words = new EObjectContainmentEList<Word>(Word.class, this, UForthPackage.FUNCTION__WORDS);
     }
     return words;
   }
@@ -123,7 +123,7 @@ public class FunctionImpl extends GlobalInstructionImpl implements Function
     {
       case UForthPackage.FUNCTION__WORDS:
         getWords().clear();
-        getWords().addAll((Collection<? extends Instruction>)newValue);
+        getWords().addAll((Collection<? extends Word>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
