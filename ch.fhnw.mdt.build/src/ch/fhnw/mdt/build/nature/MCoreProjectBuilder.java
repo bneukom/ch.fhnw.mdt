@@ -2,6 +2,7 @@ package ch.fhnw.mdt.build.nature;
 
 import java.io.File;
 import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Paths;
 import java.util.Map;
 
@@ -84,8 +85,12 @@ public class MCoreProjectBuilder extends IncrementalProjectBuilder {
 					}
 				}
 			} else {
-				if (Files.exists(Paths.get(subPath, file))) {
-					return true;
+				try {
+					if (Files.exists(Paths.get(subPath, file))) {
+						return true;
+					}
+				} catch (InvalidPathException invalidPath) {
+					// just ignore this entry
 				}
 			}
 		}
