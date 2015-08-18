@@ -31,5 +31,8 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {E.1}{\ignorespaces Mit der Target Definition kann die Target Platform gesetzt werden.\relax }}{36}
+\contentsline {figure}{\numberline {E.2}{\ignorespaces Der MWE2 Workflow generiert alle notwendigen Klassen f\IeC {\"u}r den Forth Editor.\relax }}{37}
+\contentsline {figure}{\numberline {E.3}{\ignorespaces Die Entwicklungsumgebung kann im plugin.xml des Plugins ch.fhnw.mdt.ui gestartet werden.\relax }}{37}
 \addvspace {10\p@ }
 \addvspace {10\p@ }

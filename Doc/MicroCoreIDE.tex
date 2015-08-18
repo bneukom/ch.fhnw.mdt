@@ -66,12 +66,46 @@ er-rei-chen
 
 \listoffigures
 \listoftables
-\newpage
-\chapter{Installationsanleitung für Entwickler}
 
 \newpage
 \chapter{Installationsanleitung für Endanwender}
-\label{}
+\label{chap:installuser}
+
+Zuerst muss lcc-mcore und gforth nach der Anleitung in der jeweiligen Dokumentation installiert werden. lcc-mcore muss im \verb!PATH! und \verb!GFORTHPATH! muss gesetzt sein. Falls eine dieser Einstellungen nicht korrekt ist, wird die Entwicklungsumgebung das Projekt nicht komplette builden. Die Entwicklungsumgebung braucht Superuser Rechte, das heisst sie muss mit \verb!sudo! gestartet werden. Damit der richtige \verb!PATH! verwendet wird muss dieser dem \verb!sudo! Befehl übergeben werden. Die Entwicklungsumgebung kann mit dem Befehl \verb!sudo env PATH=$PATH ./eclipse! korrekt gestartet werden.
+
+
+\newpage
+\chapter{Installationsanleitung für Entwickler}
+
+Zuerst müssen alle Schritte, welche im Kapitel \nameref{chap:installuser} beschrieben werden, durchgeführt werden. Für die Entwicklung wird eine Eclipse RCP Distribution mit Xtext Unterstützung verwendet. Diese kann auf der offiziellen Xtext Webseite\cite{downloadxtext} heruntergeladen werden. Danach müssen alle Projekte importiert werden. Dann muss eine Target Platform gesetzt werden. Dies kann im File \verb!cdt-8.5.target! wie in folgender Abbildung \ref{fig:selecttarget} zu sehen ist.
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[scale=0.2]{targetplatform.png}
+		\caption{Mit der Target Definition kann die Target Platform gesetzt werden.}
+		\captionsetup{margin=0cm,font={footnotesize}}
+		\label{fig:selecttarget}
+\end{figure}
+
+Danach muss der Xtext Workflow gestartet werden. Dieser generiert alle notwendigen Klassen, die für den Forth Editor gebraucht werden. Dies kann im File \verb!GenerateUForth.mwe2! im \verb!ch.fhnw.mdt.forthlang! Plugin gestartet werden, wie in folgender Abbildung \ref{fig:runmwe2} zu sehen ist.
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[scale=0.2]{runmwe2.png}
+		\caption{Der MWE2 Workflow generiert alle notwendigen Klassen für den Forth Editor.}
+		\captionsetup{margin=0cm,font={footnotesize}}
+		\label{fig:runmwe2}
+\end{figure}
+
+Die Entwicklungsumgebung kann danach im plugin.xml des Plugins \verb!ch.fhnw.mdt.ui!, wie in folgender Abbildung \cite{fig:runide} zu sehen ist, gestartet werden.
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[scale=0.2]{runide.png}
+		\caption{Die Entwicklungsumgebung kann im plugin.xml des Plugins ch.fhnw.mdt.ui gestartet werden.}
+		\captionsetup{margin=0cm,font={footnotesize}}
+		\label{fig:runide}
+\end{figure}
 
 \newpage
 \chapter{Forth Test-Funktionen}
