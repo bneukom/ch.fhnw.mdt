@@ -37,7 +37,7 @@ public class McoreNatureCore {
 		final IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
 		for (IProject project : projects) {
 			try {
-				if (project.getNature(MCoreNature.NATURE_ID) != null) {
+				if (project.isOpen() && project.getNature(MCoreNature.NATURE_ID) != null) {
 					project.build(IncrementalProjectBuilder.FULL_BUILD, null);
 				}
 			} catch (CoreException e) {
