@@ -539,7 +539,7 @@ public class ProcessCommunicator {
 					currentTask.cancel();
 				}
 				currentTask = new TimeoutTask();
-				timeoutTimer.schedule(new TimeoutTask(), timeoutTime);
+				timeoutTimer.schedule(currentTask, timeoutTime);
 			}
 		}
 
@@ -552,8 +552,9 @@ public class ProcessCommunicator {
 					final int nextCharacter = input.read();
 
 					synchronized (timeoutTimer) {
-						timeoutTimer.cancel();
-						timeoutTimer = new Timer();
+						if (currentTask != null) {
+							currentTask.cancel();
+						}
 					}
 
 					// shutdown command queue if the end of the stream has been

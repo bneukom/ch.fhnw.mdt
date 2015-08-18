@@ -10,13 +10,14 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Function" eSuperTypes="#//GlobalInstruction">
     <eStructuralFeatures xsi:type="ecore:EReference" name="words" upperBound="-1"
-        eType="#//Instruction" containment="true"/>
+        eType="#//Word" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Create" eSuperTypes="#//GlobalInstruction">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="lit" unique="false" upperBound="-1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Keywords" eSuperTypes="#//Instruction"/>
-  <eClassifiers xsi:type="ecore:EClass" name="Instruction" eSuperTypes="#//GlobalInstruction"/>
-  <eClassifiers xsi:type="ecore:EClass" name="Word" eSuperTypes="#//Instruction"/>
+  <eClassifiers xsi:type="ecore:EClass" name="IntrinsicStackWords" eSuperTypes="#//Word"/>
+  <eClassifiers xsi:type="ecore:EClass" name="IntrinsicMemoryWords" eSuperTypes="#//Word"/>
+  <eClassifiers xsi:type="ecore:EClass" name="IntrinsicArithmeticWords" eSuperTypes="#//Word"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Word" eSuperTypes="#//GlobalInstruction"/>
 </ecore:EPackage>

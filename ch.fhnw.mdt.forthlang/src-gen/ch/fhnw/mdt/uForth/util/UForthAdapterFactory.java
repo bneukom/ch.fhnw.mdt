@@ -95,14 +95,19 @@ public class UForthAdapterFactory extends AdapterFactoryImpl
         return createCreateAdapter();
       }
       @Override
-      public Adapter caseKeywords(Keywords object)
+      public Adapter caseIntrinsicStackWords(IntrinsicStackWords object)
       {
-        return createKeywordsAdapter();
+        return createIntrinsicStackWordsAdapter();
       }
       @Override
-      public Adapter caseInstruction(Instruction object)
+      public Adapter caseIntrinsicMemoryWords(IntrinsicMemoryWords object)
       {
-        return createInstructionAdapter();
+        return createIntrinsicMemoryWordsAdapter();
+      }
+      @Override
+      public Adapter caseIntrinsicArithmeticWords(IntrinsicArithmeticWords object)
+      {
+        return createIntrinsicArithmeticWordsAdapter();
       }
       @Override
       public Adapter caseWord(Word object)
@@ -192,31 +197,46 @@ public class UForthAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link ch.fhnw.mdt.uForth.Keywords <em>Keywords</em>}'.
+   * Creates a new adapter for an object of class '{@link ch.fhnw.mdt.uForth.IntrinsicStackWords <em>Intrinsic Stack Words</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see ch.fhnw.mdt.uForth.Keywords
+   * @see ch.fhnw.mdt.uForth.IntrinsicStackWords
    * @generated
    */
-  public Adapter createKeywordsAdapter()
+  public Adapter createIntrinsicStackWordsAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link ch.fhnw.mdt.uForth.Instruction <em>Instruction</em>}'.
+   * Creates a new adapter for an object of class '{@link ch.fhnw.mdt.uForth.IntrinsicMemoryWords <em>Intrinsic Memory Words</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see ch.fhnw.mdt.uForth.Instruction
+   * @see ch.fhnw.mdt.uForth.IntrinsicMemoryWords
    * @generated
    */
-  public Adapter createInstructionAdapter()
+  public Adapter createIntrinsicMemoryWordsAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link ch.fhnw.mdt.uForth.IntrinsicArithmeticWords <em>Intrinsic Arithmetic Words</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see ch.fhnw.mdt.uForth.IntrinsicArithmeticWords
+   * @generated
+   */
+  public Adapter createIntrinsicArithmeticWordsAdapter()
   {
     return null;
   }

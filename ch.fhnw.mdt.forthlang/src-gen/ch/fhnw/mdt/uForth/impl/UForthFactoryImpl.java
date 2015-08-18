@@ -68,8 +68,9 @@ public class UForthFactoryImpl extends EFactoryImpl implements UForthFactory
       case UForthPackage.GLOBAL_INSTRUCTION: return createGlobalInstruction();
       case UForthPackage.FUNCTION: return createFunction();
       case UForthPackage.CREATE: return createCreate();
-      case UForthPackage.KEYWORDS: return createKeywords();
-      case UForthPackage.INSTRUCTION: return createInstruction();
+      case UForthPackage.INTRINSIC_STACK_WORDS: return createIntrinsicStackWords();
+      case UForthPackage.INTRINSIC_MEMORY_WORDS: return createIntrinsicMemoryWords();
+      case UForthPackage.INTRINSIC_ARITHMETIC_WORDS: return createIntrinsicArithmeticWords();
       case UForthPackage.WORD: return createWord();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
@@ -125,10 +126,10 @@ public class UForthFactoryImpl extends EFactoryImpl implements UForthFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public Keywords createKeywords()
+  public IntrinsicStackWords createIntrinsicStackWords()
   {
-    KeywordsImpl keywords = new KeywordsImpl();
-    return keywords;
+    IntrinsicStackWordsImpl intrinsicStackWords = new IntrinsicStackWordsImpl();
+    return intrinsicStackWords;
   }
 
   /**
@@ -136,10 +137,21 @@ public class UForthFactoryImpl extends EFactoryImpl implements UForthFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public Instruction createInstruction()
+  public IntrinsicMemoryWords createIntrinsicMemoryWords()
   {
-    InstructionImpl instruction = new InstructionImpl();
-    return instruction;
+    IntrinsicMemoryWordsImpl intrinsicMemoryWords = new IntrinsicMemoryWordsImpl();
+    return intrinsicMemoryWords;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public IntrinsicArithmeticWords createIntrinsicArithmeticWords()
+  {
+    IntrinsicArithmeticWordsImpl intrinsicArithmeticWords = new IntrinsicArithmeticWordsImpl();
+    return intrinsicArithmeticWords;
   }
 
   /**

@@ -1,5 +1,5 @@
 \chapter{Forth Kommunikation}
-\label{forthcommunication}
+\label{chap:forthcommunication}
 
 In diesem Kapitel wird beschrieben, wie die Entwicklungsumgebung mit dem Forth Prozess kommuniziert. Die Kommunikation mit dem Forth Prozess ist von zentraler Bedeutung, da viel der Funktionalität der Entwicklungsumgebung davon abhängt, dass die Kommunikation stabil läuft. Es wird gezeigt, wie die Kommunikation designt, implementiert und getestet wurde.
 
@@ -32,7 +32,7 @@ In einem ersten Schritt wurde ein API designt, welches verwendet werden soll um 
 		\includegraphics[scale=0.6]{forthcommunication/api.png}
 		\caption{Ein erstes Design des Prozess API. Die zentrale Kommunikation geschieht über die Communicator Klasse. Es können Commands abgesetzt werden und es kann auf Resultate gewartet werden.}
 		\captionsetup{margin=0cm,font={footnotesize}}
-		\label{fig:extensionpoint}
+		\label{fig:api}
 \end{figure}
 
 \section{Implementierung}
@@ -45,7 +45,7 @@ Bei der Implementierung kamen dann einige Änderungen hinzu. In folgendem Klasse
 		\includegraphics[scale=0.75]{forthcommunication/communicator.png}
 		\caption{Klassendiagramm der.}
 		\captionsetup{margin=0cm,font={footnotesize}}
-		\label{fig:extensionpoint}
+		\label{fig:communicator}
 
 \end{sidewaysfigure}
 

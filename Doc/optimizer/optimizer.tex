@@ -1,5 +1,5 @@
 \chapter{Optimierungen}
-
+\label{chap:optimizer}
 In diesem Kapitel wird beschrieben, was für Optimierungen für den Compiler implementiert wurden. Im Forth Cross-Compiler sind schon einige Peephole Optimierungen implementiert. In diesem Kapitel werden die neu implementierten Optimierungen mit dessen des Cross-Compilers verglichen und gezeigt wo noch bessere Optimierungsstrategien verwendet werden können.
 
 \section{Peephole Optimierung}
@@ -81,7 +81,7 @@ Für den Compiler wurden Prototypen mässig zwei Optimierungen in Java implement
 		\includegraphics[scale=0.6]{optimizer/optimizer.png}
 		\caption{Die zwei Phasen des Optimizers.}
 		\captionsetup{margin=0cm,font={footnotesize}}
-		\label{fig:extensionpoint}
+		\label{fig:optimizer}
 \end{figure}
 
 Im Cross-Compiler wurden unter anderem folgende Peephole Optimierungen schon implementiert.
@@ -113,7 +113,7 @@ Die Resultate des Optimierers wurden mit verschiedenen Forth Funktionen getestet
     \begin{tabular}{ | l | l | l | l | p{8cm} |}
     \hline
     \textbf{Funktion} & \textbf{Orig} & \textbf{Ref} & \textbf{Neu} & \textbf{Kommentar} \\ \hline
-    \_Init & 124 & 110 & 116 & Beide Optimizer konnten Code weg optimieren. Die Referenz Implementation produziert vor allem wegen der Speicherzugriffsoptimierung kürzeren Code. Constant Propagation konnte keine durchgeführt werden.  \\ 
+    \_Init & 124 & 110 & 116 & Beide Implementierungen konnten unnötigen Code weg optimieren. Die Referenz Implementation produziert vor allem wegen der Speicherzugriffsoptimierung kürzeren Code. Constant Propagation, welche neu implementiert wurde, konnte keine durchgeführt werden.  \\ 
     \hline
 		
     \end{tabular}

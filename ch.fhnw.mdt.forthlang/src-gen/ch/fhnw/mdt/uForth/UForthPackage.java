@@ -187,62 +187,6 @@ public interface UForthPackage extends EPackage
   int CREATE_FEATURE_COUNT = GLOBAL_INSTRUCTION_FEATURE_COUNT + 1;
 
   /**
-   * The meta object id for the '{@link ch.fhnw.mdt.uForth.impl.InstructionImpl <em>Instruction</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see ch.fhnw.mdt.uForth.impl.InstructionImpl
-   * @see ch.fhnw.mdt.uForth.impl.UForthPackageImpl#getInstruction()
-   * @generated
-   */
-  int INSTRUCTION = 5;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int INSTRUCTION__NAME = GLOBAL_INSTRUCTION__NAME;
-
-  /**
-   * The number of structural features of the '<em>Instruction</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int INSTRUCTION_FEATURE_COUNT = GLOBAL_INSTRUCTION_FEATURE_COUNT + 0;
-
-  /**
-   * The meta object id for the '{@link ch.fhnw.mdt.uForth.impl.KeywordsImpl <em>Keywords</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see ch.fhnw.mdt.uForth.impl.KeywordsImpl
-   * @see ch.fhnw.mdt.uForth.impl.UForthPackageImpl#getKeywords()
-   * @generated
-   */
-  int KEYWORDS = 4;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int KEYWORDS__NAME = INSTRUCTION__NAME;
-
-  /**
-   * The number of structural features of the '<em>Keywords</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int KEYWORDS_FEATURE_COUNT = INSTRUCTION_FEATURE_COUNT + 0;
-
-  /**
    * The meta object id for the '{@link ch.fhnw.mdt.uForth.impl.WordImpl <em>Word</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -250,7 +194,7 @@ public interface UForthPackage extends EPackage
    * @see ch.fhnw.mdt.uForth.impl.UForthPackageImpl#getWord()
    * @generated
    */
-  int WORD = 6;
+  int WORD = 7;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -259,7 +203,7 @@ public interface UForthPackage extends EPackage
    * @generated
    * @ordered
    */
-  int WORD__NAME = INSTRUCTION__NAME;
+  int WORD__NAME = GLOBAL_INSTRUCTION__NAME;
 
   /**
    * The number of structural features of the '<em>Word</em>' class.
@@ -268,7 +212,91 @@ public interface UForthPackage extends EPackage
    * @generated
    * @ordered
    */
-  int WORD_FEATURE_COUNT = INSTRUCTION_FEATURE_COUNT + 0;
+  int WORD_FEATURE_COUNT = GLOBAL_INSTRUCTION_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link ch.fhnw.mdt.uForth.impl.IntrinsicStackWordsImpl <em>Intrinsic Stack Words</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see ch.fhnw.mdt.uForth.impl.IntrinsicStackWordsImpl
+   * @see ch.fhnw.mdt.uForth.impl.UForthPackageImpl#getIntrinsicStackWords()
+   * @generated
+   */
+  int INTRINSIC_STACK_WORDS = 4;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INTRINSIC_STACK_WORDS__NAME = WORD__NAME;
+
+  /**
+   * The number of structural features of the '<em>Intrinsic Stack Words</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INTRINSIC_STACK_WORDS_FEATURE_COUNT = WORD_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link ch.fhnw.mdt.uForth.impl.IntrinsicMemoryWordsImpl <em>Intrinsic Memory Words</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see ch.fhnw.mdt.uForth.impl.IntrinsicMemoryWordsImpl
+   * @see ch.fhnw.mdt.uForth.impl.UForthPackageImpl#getIntrinsicMemoryWords()
+   * @generated
+   */
+  int INTRINSIC_MEMORY_WORDS = 5;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INTRINSIC_MEMORY_WORDS__NAME = WORD__NAME;
+
+  /**
+   * The number of structural features of the '<em>Intrinsic Memory Words</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INTRINSIC_MEMORY_WORDS_FEATURE_COUNT = WORD_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link ch.fhnw.mdt.uForth.impl.IntrinsicArithmeticWordsImpl <em>Intrinsic Arithmetic Words</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see ch.fhnw.mdt.uForth.impl.IntrinsicArithmeticWordsImpl
+   * @see ch.fhnw.mdt.uForth.impl.UForthPackageImpl#getIntrinsicArithmeticWords()
+   * @generated
+   */
+  int INTRINSIC_ARITHMETIC_WORDS = 6;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INTRINSIC_ARITHMETIC_WORDS__NAME = WORD__NAME;
+
+  /**
+   * The number of structural features of the '<em>Intrinsic Arithmetic Words</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INTRINSIC_ARITHMETIC_WORDS_FEATURE_COUNT = WORD_FEATURE_COUNT + 0;
 
 
   /**
@@ -356,24 +384,34 @@ public interface UForthPackage extends EPackage
   EAttribute getCreate_Lit();
 
   /**
-   * Returns the meta object for class '{@link ch.fhnw.mdt.uForth.Keywords <em>Keywords</em>}'.
+   * Returns the meta object for class '{@link ch.fhnw.mdt.uForth.IntrinsicStackWords <em>Intrinsic Stack Words</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Keywords</em>'.
-   * @see ch.fhnw.mdt.uForth.Keywords
+   * @return the meta object for class '<em>Intrinsic Stack Words</em>'.
+   * @see ch.fhnw.mdt.uForth.IntrinsicStackWords
    * @generated
    */
-  EClass getKeywords();
+  EClass getIntrinsicStackWords();
 
   /**
-   * Returns the meta object for class '{@link ch.fhnw.mdt.uForth.Instruction <em>Instruction</em>}'.
+   * Returns the meta object for class '{@link ch.fhnw.mdt.uForth.IntrinsicMemoryWords <em>Intrinsic Memory Words</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Instruction</em>'.
-   * @see ch.fhnw.mdt.uForth.Instruction
+   * @return the meta object for class '<em>Intrinsic Memory Words</em>'.
+   * @see ch.fhnw.mdt.uForth.IntrinsicMemoryWords
    * @generated
    */
-  EClass getInstruction();
+  EClass getIntrinsicMemoryWords();
+
+  /**
+   * Returns the meta object for class '{@link ch.fhnw.mdt.uForth.IntrinsicArithmeticWords <em>Intrinsic Arithmetic Words</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Intrinsic Arithmetic Words</em>'.
+   * @see ch.fhnw.mdt.uForth.IntrinsicArithmeticWords
+   * @generated
+   */
+  EClass getIntrinsicArithmeticWords();
 
   /**
    * Returns the meta object for class '{@link ch.fhnw.mdt.uForth.Word <em>Word</em>}'.
@@ -481,24 +519,34 @@ public interface UForthPackage extends EPackage
     EAttribute CREATE__LIT = eINSTANCE.getCreate_Lit();
 
     /**
-     * The meta object literal for the '{@link ch.fhnw.mdt.uForth.impl.KeywordsImpl <em>Keywords</em>}' class.
+     * The meta object literal for the '{@link ch.fhnw.mdt.uForth.impl.IntrinsicStackWordsImpl <em>Intrinsic Stack Words</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see ch.fhnw.mdt.uForth.impl.KeywordsImpl
-     * @see ch.fhnw.mdt.uForth.impl.UForthPackageImpl#getKeywords()
+     * @see ch.fhnw.mdt.uForth.impl.IntrinsicStackWordsImpl
+     * @see ch.fhnw.mdt.uForth.impl.UForthPackageImpl#getIntrinsicStackWords()
      * @generated
      */
-    EClass KEYWORDS = eINSTANCE.getKeywords();
+    EClass INTRINSIC_STACK_WORDS = eINSTANCE.getIntrinsicStackWords();
 
     /**
-     * The meta object literal for the '{@link ch.fhnw.mdt.uForth.impl.InstructionImpl <em>Instruction</em>}' class.
+     * The meta object literal for the '{@link ch.fhnw.mdt.uForth.impl.IntrinsicMemoryWordsImpl <em>Intrinsic Memory Words</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see ch.fhnw.mdt.uForth.impl.InstructionImpl
-     * @see ch.fhnw.mdt.uForth.impl.UForthPackageImpl#getInstruction()
+     * @see ch.fhnw.mdt.uForth.impl.IntrinsicMemoryWordsImpl
+     * @see ch.fhnw.mdt.uForth.impl.UForthPackageImpl#getIntrinsicMemoryWords()
      * @generated
      */
-    EClass INSTRUCTION = eINSTANCE.getInstruction();
+    EClass INTRINSIC_MEMORY_WORDS = eINSTANCE.getIntrinsicMemoryWords();
+
+    /**
+     * The meta object literal for the '{@link ch.fhnw.mdt.uForth.impl.IntrinsicArithmeticWordsImpl <em>Intrinsic Arithmetic Words</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see ch.fhnw.mdt.uForth.impl.IntrinsicArithmeticWordsImpl
+     * @see ch.fhnw.mdt.uForth.impl.UForthPackageImpl#getIntrinsicArithmeticWords()
+     * @generated
+     */
+    EClass INTRINSIC_ARITHMETIC_WORDS = eINSTANCE.getIntrinsicArithmeticWords();
 
     /**
      * The meta object literal for the '{@link ch.fhnw.mdt.uForth.impl.WordImpl <em>Word</em>}' class.

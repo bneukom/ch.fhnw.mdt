@@ -1,5 +1,5 @@
 \chapter{Debugger}
-
+\label{chap:debugger}
 In diesem Kapitel wird beschrieben, wie der Debugger in Eclipse integriert wurde. Es wird aufgezeigt, was für Möglichkeiten existieren einen Debugger in Eclipse zu integrieren und welche implementiert wurden.
 
 \section{Breakpoints}
@@ -24,14 +24,14 @@ Eclipse CDT stellt den Abstract Synatx Tree (AST) des C-Files zur Verfügung. Mi
 \newpage
 \section{Konsolen basierter Debugger}
 
-Eine erste Implementation des Debuggers ist, den schon existierenden Forth Konsolen Debugger im Eclipse zu integrieren. Dieser kann mit dem im Kapitel \ref{forthcommunication} beschriebenen Prozess Kommunikationsmitteln angesteuert und in einer Eclipse Console View angezeigt werden.
+Eine eifache Integration des Debuggers ist, den schon existierenden Forth Konsolen Debugger im Eclipse zu verwenden. Dieser kann mit dem im Kapitel \ref{forthcommunication} beschriebenen Prozess Kommunikationsmitteln angesteuert und in einer Eclipse Console View angezeigt werden.
 
 \begin{figure}[H]
 	\centering
 		\includegraphics[scale=0.35]{debugger/consoledebugger.png}
 		\caption{Konsolen basierter Debugger. Der Debugger kann über die Eclipse Console View gesteuert werden.}
 		\captionsetup{margin=0cm,font={footnotesize}}
-		\label{fig:extensionpoint}
+		\label{fig:consoledebugger}
 \end{figure}
 
 \section{Forth Debugger}
@@ -55,32 +55,34 @@ Mit der Resume Aktion kann der während dem Debuggen fortgeführt werden. Dafür
 		\includegraphics[scale=1]{debugger/resume.png}
 		\caption{Resume Aktion.}
 		\captionsetup{margin=0cm,font={footnotesize}}
-		\label{fig:extensionpoint}
+		\label{fig:resume}
 \end{figure}
 
 \subsubsection{Terminate}
 
-Mit der Kill Aktion kann der Prozess heruntergefahren werden, in dem der \verb! bye! Command gesendet wird. Falls der Prozess nicht mehr reagiert, sollte die Kill Aktion verwendet werden.
+Mit der Terminate Aktion kann der Prozess heruntergefahren werden, in dem der \verb! bye! Command gesendet wird. Falls der Prozess nicht mehr reagiert, sollte die Kill Aktion verwendet werden. Die Terminate Aktion unterscheidet sich von der Kill Aktion, in dem sie versucht den Prozess auf normale Weise zu beenden und nicht über ein Kill Signal.
 
 \begin{figure}[H]
 	\centering
 		\includegraphics[scale=1]{debugger/terminate.png}
 		\caption{Terminate Aktion.}
 		\captionsetup{margin=0cm,font={footnotesize}}
-		\label{fig:extensionpoint}
+		\label{fig:terminate}
 \end{figure}
 
 \subsubsection{Step Into}
 
-Mit der Step Into Aktion kann in eine Funktion gesprungen werden, falls die nächste Zeile ein Funktionsaufruf ist. Dafür wird ein \verb! nest! Command an den Forth Prozess gesendet
+Mit der Step Into Aktion kann in eine Funktion gesprungen werden, falls die nächste Zeile ein Funktionsaufruf ist. Dafür wird ein \verb! nest! Command an den Forth Prozess gesendet.
 
 \begin{figure}[H]
 	\centering
 		\includegraphics[scale=1]{debugger/stepinto.png}
 		\caption{Step Into Aktion.}
 		\captionsetup{margin=0cm,font={footnotesize}}
-		\label{fig:extensionpoint}
+		\label{fig:stepinto}
 \end{figure}
+
+\newpage
 
 \subsubsection{Step}
 
@@ -91,7 +93,7 @@ Mit der Step Aktion kann ein normaler single step ausgeführt werden. Dafür wir
 		\includegraphics[scale=1]{debugger/step.png}
 		\caption{Step Aktion.}
 		\captionsetup{margin=0cm,font={footnotesize}}
-		\label{fig:extensionpoint}
+		\label{fig:step}
 \end{figure}
 
 \subsubsection{Kill}
@@ -103,7 +105,7 @@ Mit der Kill Aktion kann der Prozess terminiert werden, in dem das Kill Signal g
 		\includegraphics[scale=1]{debugger/kill.png}
 		\caption{Kill Aktion.}
 		\captionsetup{margin=0cm,font={footnotesize}}
-		\label{fig:extensionpoint}
+		\label{fig:kill}
 \end{figure}
 
 \subsubsection{After}
@@ -116,7 +118,7 @@ Die After Aktion setzt den Breakpoint nach der nächsten Instruktion, falls es s
 		\includegraphics[scale=1]{debugger/after.png}
 		\caption{After Aktion.}
 		\captionsetup{margin=0cm,font={footnotesize}}
-		\label{fig:extensionpoint}
+		\label{fig:after}
 \end{figure}
 
 \subsubsection{Jump}
@@ -128,34 +130,34 @@ Mit der Jump Aktion kann über die nächste auszuführende Instruktion gesprunge
 		\includegraphics[scale=1]{debugger/jump.png}
 		\caption{Jump Aktion.}
 		\captionsetup{margin=0cm,font={footnotesize}}
-		\label{fig:extensionpoint}
+		\label{fig:jump}
 \end{figure}
 
 \newpage
 
 \subsection{Stack View}
 
-In der Stack View wird er aktuelle Dstack angezeigt. Die Stack View wird automatisch nach jedem steppen des Debuggers aktualisiert.
+In der Stack View wird er aktuelle Data-Stack angezeigt. Die Stack View wird automatisch nach jedem steppen des Debuggers aktualisiert.
 
 \begin{figure}[H]
 	\centering
 		\includegraphics[scale=0.35]{debugger/stack.png}
 		\caption{Stack View mit aktuellem Dstack Inhalt. Der Top Of Stack (TOS) ist zuoberst in der Liste.}
 		\captionsetup{margin=0cm,font={footnotesize}}
-		\label{fig:extensionpoint}
+		\label{fig:stack}
 \end{figure}
 
 
 \subsection{Memory View}
 
-In der Memory View kann ein Memory Dump, welcher mit dem \verb! dump! Befehl von uForth abgefragt werden kann, angezeigt werden. Der Memory Dump wird automatisch nach jedem steppen des Debuggers aktualisiert.
+In der Memory View kann ein Memory Dump, welcher mit dem \verb!dump! Befehl von uForth abgefragt werden kann, angezeigt werden. Der Memory Dump wird automatisch nach jedem steppen des Debuggers aktualisiert.
 
 \begin{figure}[H]
 	\centering
 		\includegraphics[scale=0.35]{debugger/dump.png}
 		\caption{Eine Memory Dump, welcher}
 		\captionsetup{margin=0cm,font={footnotesize}}
-		\label{fig:extensionpoint}
+		\label{fig:dump}
 \end{figure}
 
 

@@ -5,6 +5,7 @@ A level-1 auxiliary file: platform/platform.aux
 A level-1 auxiliary file: compiler/compiler.aux
 A level-1 auxiliary file: launch/launch.aux
 A level-1 auxiliary file: forthcommunication/forthcommunication.aux
+A level-1 auxiliary file: fortheditor/fortheditor.aux
 A level-1 auxiliary file: debugger/debugger.aux
 A level-1 auxiliary file: idesettings/idesettings.aux
 A level-1 auxiliary file: optimizer/optimizer.aux
