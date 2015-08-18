@@ -11,28 +11,31 @@
 \contentsline {figure}{\numberline {5.1}{\ignorespaces Ein erstes Design des Prozess API. Die zentrale Kommunikation geschieht \IeC {\"u}ber die Communicator Klasse. Es k\IeC {\"o}nnen Commands abgesetzt werden und es kann auf Resultate gewartet werden.\relax }}{14}
 \contentsline {figure}{\numberline {5.2}{\ignorespaces Klassendiagramm der.\relax }}{15}
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {6.1}{\ignorespaces uForth Editor, welcher vorallem f\IeC {\"u}r den Debugger verwendet wird.\relax }}{19}
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Popup Dokumentation zu dem Wort label. Die Dokumentation wird angezeigt, falls der Cursor sich \IeC {\"u}ber einem Wort befindet, f\IeC {\"u}r welches eine Dokumentation verf\IeC {\"u}gbar ist.\relax }}{20}
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Outline zu einem Forth File. Die Outline gliedert das File in Funktionen und W\IeC {\"o}rter.\relax }}{20}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {7.1}{\ignorespaces Konsolen basierter Debugger. Der Debugger kann \IeC {\"u}ber die Eclipse Console View gesteuert werden.\relax }}{20}
-\contentsline {figure}{\numberline {7.2}{\ignorespaces Resume Aktion.\relax }}{21}
-\contentsline {figure}{\numberline {7.3}{\ignorespaces Terminate Aktion.\relax }}{21}
-\contentsline {figure}{\numberline {7.4}{\ignorespaces Step Into Aktion.\relax }}{21}
-\contentsline {figure}{\numberline {7.5}{\ignorespaces Step Aktion.\relax }}{22}
-\contentsline {figure}{\numberline {7.6}{\ignorespaces Kill Aktion.\relax }}{22}
-\contentsline {figure}{\numberline {7.7}{\ignorespaces After Aktion.\relax }}{22}
-\contentsline {figure}{\numberline {7.8}{\ignorespaces Jump Aktion.\relax }}{22}
-\contentsline {figure}{\numberline {7.9}{\ignorespaces Stack View mit aktuellem Dstack Inhalt. Der Top Of Stack (TOS) ist zuoberst in der Liste.\relax }}{23}
-\contentsline {figure}{\numberline {7.10}{\ignorespaces Eine Memory Dump, welcher\relax }}{23}
+\contentsline {figure}{\numberline {7.1}{\ignorespaces Konsolen basierter Debugger. Der Debugger kann \IeC {\"u}ber die Eclipse Console View gesteuert werden.\relax }}{22}
+\contentsline {figure}{\numberline {7.2}{\ignorespaces Resume Aktion.\relax }}{23}
+\contentsline {figure}{\numberline {7.3}{\ignorespaces Terminate Aktion.\relax }}{23}
+\contentsline {figure}{\numberline {7.4}{\ignorespaces Step Into Aktion.\relax }}{23}
+\contentsline {figure}{\numberline {7.5}{\ignorespaces Step Aktion.\relax }}{24}
+\contentsline {figure}{\numberline {7.6}{\ignorespaces Kill Aktion.\relax }}{24}
+\contentsline {figure}{\numberline {7.7}{\ignorespaces After Aktion.\relax }}{24}
+\contentsline {figure}{\numberline {7.8}{\ignorespaces Jump Aktion.\relax }}{24}
+\contentsline {figure}{\numberline {7.9}{\ignorespaces Stack View mit aktuellem Dstack Inhalt. Der Top Of Stack (TOS) ist zuoberst in der Liste.\relax }}{25}
+\contentsline {figure}{\numberline {7.10}{\ignorespaces Eine Memory Dump, welcher\relax }}{25}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {8.1}{\ignorespaces Dialog \IeC {\"u}ber welchen der Umbilical Port gesetzt werden kann.\relax }}{25}
+\contentsline {figure}{\numberline {8.1}{\ignorespaces Dialog \IeC {\"u}ber welchen der Umbilical Port gesetzt werden kann.\relax }}{27}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {9.1}{\ignorespaces Die zwei Phasen des Optimizers.\relax }}{28}
-\addvspace {10\p@ }
-\addvspace {10\p@ }
+\contentsline {figure}{\numberline {9.1}{\ignorespaces Die zwei Phasen des Optimizers.\relax }}{30}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {E.1}{\ignorespaces Mit der Target Definition kann die Target Platform gesetzt werden.\relax }}{36}
-\contentsline {figure}{\numberline {E.2}{\ignorespaces Der MWE2 Workflow generiert alle notwendigen Klassen f\IeC {\"u}r den Forth Editor.\relax }}{37}
-\contentsline {figure}{\numberline {E.3}{\ignorespaces Die Entwicklungsumgebung kann im plugin.xml des Plugins ch.fhnw.mdt.ui gestartet werden.\relax }}{37}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {E.1}{\ignorespaces Mit der Target Definition kann die Target Platform gesetzt werden.\relax }}{38}
+\contentsline {figure}{\numberline {E.2}{\ignorespaces Der MWE2 Workflow generiert alle notwendigen Klassen f\IeC {\"u}r den Forth Editor.\relax }}{39}
+\contentsline {figure}{\numberline {E.3}{\ignorespaces Die Entwicklungsumgebung kann im plugin.xml des Plugins ch.fhnw.mdt.ui gestartet werden.\relax }}{39}
 \addvspace {10\p@ }
 \addvspace {10\p@ }

@@ -1,10 +1,10 @@
 \chapter{Programm Launch}
 \label{chap:programlaunch}
-In diesem Kapitel wird beschrieben, wie das kompilierte uForth Programm aus der IDE gestartet werden kann und was dafür implementiert wurde.
+In diesem Kapitel wird beschrieben, wie das kompilierte uForth Programm aus der Entwicklungsumgebung gestartet werden kann und was dafür implementiert wurde.
 
 \section{Launch}
 
-Im Eclipse werden zwischen zwei Launch Möglichkeiten unterschieden. Der unterschied zwischen beiden wird in den nächsten Kapiteln erklärt.
+Im Eclipse werden zwischen zwei Launch Möglichkeiten unterschieden. Der Unterschied zwischen beiden wird in den nächsten Kapiteln erklärt.
 
 \begin{figure}[H]
 	\centering
@@ -17,7 +17,7 @@ Im Eclipse werden zwischen zwei Launch Möglichkeiten unterschieden. Der untersc
 \newpage
 \subsection{Run}
 
-Mit der Run Konfiguration wird zuerst der Loader in den Forth Workspace kopiert (dieser muss in einer Umgebungsvariable definiert sein). Danach wird der Forth Prozess gestartet und der Umbilical Port mittels \verb!Umbilical: /dev/ttyUSBX! gesetzt. Der Umbilical Port und der Loader müssen in der MCore Settings Page gesetzt werden (Siehe Kapitel \ref{settingschapter}). Falls der Umbilical Port ungültig ist, wird beim starten des Programmes eine Fehlermeldung gezeigt.
+Mit der Run Konfiguration wird zuerst der Loader in den Forth Workspace kopiert (dieser muss in einer Umgebungsvariable definiert sein). Danach wird der Forth Prozess gestartet und der Umbilical Port mittels \verb!Umbilical: /dev/ttyUSBX! gesetzt. Der Umbilical Port und der Loader müssen in der MCore Preference Page gesetzt werden (siehe Kapitel \nameref{chap:settings}). Falls der Umbilical Port ungültig ist, wird beim starten des Programmes eine Fehlermeldung gezeigt.
 
 \begin{figure}[H]
 	\centering
@@ -29,5 +29,5 @@ Mit der Run Konfiguration wird zuerst der Loader in den Forth Workspace kopiert 
 
 \subsection{Debug}
 
-In der Debug Konfiguration werden zusätzlich noch alle Funktionen des gestarteten Forth Files disassembled. Dies wird gemacht, dass der Debugger die Funktionen in einem File anzeigen kann. Es kann nicht der vom Compiler generierte Code genommen werden, da der Forth Cross-Compiler noch Optimierungen am Code vornimmt, deshalb müssen die Funktionen zur Laufzeit noch disassemnbled werden.
+In der Debug Konfiguration werden zusätzlich noch alle Funktionen des gestarteten Forth Files disassembled. Dies wird gemacht, damit der Debugger die Funktionen in einem File anzeigen kann. Es kann nicht der vom Compiler generierte Code genommen werden, da der Forth Cross-Compiler noch Optimierungen am Code vornimmt.
 

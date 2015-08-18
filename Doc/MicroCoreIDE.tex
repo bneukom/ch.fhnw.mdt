@@ -77,17 +77,17 @@ Zuerst muss lcc-mcore und gforth nach der Anleitung in der jeweiligen Dokumentat
 \newpage
 \chapter{Installationsanleitung für Entwickler}
 
-Zuerst müssen alle Schritte, welche im Kapitel \nameref{chap:installuser} beschrieben werden, durchgeführt werden. Für die Entwicklung wird eine Eclipse RCP Distribution mit Xtext Unterstützung verwendet. Diese kann auf der offiziellen Xtext Webseite\cite{downloadxtext} heruntergeladen werden. Danach müssen alle Projekte importiert werden. Dann muss eine Target Platform gesetzt werden. Dies kann im File \verb!cdt-8.5.target! wie in folgender Abbildung \ref{fig:selecttarget} zu sehen ist.
+Zuerst müssen alle Schritte, welche im Kapitel \nameref{chap:installuser} beschrieben werden, durchgeführt werden. Für die Entwicklung wird eine Eclipse RCP Distribution mit Xtext Unterstützung benötigt. Diese kann auf der offiziellen Xtext Webseite\cite{downloadxtext} heruntergeladen werden. Zuerst müssen alle Projekte im Eclipse importiert werden. Dann muss die Target Platform gesetzt werden. Dies kann im File \verb!cdt-8.5.target! gemacht werden, wie in folgender Abbildung \ref{fig:selecttarget} zu sehen ist.
 
 \begin{figure}[H]
 	\centering
-		\includegraphics[scale=0.2]{targetplatform.png}
+		\includegraphics[scale=0.25]{targetplatform.png}
 		\caption{Mit der Target Definition kann die Target Platform gesetzt werden.}
 		\captionsetup{margin=0cm,font={footnotesize}}
 		\label{fig:selecttarget}
 \end{figure}
 
-Danach muss der Xtext Workflow gestartet werden. Dieser generiert alle notwendigen Klassen, die für den Forth Editor gebraucht werden. Dies kann im File \verb!GenerateUForth.mwe2! im \verb!ch.fhnw.mdt.forthlang! Plugin gestartet werden, wie in folgender Abbildung \ref{fig:runmwe2} zu sehen ist.
+Danach muss der Xtext Workflow gestartet werden. Dieser generiert alle notwendigen Klassen, die für den uForth Editor gebraucht werden. Der Workflow kann im File \verb!GenerateUForth.mwe2! im \verb!ch.fhnw.mdt.forthlang! Plugin gestartet werden, wie in folgender Abbildung \ref{fig:runmwe2} zu sehen ist.
 
 \begin{figure}[H]
 	\centering

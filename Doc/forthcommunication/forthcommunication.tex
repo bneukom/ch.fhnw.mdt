@@ -16,12 +16,11 @@ Eine weitere Möglichkeit wäre, direkt die Befehle an den Prozess senden und au
 
 \subsubsection{Probleme bei der Kommunikation}
 
-Bei der Kommunikation mit dem Prozess können einige Probleme Auftreten. Es kann sein, dass der Prozess plötzlich keine Antworten mehr gibt. Auch weiss man nicht, wie lange es dauern wird, bis der Prozess Antwort gibt. Diese Probleme müssen mit den im vorigen genannten Klassen gelöst werden.
+Bei der Kommunikation mit dem Prozess können einige Probleme Auftreten. Es kann sein, dass der Prozess plötzlich keine Antworten mehr gibt. Auch weiss man nicht, wie lange es dauern wird, bis der Prozess Antwort gibt. Diese Probleme müssen mit den im vorigen genannten Klassen gelöst werden. TODO HOW?!
 
 \section{Kommunikation}
 
-Ich habe mich dafür entschieden, die Kommunikaton nicht über ein MI ähnliches Interface zu implementieren. Der Aufwand ein solches Interface zu designen und die Einarbeitungszeit für den CDT Debugger wären zu gross. Die Kommunikation wird also direkt mit dem Prozess erfolgen. Das Design und die Implementation wird in folgenden Kapiteln besprochen.
-
+Ich habe mich dafür entschieden, die Kommunikation nicht über ein MI Interface zu implementieren. Der Aufwand ein solches Interface zu designen und implementieren, sowie die Einarbeitungszeit für den CDT Debugger, wären zu gross. Die Kommunikation wird also direkt mit dem Prozess erfolgen. Das Design und die Implementation wird in folgenden Kapiteln besprochen.
 
 \section{API Design}
 
@@ -37,7 +36,7 @@ In einem ersten Schritt wurde ein API designt, welches verwendet werden soll um 
 
 \section{Implementierung}
 
-Bei der Implementierung kamen dann einige Änderungen hinzu. In folgendem Klassendiagramm sind die Änderungen ersichtlich und die Klassenstruktur wird noch genauer erläutert.
+Bei der Implementierung kamen dann einige Änderungen hinzu. In folgendem Klassendiagramm sind die Änderungen ersichtlich. Danach wird die Klassenstruktur genauer erläutert.
 
 \begin{sidewaysfigure}[p]
 
@@ -57,7 +56,7 @@ Bei der Implementierung kamen dann einige Änderungen hinzu. In folgendem Klasse
 
 \subsubsection{ProcessCommunicator}
 
-Der \verb!ProcessCommunicator! ist die zentrale Kommunikationsstelle. Über den \verb!ProcessCommunicator! können die \verb!Commands! gesendet werden und gleichzeitig auch auf die angeforderten Resultate warten.
+Der \verb!ProcessCommunicator! ist die zentrale Kommunikationsstelle. Über den \\ \verb!ProcessCommunicator! können die \verb!Commands! gesendet werden und gleichzeitig auch auf die angeforderten Resultate warten.
 
 \subsubsection{ProcessReader}
 
@@ -80,7 +79,8 @@ Mit der abstrakten \verb!WaitFor! Klasse können auf Resultate des Prozesses gew
 sendCommandAwaitMatch("foo", "[1-9]")
 \end{verbatim}
 
-Der aktuelle Thread wird blockiert, bis der Prozess eine Ziffer zwischen 0 und 9 schreibt. Für das warten auf ein Resultat wurde ein Timeout von 10 Sekunden implementiert. Falls der Prozess in dieser Zeit keine Antwort gibt, wird eine \verb!CommandTimeOutException! geworfen und der \verb!ProcessCommunicator! wird heruntergefahren, das keine weiteren Commands mehr gesendet werden können.
+Der aktuelle Thread wird blockiert, bis der Prozess eine Ziffer zwischen 0 und 9 schreibt. Für das warten auf ein Resultat wurde ein Timeout von 10 Sekunden implementiert. Falls der Prozess in dieser Zeit keine Antwort gibt, wird eine \\ \verb!CommandTimeOutException! geworfen und der \verb!ProcessCommunicator! wird heruntergefahren, das keine weiteren Commands mehr gesendet werden können.
 
-
+\section{Testing}
+Der \verb!ProcessCommunicator! wurde vor allem mittels Unit-Tests getestet. Unter diesen Tests befindet sich ein Stresstest, welcher möglichst viele Commands an den Prozess sendet und ihn somit unter grosser Last testet.
 

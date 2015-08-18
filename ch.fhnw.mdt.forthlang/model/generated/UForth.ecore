@@ -3,21 +3,21 @@
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="uForth" nsURI="http://www.fhnw.ch/mdt/UForth" nsPrefix="uForth">
   <eClassifiers xsi:type="ecore:EClass" name="Forth">
     <eStructuralFeatures xsi:type="ecore:EReference" name="instructions" upperBound="-1"
-        eType="#//GlobalInstruction" containment="true"/>
+        eType="#//Instruction" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GlobalInstruction">
+  <eClassifiers xsi:type="ecore:EClass" name="Instruction">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Function" eSuperTypes="#//GlobalInstruction">
+  <eClassifiers xsi:type="ecore:EClass" name="Function" eSuperTypes="#//Instruction">
     <eStructuralFeatures xsi:type="ecore:EReference" name="words" upperBound="-1"
         eType="#//Word" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Create" eSuperTypes="#//GlobalInstruction">
+  <eClassifiers xsi:type="ecore:EClass" name="Create" eSuperTypes="#//Instruction">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="lit" unique="false" upperBound="-1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="IntrinsicStackWords" eSuperTypes="#//Word"/>
   <eClassifiers xsi:type="ecore:EClass" name="IntrinsicMemoryWords" eSuperTypes="#//Word"/>
   <eClassifiers xsi:type="ecore:EClass" name="IntrinsicArithmeticWords" eSuperTypes="#//Word"/>
-  <eClassifiers xsi:type="ecore:EClass" name="Word" eSuperTypes="#//GlobalInstruction"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Word" eSuperTypes="#//Instruction"/>
 </ecore:EPackage>
