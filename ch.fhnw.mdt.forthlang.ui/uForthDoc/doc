@@ -1,0 +1,600 @@
+clear ( ? -- ), W
+Empties dstack.
+
+drop ( n -- ), I
+
+dup ( n -- n n ), I
+
+?dup ( n -- n n | 0 ), I
+
+swap ( n1 n2 -- n2 n1 ), I
+
+nip ( n1 n2 -- n2 ), I
+Removes the second item from dstack.
+
+over ( n1 n2 -- n1 n2 n1 ), I
+
+rot ( n1 n2 n3 -- n2 n3 n1 ), I
+
+-rot ( n1 n2 n3 -- n3 n1 n2 ), I
+
+tuck ( n1 n2 -- n2 n1 n2 ), I
+Copies the top item on dstack under the second item.
+
+under ( n1 n2 -- n1 n1 n2 ), I
+Copies the second item on dstack under the top item.
+
+2drop ( d -- ), M2
+
+2dup ( d -- d d ), M2
+
+2swap ( d1 d2 -- d2 d1 ), W
+
+2over ( d1 d2 -- d1 d2 d1 ), W
+
+r@ ( -- n ), I
+
+r> ( -- n ) ( R: n -- ), I
+
+>r ( n -- ) ( R: -- n ), I
+
+rdrop ( -- ) ( R: x -- ), I
+
+ld ( addr -- n addr ), I
+Load the content of the memory cell or register at addr into NOS. addr remains in TOS.
+
+@ ( addr -- n ), M2
+
+st ( n addr -- addr ), I
+Store the content of NOS into the memory cell or register at addr. addr remains in TOS,
+the content of NOS is dropped.
+
+! ( n addr -- ), M2
+
+2@ ( addr -- d ), M3
+
+2! ( d addr -- ), M3
+
+lld ( offset -- n rsp+offset ), I
+Local load. Offset is an index into rstack, which resides in the data memory. At first, the
+effective address as sum of offset and RSP, the rstack pointer is computed and a load is
+performed from this effective address. The effective address remains in TOS, the content of
+the effective address is pushed into NOS.
+
+l@ ( offset -- n ), M2
+Local fetch. A macro with lld followed by a drop.
+
+lst ( n offset -- rsp+offset ), I
+Local store. Offset is an index into rstack, which resides in the data memory. At first, the
+effective address as sum of offset and RSP, the rstack pointer is computed. n, the content
+of NOS is stored at the effective address, NOS is popped and the effective address remains in TOS.
+
+l! ( n offset -- ), M2
+Local store. A macro with lst followed by a drop.
+
+tld ( offset -- n task+offset ), I
+Task load. At first, the effective address as sum of offset and the content of the task
+register is computed and a load is performed from this effective address. The effective address
+remains in TOS, the content of the cell at the effective address is pushed into NOS. In a multi
+tasking system, the task register points to the task descriptor block of the currently active task
+and therfore, variables, which are local to the task, may be accessed efficiently. If multi
+tasking is not used, the task register may be used as a general purpose index register. (See:
+task@, task!)
+
+t@ ( offset -- n ), M2
+Task fetch. A macro with tld followed by a drop.
+
+tst ( n offset -- task+offset ), I
+Task store. At first, the effective address as sum of offset and the content of the task
+register is computed. n, the content of NOS is stored at the effective address, NOS is popped
+and the effective address remains in TOS. In a multi tasking system, the task register points to
+the task descriptor block of the currently active task and therfore, variables, which are local to
+the task, may be accessed efficiently. If multi tasking is not used, the task register may be
+used as a general purpose index register. (See: task@, task!)
+
+t! ( n offset -- ), M2
+Task store. A macro with tst followed by a drop.
+
++st ( n addr -- addr ), I2
+Adds n to the content of the memory cell at addr. This is an indivisible 2 cycle fetch/store
+operation.
+
++! ( n addr -- ), M2
+Add n to the content of the memory cell at addr. Macro +st drop.
+
+inc ( addr -- ), W
+The memory cell at addr is incemented by 1 as an indivisible fetch/store operation.
+
+dec ( addr -- ), W
+The memory cell at addr is decremented by 1 as an indivisible fetch/store operation.
+
+on ( addr -- ), W
+The value -1 (all bits set) is written to the memory cell at addr.
+
+off ( addr -- ), W
+The value 0 (all bits reset) is written to the memory cell at addr.
+
+erase ( addr len -- ), W
+fill ( addr quantity pattern -- ), W
+
+count ( addr -- addr+1 u ), W
+
+move ( a1 a2 quantity -- ), W
+An intelligent move, which does not overwrite itself.
+
+place ( addr len addr_to -- ), W
+place the string at addr with length len as a counted string at addr_to.
+
+EXIT ( -- ) ( R: addr -- ), I
+Subroutine return. Branches to the address on rstack. Compiled by ;.
+
+IRET ( status -- ) ( R: addr -- ), I
+Interrupt return. In addition to exit, iret also restores the status register from dstack.
+
+EXECUTE ( addr -- ), M2
+Performs a subroutine call to absolute address addr.
+
+TIMES ( u <instruction> -- ), I
+Repeat operation. The instruction following times will be repeated u times. If u is zero,
+the following instruction will not be executed at all. The repetition counter has a limited width
+(as defined by times_width in CONSTANTS.VHD), and it is kept in the status register.
+Therefore, times is interruptible.
+
+?OVFL ( -- ) ( R: -- ), I
+Performs a conditional call to the hardware vector #osr at address
+3*(usr_vect_width)^2 (see: CONSTANTS.VHD) when the overflow bit of the status
+register is set. When the call is executed, ?OVFL pushes the content of the PC register, which
+points to the instruction just after itself, on rstack.
+
+?EXIT ( f -- ) ( R: addr -- ), I
+Conditional exit. Performs an exit when the flag is non-zero using the nz-exit
+instruction. The flag will be dropped. The rstack will only be popped when the exit is actually
+executed. The phrase 0= ?EXIT will be optimized to use the z-exit instruction.
+
+branch ( lit | addr -- ), I
+When preceded by literal instructions ("nibbles"), a relative branch is performed. When
+preceded by an address, an absolute branch to addr is performed.
+
+jsr ( lit | addr -- ) ( R: -- addr' ), I
+When preceded by literal instructions ("nibbles"), a relative call is performed. When preceded
+by an address, an absolute call to addr is performed. Jsr pushes the content of the PC
+register on rstack. PC points to the instruction just after the jsr instruction.
+
+0=branch ( f lit -- ), I
+Conditional branch. Performs a relative or absolute branch when flag is zero.
+
+0<>branch ( f lit -- ), I
+Conditional branch. Performs a relative or absolute branch when flag is non-zero.
+
+?-branch ( n lit -- n ) or ( 0 lit -- ), I
+Conditional branch. Performs a relative or absolute branch when n is zero. When n is not
+zero, execution continues with the next sequential instruction and n remains on the stack.
+The optimizer will compile ?-branch for the phrase ?dup IF.
+
+s-branch ( n lit -- ), I
+Conditional branch. Performs a relative or absolute branch when the sign bit of n is set.
+
+ns-branch ( n lit -- ), I
+Conditional branch. Performs a relative or absolute branch when the sign bit of n is not set.
+
+nc-branch ( lit -- ), I
+Conditional branch. Performs a relative or absolute branch when the carry bit of the status
+register is not set.
+
+no-branch ( lit -- ), I
+Conditional branch. Performs a relative or absolute branch when the overflow bit of the
+status register is not set.
+
+tor-branch ( lit -- ) ( R: u -- u-1 ), I
+Conditional branch. Performs a relative or absolute branch when the number u in TOR is
+non-zero. u will be decremented when the branch is taken. When it is zero the branch is not
+taken and u will be discarded.
+
+z-exit ( f -- ) (R: addr -- ), I
+Conditional exit. Execution continues at addr when f is zero. Otherwise, execution
+continues with the next sequential instruction. Both f and addr are dropped off their
+stacks.
+
+nz-exit ( f -- ) (R: addr -- ), I
+Conditional exit. Execution continues at addr when f is non zero. Otherwise, execution
+continues with the next sequential instruction. Both f and addr are dropped off their
+stacks.
+
+IF ( zero: f -- ) ( sign: n -- ) ( carry: -- ) ( ovfl: -- ), C
+Compiles the 0=branch instruction. The following phrases will be optimized to a single
+instruction:
+0= IF compiles 0<>branch, drops flag
+?dup IF compiles ?-branch, drops flag if flag is zero
+0< IF compiles ns-branch, drops flag
+0< 0= IF compiles s-branch, drops flag
+carry? IF compiles nc-branch
+ovfl? IF compiles no-branch
+
+ELSE ( -- ), C
+
+THEN (-- ), C
+
+BEGIN ( -- ), C
+
+WHILE ( f -- ), C
+Compiles the 0=branch instruction. See IF for conditional optimizations.
+
+REPEAT ( -- ), C
+
+UNTIL ( f -- ), C
+Compiles the 0=branch instruction. See IF for conditional optimizations.
+
+FOR ( u -- ) ( R: -- u ), C
+Start of a counted loop. Used in the form "FOR ... NEXT". The loop index u will be
+pushed on rstack, and it may be retrieved inside the loop using r@. The loop will be executed
+u+1 times. When leaving the loop prematurely using EXIT, do not forget to discard the loop
+index from rstack before executing EXIT.
+
+?FOR ( u -- ) ( R: -- u ), C
+Start of a counted loop. Used in the form "?FOR ... NEXT". The loop index u will be
+pushed on rstack, and it may be retrieved inside the loop using r@. The loop will be executed
+u times. If u is zero the loop will never be executed. When leaving the loop prematurely using
+EXIT, do not forget to discard the loop index from rstack before executing EXIT.
+
+NEXT ( -- ) ( R: u -- u-1 ), C
+It is the closing word for FOR and ?FOR. NEXT compiles the tor-branch instruction and
+therefore, it branches back to FOR or ?FOR until the loop index u on rstack is zero. While
+branching the loop index is decremented by one. If the loop index is zero, execution continues
+after NEXT and the loop index is popped off rstack. Please note that FOR ... NEXT loops
+may be nested as well as interrupted, because the loop index is kept on the return stack.
+
+DO ( n1 n2 -- ) ( R: -- n3 n4 ), C
+
+?DO ( n1 n2 -- ) ( R: -- n3 n4 ), C
+
+LOOP ( -- ) ( R: n1 n2 -- n1 n2 ) ( R: n1 0 -- ), C
+
+I ( -- n1 ) ( R: n2 n3 -- n2 n3 ), I
+
+bounds ( start quan -- limit start ), M4
+
+Label ( <name> -- ), C
+Compiles <name> into the dictionary as a constant, which holds the current program memory
+address. If <name> is the destination of a preceeding GOTO, ?GOTO, or CALL, pending
+forward references will be resolved.
+
+GOTO ( <name> -- ), C
+Compiles an unconditional branch to <name>. <name> may be a label or colon definition.
+GOTO supports forward referencing, i.e. the name of the label or colon definition that follows
+may be defined later on.
+
+?GOTO ( <name> -- ), C
+( zero: n -- ) ( sign: n -- ) ( carry: -- ) ( ovfl: -- )
+Compiles a conditional branch to <name>. <name> may be a label or colon definition.
+?GOTO supports forward referencing, i.e. the name of the label or colon definition that
+follows may be defined later on.
+?GOTO compiles 0<>branch
+0= ?GOTO compiles 0=branch
+0< ?GOTO compiles s-branch
+0< 0= ?GOTO compiles ns-branch
+carry? ?GOTO compiles carry? IF ELSE GOTO THEN
+carry? 0= ?GOTO compiles nc-branch
+ovfl? ?GOTO compiles ovfl? IF ELSE GOTO THEN
+ovfl? 0= ?GOTO compiles no-branch
+
+CALL ( <name> -- ), C
+Compiles an unconditional call to <name>. <name> may be a label or colon definition.
+CALL supports forward referencing, i.e. the name of the label or colon definition that follows
+may be defined later on.
+
+status@ ( -- status ), I
+Pushes the status register on dstack.
+
+status! ( status -- ), I
+Stores the top item on dstack intot the status register.
+
+st_set ( mask -- ), I
+Sets or resets the C, OVFL, IE or IIS status bits in one single instruction. E.g. 1 st_set will set
+the carry bit, 1 invert st_set will reset the carry bit.
+
+dsp@ ( -- addr ), I
+Pushes the dstack pointer on dstack.
+
+dsp! ( addr -- ), I
+Stores the top item of dstack into the dstack pointer. In order to produce a consistent dstack,
+dsp! has to be followed by 2drop in order to "fill" registers NOS and TOS with valid data
+from the new dstack memory location.
+
+rsp@ ( -- addr ), I
+Pushes the rstack pointer on dstack.
+
+rsp! ( addr -- ), I
+Stores the top item of dstack in the rstack pointer. In order to produce a consistent return
+stack, rsp! has to be followed by rdrop in order to "fill" register TOR with valid data from
+the new rstack memory location.
+
+ie! ( mask -- ), M3
+Stores mask into the interrupt enable register. The interrupt enable register is a bit-wise
+writeable register. When the least significant bit of mask is zero, those bits in the interrupt
+enable register will be reset, whose corresponding bit in mask is set. When the least
+significant bit of mask is one, those bits in the interrupt enable register will be set, whose
+corresponding bit in mask is set. This way, individual interrupts may be enabled or disabled
+in one single instruction without affecting other interrupts.
+
+ints@ ( -- u ), M3
+Fetches the content of the interrupt flag register. When there are more than one potential
+interrupt sources, this would be the first thing to do in a centralized interrupt service routine,
+which resides at hardware vector #isr in order to determine the exact source of the interrupt.
+Please note that the interrupt flags are not reset by reading them. Instead, each individual
+interrupt has to take care of resetting its respective interrupt flag, which is hardware
+dependent.
+Please also note that those interrupt flags, whose corresponding bit in the interrupt enable
+register is not set, will always read as zero. Those can be read by reading the flag register, see
+below.
+
+flags@ ( -- u ), M3
+Fetches the content of the flag register. This includes all interrupt flags as well as additional
+flags, which do not generate interrupts. This is hardware dependent. Reading the flag register
+returns the true state of all interrupt flags, even of those, which are disabled in the interrupt
+enable register.
+
+ovfl? ( -- f ), I
+Pushes the overflow flag on the stack.
+
+carry? ( -- f ), I
+Pushes the carry flag on the stack.
+
+task@ ( -- addr ), M3
+Fetches the content of the task register. If multi tasking is not used, the task register may be
+used as a general purpose index register with dependent operators tld, tst, t@, and t!.
+
+myself ( -- addr ), M3
+An alias for task@.
+
+task! ( addr -- ), M3
+Addr is stored into the task register.
+
+ctrl! ( mask -- ), M3
+Sets or resets individual bits in the CTRL_REGister. When the sign bit of mask is not set,
+those bits, which are set to '1' will be set in CTRL_REG. When the sign bit of mask is set,
+those bits, which are set to '0' will be reset in CTRL_REG.
+
+setctrl ( mask -- ), M3
+Alias for ctrl!
+
+resctrl ( mask -- ), M4
+The inverse of ctrl!. When the sign bit of mask is not set, those bits, which are set to '1' will
+be reset in CTRL_REG.
+
+ctrl@ ( -- u ), M3
+pushes the content of CTRL_REG on the stack.
+
+time? ( ticks -- f ), I
+Returns a true flag, when the TIMER register is less or equal to ticks. Returns a false flag
+otherwise.
+
+nop ( -- ) or ( lit -- n ), I
+No-operation. This seemingly meaningless operation can be used to "convert" a literal value
+into a "proper" number on dstack, which had been accumulated by a sequence of nibbles. This
+is important e.g. when a branch should branch to an absolute address: When the address is the
+result of a sequence of nibbles, nop must precede the branch instruction or else a
+relative branch would be taken.
+
+invert ( n1 -- n2 ), I
+Bitwise logical not.
+
+2* ( u1 -- u2 ), I
+Logical shift to the left.
+
+2/ ( n1 -- n2 ), I
+Arithmetic shift to the right.
+
+u2/ ( u1 -- u2 ), I
+Logical shift to the right.
+
+ror ( u1 -- u2 ), I
+Rotate right throug carry. Carry is shifted into the most significant bit, all bits are shifted to
+the right and the least significant bit is shifted into carry of the status register.
+
+dror ( ud1 -- ud2 ), I
+Double rotate right through carry. Carry is shifted into the most significant bit of TOS, the
+least significant bit of TOS is shifted into the most significant bit of NOS and the least
+significant bit of NOS is shifted into carry of the status register.
+
+rol ( u1 -- u2 ), I
+Rotate left through carry. Carry is shifted into the least significant bit, all bits are shifted to the
+left and the most significant bit is shifted into carry of the status register.
+
+drol ( ud1 -- ud2 ), I
+Double rotate left through carry. Carry is shifted into the least significant bit of NOS, the most
+significant bit of NOS is shifted into the least significant bit of TOS and the most significant
+bit of TOS is shifted into carry of the status register.
+
+pack ( char u1 -- u2 ), I
+Shift u1 8 bits to the left and insert char at the vacated position. Equivalent to the phrase
+$100 * or.
+
+unpack ( u1 -- char u2 ), I
+Logically shift u1 8 bits to the righ. Char are the extra bits, which have been pushed out to
+the right. Equivalent to the phrase 0 $100 um/mod.
+
+shift ( u1 n -- u2 ), W
+A general purpose logical shift operation. u1 will be shifted left or right depending on n,
+resulting in u2. If n is 0 nothing happens. If n is >0, u1 will be shifted n times to the left.
+If n is <0, u1 will be logically shifted n times to the right.
+
+ashift ( n1 n2 -- n3 ), W
+A general purpose arithmetic shift operation. n1 will be shifted left or right depending on n2,
+resulting in n3. If n2 is 0 nothing happens. If n2 is >0, n1 will be shifted n2 times to
+the left. If n2 is <0, n1 will be arithmetically shifted n2 times to the right, i.e. the sign
+bit will be shifted in from the left.
+
+2** ( u -- 2**u ), W
+Returns the exponentiation of 2 by u. Used to convert e.g. number of address bits into a
+corresponding address range.
+
+0= ( n -- f ), I
+
+0<> ( n -- f ), I
+
+0< ( n1 -- f ), I
+
+d0= ( d -- f ), W
+
+negate ( n -- -n ), M2
+
+dnegate ( d1 -- d2 ), W
+
+1+ ( n -- n+1 ), M2
+
+1- ( n -- n-1 ), M2
+
+True ( -- lit ), I
+
+False ( -- lit ), I
+
+cell+ ( addr -- a+1 ), M2
+
+cell- ( addr -- a-1 ), M2
+
+carry_reset ( -- ), M2
+
+Resets carry-bit in the status register.
+
+carry-set ( -- ), M2
+
+Sets carry-bit in the status register.
+
+abs ( n -- +n ), W
+
+dabs ( d -- +d ), W
+
+extend ( n -- d ), W
+Sign extend n.
+
++ ( n1 n2 -- n1+n2 ), I
+2dup + will be optimized into one instruction.
+
++c ( n1 n2 -- n1+n2+carry ), I
+Add with carry. Used for extended precision arithmetic. 2dup +c will be optimized into
+one instruction. Even when sat_arith='1', +c will return the result mod(data-wordwidth)
+even in case of an overflow.
+
+- ( n1 n2 -- n1-n2 ), I
+swap -, 2dup - as well as 2dup swap - will be optimized into one instruction.
+
+and ( u1 u2 -- u3 ), I
+2dup and will be optimized into one instruction.
+
+or ( u1 u2 -- u3 ), I
+2dup or will be optimized into one instruction.
+
+xor ( u1 u2 -- u3 ), I
+2dup xor will be optimized into one instruction.
+
+d+ ( d1 d2 -- d3 ), W
+
+d- ( d1 d2 -- d3 ), W
+
+m+ ( d n -- d ), W
+
+= ( n1 n2 -- f ), M2
+
+< ( n1 n2 -- f ), M2
+
+> ( n1 n2 -- f ), M2
+
+>= ( n1 n2 -- f ), W
+
+u< ( n1 n2 -- f ), W
+
+u> ( n1 n2 -- f ), W
+
+d= ( d1 d2 -- f ), W
+
+max ( n1 n2 -- max ), W
+
+min ( n1 n2 -- min ), W
+
+umin ( n1 n2 -- max ), W
+
+umax ( n1 n2 -- min ), W
+
+within ( n [low [high -- f ), W
+
+case? ( n1 n2 -- n1 ff | tf ), W
+Comparison operator. When n1 equals n2, case? leaves true and discards the input
+arguments. When n1 and n2 are not equal, false is returned and only n2 is discarded. It is
+used in the following form for simple case statements:
+...
+<put value on dstack>
+1 case? IF ... EXIT THEN
+2 case? IF ... EXIT THEN
+...
+
+um* ( u1 u2 -- ud ), I or W
+When multiply hardware is available it executes in one cycle. Otherwise, it needs
+data-width+4 cycles using multiplication step primitive mults.
+
+m* ( n1 n2 -- d ), I or W
+When multiply hardware is available it executes in one cycle. Otherwise it is implemented as
+a call sequence.
+
+* ( n1 n2 -- n3 ), M2 or W
+When muliply hardware is available it executes in two cycles. When the product can not be
+respresented as a single number, the overflow flag will be set.
+
+um/mod ( ud u -- urem uquot ), W
+uses instructions udivs, div, and udivl for a bit-wise division routine that executes in
+data-width+4 cycles.
+: um/mod udivs data_width times div udivl ;
+
+u/mod ( u1 u2 -- urem uquot ), W
+
+u/ ( u1 u2 -- uquot ), W
+
+umod ( u1 u2 -- urem ), W
+
+m/mod ( d u -- urem quot ), W
+uses instructions sdivs, div, and sdivl for a bit-wise two quadrant division routine
+that executes in data_width+4 cycles. Please note that the divider is always interpreted as an
+unsigned number. Consequently, the remainder will be an unsigned number as well.
+: m/mod sdivs data_width times div sdivl ;
+
+/mod ( n u -- urem quot ), W
+
+/ ( n u -- quot ), W
+
+mod ( n u -- urem ), W
+
+*/mod ( n1 n2 u -- urem n3 ), W
+
+*/ ( n1 n2 u -- n3 ), W
+
+ud* ( ud u -- udprod ), W
+
+ud/mod ( ud u -- urem udquot ), W
+
+mults ( mult prod_l -- mult prod_l' ) (R: prod_h -- prod_h' ), I
+When WITH_MULT is set to zero, because the FPGA does not support hardware multiply,
+mults processes one multplier bit and must be iterated data_width times for a full
+multiplication.
+Before executing mults for the first time, the input arguments must be set up as follows:
+NOS holds the multiplicand, TOS must be initialized with zero, and TOR holds the multiplier.
+After executing mults data_width times, NOS holds the unmodified multiplicand, TOS
+holds the lower significant bits of the product and TOR holds the higher significant bits of the
+product.
+Therefore, um* can be implemented as follows:
+: um* ( u1 u2 -- ud ) >r 0 data_width times mults nip r> ;
+When WITH_MULT is set to one, because the FPGA does support hardware multiply, the
+mults opcode will be synthesized as a single cycle um*.
+
+multl ( ud -- n ), I
+is used immediately following um* in order to convert the double precision unsigned
+product into a single precision signed product. The overflow bit of the status register will be
+set when the signed product does not fit into a single precision number.
+
+div ( complex )
+
+udivs ( complex )
+
+udivl ( complex )
+
+sdivs ( complex )
+
+sdivl ( complex )
