@@ -47,8 +47,17 @@ J.~W. Davidson and C.~W. Fraser.
 Klaus Schleisiek.
 \newblock uforth real time, object oriented with debugger, 2013.
 
+\bibitem{superoptimizer}
+S.~Bansal and A.~Aiken.
+\newblock Automatic generation of peephole superoptimizers.
+\newblock In {\em ACM SIGPLAN Not.}, pages 394--403, 2006.
+
+\bibitem{ssa}
+Static single assignment form.
+\newblock \url{https://en.wikipedia.org/wiki/Static_single_assignment_form}.
+
 \bibitem{downloadxtext}
-Download.
+Xtext download.
 \newblock \url{https://eclipse.org/Xtext/download.html}.
 
 \end{thebibliography}

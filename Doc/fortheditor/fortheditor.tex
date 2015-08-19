@@ -4,7 +4,7 @@ In diesem Kapitel wird beschrieben, wie das Framework Xtext funktioniert und wie
 
 \section{Xtext Implementation des uForth Editor}
 Xtext ermöglicht es, das Grundgerüst einer Entwicklungsumgebung zu generieren. Dafür verwendet Xtext eine Extended Backus-Naur Form (EBNF) ähnliche Grammatik. Aus dieser Grammatik wird dann ein ANTLR-Parser und Klassen, welche für den Editor benötigt werden, generiert. Um Xtext zu konfigurieren wird die dependency injection (DI) Library, Guice von Google verwendet. Mit Guice können viele Teile von Xtext in einem zentralen Modul mittels DI ersetzt werden.\\
-Da Forth kein monolithischen Compiler und somit keine statische Grammatik besitzt kann keine Grammatik für Xtext geschrieben werden, welche die gesammte Forth Sprache beschreibt. Es wurde deshalb eine Xtext Grammtik verwendet, welche ungefähr der folgenden EBNF Grammtik entspricht.
+Da Forth kein monolithischen Compiler und somit keine statische Grammatik besitzt, kann keine Grammatik für Xtext geschrieben werden, welche die gesammte Forth Sprache beschreibt. Es wurde deshalb eine Xtext Grammtik verwendet, welche ungefähr der folgenden EBNF Grammtik entspricht.
 
 \begin{verbatim}
 instructoin = create | function | word;
@@ -21,6 +21,7 @@ Der daraus generierte Parser kann alle vom LCC generierten Forth Files parsen un
 \section{uForth Editor}
 Der Editor unterstützt Syntax Highligting für vordefinierte Forth Wörter, Literals und Kommentare. Die Wörter werden in drei Gruppen unterteilt. Stack-, Memory- und Arithmetische-Wörter. Alle Gruppen haben eine andere Farbe, welche in der uForth Preference Page geändert werden kann. In folgender Abbildung \ref{fig:fortheditor} ist der uForth Editor zu sehen.
 
+
 \begin{figure}[H]
 	\centering
 		\includegraphics[scale=0.4]{fortheditor/fortheditor.png}
@@ -31,6 +32,7 @@ Der Editor unterstützt Syntax Highligting für vordefinierte Forth Wörter, Lit
 
 \newpage
 
+\subsection{Wörter Dokumentation}
 Eine Dokumentation wurde für uForth spezifischen Wörter als Popup implementiert. Die Dokumentation wird dafür aus einer Textdatei gelesen. In folgender Abbildung \ref{fig:docpopup} ist eine Popup Dokumentation zu dem Wort \verb!label! zu sehen.
 
 \begin{figure}[H]
@@ -41,6 +43,7 @@ Eine Dokumentation wurde für uForth spezifischen Wörter als Popup implementier
 		\label{fig:docpopup}
 \end{figure}
 
+\subsection{Editor Outline}
 Für den Editor steht zudem eine Outline zur Verfügung. Die Outline gliedert das Forth File nach den von der Grammatik spezifizierten Regeln. Für den uForth Editor bedeutet das, dass das File nach Funktionen und Wörtern gegliedert wird.
 
 \begin{figure}[H]

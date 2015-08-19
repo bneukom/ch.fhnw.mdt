@@ -4,7 +4,7 @@ In diesem Kapitel wird beschrieben, wie das kompilierte uForth Programm aus der 
 
 \section{Launch}
 
-Im Eclipse werden zwischen zwei Launch Möglichkeiten unterschieden. Der Unterschied zwischen beiden wird in den nächsten Kapiteln erklärt.
+In Eclipse wird zwischen zwei Launchmöglichkeiten unterschieden, deren Unterschiede in den nächsten Kapiteln aufgezeigt und erklärt werden.
 
 \begin{figure}[H]
 	\centering
@@ -17,12 +17,12 @@ Im Eclipse werden zwischen zwei Launch Möglichkeiten unterschieden. Der Untersc
 \newpage
 \subsection{Run}
 
-Mit der Run Konfiguration wird zuerst der Loader in den Forth Workspace kopiert (dieser muss in einer Umgebungsvariable definiert sein). Danach wird der Forth Prozess gestartet und der Umbilical Port mittels \verb!Umbilical: /dev/ttyUSBX! gesetzt. Der Umbilical Port und der Loader müssen in der MCore Preference Page gesetzt werden (siehe Kapitel \nameref{chap:settings}). Falls der Umbilical Port ungültig ist, wird beim starten des Programmes eine Fehlermeldung gezeigt.
+Mit der Run Konfiguration wird zuerst der Loader in den Forth Workspace kopiert, welcher in den Umgebungsvariablen definiert sein muss. Danach wird der Forth Prozess gestartet und der Umbilical Port mittels \verb!Umbilical: /dev/ttyUSBX! gesetzt. Der Umbilical Port und der Loader müssen in der MCore Preference Page gesetzt werden (siehe Kapitel \nameref{chap:settings}). Falls der Umbilical Port ungültig ist, wird beim starten des Programmes eine Fehlermeldung gezeigt.
 
 \begin{figure}[H]
 	\centering
 		\includegraphics[scale=0.4]{launch/invalidumbilical.png}
-		\caption{Dialog, welcher angezeigt wird, wenn ein Program gestartet wird und der Umbilical Port nicht gültig ist. Der Port kann in der MCore Preference Page geändert werden.}
+		\caption{Dialog, welcher angezeigt wird, wenn ein Program gestartet wird und der Umbilical Port ungültig ist. Der Port kann in der MCore Preference Page geändert werden.}
 		\captionsetup{margin=0cm,font={footnotesize}}
 		\label{fig:invalidumbilical}
 \end{figure}

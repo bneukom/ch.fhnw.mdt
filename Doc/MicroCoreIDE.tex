@@ -11,6 +11,7 @@
 \usepackage{float}
 \usepackage{amsmath}
 \usepackage{enumerate}
+\usepackage{verbatimbox}
 \usepackage{url}
 \usepackage[font=small,format=plain,labelfont=bf,up,textfont=normal,up, justification=centering,singlelinecheck=false]{caption}
 \usepackage{multirow}
@@ -19,6 +20,7 @@
 \usepackage{eurosym}
 \usepackage{rotating}
 \usepackage{tikz}
+\usepackage{multicol}
 
 
 % options
@@ -109,6 +111,232 @@ Die Entwicklungsumgebung kann danach im plugin.xml des Plugins \verb!ch.fhnw.mdt
 
 \newpage
 \chapter{Forth Test-Funktionen}
+
+\section{\_Init}
+\begin{verbatim}
+: _Init
+swap
+over
+256
+-
+?GOTO lbl_72 ( jump if not equal )
+0
+GOTO lbl_77
+Label lbl_74
+swap
+over
+2
+Rot32
+dup
+_IV256
+2
+Rot32
++
+-2
+Rot32
+@
+swap
+2over
+nip
+4
++
+2
+Rot32
++
+-2
+Rot32
+!
+Label lbl_75
+swap
+1+
+swap
+swap
+Label lbl_77
+dup
+8
+u<
+?GOTO lbl_74 ( jump if less )
+drop
+0
+over
+12
++
+!
+0
+over
+13
++
+!
+0
+GOTO lbl_81
+Label lbl_78
+swap
+0
+2over
+nip
+2over
+nip
+14
++
++
+!
+Label lbl_79
+swap
+1+
+swap
+swap
+Label lbl_81
+dup
+16
+u<
+?GOTO lbl_78 ( jump if less )
+drop
+0
+over
+30
++
+!
+0
+over
+31
++
+!
+0
+over
+32
++
+!
+0
+over
+33
++
+!
+GOTO lbl_73
+Label lbl_72
+2
+Rot32
+drop
+drop
+2
+( return int )
+GOTO lbl_71
+Label lbl_73
+swap
+over
+!
+0
+over
+1+
+!
+1
+over
+2
++
+!
+0
+swap
+3
++
+!
+0
+;
+\end{verbatim}
+
+\section{\_Hash}
+\begin{verbatim}
+: _Hash
+0
+>r
+rsp@
+35
+-
+rsp! ( allocate 35 local variables )
+1
+l!
+-rot
+swap
+rsp@
+1
++
+swap
+_Init
+-rot
+rot
+dup
+0
+-
+0=
+?GOTO lbl_125 ( jump if equal )
+swap
+2
+Rot32
+drop
+swap
+drop
+GOTO lbl_124
+Label lbl_125
+drop
+rsp@
+1
++
+swap
+rot
+_Update
+dup
+1
+l@
+-rot
+0
+-
+0=
+?GOTO lbl_127 ( jump if equal )
+swap
+2
+Rot32
+drop
+GOTO lbl_124
+Label lbl_127
+drop
+rsp@
+1
++
+swap
+_Final
+Label lbl_124
+rsp@
+35
++
+rsp!
+rdrop ( deallocate 35 local variables )
+;
+\end{verbatim}
+
+\section{\_Update}
+\begin{verbatim}
+: _Update
+-rot
+swap
+swap
+rot
+_Update32
+Label lbl_109
+;
+\end{verbatim}
+\newpage
+\section{\_Propagation}
+\begin{verbatim}
+: _propagation
+5
+2
++
+1+
+3
+*
+7
+*
+Label lbl_1
+;
+\end{verbatim}
 
 \newpage
 \chapter{Ehrlichkeitserklärung}

@@ -106,34 +106,39 @@ Klassische Peephole Optimizer versuchen häufig einige Maschinenspezifische Patt
 Unter Constant Propagation versteht man, dass vorwärts substituieren von Konstanten im Code. Dies kann zur Folge haben, dass mehrere Instruktionen schon zur Kompilierzeit ausgewertet werden können, wie bei den Beispielen \ref{constantprogationsection} zu sehen ist.
 
 \subsection{Resultate und Tests}
-Die Resultate des Optimierers wurden mit verschiedenen Forth Funktionen getestet und die Resultate mit dem Peephole Optimizer des uForth Cross-Compilers verglichen. Die Funktionen sind im Anhang zu finden.
+Die Resultate des Optimierers wurden mit verschiedenen Forth Funktionen getestet und die Resultate mit dem Peephole Optimizer des uForth Cross-Compilers verglichen. Der Source-Code zu den getesteten Funktionen befindet sich im Anhang.
 
 \begin{table}[H]
 \begin{center}
     \begin{tabular}{ | l | l | l | l | p{8cm} |}
     \hline
     \textbf{Funktion} & \textbf{Orig} & \textbf{Ref} & \textbf{Neu} & \textbf{Kommentar} \\ \hline
-    \_Init & 124 & 110 & 116 & Beide Implementierungen konnten unnötigen Code weg optimieren. Die Referenz Implementation produziert vor allem wegen der Speicherzugriffsoptimierung kürzeren Code. Constant Propagation, welche neu implementiert wurde, konnte keine durchgeführt werden.  \\ 
-    \hline
-		
+    \_Init & 126 & 112 & 119 & Die Referenzimplementierung produziert vor allem wegen der Speicherzugriffsoptimierung kürzeren Code. Constant Propagation, welche neu implementiert wurde, konnte keine durchgeführt werden. PO konnte Instruktionspaare finden, welche weg optimiert werden können.  \\ \hline
+		\_Update & 8 & 8 & 4 & PO konnte zwei Instruktionspaare weg optimieren, welche von der Referenzimplementierung nicht optimiert werden. \\ \hline
+		\_Hash & 65 & 60 & 60 & Die Referenzimplementierung produziert wieder wegen der Speicherzugriffsoptimierung weniger Code. PO konnte wieder Instruktionspaare finden, welche weg optimiert werden können. \\ \hline
+		\_Propagation & 11 & 11 & 4 & Bei dieser Funktion konnte vor allem Constant Propagation durchgeführt werden. Die Referenzimplementierung führt keine Constant Propagation durch. \\ \hline
     \end{tabular}
 		\caption{Resultate des neuen Optimizers verglichen mit dem Cross-Compiler Optimizer.}
 		\label{tab:peepresults}
 \end{center}
 \end{table}
+\newpage
 
-Es hat sich herausgestellt, dass bei allen Realen Beispielen, die Constant Propagation nur wenig Code optimieren konnte. Dies ist vermutlich der Fall, weil Konstante Expressions schon vom Compiler optimiert werden und die implementierte Constant Propagation zu primitiv ist. Im nächsten Kapitel werden einige Erweiterungen vorgeschlagen um diese effizienter zu gestalten. \\ PO konnte Regeln finden, welche vom Forth-Cross Compiler noch nicht erkannt wurden. Unter anderem folgende:\\ \\
+Es hat sich herausgestellt, dass bei allen Beispielen die Constant Propagation nur wenig Code optimieren konnte. Dies ist vermutlich der Fall, weil konstante Ausdrücke schon vom Compiler optimiert werden und die implementierte Constant Propagation zu primitiv ist. Im nächsten Kapitel werden einige Erweiterungen vorgeschlagen, um diese effizienter zu gestalten.  
+
+PO konnte Regeln finden, welche vom Forth-Cross Compiler noch nicht erkannt werden. Unter anderem folgende:\\ \\
 %
 $swap, swap \rightarrow nop$\\
 $-rot, rot \rightarrow nop$\\
+$rot, -rot \rightarrow nop$\\
+$1, + \rightarrow 1+$\\
 $swap, + \rightarrow +$\\
 %
 
-Diese Regeln könnten im Forth Cross-Compiler integriert werden. Im Moment wurden nur Operationen auf dem Stack von PO simuliert, das heisst, es könnten noch mehr Patterns gefunden werden. Im nächsten Kapiteln werden auch noch mögliche Änderungen an PO aufgezeigt.
+Diese Regeln könnten im Forth Cross-Compiler integriert werden. Im nächsten Kapitel werden Änderungen für den PO vorgeschlagen, damit dieser mehr mögliche Instruktionsketten erkennen könnte, welche vereinfacht werden können.
 
 \subsection{Mögliche Erweiterungen}
-SSA
-Conditionals und Memory Access
-Superoptimizer
-in Forth
-integrieren in Compiler
+
+Im Moment werden vom PO nur Insturktionen, welche einen Einfluss auf den Daten Stack haben simuliert. PO könnte erweitert werden, indem weitere Instruktionen auch simuliert werden. Eine weiter Möglichkeit wäre, der von Bansal und Aiken beschriebene Superoptimizer zu implementierten. Dieser Superoptimizer verwendet Bruteforce Optimierungen mittels tausenden von Regeln. Diese Regeln werden von Trainings Programmen inferiert und in einer Datenbank gespeichert.\cite{superoptimizer}
+
+Die Constant Propagation könnte noch so erweitert werden, dass sie auch mit Branches umgehen kann. Somit könnten unnötige If-Statements, sowie Schleifen entfernt werden. Um dies zu implementieren müsste der Code zuerst in eine static single assignemt form (SSA) transformiert werden.\cite{ssa} Es wäre somit keine Peephole optimierung mehr.
