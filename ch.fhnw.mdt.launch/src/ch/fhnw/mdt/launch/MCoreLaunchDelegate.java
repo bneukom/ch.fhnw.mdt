@@ -256,7 +256,7 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 			try {
 				launch.setAttribute(DebugPlugin.ATTR_PROCESS_FACTORY_ID, "ch.fhnw.mdt.launch.forthprocessfactory");
 
-				final ProcessBuilder processBuilder = new ProcessBuilder("gforth");
+				final ProcessBuilder processBuilder = new ProcessBuilder("gforth", "./load_eclipse.fs");
 				processBuilder.redirectErrorStream(true);
 
 				processBuilder.directory(new File(workingDirectory));
