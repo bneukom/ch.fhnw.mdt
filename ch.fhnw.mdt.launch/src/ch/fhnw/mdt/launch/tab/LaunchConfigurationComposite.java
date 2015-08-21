@@ -65,7 +65,7 @@ public class LaunchConfigurationComposite extends Composite {
 		browseProjectButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
-				updateProjectName(chooseMCoreProject());
+				chooseMCoreProject().ifPresent(p -> updateProjectName(p));
 			}
 		});
 
@@ -158,7 +158,7 @@ public class LaunchConfigurationComposite extends Composite {
 	public void setProject(String projectName) {
 		final IResource projectResource = ResourcesPlugin.getWorkspace().getRoot().findMember(projectName);
 
-		updateProjectName(projectResource != null && projectResource instanceof IProject ? Optional.of((IProject) projectResource) : Optional.empty());
+		updateProjectName(projectResource != null && projectResource instanceof IProject ? (IProject)projectResource : null);
 	}
 
 	/**
@@ -187,16 +187,15 @@ public class LaunchConfigurationComposite extends Composite {
 		mCoreLaunchConfigurationTab.update();
 	}
 
-	private void updateProjectName(final Optional<IProject> project) {
-		project.ifPresent(p -> {
-			this.projectNameText.setText(p.getName());
-			this.executableFilePathText.setText("");
-			this.executableResource = null;
-		});
+	private void updateProjectName(final IProject project) {
+		this.project = project;
+		this.searchFileButton.setEnabled(project != null);
+		this.executableFilePathText.setEnabled(project != null);
+		
+		this.projectNameText.setText(project != null ? project.getName() : "");
+		this.executableFilePathText.setText("");
+		this.executableResource = null;
 
-		this.project = project.orElse(null);
-		this.searchFileButton.setEnabled(project.isPresent());
-		this.executableFilePathText.setEnabled(project.isPresent());
 
 		mCoreLaunchConfigurationTab.update();
 	}

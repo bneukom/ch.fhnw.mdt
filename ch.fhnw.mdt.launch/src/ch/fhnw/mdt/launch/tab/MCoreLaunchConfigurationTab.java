@@ -56,7 +56,6 @@ public class MCoreLaunchConfigurationTab extends CLaunchConfigurationTab {
 
 	@Override
 	public boolean isValid(ILaunchConfiguration launchConfig) {
-		// TODO implement
 		return super.isValid(launchConfig);
 	}
 

@@ -13,7 +13,7 @@ public class KillCommand extends AbstractDebugCommand implements IKillHandler {
 	@Override
 	protected void doExecute(Object[] targets, IProgressMonitor monitor, IRequest request) throws CoreException {
 		final IKillProcessExtension thread = (IKillProcessExtension) targets[0];
-		
+
 		thread.kill();
 	}
 
