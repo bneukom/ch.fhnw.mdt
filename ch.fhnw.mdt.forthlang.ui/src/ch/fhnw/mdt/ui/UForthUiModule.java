@@ -53,7 +53,7 @@ public class UForthUiModule extends ch.fhnw.mdt.ui.AbstractUForthUiModule {
 		final Bundle bundle = Platform.getBundle("ch.fhnw.mdt.forthlang.ui");
 		final URL fileURL = bundle.getEntry("uForthDoc/doc");
 		try {
-			final List<String> docLines = Files.readAllLines(Paths.get(FileLocator.resolve(fileURL).toURI()));
+			final List<String> docLines = Files.readAllLines(Paths.get(FileLocator.toFileURL(fileURL).toURI()));
 
 			int readerState = HEADER;
 			String documentation = "";

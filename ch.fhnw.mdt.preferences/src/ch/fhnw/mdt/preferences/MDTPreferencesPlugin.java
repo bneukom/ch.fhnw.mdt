@@ -119,7 +119,7 @@ public class MDTPreferencesPlugin extends AbstractUIPlugin {
 		String loader = "";
 
 		try {
-			final File file = new File(FileLocator.resolve(fileURL).toURI());
+			final File file = new File(FileLocator.toFileURL(fileURL).toURI());
 
 			try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
 				String line;
