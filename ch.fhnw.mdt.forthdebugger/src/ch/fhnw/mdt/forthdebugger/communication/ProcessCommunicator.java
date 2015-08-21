@@ -6,7 +6,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -643,23 +642,23 @@ public class ProcessCommunicator {
 			@Override
 			public void run() {
 				shutdown();
-		
+
 				// signal all threads which might be waiting for the command queue to clear up as
 				// the command queue might not be empty
 				try {
 					commandCompletionLock.lock();
-		
+
 					// set timeout of current command and all all
 					commandQueue.current.timedOut();
 					queue.forEach(c -> c.timedOut());
 					queue.clear();
-		
+
 					commandQueueIsWorking = false;
 					commandCompletionCondition.signalAll();
 				} finally {
 					commandCompletionLock.unlock();
 				}
-		
+
 				// if the thread has not been terminated we need to fire time out events
 				synchronized (commandTimedOutListeners) {
 					for (CommandTimedOutListener commandTimedOutListener : commandTimedOutListeners) {
@@ -757,7 +756,9 @@ public class ProcessCommunicator {
 		public abstract void await();
 
 		/**
-		 * Returns the result which has been waited for.
+		 * Returns the result which has been waited for. <b>Note</b> that the result might contain
+		 * preceding characters which the caller is not interested in, since the {@link WaitFor} Class 
+		 * had to be created before the command has been sent to the process.
 		 * 
 		 * @return
 		 */

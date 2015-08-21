@@ -1,7 +1,7 @@
 \select@language {ngerman}
 \contentsline {chapter}{\numberline {1}Einleitung}{6}
 \contentsline {chapter}{\numberline {2}Die Eclipse Plattform}{7}
-\contentsline {section}{\numberline {2.1}Eclipse Plattform}{7}
+\contentsline {section}{\numberline {2.1}Die Plattform}{7}
 \contentsline {section}{\numberline {2.2}Plugins}{7}
 \contentsline {section}{\numberline {2.3}Extension Points}{7}
 \contentsline {section}{\numberline {2.4}Eclipse basierte MCore Entwicklungsumgebung}{8}
@@ -10,17 +10,17 @@
 \contentsline {subsection}{\numberline {2.4.3}Dynamic Language Toolkit Framework}{9}
 \contentsline {subsection}{\numberline {2.4.4}Eclipse C/C++ Development Tools}{9}
 \contentsline {subsection}{\numberline {2.4.5}Verwendung f\IeC {\"u}r uCore Eclipse}{9}
-\contentsline {chapter}{\numberline {3}Compiler Integration}{10}
-\contentsline {section}{\numberline {3.1}Integration im Eclipse CDT}{10}
-\contentsline {subsection}{\numberline {3.1.1}Configuration Beschreibung}{10}
-\contentsline {subsection}{\numberline {3.1.2}Configuration Verwendung}{10}
-\contentsline {subsection}{\numberline {3.1.3}Tool Beschreibung}{10}
-\contentsline {subsection}{\numberline {3.1.4}Tool Verwendung}{10}
-\contentsline {subsection}{\numberline {3.1.5}Toolchain Beschreibugn}{10}
-\contentsline {subsection}{\numberline {3.1.6}Toolchain Verwendung}{11}
-\contentsline {subsection}{\numberline {3.1.7}CDT Builder Beschreibung}{11}
-\contentsline {subsection}{\numberline {3.1.8}CDT Builder Verwendung}{11}
-\contentsline {subsection}{\numberline {3.1.9}Project Builder}{11}
+\contentsline {chapter}{\numberline {3}Integration des Compilers}{10}
+\contentsline {section}{\numberline {3.1}Integration in Eclipse CDT}{10}
+\contentsline {subsection}{\numberline {3.1.1}Configuration}{10}
+\contentsline {subsubsection}{\nonumberline Verwendung}{10}
+\contentsline {subsection}{\numberline {3.1.2}Tool}{10}
+\contentsline {subsubsection}{\nonumberline Verwendung}{10}
+\contentsline {subsection}{\numberline {3.1.3}Toolchain}{10}
+\contentsline {subsubsection}{\nonumberline Verwendung}{11}
+\contentsline {subsection}{\numberline {3.1.4}CDT-Builder}{11}
+\contentsline {subsubsection}{\nonumberline Verwendung}{11}
+\contentsline {subsection}{\numberline {3.1.5}Project Builder}{11}
 \contentsline {chapter}{\numberline {4}Programm Launch}{12}
 \contentsline {section}{\numberline {4.1}Launch}{12}
 \contentsline {subsection}{\numberline {4.1.1}Run}{13}
@@ -40,19 +40,19 @@
 \contentsline {subsubsection}{\nonumberline Command}{17}
 \contentsline {subsubsection}{\nonumberline WaitFor}{18}
 \contentsline {section}{\numberline {5.5}Testing}{18}
-\contentsline {chapter}{\numberline {6}uForth Editor}{19}
-\contentsline {section}{\numberline {6.1}Xtext Implementation des uForth Editor}{19}
+\contentsline {chapter}{\numberline {6}uForth-Editor}{19}
+\contentsline {section}{\numberline {6.1}Xtext-Implementation des uForth-Editors}{19}
 \contentsline {section}{\numberline {6.2}uForth Editor}{20}
-\contentsline {subsection}{\numberline {6.2.1}W\IeC {\"o}rter Dokumentation}{21}
+\contentsline {subsection}{\numberline {6.2.1}Dokumentation der uForth-spezifischen W\IeC {\"o}rter}{21}
 \contentsline {subsection}{\numberline {6.2.2}Editor Outline}{21}
 \contentsline {chapter}{\numberline {7}Debugger}{22}
 \contentsline {section}{\numberline {7.1}Breakpoints}{22}
 \contentsline {subsection}{\numberline {7.1.1}Per Konsole}{22}
 \contentsline {subsection}{\numberline {7.1.2}Im Source Code}{22}
-\contentsline {section}{\numberline {7.2}Konsolen basierter Debugger}{23}
+\contentsline {section}{\numberline {7.2}Konsolenbasierter Debugger}{23}
 \contentsline {section}{\numberline {7.3}Forth Debugger}{23}
-\contentsline {subsection}{\numberline {7.3.1}CDT oder JDT Debuggint Mechanismen}{23}
-\contentsline {subsection}{\numberline {7.3.2}Debugger Aktionen}{23}
+\contentsline {subsection}{\numberline {7.3.1}CDT oder JDT Debugging-Mechanismen}{23}
+\contentsline {subsection}{\numberline {7.3.2}Debugger-Aktionen}{23}
 \contentsline {subsubsection}{\nonumberline Resume}{24}
 \contentsline {subsubsection}{\nonumberline Terminate}{24}
 \contentsline {subsubsection}{\nonumberline Step Into}{24}
@@ -63,11 +63,11 @@
 \contentsline {subsection}{\numberline {7.3.3}Stack View}{26}
 \contentsline {subsection}{\numberline {7.3.4}Memory View}{26}
 \contentsline {section}{\numberline {7.4}C-Debugger}{27}
-\contentsline {chapter}{\numberline {8}Entwicklungsumgebungs Einstellungen}{28}
+\contentsline {chapter}{\numberline {8}Entwicklungsumgebungs Perference Page}{28}
 \contentsline {section}{\numberline {8.1}Umbilical}{28}
 \contentsline {section}{\numberline {8.2}Loader}{28}
 \contentsline {chapter}{\numberline {9}Optimierungen}{29}
-\contentsline {section}{\numberline {9.1}Peephole Optimierung}{29}
+\contentsline {section}{\numberline {9.1}Peephole-Optimierung}{29}
 \contentsline {subsection}{\numberline {9.1.1}Beispiele}{30}
 \contentsline {subsubsection}{\nonumberline Constant Propagation}{30}
 \contentsline {subsubsection}{\nonumberline Combine Operations}{30}
@@ -79,7 +79,7 @@
 \contentsline {chapter}{\numberline {A}Literaturverzeichnis}{34}
 \contentsline {chapter}{\numberline {B}Abbildungsverzeichnis}{35}
 \contentsline {chapter}{\numberline {C}Tabellenverzeichnis}{37}
-\contentsline {chapter}{\numberline {D}Installationsanleitung f\IeC {\"u}r Endanwender}{38}
+\contentsline {chapter}{\numberline {D}Installationsanleitung f\IeC {\"u}r Anwender}{38}
 \contentsline {chapter}{\numberline {E}Installationsanleitung f\IeC {\"u}r Entwickler}{39}
 \contentsline {chapter}{\numberline {F}Forth Test-Funktionen}{41}
 \contentsline {section}{\numberline {F.1}\_Init}{41}

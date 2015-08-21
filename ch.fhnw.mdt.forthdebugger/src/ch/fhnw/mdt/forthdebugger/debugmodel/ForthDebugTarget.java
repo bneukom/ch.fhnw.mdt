@@ -27,11 +27,10 @@ import org.eclipse.debug.core.model.IThread;
 import org.eclipse.debug.core.model.IValue;
 
 import ch.fhnw.mdt.forthdebugger.communication.ProcessCommunicator;
-import ch.fhnw.mdt.forthdebugger.communication.ProcessCommunicator.CommandTimeOutException;
 import ch.fhnw.mdt.forthdebugger.debugmodel.extensions.IKillProcessExtension;
 
 /**
- * Forth Debug Target.
+ * Forth Debug Target, which holds the internal {@link ForthThread} and manages the output of the Forth process.
  */
 public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget, IKillProcessExtension {
 
@@ -474,7 +473,6 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget,
 		private final Pattern debugFunctionPattern = Pattern.compile("([^\\s]+)(\\s+)(-{15})");
 
 		private final Pattern stepPattern = Pattern.compile("([A-Fa-f0-9]{8}): ([A-Fa-f0-9 ]{8}) ?(([^\\s]+ [^\\s]+)|( [^\\s]+[A-Fa-f0-9 ]+ (call))|([^\\s]+))((-?[A-Fa-f0-9 ])*) (>+)");
-
 
 		public DebugStreamListener(InputStream stream) {
 			this.stream = stream;

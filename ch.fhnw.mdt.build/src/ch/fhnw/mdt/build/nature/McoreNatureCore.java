@@ -20,7 +20,13 @@ import org.eclipse.core.runtime.Status;
 
 import ch.fhnw.mdt.build.MDTBuildPlugin;
 
-// TODO should that just be the Activator class?
+/**
+ * If the {@link McoreNatureCore} is {@link #initialize()} every Project with the C MCore Executable 
+ * associated with it will also get the MCore Project Nature. The MCore Nature is used for the builder
+ * to detect possible wrong configurations in the environment.
+ * 
+ * @see MCoreProjectBuilder
+ */
 public class McoreNatureCore {
 
 	/**

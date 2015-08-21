@@ -6,9 +6,10 @@ import org.eclipse.cdt.core.dom.ast.IASTFunctionDefinition;
 import org.eclipse.cdt.core.dom.ast.IASTTranslationUnit;
 
 public class ASTUtil {
-	
+
 	/**
-	 * Returns the {@link IASTFunctionDefinition} at the given line number or <code>null</code> if no function definition exists ath the given line number.
+	 * Returns the {@link IASTFunctionDefinition} at the given line number or <code>null</code>
+	 * if no function definition exists at the given line number.
 	 * 
 	 * @param ast
 	 *            the AST to get the function definition from
@@ -34,5 +35,5 @@ public class ASTUtil {
 
 		return null;
 	}
-	
+
 }

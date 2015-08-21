@@ -1,7 +1,6 @@
 package ch.fhnw.mdt.forthdebugger.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.Before;
@@ -36,7 +35,7 @@ public class TestCommandAwait {
 		final Object waiter = new Object();
 		try {
 			communicator.sendCommandForResult("foo", communicator.newAwaitMatch(".*r"), w -> {
-				assertEquals(w.getResult(), "bar");
+				assertTrue(w.getResult().endsWith("bar"));
 				
 				synchronized (waiter) {
 					waiter.notify();

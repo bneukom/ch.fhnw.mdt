@@ -19,6 +19,14 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import ch.fhnw.mdt.platform.IPlatformStrings;
 import ch.fhnw.mdt.platform.MDTPlatformPlugin;
 
+/**
+ * The {@link MCoreProjectBuilder} checks for wrong configurations in the environment and reports it to the user.
+ * It checks 
+ * <ul>
+ * <li>If the $GFORTHPATH variable set and its last entry points to a valid folder (it should be the workspace)</li>
+ * <li>If the $PATH contains a folder with the lcc-mcore program in it</li>
+ * </ul>
+ */
 public class MCoreProjectBuilder extends IncrementalProjectBuilder {
 
 	public static final String GFORTH_PATH_VARIABLE = "GFORTHPATH";
@@ -28,7 +36,7 @@ public class MCoreProjectBuilder extends IncrementalProjectBuilder {
 	private static final String MDT_PROBLEM = "ch.fhnw.mdt.build.pathProblem";
 
 	private final IPlatformStrings platformStrings = MDTPlatformPlugin.getDefault().getPlatformStrings();
-	
+
 	@Override
 	protected IProject[] build(final int kind, final Map<String, String> args, final IProgressMonitor monitor) throws CoreException {
 		final IEnvironmentVariableProvider environmentVariableProvider = ManagedBuildManager.getEnvironmentVariableProvider();
@@ -40,14 +48,14 @@ public class MCoreProjectBuilder extends IncrementalProjectBuilder {
 
 		final IConfiguration buildConfig = buildInfo.getManagedProject().getConfigurations()[0];
 		final String path = environmentVariableProvider.getVariable("PATH", buildInfo.getManagedProject().getConfigurations()[0], true).getValue();
-		
+
 		if (!isInResolvedPath(path, "lcc-mcore", environmentVariableProvider, buildConfig)) {
 			final IMarker invalidPath = project.createMarker(MDT_PROBLEM);
 			invalidPath.setAttribute(IMarker.MESSAGE, "lcc-mcore not found in PATH=" + path);
 			invalidPath.setAttribute(IMarker.PRIORITY, IMarker.PRIORITY_HIGH);
 			invalidPath.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_ERROR);
 		}
-		
+
 		final IEnvironmentVariable gforthPathVar = environmentVariableProvider.getVariable(GFORTH_PATH_VARIABLE, buildConfig, true);
 		if (gforthPathVar != null) {
 			final String gforthPath = gforthPathVar.getValue();
@@ -93,8 +101,7 @@ public class MCoreProjectBuilder extends IncrementalProjectBuilder {
 				}
 			}
 		}
-		
-		
+
 		return false;
 	}
 
