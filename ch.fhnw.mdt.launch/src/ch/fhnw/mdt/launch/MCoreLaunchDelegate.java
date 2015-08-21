@@ -65,8 +65,7 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 
 			final IEnvironmentVariableProvider environmentVariableProvider = ManagedBuildManager.getEnvironmentVariableProvider();
 			final IManagedBuildInfo buildInfo = ManagedBuildManager.getBuildInfo(project);
-			final IEnvironmentVariable gforthPathEnvironmentVariable = environmentVariableProvider.getVariable(GFORTH_PATH_VARIABLE,
-					buildInfo.getManagedProject().getConfigurations()[0], true);
+			final IEnvironmentVariable gforthPathEnvironmentVariable = environmentVariableProvider.getVariable(GFORTH_PATH_VARIABLE, buildInfo.getManagedProject().getConfigurations()[0], true);
 
 			final String[] gforthPaths = gforthPathEnvironmentVariable.getValue().split(platformStrings.getEnvironmentSeparators());
 			final String workingDirectory = gforthPaths[gforthPaths.length - 1];
@@ -211,11 +210,11 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 		protected IStatus run(IProgressMonitor monitor) {
 			// start gforth
 			final MCoreLaunch mcoreLaunch = startGforth(launch, workingDirectory, umbilical, executableFile);
-			
+
 			if (mcoreLaunch == null) {
 				return new Status(IStatus.ERROR, ForthDebuggerPlugin.PLUGIN_ID, "Could not start the forth process.");
 			}
-			
+
 			// start debugger if necessary
 			if (isDebugMode) {
 				try {
@@ -257,7 +256,7 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 			try {
 				launch.setAttribute(DebugPlugin.ATTR_PROCESS_FACTORY_ID, "ch.fhnw.mdt.launch.forthprocessfactory");
 
-				final ProcessBuilder processBuilder = new ProcessBuilder(platformStrings.getShellPath());
+				final ProcessBuilder processBuilder = new ProcessBuilder("gforth");
 				processBuilder.redirectErrorStream(true);
 
 				processBuilder.directory(new File(workingDirectory));
@@ -289,16 +288,14 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 				});
 
 				try {
-					processCommunicator.sendCommand("gforth ./load_eclipse.fs" + ProcessCommunicator.NL);
-
+					processCommunicator.sendCommand("include load_eclipse.fs" + ProcessCommunicator.NL);
 					processCommunicator.awaitReadCompletion();
-					
+
 					processCommunicator.sendCommandAwaitResult("umbilical: " + umbilical + ProcessCommunicator.NL, processCommunicator.newAwaitResult(ProcessCommunicator.OK));
 					processCommunicator.sendCommandAwaitResult("run" + ProcessCommunicator.NL, processCommunicator.newAwaitResult("HANDSHAKE"));
 				} catch (CommandTimeOutException e) {
 					return null;
 				}
-
 
 				return new MCoreLaunch(process, eclipseProcess, consoleOutputStream, processCommunicator);
 
@@ -337,12 +334,12 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 					if (read == -1) {
 						return;
 					}
-					
+
 					if (read == CR) {
 						try {
 							processCommunicator.sendCommand(commandBuffer.toString().trim() + ProcessCommunicator.NL);
 						} catch (CommandTimeOutException e) {
-							return; 
+							return;
 						}
 						commandBuffer.setLength(0);
 					} else {

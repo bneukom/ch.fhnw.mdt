@@ -1,6 +1,11 @@
 package ch.fhnw.mdt.platform;
 
+/**
+ * Returns platform specific strings.
+ *
+ */
 public interface IPlatformStrings {
+
 	/**
 	 * Returns the separator for environment variables.
 	 * 

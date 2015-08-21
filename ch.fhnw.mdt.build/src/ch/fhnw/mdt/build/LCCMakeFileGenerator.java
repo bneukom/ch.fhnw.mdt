@@ -18,7 +18,6 @@ public class LCCMakeFileGenerator implements IManagedBuilderMakefileGenerator {
 
 	@Override
 	public void generateDependencies() throws CoreException {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -52,7 +51,6 @@ public class LCCMakeFileGenerator implements IManagedBuilderMakefileGenerator {
 
 	@Override
 	public boolean isGeneratedResource(IResource resource) {
-		
 		// TODO implement
 		
 		return false;

@@ -16,7 +16,7 @@ import org.eclipse.debug.core.model.IValue;
 import org.eclipse.debug.core.model.IVariable;
 
 /**
- * A variable in a PDA stack frame
+ * A variable in a Forth stack frame
  */
 public class ForthVariable extends ForthDebugElement implements IVariable {
 
@@ -65,8 +65,7 @@ public class ForthVariable extends ForthDebugElement implements IVariable {
 	 */
 	@Override
 	public String getReferenceTypeName() throws DebugException {
-		// TODO Auto-generated method stub
-		return "Thing";
+		return "";
 	}
 
 	/*
@@ -76,7 +75,6 @@ public class ForthVariable extends ForthDebugElement implements IVariable {
 	 */
 	@Override
 	public boolean hasValueChanged() throws DebugException {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
