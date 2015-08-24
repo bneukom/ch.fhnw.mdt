@@ -21,9 +21,10 @@ import org.eclipse.core.runtime.Status;
 import ch.fhnw.mdt.build.MDTBuildPlugin;
 
 /**
- * If the {@link McoreNatureCore} is {@link #initialize()} every Project with the C MCore Executable 
- * associated with it will also get the MCore Project Nature. The MCore Nature is used for the builder
- * to detect possible wrong configurations in the environment.
+ * If the {@link McoreNatureCore} is {@link #initialize()} every Project with
+ * the C MCore Executable associated with it will also get the MCore Project
+ * Nature. The MCore Nature is used for the builder to detect possible wrong
+ * configurations in the environment.
  * 
  * @see MCoreProjectBuilder
  */
@@ -40,16 +41,26 @@ public class McoreNatureCore {
 	 */
 	public static void initialize() {
 		// trigger full build on startup
-		final IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
-		for (IProject project : projects) {
-			try {
-				if (project.isOpen() && project.getNature(MCoreNature.NATURE_ID) != null) {
-					project.build(IncrementalProjectBuilder.FULL_BUILD, null);
+		final WorkspaceJob job = new WorkspaceJob("Startup MCore Build") {
+
+			@Override
+			public IStatus runInWorkspace(IProgressMonitor monitor) throws CoreException {
+				final IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
+				for (IProject project : projects) {
+					try {
+						if (project.isOpen() && project.getNature(MCoreNature.NATURE_ID) != null) {
+							project.build(IncrementalProjectBuilder.FULL_BUILD, null);
+						}
+					} catch (CoreException e) {
+						e.printStackTrace();
+					}
 				}
-			} catch (CoreException e) {
-				e.printStackTrace();
+				return new Status(IStatus.OK, MDTBuildPlugin.PLUGIN_ID, null);
 			}
-		}
+
+		};
+		
+		job.schedule();
 
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(new IResourceChangeListener() {
 
