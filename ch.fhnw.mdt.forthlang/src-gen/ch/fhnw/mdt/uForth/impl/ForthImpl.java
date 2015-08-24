@@ -3,7 +3,7 @@
 package ch.fhnw.mdt.uForth.impl;
 
 import ch.fhnw.mdt.uForth.Forth;
-import ch.fhnw.mdt.uForth.GlobalInstruction;
+import ch.fhnw.mdt.uForth.Instruction;
 import ch.fhnw.mdt.uForth.UForthPackage;
 
 import java.util.Collection;
@@ -43,7 +43,7 @@ public class ForthImpl extends MinimalEObjectImpl.Container implements Forth
    * @generated
    * @ordered
    */
-  protected EList<GlobalInstruction> instructions;
+  protected EList<Instruction> instructions;
 
   /**
    * <!-- begin-user-doc -->
@@ -71,11 +71,11 @@ public class ForthImpl extends MinimalEObjectImpl.Container implements Forth
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<GlobalInstruction> getInstructions()
+  public EList<Instruction> getInstructions()
   {
     if (instructions == null)
     {
-      instructions = new EObjectContainmentEList<GlobalInstruction>(GlobalInstruction.class, this, UForthPackage.FORTH__INSTRUCTIONS);
+      instructions = new EObjectContainmentEList<Instruction>(Instruction.class, this, UForthPackage.FORTH__INSTRUCTIONS);
     }
     return instructions;
   }
@@ -125,7 +125,7 @@ public class ForthImpl extends MinimalEObjectImpl.Container implements Forth
     {
       case UForthPackage.FORTH__INSTRUCTIONS:
         getInstructions().clear();
-        getInstructions().addAll((Collection<? extends GlobalInstruction>)newValue);
+        getInstructions().addAll((Collection<? extends Instruction>)newValue);
         return;
     }
     super.eSet(featureID, newValue);

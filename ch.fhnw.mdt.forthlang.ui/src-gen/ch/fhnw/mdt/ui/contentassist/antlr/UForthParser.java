@@ -37,7 +37,7 @@ public class UForthParser extends AbstractContentAssistParser {
 			nameMappings = new HashMap<AbstractElement, String>() {
 				private static final long serialVersionUID = 1L;
 				{
-					put(grammarAccess.getGlobalInstructionAccess().getAlternatives(), "rule__GlobalInstruction__Alternatives");
+					put(grammarAccess.getInstructionAccess().getAlternatives(), "rule__Instruction__Alternatives");
 					put(grammarAccess.getLITERALAccess().getAlternatives(), "rule__LITERAL__Alternatives");
 					put(grammarAccess.getIntrinsicStackWordsAccess().getNameAlternatives_1_0(), "rule__IntrinsicStackWords__NameAlternatives_1_0");
 					put(grammarAccess.getIntrinsicMemoryWordsAccess().getNameAlternatives_1_0(), "rule__IntrinsicMemoryWords__NameAlternatives_1_0");

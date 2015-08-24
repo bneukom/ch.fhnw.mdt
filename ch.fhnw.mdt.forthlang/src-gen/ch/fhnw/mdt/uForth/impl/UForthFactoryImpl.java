@@ -65,7 +65,7 @@ public class UForthFactoryImpl extends EFactoryImpl implements UForthFactory
     switch (eClass.getClassifierID())
     {
       case UForthPackage.FORTH: return createForth();
-      case UForthPackage.GLOBAL_INSTRUCTION: return createGlobalInstruction();
+      case UForthPackage.INSTRUCTION: return createInstruction();
       case UForthPackage.FUNCTION: return createFunction();
       case UForthPackage.CREATE: return createCreate();
       case UForthPackage.INTRINSIC_STACK_WORDS: return createIntrinsicStackWords();
@@ -93,10 +93,10 @@ public class UForthFactoryImpl extends EFactoryImpl implements UForthFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public GlobalInstruction createGlobalInstruction()
+  public Instruction createInstruction()
   {
-    GlobalInstructionImpl globalInstruction = new GlobalInstructionImpl();
-    return globalInstruction;
+    InstructionImpl instruction = new InstructionImpl();
+    return instruction;
   }
 
   /**

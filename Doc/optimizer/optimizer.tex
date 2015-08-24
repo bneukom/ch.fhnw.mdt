@@ -74,7 +74,7 @@ ersetzt werden. Die zwei Instruktionen \verb!dup! und \verb!drop! heben sich auf
 
 \subsection{Optimierungen}
 
-Für den Compiler wurden zwei Prototypen mässig zwei Optimierungen in Java implementiert. Die erste Optimierung versucht benachbarte Instruktionen zu vereinfachen. Die zweite Optimierung ist eine einfache Constant Propagation. Die beiden Optimierungen werden in den nächsten Kapiteln genauer beschrieben. Der neue Optimizer wird in zwei Phasen durchgeführt:
+Für den Compiler wurden zwei Peephole-Optimierungs Prototypen in Java implementiert. Die erste Optimierung versucht benachbarte Instruktionen zu vereinfachen. Die zweite Optimierung ist eine einfache Constant Propagation. Die beiden Optimierungen werden in den nächsten Kapiteln genauer beschrieben. Der neue Optimizer wird in zwei Phasen durchgeführt:
 
 \begin{figure}[H]
 	\centering
@@ -136,6 +136,7 @@ $rot, -rot \rightarrow nop$\\
 $1, + \rightarrow 1+$\\
 $swap, + \rightarrow +$\\
 %
+
 Diese Regeln könnten in dem Forth-Cross-Compiler integriert werden. Im nächsten Kapitel werden Änderungen für den PO vorgeschlagen, damit dieser mehr Instruktionspaare, die vereinfacht werden können, erkennt.
 
 \subsection{Mögliche Erweiterungen}

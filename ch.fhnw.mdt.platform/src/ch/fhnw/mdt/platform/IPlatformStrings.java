@@ -1,5 +1,7 @@
 package ch.fhnw.mdt.platform;
 
+import java.util.List;
+
 /**
  * Returns platform specific strings.
  *
@@ -37,4 +39,11 @@ public interface IPlatformStrings {
 	 * @return
 	 */
 	public String getVariableName(String input);
+
+	/**
+	 * Returns all available com ports.
+	 * 
+	 * @return all available com ports
+	 */
+	public List<String> listComPorts();
 }

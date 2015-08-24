@@ -5,7 +5,7 @@ package ch.fhnw.mdt.uForth.impl;
 import ch.fhnw.mdt.uForth.Create;
 import ch.fhnw.mdt.uForth.Forth;
 import ch.fhnw.mdt.uForth.Function;
-import ch.fhnw.mdt.uForth.GlobalInstruction;
+import ch.fhnw.mdt.uForth.Instruction;
 import ch.fhnw.mdt.uForth.IntrinsicArithmeticWords;
 import ch.fhnw.mdt.uForth.IntrinsicMemoryWords;
 import ch.fhnw.mdt.uForth.IntrinsicStackWords;
@@ -40,7 +40,7 @@ public class UForthPackageImpl extends EPackageImpl implements UForthPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass globalInstructionEClass = null;
+  private EClass instructionEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -172,9 +172,9 @@ public class UForthPackageImpl extends EPackageImpl implements UForthPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getGlobalInstruction()
+  public EClass getInstruction()
   {
-    return globalInstructionEClass;
+    return instructionEClass;
   }
 
   /**
@@ -182,9 +182,9 @@ public class UForthPackageImpl extends EPackageImpl implements UForthPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getGlobalInstruction_Name()
+  public EAttribute getInstruction_Name()
   {
-    return (EAttribute)globalInstructionEClass.getEStructuralFeatures().get(0);
+    return (EAttribute)instructionEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -300,8 +300,8 @@ public class UForthPackageImpl extends EPackageImpl implements UForthPackage
     forthEClass = createEClass(FORTH);
     createEReference(forthEClass, FORTH__INSTRUCTIONS);
 
-    globalInstructionEClass = createEClass(GLOBAL_INSTRUCTION);
-    createEAttribute(globalInstructionEClass, GLOBAL_INSTRUCTION__NAME);
+    instructionEClass = createEClass(INSTRUCTION);
+    createEAttribute(instructionEClass, INSTRUCTION__NAME);
 
     functionEClass = createEClass(FUNCTION);
     createEReference(functionEClass, FUNCTION__WORDS);
@@ -347,19 +347,19 @@ public class UForthPackageImpl extends EPackageImpl implements UForthPackage
     // Set bounds for type parameters
 
     // Add supertypes to classes
-    functionEClass.getESuperTypes().add(this.getGlobalInstruction());
-    createEClass.getESuperTypes().add(this.getGlobalInstruction());
+    functionEClass.getESuperTypes().add(this.getInstruction());
+    createEClass.getESuperTypes().add(this.getInstruction());
     intrinsicStackWordsEClass.getESuperTypes().add(this.getWord());
     intrinsicMemoryWordsEClass.getESuperTypes().add(this.getWord());
     intrinsicArithmeticWordsEClass.getESuperTypes().add(this.getWord());
-    wordEClass.getESuperTypes().add(this.getGlobalInstruction());
+    wordEClass.getESuperTypes().add(this.getInstruction());
 
     // Initialize classes and features; add operations and parameters
     initEClass(forthEClass, Forth.class, "Forth", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getForth_Instructions(), this.getGlobalInstruction(), null, "instructions", null, 0, -1, Forth.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getForth_Instructions(), this.getInstruction(), null, "instructions", null, 0, -1, Forth.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(globalInstructionEClass, GlobalInstruction.class, "GlobalInstruction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getGlobalInstruction_Name(), ecorePackage.getEString(), "name", null, 0, 1, GlobalInstruction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(instructionEClass, Instruction.class, "Instruction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getInstruction_Name(), ecorePackage.getEString(), "name", null, 0, 1, Instruction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(functionEClass, Function.class, "Function", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getFunction_Words(), this.getWord(), null, "words", null, 0, -1, Function.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

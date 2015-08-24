@@ -8,25 +8,25 @@ In diesem Kapitel wird beschrieben, wie der Compiler in die Entwicklungsumgebung
 Das Eclipse-CDT stellt Extension Points zur Verfügung, die gebraucht werden können um, einen Compiler zu integrieren. Diese Extension Points werden in den nächsten Kapiteln erläutert und es wird erklärt, wie der LCC dadurch in die Entwicklungsumgebung eingebunden wird.
 
 \subsection{Configuration}
-Eine Konfiguration wird verwendet, um verschiedene standard Tools und Options bereitzustellen, die ein Projekt auf eine bestimmte Weise kompilieren. Normalerweise existieren für ein Projekt zwei Konfigurationen, eine Debug- und eine Releasekonfiguration.
+Eine Konfiguration wird verwendet, um verschiedene standard Tools und Options bereitzustellen, die ein Projekt auf eine bestimmte Weise kompilieren. Normalerweise existieren für ein Projekt zwei Konfigurationen, eine Debug- und eine Releasekonfiguration.\cite{managedbuildcdt}
 
 \subsubsection{Verwendung}
 Für die Entwicklungsumgebung existiert nur eine Konfiguration für den Release Build. Debug-spezifische Files werden vom Launch generiert.
 
 \subsection{Tool}
-Ein Tool definiert ein Programm, wie zum Beispiel einen Compiler oder Linker, welches vom Buildprozess verwendet wird.
+Ein Tool definiert ein Programm, wie zum Beispiel einen Compiler oder Linker, welches vom Buildprozess verwendet wird.\cite{managedbuildcdt}
 
 \subsubsection{Verwendung}
 In der Entwicklungsumgebung wird nur ein Tool verwendet, das den LCC Compiler aufruft und somit das Forth File generiert. Für dieses Tool wurde eine Option (\verb!-S-Q!) definiert, welche den Peephole Optimizer des Compilers deaktiviert.
 
 \subsection{Toolchain}
-Eine Toolchain ist eine Liste von Tools, die gebraucht werden, um den Output des Projekts zu generieren. 
+Eine Toolchain ist eine Liste von Tools, die gebraucht werden, um den Output des Projekts zu generieren.\cite{managedbuildcdt} 
 
 \subsubsection{Verwendung}
 Die von der Entwicklungsumgebung verwendete Toolchain beinhaltet nur das oben beschriebene Tool, um den LCC Compiler aufzurufen.
 
 \subsection{CDT-Builder}
-Repräsentiert das Werkzeug, welches verwendet wird um den Build-Prozess zu steuern. Typischerweise eine Variante von \verb!make!. 
+Der CDT-Builder repräsentiert das Werkzeug, welches verwendet wird um den Build-Prozess zu steuern. Typischerweise ist es eine Variante von \verb!make!.\cite{managedbuildcdt} 
 
 \subsubsection{Verwendung}
 Für die uCore-Entwicklungsumgebung wurde der Standard CDT-Builder verwendet. Zusätzlich werden die File-Endung der vom Compiler generierten Forth Files auf \verb!.fs! geändert.

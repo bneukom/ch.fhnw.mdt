@@ -281,7 +281,7 @@ CALL ( <name> -- ), C
 Compiles an unconditional call to <name>. <name> may be a label or colon definition.
 CALL supports forward referencing, i.e. the name of the label or colon definition that follows
 may be defined later on.
-
+	
 status@ ( -- status ), I
 Pushes the status register on dstack.
 

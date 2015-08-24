@@ -32,13 +32,13 @@ public interface UForthFactory extends EFactory
   Forth createForth();
 
   /**
-   * Returns a new object of class '<em>Global Instruction</em>'.
+   * Returns a new object of class '<em>Instruction</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Global Instruction</em>'.
+   * @return a new object of class '<em>Instruction</em>'.
    * @generated
    */
-  GlobalInstruction createGlobalInstruction();
+  Instruction createInstruction();
 
   /**
    * Returns a new object of class '<em>Function</em>'.

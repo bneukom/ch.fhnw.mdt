@@ -20,7 +20,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface Create extends GlobalInstruction
+public interface Create extends Instruction
 {
   /**
    * Returns the value of the '<em><b>Lit</b></em>' attribute list.

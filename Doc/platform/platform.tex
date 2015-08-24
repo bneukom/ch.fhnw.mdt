@@ -16,7 +16,7 @@ Eclipse-Applikationen nützen eine auf der OSGi Speizifikation basierten Laufzei
 
 Um Plugins erweitern zu können, bietet Eclipse das Konzept der Extension Points an. Über Extension Points können Plugins eine bestimmte Funktionalität anbieten, die von anderen Plugins verwendet werden kann. 
 \newline
-Eclipse bietet zum Beispiel ein Plugin an, das einen Extension Point für Views definiert. Andere Plugins können über diesen Extension Point, eine neue View erstellen und diese konfigurieren. \cite{extensionpoints}
+Eclipse bietet zum Beispiel ein Plugin an, das einen Extension Point für Views definiert. Andere Plugins können über diesen Extension Point eine neue View erstellen und diese konfigurieren. \cite{extensionpoints}
 
 \newpage
 Die Abbildung \ref{fig:extensionpoint} zeigt, wie über diesen Extension Point eine neue Eclipse View erstellt werden kann.
@@ -49,7 +49,7 @@ XText ist ein Framework, das das Programmieren einer auf Eclipse basierten Entwi
 	\item Indexing
 \end{itemize}
 
-Es muss lediglich eine ANTLR-ähnliche Grammatik für die Sprache definiert werden.\cite{antlr} Eine Grammatik für den C-Editor zu definieren ist schwierig. Ausserdem müsste noch der Präprozessor mit einbezogen werden, was Xtext standardmässig nicht unterstützt. \newline Für den Forth-Editor ist es aber durchaus möglich, Xtext zu verwenden. Im Kapitel "`\nameref{chap:fortheditor}"' wird beschrieben, wie Xtext verwendet wurde, um einen Forth-Editor zu implementieren.
+Es muss lediglich eine ANTLR-ähnliche Grammatik für die Sprache definiert werden.\cite{antlr} Eine Grammatik für den C-Editor zu definieren ist schwierig. Ausserdem müsste, für einen guten C-Editor, noch der Präprozessor mit einbezogen werden, was Xtext standardmässig nicht unterstützt. \newline Für den Forth-Editor ist es aber durchaus möglich, Xtext zu verwenden. Im Kapitel "`\nameref{chap:fortheditor}"' wird beschrieben, wie Xtext verwendet wurde, um einen Forth-Editor zu implementieren.
 
 \subsection{Dynamic Language Toolkit Framework}
 Das Dynamic Language Toolkit (DLTK) ist ein weiteres Framework, das das Grundgerüst für eine Entwicklungsumgebung generieren kann. Ursprünglich war das Framework nur für dynamische Sprachen geeignet, es kann aber auch für statische Sprachen verwendet werden. Die D-Entwicklungsumgebung wurde mit dem DLTK realisiert\cite{ddt}. Es bestehen aber dieselben Nachteile wie bei Xtext. Da C schwierig zu parsen ist, müsste trotz dem Framework noch viel implementiert werden. Die Sprache D verwendet keinen Präprozessor, deshalb konnte für diese Entwicklungsumgebung das DLTK Framework verwendet werden.

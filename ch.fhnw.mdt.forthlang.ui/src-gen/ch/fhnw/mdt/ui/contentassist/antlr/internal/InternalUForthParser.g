@@ -169,25 +169,25 @@ finally {
 
 
 
-// Entry rule entryRuleGlobalInstruction
-entryRuleGlobalInstruction 
+// Entry rule entryRuleInstruction
+entryRuleInstruction 
 :
-{ before(grammarAccess.getGlobalInstructionRule()); }
-	 ruleGlobalInstruction
-{ after(grammarAccess.getGlobalInstructionRule()); } 
+{ before(grammarAccess.getInstructionRule()); }
+	 ruleInstruction
+{ after(grammarAccess.getInstructionRule()); } 
 	 EOF 
 ;
 
-// Rule GlobalInstruction
-ruleGlobalInstruction 
+// Rule Instruction
+ruleInstruction 
     @init {
 		int stackSize = keepStackSize();
     }
     :
 (
-{ before(grammarAccess.getGlobalInstructionAccess().getAlternatives()); }
-(rule__GlobalInstruction__Alternatives)
-{ after(grammarAccess.getGlobalInstructionAccess().getAlternatives()); }
+{ before(grammarAccess.getInstructionAccess().getAlternatives()); }
+(rule__Instruction__Alternatives)
+{ after(grammarAccess.getInstructionAccess().getAlternatives()); }
 )
 
 ;
@@ -394,27 +394,27 @@ finally {
 
 
 
-rule__GlobalInstruction__Alternatives
+rule__Instruction__Alternatives
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getGlobalInstructionAccess().getCreateParserRuleCall_0()); }
+{ before(grammarAccess.getInstructionAccess().getCreateParserRuleCall_0()); }
 	ruleCreate
-{ after(grammarAccess.getGlobalInstructionAccess().getCreateParserRuleCall_0()); }
+{ after(grammarAccess.getInstructionAccess().getCreateParserRuleCall_0()); }
 )
 
     |(
-{ before(grammarAccess.getGlobalInstructionAccess().getFunctionParserRuleCall_1()); }
+{ before(grammarAccess.getInstructionAccess().getFunctionParserRuleCall_1()); }
 	ruleFunction
-{ after(grammarAccess.getGlobalInstructionAccess().getFunctionParserRuleCall_1()); }
+{ after(grammarAccess.getInstructionAccess().getFunctionParserRuleCall_1()); }
 )
 
     |(
-{ before(grammarAccess.getGlobalInstructionAccess().getWordParserRuleCall_2()); }
+{ before(grammarAccess.getInstructionAccess().getWordParserRuleCall_2()); }
 	ruleWord
-{ after(grammarAccess.getGlobalInstructionAccess().getWordParserRuleCall_2()); }
+{ after(grammarAccess.getInstructionAccess().getWordParserRuleCall_2()); }
 )
 
 ;
@@ -1620,8 +1620,8 @@ rule__Forth__InstructionsAssignment
     }
 :
 (
-{ before(grammarAccess.getForthAccess().getInstructionsGlobalInstructionParserRuleCall_0()); }
-	ruleGlobalInstruction{ after(grammarAccess.getForthAccess().getInstructionsGlobalInstructionParserRuleCall_0()); }
+{ before(grammarAccess.getForthAccess().getInstructionsInstructionParserRuleCall_0()); }
+	ruleInstruction{ after(grammarAccess.getForthAccess().getInstructionsInstructionParserRuleCall_0()); }
 )
 
 ;

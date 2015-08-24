@@ -10,8 +10,8 @@
     <genClasses ecoreClass="UForth.ecore#//Forth">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UForth.ecore#//Forth/instructions"/>
     </genClasses>
-    <genClasses ecoreClass="UForth.ecore#//GlobalInstruction">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UForth.ecore#//GlobalInstruction/name"/>
+    <genClasses ecoreClass="UForth.ecore#//Instruction">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UForth.ecore#//Instruction/name"/>
     </genClasses>
     <genClasses ecoreClass="UForth.ecore#//Function">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UForth.ecore#//Function/words"/>

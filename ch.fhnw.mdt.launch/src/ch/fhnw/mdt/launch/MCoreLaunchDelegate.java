@@ -46,6 +46,7 @@ import ch.fhnw.mdt.forthdebugger.debugmodel.IForthConstants;
 import ch.fhnw.mdt.platform.IPlatformStrings;
 import ch.fhnw.mdt.platform.MDTPlatformPlugin;
 import ch.fhnw.mdt.preferences.MDTPreferencesPlugin;
+import ch.fhnw.mdt.preferences.SelectUmbilicalPortDialog;
 
 // TODO implement ILaunchShortcut
 // TODO see LocalCDILaunchDelegate
@@ -71,19 +72,30 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 			final String workingDirectory = gforthPaths[gforthPaths.length - 1];
 			final String executableFilePath = launch.getLaunchConfiguration().getAttribute(IForthConstants.ATTR_FORTH_EXECUTABLE_FILE, "");
 			final IFile executableFile = (IFile) project.findMember(executableFilePath);
-
-			final String umbilical = MDTPreferencesPlugin.getDefault().getCheckedUmbilical();
 			final boolean isDebugMode = launch.getLaunchMode().equals(DEBUG_MODE);
+			final MDTPreferencesPlugin preferencePlugin = MDTPreferencesPlugin.getDefault();
 
-			// abort if umbilical is not set
-			if (umbilical == null) {
+			String umbilical = preferencePlugin.getCheckedUmbilical();
 
+			// ask user for new umbilical port if it has been set in the preference but is not valid
+			if (umbilical == null && preferencePlugin.isUmbilicalPortPreferenceActive()) {
+				final SelectUmbilicalPortDialog selectPortDialog = new SelectUmbilicalPortDialog(null);
+				
+				Display.getDefault().syncExec(() -> {
+					selectPortDialog.open();
+				});
+				
+				umbilical = selectPortDialog.getSelectedDevice();
+			}
+			
+			// abort in case we are in debug mode and the port is still not valid
+			if (isDebugMode && !preferencePlugin.isValidUmbilical(umbilical)) {
 				Display.getDefault().asyncExec(new Runnable() {
 
 					@Override
 					public void run() {
 						MessageDialog.openError(Display.getDefault().getActiveShell(), "Invalid Umbilical",
-								"The umbilical port " + MDTPreferencesPlugin.getDefault().getUmbilical() + " is invalid. Open MCore Preferences and set a valid umbilical port.");
+								"The umbilical port " + MDTPreferencesPlugin.getDefault().getUmbilical() + " is invalid. For a debug launch the port must be set. Open MCore Preference Page and set a valid umbilical port.");
 					}
 				});
 
@@ -183,7 +195,7 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 	}
 
 	/**
-	 * Launches gforth and the debugger if necessary.
+	 * Launches gforth process and the debugger if necessary.
 	 */
 	private class LaunchJob extends Job {
 
@@ -195,7 +207,7 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 		private List<String> forthSource;
 
 		public LaunchJob(boolean isDebugMode, ILaunch launch, String workingDirectory, String umbilical, List<String> forthSource, IFile executableFile) {
-			super("Launch");
+			super("Launch MicroCore");
 			this.isDebugMode = isDebugMode;
 			this.launch = launch;
 			this.workingDirectory = workingDirectory;
@@ -291,13 +303,16 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 					processCommunicator.sendCommand("include load_eclipse.fs" + ProcessCommunicator.NL);
 					processCommunicator.awaitReadCompletion();
 
-					processCommunicator.sendCommandAwaitResult("umbilical: " + umbilical + ProcessCommunicator.NL, processCommunicator.newAwaitResult(ProcessCommunicator.OK));
-					processCommunicator.sendCommandAwaitResult("run" + ProcessCommunicator.NL, processCommunicator.newAwaitResult("HANDSHAKE"));
+					// can only run if the umbilical port is not null
+					if (umbilical != null) {
+						processCommunicator.sendCommandAwaitResult("umbilical: " + umbilical + ProcessCommunicator.NL, processCommunicator.newAwaitResult(ProcessCommunicator.OK));
+						processCommunicator.sendCommandAwaitResult("run" + ProcessCommunicator.NL, processCommunicator.newAwaitResult("HANDSHAKE"));
+					}
 				} catch (CommandTimeOutException e) {
 					return null;
 				}
 
-				return new MCoreLaunch(process, eclipseProcess, consoleOutputStream, processCommunicator);
+				return new MCoreLaunch(eclipseProcess, consoleOutputStream, processCommunicator);
 
 			} catch (final IOException e) {
 				e.printStackTrace();
@@ -318,7 +333,6 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 		private static final char CR = 10;
 
 		public InputThread(InputStream inputStream, ProcessCommunicator forthCommandQueue) {
-			super();
 			this.inputStream = inputStream;
 			this.processCommunicator = forthCommandQueue;
 		}
@@ -359,14 +373,11 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate {
 	 *
 	 */
 	private static class MCoreLaunch {
-		private final Process process;
 		private IProcess eclipseProcess;
 		private final ProcessCommunicator processCommunicator;
 		private IOConsoleOutputStream consoleOutputStream;
 
-		public MCoreLaunch(Process process, IProcess eclipseProcess, IOConsoleOutputStream consoleOutputStream, ProcessCommunicator processCommunicator) {
-			super();
-			this.process = process;
+		public MCoreLaunch(IProcess eclipseProcess, IOConsoleOutputStream consoleOutputStream, ProcessCommunicator processCommunicator) {
 			this.eclipseProcess = eclipseProcess;
 			this.consoleOutputStream = consoleOutputStream;
 			this.processCommunicator = processCommunicator;

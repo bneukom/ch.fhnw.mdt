@@ -21,27 +21,27 @@ public class UForthGrammarAccess extends AbstractGrammarElementFinder {
 	public class ForthElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Forth");
 		private final Assignment cInstructionsAssignment = (Assignment)rule.eContents().get(1);
-		private final RuleCall cInstructionsGlobalInstructionParserRuleCall_0 = (RuleCall)cInstructionsAssignment.eContents().get(0);
+		private final RuleCall cInstructionsInstructionParserRuleCall_0 = (RuleCall)cInstructionsAssignment.eContents().get(0);
 		
 		//Forth:
-		//	instructions+=GlobalInstruction*;
+		//	instructions+=Instruction*;
 		@Override public ParserRule getRule() { return rule; }
 
-		//instructions+=GlobalInstruction*
+		//instructions+=Instruction*
 		public Assignment getInstructionsAssignment() { return cInstructionsAssignment; }
 
-		//GlobalInstruction
-		public RuleCall getInstructionsGlobalInstructionParserRuleCall_0() { return cInstructionsGlobalInstructionParserRuleCall_0; }
+		//Instruction
+		public RuleCall getInstructionsInstructionParserRuleCall_0() { return cInstructionsInstructionParserRuleCall_0; }
 	}
 
-	public class GlobalInstructionElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "GlobalInstruction");
+	public class InstructionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Instruction");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final RuleCall cCreateParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cFunctionParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		private final RuleCall cWordParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		
-		//GlobalInstruction:
+		//Instruction:
 		//	Create | Function | Word;
 		@Override public ParserRule getRule() { return rule; }
 
@@ -602,7 +602,7 @@ public class UForthGrammarAccess extends AbstractGrammarElementFinder {
 	private final TerminalRule tINT;
 	private final TerminalRule tDOUBLE;
 	private final TerminalRule tID;
-	private final GlobalInstructionElements pGlobalInstruction;
+	private final InstructionElements pInstruction;
 	private final FunctionElements pFunction;
 	private final CreateElements pCreate;
 	private final LITERALElements pLITERAL;
@@ -627,7 +627,7 @@ public class UForthGrammarAccess extends AbstractGrammarElementFinder {
 		this.tINT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "INT");
 		this.tDOUBLE = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "DOUBLE");
 		this.tID = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "ID");
-		this.pGlobalInstruction = new GlobalInstructionElements();
+		this.pInstruction = new InstructionElements();
 		this.pFunction = new FunctionElements();
 		this.pCreate = new CreateElements();
 		this.pLITERAL = new LITERALElements();
@@ -665,7 +665,7 @@ public class UForthGrammarAccess extends AbstractGrammarElementFinder {
 
 	
 	//Forth:
-	//	instructions+=GlobalInstruction*;
+	//	instructions+=Instruction*;
 	public ForthElements getForthAccess() {
 		return pForth;
 	}
@@ -711,14 +711,14 @@ public class UForthGrammarAccess extends AbstractGrammarElementFinder {
 		return tID;
 	} 
 
-	//GlobalInstruction:
+	//Instruction:
 	//	Create | Function | Word;
-	public GlobalInstructionElements getGlobalInstructionAccess() {
-		return pGlobalInstruction;
+	public InstructionElements getInstructionAccess() {
+		return pInstruction;
 	}
 	
-	public ParserRule getGlobalInstructionRule() {
-		return getGlobalInstructionAccess().getRule();
+	public ParserRule getInstructionRule() {
+		return getInstructionAccess().getRule();
 	}
 
 	//Function:

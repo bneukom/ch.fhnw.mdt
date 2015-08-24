@@ -1,41 +1,41 @@
 \select@language {ngerman}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Ein Plugin, das einen Extension Point anbietet. Andere Plugins k\IeC {\"o}nnen diese deklarativ in einem XML File ansteuern.\relax }}{8}
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Ein Plugin, das einen Extension Point anbietet. Andere Plugins k\IeC {\"o}nnen diese deklarativ in einem XML File ansteuern.\relax }}{7}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Die Eclipse Problem View zeigt, dass das Program lcc-mcore nicht im Pfad gefunden wurde.\relax }}{11}
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Die Eclipse Problem View zeigt, dass das Program lcc-mcore nicht im Pfad gefunden wurde.\relax }}{10}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Der Launch Configuration Dialog. Im Dialog kann eine neue MCore Launch-Konfiguration erstellt werden. Um eine g\IeC {\"u}ltige Konfiguration zu erstellen, muss das Projekt und das Forth File, das gestartet werden soll, angegeben werden.\relax }}{12}
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Dialog, der erscheint, wenn ein Programm gestartet wird und der Umbilical Port ung\IeC {\"u}ltig ist. Der Port kann in der MCore Preference Page ge\IeC {\"a}ndert werden.\relax }}{13}
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Der Launch Configuration Dialog. In diesem Dialog kann eine neue MCore Launch-Konfiguration erstellt werden. Um eine g\IeC {\"u}ltige Konfiguration zu erstellen, muss das Projekt und das Forth File, das gestartet werden soll, angegeben werden.\relax }}{11}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Dialog, der erscheint, wenn ein Programm gestartet wird und der Umbilical Port ung\IeC {\"u}ltig ist. Der Port kann in der MCore Preference Page ge\IeC {\"a}ndert werden.\relax }}{12}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Ein erstes Design des Prozess-API. Die zentrale Kommunikation geschieht \IeC {\"u}ber die Communicator-Klasse. Es k\IeC {\"o}nnen Befehle gesendet und Resultate abgewartet werden.\relax }}{15}
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Klassendiagramm des ProcessCommunicators.\relax }}{16}
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Ein erstes Design des Prozess-API. Die zentrale Kommunikation geschieht \IeC {\"u}ber die Communicator-Klasse. Es k\IeC {\"o}nnen Befehle gesendet und Resultate abgewartet werden.\relax }}{14}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Klassendiagramm des ProcessCommunicators.\relax }}{15}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {6.1}{\ignorespaces uForth-Editor, der f\IeC {\"u}r den Debugger verwendet wird.\relax }}{20}
-\contentsline {figure}{\numberline {6.2}{\ignorespaces Popup Dokumentation zum Wort label. Die Dokumentation wird angezeigt, falls der Cursor sich \IeC {\"u}ber einem Wort befindet, f\IeC {\"u}r das eine Dokumentation verf\IeC {\"u}gbar ist.\relax }}{21}
-\contentsline {figure}{\numberline {6.3}{\ignorespaces Outline zu einem Forth File. Die Outline gliedert das File in Funktionen und W\IeC {\"o}rter.\relax }}{21}
+\contentsline {figure}{\numberline {6.1}{\ignorespaces uForth-Editor, der vor allem f\IeC {\"u}r den Debugger verwendet wird.\relax }}{19}
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Popup Dokumentation zum Wort label. Die Dokumentation wird angezeigt, falls der Cursor sich \IeC {\"u}ber einem Wort befindet, f\IeC {\"u}r das eine Dokumentation verf\IeC {\"u}gbar ist.\relax }}{20}
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Outline zu einem Forth File. Die Outline gliedert das File in Funktionen und W\IeC {\"o}rter.\relax }}{20}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {7.1}{\ignorespaces Konsolenbasierter Debugger. Der Debugger kann \IeC {\"u}ber die Eclipse Console View gesteuert werden.\relax }}{23}
-\contentsline {figure}{\numberline {7.2}{\ignorespaces Resume-Aktion.\relax }}{24}
-\contentsline {figure}{\numberline {7.3}{\ignorespaces Terminate-Aktion.\relax }}{24}
-\contentsline {figure}{\numberline {7.4}{\ignorespaces Step-Into-Aktion.\relax }}{24}
-\contentsline {figure}{\numberline {7.5}{\ignorespaces Step-Aktion.\relax }}{25}
-\contentsline {figure}{\numberline {7.6}{\ignorespaces Kill Aktion.\relax }}{25}
-\contentsline {figure}{\numberline {7.7}{\ignorespaces After-Aktion.\relax }}{25}
-\contentsline {figure}{\numberline {7.8}{\ignorespaces Jump-Aktion.\relax }}{25}
-\contentsline {figure}{\numberline {7.9}{\ignorespaces Stack View mit aktuellem Inhalt des Dstacks. Der Top Of Stack (TOS) befindet sich zuoberst in der Liste.\relax }}{26}
-\contentsline {figure}{\numberline {7.10}{\ignorespaces Die Memory View mit dem Inhalt eines dump-Befehls.\relax }}{26}
+\contentsline {figure}{\numberline {7.1}{\ignorespaces Konsolenbasierter Debugger. Der Debugger kann \IeC {\"u}ber die Eclipse Console View gesteuert werden.\relax }}{22}
+\contentsline {figure}{\numberline {7.2}{\ignorespaces Resume-Aktion.\relax }}{23}
+\contentsline {figure}{\numberline {7.3}{\ignorespaces Terminate-Aktion.\relax }}{23}
+\contentsline {figure}{\numberline {7.4}{\ignorespaces Step-Into-Aktion.\relax }}{23}
+\contentsline {figure}{\numberline {7.5}{\ignorespaces Step-Aktion.\relax }}{24}
+\contentsline {figure}{\numberline {7.6}{\ignorespaces Kill Aktion.\relax }}{24}
+\contentsline {figure}{\numberline {7.7}{\ignorespaces After-Aktion.\relax }}{24}
+\contentsline {figure}{\numberline {7.8}{\ignorespaces Jump-Aktion.\relax }}{24}
+\contentsline {figure}{\numberline {7.9}{\ignorespaces Stack View mit aktuellem Inhalt des Dstacks. Der Top Of Stack (TOS) befindet sich zuoberst in der Liste.\relax }}{25}
+\contentsline {figure}{\numberline {7.10}{\ignorespaces Die Memory View mit dem Inhalt eines dump-Befehls.\relax }}{25}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {8.1}{\ignorespaces Dialog, \IeC {\"u}ber welchen der Umbilical-Port gesetzt werden kann.\relax }}{28}
+\contentsline {figure}{\numberline {8.1}{\ignorespaces Dialog, \IeC {\"u}ber welchen der Umbilical-Port gesetzt werden kann.\relax }}{27}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {9.1}{\ignorespaces Die zwei Phasen des Optimizers.\relax }}{31}
-\addvspace {10\p@ }
-\addvspace {10\p@ }
+\contentsline {figure}{\numberline {9.1}{\ignorespaces Die zwei Phasen des Optimizers.\relax }}{30}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {E.1}{\ignorespaces Mit der Target Definition kann die Target-Platform gesetzt werden.\relax }}{39}
-\contentsline {figure}{\numberline {E.2}{\ignorespaces Der MWE2 Workflow generiert alle notwendigen Klassen f\IeC {\"u}r den Forth-Editor.\relax }}{40}
-\contentsline {figure}{\numberline {E.3}{\ignorespaces Die Entwicklungsumgebung kann im plugin.xml des Plugins ch.fhnw.mdt.ui gestartet werden.\relax }}{40}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {E.1}{\ignorespaces Mit der Target Definition kann die Target-Platform gesetzt werden.\relax }}{38}
+\contentsline {figure}{\numberline {E.2}{\ignorespaces Der MWE2 Workflow generiert alle notwendigen Klassen f\IeC {\"u}r den Forth-Editor.\relax }}{39}
+\contentsline {figure}{\numberline {E.3}{\ignorespaces Die Entwicklungsumgebung kann im plugin.xml des Plugins ch.fhnw.mdt.ui gestartet werden.\relax }}{39}
 \addvspace {10\p@ }
 \addvspace {10\p@ }

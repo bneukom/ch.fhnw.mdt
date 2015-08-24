@@ -20,7 +20,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface Function extends GlobalInstruction
+public interface Function extends Instruction
 {
   /**
    * Returns the value of the '<em><b>Words</b></em>' containment reference list.

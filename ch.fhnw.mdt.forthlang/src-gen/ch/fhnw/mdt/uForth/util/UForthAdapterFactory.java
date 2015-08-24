@@ -80,9 +80,9 @@ public class UForthAdapterFactory extends AdapterFactoryImpl
         return createForthAdapter();
       }
       @Override
-      public Adapter caseGlobalInstruction(GlobalInstruction object)
+      public Adapter caseInstruction(Instruction object)
       {
-        return createGlobalInstructionAdapter();
+        return createInstructionAdapter();
       }
       @Override
       public Adapter caseFunction(Function object)
@@ -152,16 +152,16 @@ public class UForthAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link ch.fhnw.mdt.uForth.GlobalInstruction <em>Global Instruction</em>}'.
+   * Creates a new adapter for an object of class '{@link ch.fhnw.mdt.uForth.Instruction <em>Instruction</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see ch.fhnw.mdt.uForth.GlobalInstruction
+   * @see ch.fhnw.mdt.uForth.Instruction
    * @generated
    */
-  public Adapter createGlobalInstructionAdapter()
+  public Adapter createInstructionAdapter()
   {
     return null;
   }

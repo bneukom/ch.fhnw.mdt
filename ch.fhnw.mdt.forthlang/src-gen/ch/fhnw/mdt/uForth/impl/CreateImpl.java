@@ -26,7 +26,7 @@ import org.eclipse.emf.ecore.util.EDataTypeEList;
  *
  * @generated
  */
-public class CreateImpl extends GlobalInstructionImpl implements Create
+public class CreateImpl extends InstructionImpl implements Create
 {
   /**
    * The cached value of the '{@link #getLit() <em>Lit</em>}' attribute list.

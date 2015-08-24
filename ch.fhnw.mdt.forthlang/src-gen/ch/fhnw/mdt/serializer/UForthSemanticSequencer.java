@@ -68,7 +68,7 @@ public class UForthSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	
 	/**
 	 * Constraint:
-	 *     instructions+=GlobalInstruction*
+	 *     instructions+=Instruction*
 	 */
 	protected void sequence_Forth(EObject context, Forth semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

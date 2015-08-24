@@ -342,21 +342,21 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "ruleForth"
 
 
-    // $ANTLR start "entryRuleGlobalInstruction"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:173:1: entryRuleGlobalInstruction : ruleGlobalInstruction EOF ;
-    public final void entryRuleGlobalInstruction() throws RecognitionException {
+    // $ANTLR start "entryRuleInstruction"
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:173:1: entryRuleInstruction : ruleInstruction EOF ;
+    public final void entryRuleInstruction() throws RecognitionException {
         try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:174:1: ( ruleGlobalInstruction EOF )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:175:1: ruleGlobalInstruction EOF
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:174:1: ( ruleInstruction EOF )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:175:1: ruleInstruction EOF
             {
-             before(grammarAccess.getGlobalInstructionRule()); 
-            pushFollow(FOLLOW_ruleGlobalInstruction_in_entryRuleGlobalInstruction119);
-            ruleGlobalInstruction();
+             before(grammarAccess.getInstructionRule()); 
+            pushFollow(FOLLOW_ruleInstruction_in_entryRuleInstruction119);
+            ruleInstruction();
 
             state._fsp--;
 
-             after(grammarAccess.getGlobalInstructionRule()); 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleGlobalInstruction126); 
+             after(grammarAccess.getInstructionRule()); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleInstruction126); 
 
             }
 
@@ -369,35 +369,35 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "entryRuleGlobalInstruction"
+    // $ANTLR end "entryRuleInstruction"
 
 
-    // $ANTLR start "ruleGlobalInstruction"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:182:1: ruleGlobalInstruction : ( ( rule__GlobalInstruction__Alternatives ) ) ;
-    public final void ruleGlobalInstruction() throws RecognitionException {
+    // $ANTLR start "ruleInstruction"
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:182:1: ruleInstruction : ( ( rule__Instruction__Alternatives ) ) ;
+    public final void ruleInstruction() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:186:5: ( ( ( rule__GlobalInstruction__Alternatives ) ) )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:187:1: ( ( rule__GlobalInstruction__Alternatives ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:186:5: ( ( ( rule__Instruction__Alternatives ) ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:187:1: ( ( rule__Instruction__Alternatives ) )
             {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:187:1: ( ( rule__GlobalInstruction__Alternatives ) )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:188:1: ( rule__GlobalInstruction__Alternatives )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:187:1: ( ( rule__Instruction__Alternatives ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:188:1: ( rule__Instruction__Alternatives )
             {
-             before(grammarAccess.getGlobalInstructionAccess().getAlternatives()); 
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:189:1: ( rule__GlobalInstruction__Alternatives )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:189:2: rule__GlobalInstruction__Alternatives
+             before(grammarAccess.getInstructionAccess().getAlternatives()); 
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:189:1: ( rule__Instruction__Alternatives )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:189:2: rule__Instruction__Alternatives
             {
-            pushFollow(FOLLOW_rule__GlobalInstruction__Alternatives_in_ruleGlobalInstruction156);
-            rule__GlobalInstruction__Alternatives();
+            pushFollow(FOLLOW_rule__Instruction__Alternatives_in_ruleInstruction156);
+            rule__Instruction__Alternatives();
 
             state._fsp--;
 
 
             }
 
-             after(grammarAccess.getGlobalInstructionAccess().getAlternatives()); 
+             after(grammarAccess.getInstructionAccess().getAlternatives()); 
 
             }
 
@@ -416,7 +416,7 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "ruleGlobalInstruction"
+    // $ANTLR end "ruleInstruction"
 
 
     // $ANTLR start "entryRuleFunction"
@@ -958,9 +958,9 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "ruleWord"
 
 
-    // $ANTLR start "rule__GlobalInstruction__Alternatives"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:397:1: rule__GlobalInstruction__Alternatives : ( ( ruleCreate ) | ( ruleFunction ) | ( ruleWord ) );
-    public final void rule__GlobalInstruction__Alternatives() throws RecognitionException {
+    // $ANTLR start "rule__Instruction__Alternatives"
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:397:1: rule__Instruction__Alternatives : ( ( ruleCreate ) | ( ruleFunction ) | ( ruleWord ) );
+    public final void rule__Instruction__Alternatives() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -1077,13 +1077,13 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:402:1: ( ruleCreate )
                     // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:403:1: ruleCreate
                     {
-                     before(grammarAccess.getGlobalInstructionAccess().getCreateParserRuleCall_0()); 
-                    pushFollow(FOLLOW_ruleCreate_in_rule__GlobalInstruction__Alternatives640);
+                     before(grammarAccess.getInstructionAccess().getCreateParserRuleCall_0()); 
+                    pushFollow(FOLLOW_ruleCreate_in_rule__Instruction__Alternatives640);
                     ruleCreate();
 
                     state._fsp--;
 
-                     after(grammarAccess.getGlobalInstructionAccess().getCreateParserRuleCall_0()); 
+                     after(grammarAccess.getInstructionAccess().getCreateParserRuleCall_0()); 
 
                     }
 
@@ -1096,13 +1096,13 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:408:6: ( ruleFunction )
                     // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:409:1: ruleFunction
                     {
-                     before(grammarAccess.getGlobalInstructionAccess().getFunctionParserRuleCall_1()); 
-                    pushFollow(FOLLOW_ruleFunction_in_rule__GlobalInstruction__Alternatives657);
+                     before(grammarAccess.getInstructionAccess().getFunctionParserRuleCall_1()); 
+                    pushFollow(FOLLOW_ruleFunction_in_rule__Instruction__Alternatives657);
                     ruleFunction();
 
                     state._fsp--;
 
-                     after(grammarAccess.getGlobalInstructionAccess().getFunctionParserRuleCall_1()); 
+                     after(grammarAccess.getInstructionAccess().getFunctionParserRuleCall_1()); 
 
                     }
 
@@ -1115,13 +1115,13 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:414:6: ( ruleWord )
                     // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:415:1: ruleWord
                     {
-                     before(grammarAccess.getGlobalInstructionAccess().getWordParserRuleCall_2()); 
-                    pushFollow(FOLLOW_ruleWord_in_rule__GlobalInstruction__Alternatives674);
+                     before(grammarAccess.getInstructionAccess().getWordParserRuleCall_2()); 
+                    pushFollow(FOLLOW_ruleWord_in_rule__Instruction__Alternatives674);
                     ruleWord();
 
                     state._fsp--;
 
-                     after(grammarAccess.getGlobalInstructionAccess().getWordParserRuleCall_2()); 
+                     after(grammarAccess.getInstructionAccess().getWordParserRuleCall_2()); 
 
                     }
 
@@ -1142,7 +1142,7 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__GlobalInstruction__Alternatives"
+    // $ANTLR end "rule__Instruction__Alternatives"
 
 
     // $ANTLR start "rule__LITERAL__Alternatives"
@@ -4351,25 +4351,25 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Forth__InstructionsAssignment"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1617:1: rule__Forth__InstructionsAssignment : ( ruleGlobalInstruction ) ;
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1617:1: rule__Forth__InstructionsAssignment : ( ruleInstruction ) ;
     public final void rule__Forth__InstructionsAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1621:1: ( ( ruleGlobalInstruction ) )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1622:1: ( ruleGlobalInstruction )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1621:1: ( ( ruleInstruction ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1622:1: ( ruleInstruction )
             {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1622:1: ( ruleGlobalInstruction )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1623:1: ruleGlobalInstruction
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1622:1: ( ruleInstruction )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1623:1: ruleInstruction
             {
-             before(grammarAccess.getForthAccess().getInstructionsGlobalInstructionParserRuleCall_0()); 
-            pushFollow(FOLLOW_ruleGlobalInstruction_in_rule__Forth__InstructionsAssignment3390);
-            ruleGlobalInstruction();
+             before(grammarAccess.getForthAccess().getInstructionsInstructionParserRuleCall_0()); 
+            pushFollow(FOLLOW_ruleInstruction_in_rule__Forth__InstructionsAssignment3390);
+            ruleInstruction();
 
             state._fsp--;
 
-             after(grammarAccess.getForthAccess().getInstructionsGlobalInstructionParserRuleCall_0()); 
+             after(grammarAccess.getForthAccess().getInstructionsInstructionParserRuleCall_0()); 
 
             }
 
@@ -4773,9 +4773,9 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_ruleForth_in_entryRuleForth54 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleForth61 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__Forth__InstructionsAssignment_in_ruleForth91 = new BitSet(new long[]{0xFFFFFFFFFFFFFFF2L,0x000000001C2EFFFFL});
-    public static final BitSet FOLLOW_ruleGlobalInstruction_in_entryRuleGlobalInstruction119 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleGlobalInstruction126 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__GlobalInstruction__Alternatives_in_ruleGlobalInstruction156 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleInstruction_in_entryRuleInstruction119 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleInstruction126 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Instruction__Alternatives_in_ruleInstruction156 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleFunction_in_entryRuleFunction183 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleFunction190 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__Function__Group__0_in_ruleFunction220 = new BitSet(new long[]{0x0000000000000002L});
@@ -4797,9 +4797,9 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_ruleWord_in_entryRuleWord567 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleWord574 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__Word__Alternatives_in_ruleWord604 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleCreate_in_rule__GlobalInstruction__Alternatives640 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleFunction_in_rule__GlobalInstruction__Alternatives657 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleWord_in_rule__GlobalInstruction__Alternatives674 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleCreate_in_rule__Instruction__Alternatives640 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleFunction_in_rule__Instruction__Alternatives657 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleWord_in_rule__Instruction__Alternatives674 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_INT_in_rule__LITERAL__Alternatives706 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_DOUBLE_in_rule__LITERAL__Alternatives723 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_CLEAR_in_rule__IntrinsicStackWords__NameAlternatives_1_0756 = new BitSet(new long[]{0x0000000000000002L});
@@ -4921,7 +4921,7 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_rule__IntrinsicArithmeticWords__Group__1_in_rule__IntrinsicArithmeticWords__Group__03266 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__IntrinsicArithmeticWords__Group__1__Impl_in_rule__IntrinsicArithmeticWords__Group__13324 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__IntrinsicArithmeticWords__NameAssignment_1_in_rule__IntrinsicArithmeticWords__Group__1__Impl3351 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleGlobalInstruction_in_rule__Forth__InstructionsAssignment3390 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleInstruction_in_rule__Forth__InstructionsAssignment3390 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_ID_in_rule__Function__NameAssignment_13421 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleWord_in_rule__Function__WordsAssignment_23452 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_ID_in_rule__Create__NameAssignment_13483 = new BitSet(new long[]{0x0000000000000002L});

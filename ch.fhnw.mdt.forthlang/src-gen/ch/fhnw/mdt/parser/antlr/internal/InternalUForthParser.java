@@ -193,7 +193,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleForth"
-    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:70:1: ruleForth returns [EObject current=null] : ( (lv_instructions_0_0= ruleGlobalInstruction ) )* ;
+    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:70:1: ruleForth returns [EObject current=null] : ( (lv_instructions_0_0= ruleInstruction ) )* ;
     public final EObject ruleForth() throws RecognitionException {
         EObject current = null;
 
@@ -203,10 +203,10 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:73:28: ( ( (lv_instructions_0_0= ruleGlobalInstruction ) )* )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:74:1: ( (lv_instructions_0_0= ruleGlobalInstruction ) )*
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:73:28: ( ( (lv_instructions_0_0= ruleInstruction ) )* )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:74:1: ( (lv_instructions_0_0= ruleInstruction ) )*
             {
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:74:1: ( (lv_instructions_0_0= ruleGlobalInstruction ) )*
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:74:1: ( (lv_instructions_0_0= ruleInstruction ) )*
             loop1:
             do {
                 int alt1=2;
@@ -219,16 +219,16 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
 
                 switch (alt1) {
             	case 1 :
-            	    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:75:1: (lv_instructions_0_0= ruleGlobalInstruction )
+            	    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:75:1: (lv_instructions_0_0= ruleInstruction )
             	    {
-            	    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:75:1: (lv_instructions_0_0= ruleGlobalInstruction )
-            	    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:76:3: lv_instructions_0_0= ruleGlobalInstruction
+            	    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:75:1: (lv_instructions_0_0= ruleInstruction )
+            	    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:76:3: lv_instructions_0_0= ruleInstruction
             	    {
             	     
-            	    	        newCompositeNode(grammarAccess.getForthAccess().getInstructionsGlobalInstructionParserRuleCall_0()); 
+            	    	        newCompositeNode(grammarAccess.getForthAccess().getInstructionsInstructionParserRuleCall_0()); 
             	    	    
-            	    pushFollow(FOLLOW_ruleGlobalInstruction_in_ruleForth122);
-            	    lv_instructions_0_0=ruleGlobalInstruction();
+            	    pushFollow(FOLLOW_ruleInstruction_in_ruleForth122);
+            	    lv_instructions_0_0=ruleInstruction();
 
             	    state._fsp--;
 
@@ -240,7 +240,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
             	           			current, 
             	           			"instructions",
             	            		lv_instructions_0_0, 
-            	            		"GlobalInstruction");
+            	            		"Instruction");
             	    	        afterParserOrEnumRuleCall();
             	    	    
 
@@ -272,26 +272,26 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
     // $ANTLR end "ruleForth"
 
 
-    // $ANTLR start "entryRuleGlobalInstruction"
-    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:100:1: entryRuleGlobalInstruction returns [EObject current=null] : iv_ruleGlobalInstruction= ruleGlobalInstruction EOF ;
-    public final EObject entryRuleGlobalInstruction() throws RecognitionException {
+    // $ANTLR start "entryRuleInstruction"
+    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:100:1: entryRuleInstruction returns [EObject current=null] : iv_ruleInstruction= ruleInstruction EOF ;
+    public final EObject entryRuleInstruction() throws RecognitionException {
         EObject current = null;
 
-        EObject iv_ruleGlobalInstruction = null;
+        EObject iv_ruleInstruction = null;
 
 
         try {
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:101:2: (iv_ruleGlobalInstruction= ruleGlobalInstruction EOF )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:102:2: iv_ruleGlobalInstruction= ruleGlobalInstruction EOF
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:101:2: (iv_ruleInstruction= ruleInstruction EOF )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:102:2: iv_ruleInstruction= ruleInstruction EOF
             {
-             newCompositeNode(grammarAccess.getGlobalInstructionRule()); 
-            pushFollow(FOLLOW_ruleGlobalInstruction_in_entryRuleGlobalInstruction157);
-            iv_ruleGlobalInstruction=ruleGlobalInstruction();
+             newCompositeNode(grammarAccess.getInstructionRule()); 
+            pushFollow(FOLLOW_ruleInstruction_in_entryRuleInstruction157);
+            iv_ruleInstruction=ruleInstruction();
 
             state._fsp--;
 
-             current =iv_ruleGlobalInstruction; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleGlobalInstruction167); 
+             current =iv_ruleInstruction; 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleInstruction167); 
 
             }
 
@@ -305,12 +305,12 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRuleGlobalInstruction"
+    // $ANTLR end "entryRuleInstruction"
 
 
-    // $ANTLR start "ruleGlobalInstruction"
-    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:109:1: ruleGlobalInstruction returns [EObject current=null] : (this_Create_0= ruleCreate | this_Function_1= ruleFunction | this_Word_2= ruleWord ) ;
-    public final EObject ruleGlobalInstruction() throws RecognitionException {
+    // $ANTLR start "ruleInstruction"
+    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:109:1: ruleInstruction returns [EObject current=null] : (this_Create_0= ruleCreate | this_Function_1= ruleFunction | this_Word_2= ruleWord ) ;
+    public final EObject ruleInstruction() throws RecognitionException {
         EObject current = null;
 
         EObject this_Create_0 = null;
@@ -436,9 +436,9 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:114:5: this_Create_0= ruleCreate
                     {
                      
-                            newCompositeNode(grammarAccess.getGlobalInstructionAccess().getCreateParserRuleCall_0()); 
+                            newCompositeNode(grammarAccess.getInstructionAccess().getCreateParserRuleCall_0()); 
                         
-                    pushFollow(FOLLOW_ruleCreate_in_ruleGlobalInstruction214);
+                    pushFollow(FOLLOW_ruleCreate_in_ruleInstruction214);
                     this_Create_0=ruleCreate();
 
                     state._fsp--;
@@ -454,9 +454,9 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:124:5: this_Function_1= ruleFunction
                     {
                      
-                            newCompositeNode(grammarAccess.getGlobalInstructionAccess().getFunctionParserRuleCall_1()); 
+                            newCompositeNode(grammarAccess.getInstructionAccess().getFunctionParserRuleCall_1()); 
                         
-                    pushFollow(FOLLOW_ruleFunction_in_ruleGlobalInstruction241);
+                    pushFollow(FOLLOW_ruleFunction_in_ruleInstruction241);
                     this_Function_1=ruleFunction();
 
                     state._fsp--;
@@ -472,9 +472,9 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:134:5: this_Word_2= ruleWord
                     {
                      
-                            newCompositeNode(grammarAccess.getGlobalInstructionAccess().getWordParserRuleCall_2()); 
+                            newCompositeNode(grammarAccess.getInstructionAccess().getWordParserRuleCall_2()); 
                         
-                    pushFollow(FOLLOW_ruleWord_in_ruleGlobalInstruction268);
+                    pushFollow(FOLLOW_ruleWord_in_ruleInstruction268);
                     this_Word_2=ruleWord();
 
                     state._fsp--;
@@ -503,7 +503,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "ruleGlobalInstruction"
+    // $ANTLR end "ruleInstruction"
 
 
     // $ANTLR start "entryRuleFunction"
@@ -3317,12 +3317,12 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
 
     public static final BitSet FOLLOW_ruleForth_in_entryRuleForth67 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleForth77 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleGlobalInstruction_in_ruleForth122 = new BitSet(new long[]{0xFFFFFFFFFFFFFFF2L,0x000000001C2EFFFFL});
-    public static final BitSet FOLLOW_ruleGlobalInstruction_in_entryRuleGlobalInstruction157 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleGlobalInstruction167 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleCreate_in_ruleGlobalInstruction214 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleFunction_in_ruleGlobalInstruction241 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleWord_in_ruleGlobalInstruction268 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleInstruction_in_ruleForth122 = new BitSet(new long[]{0xFFFFFFFFFFFFFFF2L,0x000000001C2EFFFFL});
+    public static final BitSet FOLLOW_ruleInstruction_in_entryRuleInstruction157 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleInstruction167 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleCreate_in_ruleInstruction214 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleFunction_in_ruleInstruction241 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleWord_in_ruleInstruction268 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleFunction_in_entryRuleFunction302 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleFunction312 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_Colon_in_ruleFunction350 = new BitSet(new long[]{0x0000000000000000L,0x0000000010000000L});

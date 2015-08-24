@@ -74,9 +74,9 @@ ruleForth returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getForthAccess().getInstructionsGlobalInstructionParserRuleCall_0()); 
+	        newCompositeNode(grammarAccess.getForthAccess().getInstructionsInstructionParserRuleCall_0()); 
 	    }
-		lv_instructions_0_0=ruleGlobalInstruction		{
+		lv_instructions_0_0=ruleInstruction		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getForthRule());
 	        }
@@ -84,7 +84,7 @@ ruleForth returns [EObject current=null]
        			$current, 
        			"instructions",
         		lv_instructions_0_0, 
-        		"GlobalInstruction");
+        		"Instruction");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -96,23 +96,23 @@ ruleForth returns [EObject current=null]
 
 
 
-// Entry rule entryRuleGlobalInstruction
-entryRuleGlobalInstruction returns [EObject current=null]
+// Entry rule entryRuleInstruction
+entryRuleInstruction returns [EObject current=null]
 	:
-	{ newCompositeNode(grammarAccess.getGlobalInstructionRule()); }
-	 iv_ruleGlobalInstruction=ruleGlobalInstruction 
-	 { $current=$iv_ruleGlobalInstruction.current; } 
+	{ newCompositeNode(grammarAccess.getInstructionRule()); }
+	 iv_ruleInstruction=ruleInstruction 
+	 { $current=$iv_ruleInstruction.current; } 
 	 EOF 
 ;
 
-// Rule GlobalInstruction
-ruleGlobalInstruction returns [EObject current=null] 
+// Rule Instruction
+ruleInstruction returns [EObject current=null] 
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
 (
     { 
-        newCompositeNode(grammarAccess.getGlobalInstructionAccess().getCreateParserRuleCall_0()); 
+        newCompositeNode(grammarAccess.getInstructionAccess().getCreateParserRuleCall_0()); 
     }
     this_Create_0=ruleCreate
     {
@@ -122,7 +122,7 @@ ruleGlobalInstruction returns [EObject current=null]
 
     |
     { 
-        newCompositeNode(grammarAccess.getGlobalInstructionAccess().getFunctionParserRuleCall_1()); 
+        newCompositeNode(grammarAccess.getInstructionAccess().getFunctionParserRuleCall_1()); 
     }
     this_Function_1=ruleFunction
     {
@@ -132,7 +132,7 @@ ruleGlobalInstruction returns [EObject current=null]
 
     |
     { 
-        newCompositeNode(grammarAccess.getGlobalInstructionAccess().getWordParserRuleCall_2()); 
+        newCompositeNode(grammarAccess.getInstructionAccess().getWordParserRuleCall_2()); 
     }
     this_Word_2=ruleWord
     {

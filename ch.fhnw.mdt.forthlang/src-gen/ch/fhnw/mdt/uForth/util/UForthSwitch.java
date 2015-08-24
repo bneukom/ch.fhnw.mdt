@@ -79,10 +79,10 @@ public class UForthSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case UForthPackage.GLOBAL_INSTRUCTION:
+      case UForthPackage.INSTRUCTION:
       {
-        GlobalInstruction globalInstruction = (GlobalInstruction)theEObject;
-        T result = caseGlobalInstruction(globalInstruction);
+        Instruction instruction = (Instruction)theEObject;
+        T result = caseInstruction(instruction);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -90,7 +90,7 @@ public class UForthSwitch<T> extends Switch<T>
       {
         Function function = (Function)theEObject;
         T result = caseFunction(function);
-        if (result == null) result = caseGlobalInstruction(function);
+        if (result == null) result = caseInstruction(function);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -98,7 +98,7 @@ public class UForthSwitch<T> extends Switch<T>
       {
         Create create = (Create)theEObject;
         T result = caseCreate(create);
-        if (result == null) result = caseGlobalInstruction(create);
+        if (result == null) result = caseInstruction(create);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -107,7 +107,7 @@ public class UForthSwitch<T> extends Switch<T>
         IntrinsicStackWords intrinsicStackWords = (IntrinsicStackWords)theEObject;
         T result = caseIntrinsicStackWords(intrinsicStackWords);
         if (result == null) result = caseWord(intrinsicStackWords);
-        if (result == null) result = caseGlobalInstruction(intrinsicStackWords);
+        if (result == null) result = caseInstruction(intrinsicStackWords);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -116,7 +116,7 @@ public class UForthSwitch<T> extends Switch<T>
         IntrinsicMemoryWords intrinsicMemoryWords = (IntrinsicMemoryWords)theEObject;
         T result = caseIntrinsicMemoryWords(intrinsicMemoryWords);
         if (result == null) result = caseWord(intrinsicMemoryWords);
-        if (result == null) result = caseGlobalInstruction(intrinsicMemoryWords);
+        if (result == null) result = caseInstruction(intrinsicMemoryWords);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -125,7 +125,7 @@ public class UForthSwitch<T> extends Switch<T>
         IntrinsicArithmeticWords intrinsicArithmeticWords = (IntrinsicArithmeticWords)theEObject;
         T result = caseIntrinsicArithmeticWords(intrinsicArithmeticWords);
         if (result == null) result = caseWord(intrinsicArithmeticWords);
-        if (result == null) result = caseGlobalInstruction(intrinsicArithmeticWords);
+        if (result == null) result = caseInstruction(intrinsicArithmeticWords);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -133,7 +133,7 @@ public class UForthSwitch<T> extends Switch<T>
       {
         Word word = (Word)theEObject;
         T result = caseWord(word);
-        if (result == null) result = caseGlobalInstruction(word);
+        if (result == null) result = caseInstruction(word);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -158,17 +158,17 @@ public class UForthSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Global Instruction</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Instruction</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Global Instruction</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Instruction</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseGlobalInstruction(GlobalInstruction object)
+  public T caseInstruction(Instruction object)
   {
     return null;
   }

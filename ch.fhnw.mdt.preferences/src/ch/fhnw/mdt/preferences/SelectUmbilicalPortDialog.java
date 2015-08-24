@@ -1,10 +1,8 @@
 package ch.fhnw.mdt.preferences;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
@@ -23,9 +21,11 @@ import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
-// TODO implement file polling
+import ch.fhnw.mdt.platform.IPlatformStrings;
+import ch.fhnw.mdt.platform.MDTPlatformPlugin;
 
 /**
  * A Dialog which shows all available USB Devices to the user. Call
@@ -33,19 +33,38 @@ import org.eclipse.swt.widgets.Shell;
  * (or null) device.
  * 
  */
-public class SelectUSBDeviceDialog extends TitleAreaDialog {
+public class SelectUmbilicalPortDialog extends TitleAreaDialog {
 
 	private ListViewer usbDeviceListViewer;
 	private String selectedElement;
+	private Timer pollTimer = new Timer();
+	private TimerTask pollTask = new TimerTask() {
+
+		@Override
+		public void run() {
+			final List<String> comPorts = platformStrings.listComPorts();
+
+			Display.getDefault().asyncExec(() -> {
+				ISelection previousSelection = usbDeviceListViewer.getSelection();
+				usbDeviceListViewer.setInput(comPorts);
+				usbDeviceListViewer.setSelection(previousSelection);
+				
+				if (comPorts.isEmpty()) {
+					setErrorMessage("No available port found.");
+				}
+			});
+		}
+	};
+
+	private IPlatformStrings platformStrings = MDTPlatformPlugin.getDefault().getPlatformStrings();
 
 	/**
 	 * Create the dialog.
 	 * 
 	 * @param parentShell
 	 */
-	public SelectUSBDeviceDialog(Shell parentShell) {
+	public SelectUmbilicalPortDialog(Shell parentShell) {
 		super(parentShell);
-
 	}
 
 	/**
@@ -55,8 +74,8 @@ public class SelectUSBDeviceDialog extends TitleAreaDialog {
 	 */
 	@Override
 	protected Control createDialogArea(Composite parent) {
-		setMessage("Chose the USB Device you want to run your Application on.");
-		setTitle("Chose USB Device");
+		setMessage("Chose the port you want your Application to run on.");
+		setTitle("Chose Port");
 
 		Composite area = (Composite) super.createDialogArea(parent);
 		Composite container = new Composite(area, SWT.NONE);
@@ -67,24 +86,17 @@ public class SelectUSBDeviceDialog extends TitleAreaDialog {
 		usbDeviceListViewer.setContentProvider(ArrayContentProvider.getInstance());
 
 		org.eclipse.swt.widgets.List list = usbDeviceListViewer.getList();
-		FormData fd_list = new FormData();
-		fd_list.bottom = new FormAttachment(0, 383);
-		fd_list.right = new FormAttachment(0, 796);
-		fd_list.top = new FormAttachment(0, 10);
-		fd_list.left = new FormAttachment(0, 10);
-		list.setLayoutData(fd_list);
+		FormData listFormData = new FormData();
+		listFormData.bottom = new FormAttachment(100, -10);
+		listFormData.right = new FormAttachment(100, -10);
+		listFormData.top = new FormAttachment(0, 10);
+		listFormData.left = new FormAttachment(0, 10);
+		list.setLayoutData(listFormData);
 
-		try {
-
-			List<String> availableUsbDevices = getAvailableUsbDevices();
-			if (!availableUsbDevices.isEmpty()) {
-				usbDeviceListViewer.setInput(availableUsbDevices);
-			} else {
-				setErrorMessage("No available USB device found.");
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-			setErrorMessage("IO Error. Could not retrieve USB devices.");
+		List<String> availableUsbDevices = platformStrings.listComPorts();
+		usbDeviceListViewer.setInput(availableUsbDevices);
+		if (availableUsbDevices.isEmpty()) {
+			setErrorMessage("No available port found.");
 		}
 
 		usbDeviceListViewer.setSelection(StructuredSelection.EMPTY);
@@ -99,6 +111,8 @@ public class SelectUSBDeviceDialog extends TitleAreaDialog {
 			}
 		});
 
+		pollTimer.schedule(pollTask, 0, 500);
+
 		return area;
 	}
 
@@ -111,20 +125,10 @@ public class SelectUSBDeviceDialog extends TitleAreaDialog {
 		return bar;
 	}
 
-	/**
-	 * Returns a {@link List} of all available USB Devices. Available USB device
-	 * on Linux have the following pattern /dev/ttyUSB*
-	 * 
-	 * @return
-	 * @throws IOException
-	 */
-	private static List<String> getAvailableUsbDevices() throws IOException {
-		return Files.list(new File("/dev/").toPath()).filter(p -> p.toString().startsWith("/dev/ttyUSB")).map(p -> p.toString()).collect(Collectors.toList());
-	}
 
 	/**
-	 * Returns the Device which is currently selected. If the dialog has already
-	 * been closed, returns the Device which was last selected.
+	 * Returns the device which is currently selected. If the dialog has already
+	 * been closed, returns the device which was last selected.
 	 * 
 	 * @return
 	 */
@@ -148,6 +152,20 @@ public class SelectUSBDeviceDialog extends TitleAreaDialog {
 	 */
 	@Override
 	protected Point getInitialSize() {
-		return new Point(800, 600);
+		
+		System.out.println(Display.getDefault().getDPI());
+		Point dpi = Display.getDefault().getDPI();
+		return new Point(dpi.x * 3, dpi.y * 4);
 	}
+
+	@Override
+	protected void configureShell(Shell newShell) {
+		super.configureShell(newShell);
+
+		newShell.addListener(SWT.Dispose, (e) -> {
+			pollTimer.cancel();
+		});
+
+	}
+
 }

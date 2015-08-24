@@ -26,7 +26,7 @@ public interface Forth extends EObject
 {
   /**
    * Returns the value of the '<em><b>Instructions</b></em>' containment reference list.
-   * The list contents are of type {@link ch.fhnw.mdt.uForth.GlobalInstruction}.
+   * The list contents are of type {@link ch.fhnw.mdt.uForth.Instruction}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Instructions</em>' containment reference list isn't clear,
@@ -38,6 +38,6 @@ public interface Forth extends EObject
    * @model containment="true"
    * @generated
    */
-  EList<GlobalInstruction> getInstructions();
+  EList<Instruction> getInstructions();
 
 } // Forth
