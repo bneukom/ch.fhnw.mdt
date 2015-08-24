@@ -14,6 +14,8 @@ import org.eclipse.jface.viewers.ListViewer;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
@@ -37,33 +39,40 @@ public class SelectUmbilicalPortDialog extends TitleAreaDialog {
 
 	private ListViewer usbDeviceListViewer;
 	private String selectedElement;
-	private Timer pollTimer = new Timer();
-	private TimerTask pollTask = new TimerTask() {
+	private final Timer pollTimer = new Timer();
+	private final TimerTask pollTask = new TimerTask() {
 
 		@Override
 		public void run() {
 			final List<String> comPorts = platformStrings.listComPorts();
 
 			Display.getDefault().asyncExec(() -> {
-				ISelection previousSelection = usbDeviceListViewer.getSelection();
-				usbDeviceListViewer.setInput(comPorts);
-				usbDeviceListViewer.setSelection(previousSelection);
-				
-				if (comPorts.isEmpty()) {
-					setErrorMessage("No available port found.");
+				final ISelection previousSelection = usbDeviceListViewer.getSelection();
+
+				if (!comPorts.equals(usbDeviceListViewer.getInput())) {
+					usbDeviceListViewer.setInput(comPorts);
+					usbDeviceListViewer.setSelection(previousSelection);
+
+					if (comPorts.isEmpty()) {
+						setErrorMessage("No available port found.");
+					} else {
+						setErrorMessage(null);
+					}
+
+					getButton(OK).setEnabled(!usbDeviceListViewer.getSelection().isEmpty());
 				}
 			});
 		}
 	};
 
-	private IPlatformStrings platformStrings = MDTPlatformPlugin.getDefault().getPlatformStrings();
+	private final IPlatformStrings platformStrings = MDTPlatformPlugin.getDefault().getPlatformStrings();
 
 	/**
 	 * Create the dialog.
 	 * 
 	 * @param parentShell
 	 */
-	public SelectUmbilicalPortDialog(Shell parentShell) {
+	public SelectUmbilicalPortDialog(final Shell parentShell) {
 		super(parentShell);
 	}
 
@@ -73,27 +82,27 @@ public class SelectUmbilicalPortDialog extends TitleAreaDialog {
 	 * @param parent
 	 */
 	@Override
-	protected Control createDialogArea(Composite parent) {
+	protected Control createDialogArea(final Composite parent) {
 		setMessage("Chose the port you want your Application to run on.");
 		setTitle("Chose Port");
 
-		Composite area = (Composite) super.createDialogArea(parent);
-		Composite container = new Composite(area, SWT.NONE);
+		final Composite area = (Composite) super.createDialogArea(parent);
+		final Composite container = new Composite(area, SWT.NONE);
 		container.setLayout(new FormLayout());
 		container.setLayoutData(new GridData(GridData.FILL_BOTH));
 
 		usbDeviceListViewer = new ListViewer(container, SWT.BORDER | SWT.V_SCROLL);
 		usbDeviceListViewer.setContentProvider(ArrayContentProvider.getInstance());
 
-		org.eclipse.swt.widgets.List list = usbDeviceListViewer.getList();
-		FormData listFormData = new FormData();
+		final org.eclipse.swt.widgets.List list = usbDeviceListViewer.getList();
+		final FormData listFormData = new FormData();
 		listFormData.bottom = new FormAttachment(100, -10);
 		listFormData.right = new FormAttachment(100, -10);
 		listFormData.top = new FormAttachment(0, 10);
 		listFormData.left = new FormAttachment(0, 10);
 		list.setLayoutData(listFormData);
 
-		List<String> availableUsbDevices = platformStrings.listComPorts();
+		final List<String> availableUsbDevices = platformStrings.listComPorts();
 		usbDeviceListViewer.setInput(availableUsbDevices);
 		if (availableUsbDevices.isEmpty()) {
 			setErrorMessage("No available port found.");
@@ -103,11 +112,27 @@ public class SelectUmbilicalPortDialog extends TitleAreaDialog {
 		usbDeviceListViewer.addSelectionChangedListener(new ISelectionChangedListener() {
 
 			@Override
-			public void selectionChanged(SelectionChangedEvent event) {
-				ISelection selection = event.getSelection();
-				getButton(OK).setEnabled(getErrorMessage() == null && !selection.isEmpty());
-				IStructuredSelection structuredSelection = (IStructuredSelection) selection;
+			public void selectionChanged(final SelectionChangedEvent event) {
+				final ISelection selection = event.getSelection();
+				getButton(OK).setEnabled(!selection.isEmpty());
+				final IStructuredSelection structuredSelection = (IStructuredSelection) selection;
 				selectedElement = (String) structuredSelection.getFirstElement();
+			}
+		});
+		
+		usbDeviceListViewer.getList().addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseUp(MouseEvent e) {
+			}
+			
+			@Override
+			public void mouseDown(MouseEvent e) {
+			}
+			
+			@Override
+			public void mouseDoubleClick(MouseEvent e) {
+				okPressed();
 			}
 		});
 
@@ -117,14 +142,13 @@ public class SelectUmbilicalPortDialog extends TitleAreaDialog {
 	}
 
 	@Override
-	protected Control createButtonBar(Composite parent) {
+	protected Control createButtonBar(final Composite parent) {
 		final Control bar = super.createButtonBar(parent);
 
 		getButton(OK).setEnabled(false);
 
 		return bar;
 	}
-
 
 	/**
 	 * Returns the device which is currently selected. If the dialog has already
@@ -142,24 +166,19 @@ public class SelectUmbilicalPortDialog extends TitleAreaDialog {
 	 * @param parent
 	 */
 	@Override
-	protected void createButtonsForButtonBar(Composite parent) {
+	protected void createButtonsForButtonBar(final Composite parent) {
 		createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL, true);
 		createButton(parent, IDialogConstants.CANCEL_ID, IDialogConstants.CANCEL_LABEL, false);
 	}
 
-	/**
-	 * Return the initial size of the dialog.
-	 */
 	@Override
 	protected Point getInitialSize() {
-		
-		System.out.println(Display.getDefault().getDPI());
-		Point dpi = Display.getDefault().getDPI();
+		final Point dpi = Display.getDefault().getDPI();
 		return new Point(dpi.x * 3, dpi.y * 4);
 	}
 
 	@Override
-	protected void configureShell(Shell newShell) {
+	protected void configureShell(final Shell newShell) {
 		super.configureShell(newShell);
 
 		newShell.addListener(SWT.Dispose, (e) -> {
