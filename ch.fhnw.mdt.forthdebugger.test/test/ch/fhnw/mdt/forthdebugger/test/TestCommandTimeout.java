@@ -18,7 +18,7 @@ public class TestCommandTimeout {
 
 	@Test(expected = CommandTimeOutException.class)
 	public void testTimeout() throws CommandTimeOutException {
-		communicator.sendCommandAwaitResult("foo", communicator.newWaitForResultLater("bar"));
+		communicator.sendCommandAwaitResult("foo", communicator.newAwaitResult("bar"));
 
 		fail();
 	}
@@ -28,12 +28,12 @@ public class TestCommandTimeout {
 		process = new TestProcess(s -> {
 			switch (s) {
 			case "foo":
-				return new Output("bar", 15000);
+				return new Output("bar", 1500);
 			}
 			return null;
 		});
 
-		communicator = new ProcessCommunicator(process);
+		communicator = new ProcessCommunicator(process, 10);
 	}
 
 	@After

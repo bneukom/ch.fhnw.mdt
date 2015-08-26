@@ -19,7 +19,7 @@ public class MDTPlatformPlugin extends AbstractUIPlugin {
 	// The shared instance
 	private static MDTPlatformPlugin plugin;
 
-	private IPlatformStrings iPlatformStrings;
+	private IPlatformStrings platformStrings;
 
 	/**
 	 * The constructor
@@ -36,6 +36,11 @@ public class MDTPlatformPlugin extends AbstractUIPlugin {
 		super.start(context);
 		plugin = this;
 
+		// parse the extension point registry
+		parseRegistry();
+	}
+
+	private void parseRegistry() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		final IExtensionRegistry registry = Platform.getExtensionRegistry();
 		final IExtensionPoint point = registry.getExtensionPoint("ch.fhnw.mdt.platform");
 		final IExtension[] extensions = point.getExtensions();
@@ -44,7 +49,7 @@ public class MDTPlatformPlugin extends AbstractUIPlugin {
 			for (IConfigurationElement configurationElement : configurationElements) {
 				switch (configurationElement.getName()) {
 				case "platformStrings":
-					iPlatformStrings = (IPlatformStrings) Class.forName(configurationElement.getAttribute("class")).newInstance();
+					platformStrings = (IPlatformStrings) Class.forName(configurationElement.getAttribute("class")).newInstance();
 					break;
 				}
 			}
@@ -76,7 +81,7 @@ public class MDTPlatformPlugin extends AbstractUIPlugin {
 	 * @return
 	 */
 	public IPlatformStrings getPlatformStrings() {
-		return iPlatformStrings;
+		return platformStrings;
 	}
 
 }

@@ -85,26 +85,45 @@ public class MDTPreferencesPlugin extends AbstractUIPlugin {
 	}
 
 	/**
-	 * Returns the umbilical set as preference and checks if it is a valid umbilical port by looking for the file. If the umbilical port is invalid this method will return null.
+	 * Returns the umbilical set as preference.
 	 * 
 	 * @return
 	 */
 	public String getUmbilical() {
-		return MDTPreferencesPlugin.getDefault().getPreferenceStore().getString(MCorePreferencePage.USB_DEVICE_NAME_PREFERENCE);
+		return MDTPreferencesPlugin.getDefault().getPreferenceStore().getString(MCorePreferencePage.UMBILICAL_PORT_NAME_PREFERENCE);
 	}
-	
+
 	/**
-	 * Returns the umbilical set as preference and checks if it is a valid umbilical port by looking for the file. If the umbilical port is invalid this method will return null.
+	 * Returns the umbilical set as preference and checks if it is a valid umbilical port by looking for the file.
+	 * If the umbilical port is invalid this method will return null.
 	 * 
 	 * @return
 	 */
 	public String getCheckedUmbilical() {
-		final String umbilical = MDTPreferencesPlugin.getDefault().getPreferenceStore().getString(MCorePreferencePage.USB_DEVICE_NAME_PREFERENCE);
-		if (umbilical != null && !umbilical.isEmpty() && Files.exists(Paths.get(umbilical))) {
+		final String umbilical = MDTPreferencesPlugin.getDefault().getPreferenceStore().getString(MCorePreferencePage.UMBILICAL_PORT_NAME_PREFERENCE);
+		if (isValidUmbilical(umbilical)) {
 			return umbilical;
 		}
 
 		return null;
+	}
+
+	/**
+	 * Checks whether the given umbilical port is valid.
+	 * 
+	 * @return whether the given umbilical port is valid
+	 */
+	public boolean isValidUmbilical(String port) {
+		return port != null && !port.isEmpty() && Files.exists(Paths.get(port));
+	}
+
+	/**
+	 * Returns whether the umbilical port is active.
+	 * 
+	 * @return
+	 */
+	public boolean isUmbilicalPortPreferenceActive() {
+		return MDTPreferencesPlugin.getDefault().getPreferenceStore().getBoolean(MCorePreferencePage.UMBILICAL_PORT_ACTIVE);
 	}
 
 	/**
@@ -119,7 +138,7 @@ public class MDTPreferencesPlugin extends AbstractUIPlugin {
 		String loader = "";
 
 		try {
-			final File file = new File(FileLocator.resolve(fileURL).toURI());
+			final File file = new File(FileLocator.toFileURL(fileURL).toURI());
 
 			try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
 				String line;

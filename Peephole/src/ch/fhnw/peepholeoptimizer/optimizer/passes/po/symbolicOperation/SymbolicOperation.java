@@ -84,8 +84,16 @@ public class SymbolicOperation extends AbstractOperation {
 		e.stack.push(v1);
 		e.stack.push(v2);
 	});
-
-	public static final List<SymbolicOperation> OPERATIONS = Arrays.asList(PUSH, DROP, DUP, SWAP, ADD, ROT, NEG_ROT, OVER, UNDER, TUCK, NOP);
+	
+	public static final SymbolicOperation PUSH1 = new SymbolicOperation("1", true, e -> {
+		e.stack.push(new SymbolicValue("1"));
+	});
+	
+	public static final SymbolicOperation INC = new SymbolicOperation("+1", true, e -> {
+		e.stack.push(new DyadicValue(new SymbolicValue("1"), e.stack.pop(), Operator.PLUS));
+	});
+	
+	public static final List<SymbolicOperation> OPERATIONS = Arrays.asList(PUSH1, INC, PUSH, DROP, DUP, SWAP, ADD, ROT, NEG_ROT, OVER, UNDER, TUCK, NOP);
 
 	private final Consumer<Memory> operation;
 	private final String name;

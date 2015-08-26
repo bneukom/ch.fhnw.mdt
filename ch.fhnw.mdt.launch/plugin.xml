@@ -31,5 +31,53 @@
             id="ch.fhnw.mdt.launch.mcorelaunchimage">
       </launchConfigurationTypeImage>
    </extension>
+   <extension
+         point="org.eclipse.debug.ui.launchShortcuts">
+      <shortcut
+            class="ch.fhnw.mdt.launch.MCoreLaunchDelegate"
+            description="Launches as uForth programm."
+            icon="icons/mcorelaunchicon.png"
+            id="ch.fhnw.mdt.launch.uforthlaunchshortcut"
+            label="uForth Application"
+            modes="run, debug">
+         <description
+               description="Runs the uForth programm."
+               mode="run">
+         </description>
+         <configurationType
+               id="ch.fhnw.mdt.launch.mcorelaunch">
+         </configurationType>
+         <contextualLaunch>
+           <enablement>
+             <with variable="selection">
+               <count value="1"/>
+               <iterate>
+                   <or>
+                     <instanceof value="org.eclipse.cdt.core.model.ICProject"/>
+                     <test
+                           forcePluginActivation="true"
+                           property="org.eclipse.cdt.launch.isCProject"/>
+                     <instanceof
+                           value="org.eclipse.core.resources.IResource">
+                     </instanceof>
+                     <instanceof
+                           value="org.eclipse.ui.IEditorInput">
+                     </instanceof>
+                   </or>
+               </iterate>
+             </with>
+           </enablement>
+         </contextualLaunch>
+         <description
+             mode="run"
+             description="Run"/>
+          <description
+             mode="debug"
+             description="Debug"/>
+         <configurationType
+               id="org.eclipse.cdt.launch.applicationLaunchType">
+         </configurationType>
+      </shortcut>
+   </extension>
 
 </plugin>

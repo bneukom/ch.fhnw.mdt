@@ -25,6 +25,11 @@ Bruno Medeiros.
 \newblock D development tools.
 \newblock \url{https://github.com/bruno-medeiros/DDT}.
 
+\bibitem{managedbuildcdt}
+Managed build definitions.
+\newblock
+  \url{http://help.eclipse.org/mars/index.jsp?topic=%2Forg.eclipse.cdt.doc.isv%2Freference%2Fextension-points%2Findex.html}.
+
 \bibitem{gdb}
 The gdb/mi interface.
 \newblock \url{https://sourceware.org/gdb/onlinedocs/gdb/GDB_002fMI.html}.
@@ -46,5 +51,18 @@ J.~W. Davidson and C.~W. Fraser.
 \bibitem{uforth}
 Klaus Schleisiek.
 \newblock uforth real time, object oriented with debugger, 2013.
+
+\bibitem{superoptimizer}
+S.~Bansal and A.~Aiken.
+\newblock Automatic generation of peephole superoptimizers.
+\newblock In {\em ACM SIGPLAN Not.}, pages 394--403, 2006.
+
+\bibitem{ssa}
+Static single assignment form.
+\newblock \url{https://en.wikipedia.org/wiki/Static_single_assignment_form}.
+
+\bibitem{downloadxtext}
+Xtext download.
+\newblock \url{https://eclipse.org/Xtext/download.html}.
 
 \end{thebibliography}

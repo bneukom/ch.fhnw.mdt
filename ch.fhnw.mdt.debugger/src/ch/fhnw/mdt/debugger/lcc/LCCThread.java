@@ -14,9 +14,6 @@ import org.eclipse.cdt.debug.core.cdi.model.ICDIThreadStorageDescriptor;
 
 public class LCCThread implements ICDIThread {
 	private Logger logger = Logger.getLogger(getClass().getName());
-	private LCCTarget target;
-	
-	
 	
 	
 	@Override
@@ -88,7 +85,6 @@ public class LCCThread implements ICDIThread {
 
 	@Override
 	public int getStackFrameCount() throws CDIException {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
@@ -109,7 +105,6 @@ public class LCCThread implements ICDIThread {
 
 	@Override
 	public void stepOver() throws CDIException {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -120,49 +115,41 @@ public class LCCThread implements ICDIThread {
 
 	@Override
 	public void stepOverInstruction() throws CDIException {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void stepIntoInstruction() throws CDIException {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void stepReturn() throws CDIException {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void runUntil(ICDILocation location) throws CDIException {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void jump(ICDILocation location) throws CDIException {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void signal() throws CDIException {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void signal(ICDISignal signal) throws CDIException {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public boolean equals(ICDIThread thead) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

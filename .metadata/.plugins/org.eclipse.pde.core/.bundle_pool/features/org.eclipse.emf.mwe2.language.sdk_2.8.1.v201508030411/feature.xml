@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.eclipse.emf.mwe2.language.sdk"
+      label="%featureName"
+      version="2.8.1.v201508030411"
+      provider-name="%providerName">
+
+   <description>
+      %description
+   </description>
+
+   <copyright>
+      %copyright
+   </copyright>
+
+   <license url="%licenseURL">
+      %license
+   </license>
+
+   <url>
+      <update label="%UpdateSiteName" url="http://download.eclipse.org/modeling/emft/mwe/updates/"/>
+      <discovery label="%UpdateSiteName" url="http://download.eclipse.org/modeling/emft/mwe/updates/"/>
+   </url>
+
+   <includes
+         id="org.eclipse.emf.mwe2.language.sdk.source"
+         version="2.8.1.v201508030411"/>
+
+   <requires>
+      <import feature="org.eclipse.xtext.ui" version="2.8.0" match="compatible"/>
+      <import feature="org.eclipse.emf.mwe2.runtime.sdk" version="2.8.1" match="greaterOrEqual"/>
+   </requires>
+
+   <plugin
+         id="org.eclipse.emf.mwe2.language"
+         download-size="0"
+         install-size="0"
+         version="2.8.1.v201508030411"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.emf.mwe2.language.ui"
+         download-size="0"
+         install-size="0"
+         version="2.8.1.v201508030411"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.emf.mwe2.launch"
+         download-size="0"
+         install-size="0"
+         version="2.8.1.v201508030411"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.emf.mwe2.launch.ui"
+         download-size="0"
+         install-size="0"
+         version="2.8.1.v201508030411"
+         unpack="false"/>
+
+</feature>

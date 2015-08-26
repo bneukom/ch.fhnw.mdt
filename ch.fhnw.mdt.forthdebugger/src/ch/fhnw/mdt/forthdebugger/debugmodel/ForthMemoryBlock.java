@@ -25,8 +25,7 @@ public class ForthMemoryBlock extends ForthDebugElement implements IMemoryBlock,
 	private final long length;
 	private final ProcessCommunicator processCommunicator;
 
-	public ForthMemoryBlock(final ForthDebugTarget target, final long startAddress, final long length,
-			final ProcessCommunicator processCommunicator) {
+	public ForthMemoryBlock(final ForthDebugTarget target, final long startAddress, final long length, final ProcessCommunicator processCommunicator) {
 		super(target);
 		this.processCommunicator = processCommunicator;
 
@@ -37,25 +36,18 @@ public class ForthMemoryBlock extends ForthDebugElement implements IMemoryBlock,
 	}
 
 	private void loadMemory() {
-		try {
-			processCommunicator.awaitCommandCompletion();
-		} catch (CommandTimeOutException e1) {
-			// stop loading
-			return;
-		}
+		processCommunicator.awaitCommandCompletion();
 		processCommunicator.awaitReadCompletion();
 
 		// let the debug target ignore the input
-		target.setIgnoreInput(true);
 		try {
-			processCommunicator.sendCommandAwaitResult(String.valueOf(startAddress / 4) + " "
-					+ String.valueOf(length / 4) + " dump" + ProcessCommunicator.NL,
-					processCommunicator.newWaitForResultLater(">"));
+			target.setIgnoreInput(true);
+			processCommunicator.sendCommandAwaitResult(String.valueOf(startAddress / 4) + " " + String.valueOf(length / 4) + " dump" + ProcessCommunicator.NL, processCommunicator.newAwaitResult(">"));
 		} catch (CommandTimeOutException e) {
-			// stop loading
 			return;
+		} finally {
+			target.setIgnoreInput(false);
 		}
-		target.setIgnoreInput(false);
 
 		final List<String> readLines = processCommunicator.getReadLines();
 
@@ -84,11 +76,9 @@ public class ForthMemoryBlock extends ForthDebugElement implements IMemoryBlock,
 
 		for (final String dumpLine : stringMemoryDump) {
 			final String[] stringValues = dumpLine.trim().split("\\s+");
-			final List<Integer> dumpValues = Arrays.stream(stringValues).skip(1).map(s -> Integer.parseInt(s, 16))
-					.collect(Collectors.toList());
+			final List<Integer> dumpValues = Arrays.stream(stringValues).skip(1).map(s -> Integer.parseInt(s, 16)).collect(Collectors.toList());
 
-			memoryCellList.add(new MemoryCell(stringValues[0].substring(0, stringValues[0].length() - 1),
-					dumpValues.stream().mapToInt(i -> i).toArray()));
+			memoryCellList.add(new MemoryCell(stringValues[0].substring(0, stringValues[0].length() - 1), dumpValues.stream().mapToInt(i -> i).toArray()));
 			memoryDumpValues.addAll(dumpValues);
 		}
 		memoryCells = memoryCellList.toArray(new MemoryCell[memoryCellList.size()]);

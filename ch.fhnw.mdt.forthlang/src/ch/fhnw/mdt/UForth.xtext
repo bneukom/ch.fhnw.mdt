@@ -1,0 +1,60 @@
+grammar ch.fhnw.mdt.UForth with org.eclipse.xtext.common.Terminals
+
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+generate uForth "http://www.fhnw.ch/mdt/UForth"
+
+Forth:
+	instructions+=Instruction*;
+
+terminal fragment DIGIT:
+	'0'..'9';
+
+terminal fragment DECINT:
+	DIGIT+;
+
+terminal SL_COMMENT:
+	'(' !('\n' | '\r')* ')' WS*;
+
+terminal INT returns ecore::EInt:
+	('-'? ('0'..'9' | 'A'..'F')+);
+
+terminal DOUBLE returns ecore::EDouble:
+	DECINT (('.' DIGIT*) | (('.' DIGIT*)? ('E' | 'e') ('-' | '+')? DECINT));
+
+terminal ID:
+	'^'? ('a'..'z' | 'A'..'Z' | '_' | '!' | '@' | '?' | ',' | '<' | '>' | '=') ('a'..'z' | 'A'..'Z' | '_' | '!' | '?' |
+	'@' | '<' | '>' | '0'..'9' | ',' | '=')*;
+
+Instruction:
+	Create | Function | Word;
+
+Function:
+	':' name=ID words+=Word* ';';
+
+Create:
+	'create' name=ID (lit+=LITERAL ',')*;
+
+LITERAL:
+	INT | DOUBLE;
+
+IntrinsicStackWords:
+	{IntrinsicStackWords}
+	name=('CLEAR' | 'DROP' | 'DUP' | '?DUP' | 'SWAP' | 'NIP' | 'OVER' | 'ROT' | '-ROT' | 'TUCK' | 'UNDER' | '2DROP' |
+	'2DUP' | '2SWAP' | '2OVER' | 'RCLEAR' | 'R@' | 'r>' | '>r' | 'RDROP');
+
+IntrinsicMemoryWords:
+	{IntrinsicMemoryWords}
+	name=('LD' | '@' | 'ST' | '!' | '2@' | '2!' | 'LLD' | 'L@' | 'LST' | 'L!' |
+	'TLD' | 'T@' | 'TST' | 'T!' | '+ST' | '+!' | 'INC' | 'DEC' | 'ON' | 'OFF' | 'ERASE' | 'FILL' | 'COUNT' | 'MOVE' |
+	'PLACE');
+
+IntrinsicArithmeticWords:
+	{IntrinsicArithmeticWords}
+	name=('+' | '-' | '*' | '/' | '2*' | '2/' | 'u2/' | 'ROR' | 'DROR' | 'ROL' | 'DROL' | 'PACK' | 'UNPACK' | 'SHIFT' |
+	'ASHIFT' | '2**' | '0=' | '0<>' | '0<' | 'd0=' | 'NEGATE' | 'DNEGATE' | '1+' | '1-' | 'TRUE' | 'FALSE' | 'CELL+' |
+	'CELL-' | 'CARRY_RESET' | 'CARRY-SET' | 'ABS' | 'DABS' | 'EXTEND');
+
+Word:
+	IntrinsicStackWords | IntrinsicMemoryWords | IntrinsicArithmeticWords | name=LITERAL | name=ID;
+
+

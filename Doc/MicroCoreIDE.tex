@@ -6,10 +6,12 @@
 \usepackage{listings}
 \usepackage{cite}
 \usepackage{graphicx}
+\usepackage{nameref}
 \usepackage[ngerman]{babel}
 \usepackage{float}
 \usepackage{amsmath}
 \usepackage{enumerate}
+\usepackage{verbatimbox}
 \usepackage{url}
 \usepackage[font=small,format=plain,labelfont=bf,up,textfont=normal,up, justification=centering,singlelinecheck=false]{caption}
 \usepackage{multirow}
@@ -18,6 +20,7 @@
 \usepackage{eurosym}
 \usepackage{rotating}
 \usepackage{tikz}
+\usepackage{multicol}
 
 
 % options
@@ -49,6 +52,7 @@ er-rei-chen
 \include{compiler/compiler}
 \include{launch/launch}
 \include{forthcommunication/forthcommunication}
+\include{fortheditor/fortheditor}
 \include{debugger/debugger}
 \include{idesettings/idesettings}
 \include{optimizer/optimizer}
@@ -66,8 +70,277 @@ er-rei-chen
 \listoftables
 
 \newpage
+\chapter{Installationsanleitung für Anwender}
+\label{chap:installuser}
+
+Zuerst muss lcc-mcore und gforth nach Anleitung der jeweiligen Dokumentation installiert werden. lcc-mcore muss sich im \verb!PATH! befinden und \verb!GFORTHPATH! muss gesetzt sein. Falls eine dieser Einstellungen nicht korrekt ist, wird die Entwicklungsumgebung das Projekt nicht komplett bilden. Die Entwicklungsumgebung braucht Superuser-Rechte, das heisst sie, muss mit \verb!sudo! gestartet werden. Damit der richtige \verb!PATH! verwendet wird, muss dieser dem \verb!sudo!-Befehl übergeben werden. Die Entwicklungsumgebung wird mit dem Befehl \verb!sudo env PATH=$PATH ./eclipse! korrekt gestartet.
+
+
+\newpage
+\chapter{Installationsanleitung für Entwickler}
+
+Zuerst müssen alle Schritte, des Kapitels "`\nameref{chap:installuser}"' durchgeführt werden. Für die Entwicklung wird eine Eclipse RCP-Distribution mit Xtext-Unterstützung benötigt. Diese kann auf der offiziellen Xtext-Webseite\cite{downloadxtext} heruntergeladen werden. Zuerst müssen alle Projekte in Eclipse importiert werden. Dann muss die Target Platform gesetzt werden. Dies kann im File \verb!cdt-8.5.target! erfolgen, wie die Abbildung \ref{fig:selecttarget} zeigt.
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[scale=0.25]{targetplatform.png}
+		\caption{Mit der Target Definition kann die Target-Platform gesetzt werden.}
+		\captionsetup{margin=0cm,font={footnotesize}}
+		\label{fig:selecttarget}
+\end{figure}
+
+Danach muss der Xtext-Workflow gestartet werden. Dieser generiert alle notwendigen Klassen, die für den uForth-Editor gebraucht werden. Der Workflow kann im File \verb!GenerateUForth.mwe2! im Plugin \verb!ch.fhnw.mdt.forthlang! gestartet werden, wie die Abbildung \ref{fig:runmwe2} zeigt.
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[scale=0.25]{runmwe2.png}
+		\caption{Der MWE2 Workflow generiert alle notwendigen Klassen für den Forth-Editor.}
+		\captionsetup{margin=0cm,font={footnotesize}}
+		\label{fig:runmwe2}
+\end{figure}
+
+Die Entwicklungsumgebung kann danach im plugin.xml des Plugins \verb!ch.fhnw.mdt.ui!, wie in der Abbildung \ref{fig:runide} zu sehen ist, gestartet werden.
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[scale=0.2]{runide.png}
+		\caption{Die Entwicklungsumgebung kann im plugin.xml des Plugins ch.fhnw.mdt.ui gestartet werden.}
+		\captionsetup{margin=0cm,font={footnotesize}}
+		\label{fig:runide}
+\end{figure}
+
+\newpage
+\chapter{Forth Test-Funktionen}
+
+\section{\_Init}
+\begin{verbatim}
+: _Init
+swap
+over
+256
+-
+?GOTO lbl_72 ( jump if not equal )
+0
+GOTO lbl_77
+Label lbl_74
+swap
+over
+2
+Rot32
+dup
+_IV256
+2
+Rot32
++
+-2
+Rot32
+@
+swap
+2over
+nip
+4
++
+2
+Rot32
++
+-2
+Rot32
+!
+Label lbl_75
+swap
+1+
+swap
+swap
+Label lbl_77
+dup
+8
+u<
+?GOTO lbl_74 ( jump if less )
+drop
+0
+over
+12
++
+!
+0
+over
+13
++
+!
+0
+GOTO lbl_81
+Label lbl_78
+swap
+0
+2over
+nip
+2over
+nip
+14
++
++
+!
+Label lbl_79
+swap
+1+
+swap
+swap
+Label lbl_81
+dup
+16
+u<
+?GOTO lbl_78 ( jump if less )
+drop
+0
+over
+30
++
+!
+0
+over
+31
++
+!
+0
+over
+32
++
+!
+0
+over
+33
++
+!
+GOTO lbl_73
+Label lbl_72
+2
+Rot32
+drop
+drop
+2
+( return int )
+GOTO lbl_71
+Label lbl_73
+swap
+over
+!
+0
+over
+1+
+!
+1
+over
+2
++
+!
+0
+swap
+3
++
+!
+0
+;
+\end{verbatim}
+
+\section{\_Hash}
+\begin{verbatim}
+: _Hash
+0
+>r
+rsp@
+35
+-
+rsp! ( allocate 35 local variables )
+1
+l!
+-rot
+swap
+rsp@
+1
++
+swap
+_Init
+-rot
+rot
+dup
+0
+-
+0=
+?GOTO lbl_125 ( jump if equal )
+swap
+2
+Rot32
+drop
+swap
+drop
+GOTO lbl_124
+Label lbl_125
+drop
+rsp@
+1
++
+swap
+rot
+_Update
+dup
+1
+l@
+-rot
+0
+-
+0=
+?GOTO lbl_127 ( jump if equal )
+swap
+2
+Rot32
+drop
+GOTO lbl_124
+Label lbl_127
+drop
+rsp@
+1
++
+swap
+_Final
+Label lbl_124
+rsp@
+35
++
+rsp!
+rdrop ( deallocate 35 local variables )
+;
+\end{verbatim}
+
+\section{\_Update}
+\begin{verbatim}
+: _Update
+-rot
+swap
+swap
+rot
+_Update32
+Label lbl_109
+;
+\end{verbatim}
+\newpage
+\section{\_Propagation}
+\begin{verbatim}
+: _propagation
+5
+2
++
+1+
+3
+*
+7
+*
+Label lbl_1
+;
+\end{verbatim}
+
+\newpage
 \chapter{Ehrlichkeitserklärung}
-Hiermit bestätigen die Autoren, diese Arbeit ohne fremde Hilfe und unter Einhaltung der gebotenen Regeln erstellt zu haben.
+Hiermit bestätigt der Autor, diese Arbeit ohne fremde Hilfe und unter Einhaltung der gebotenen Regeln erstellt zu haben.
 \\
 \\
 \\
@@ -77,6 +350,7 @@ Hiermit bestätigen die Autoren, diese Arbeit ohne fremde Hilfe und unter Einhal
 \\
 \rule{0.75\textwidth}{0.4pt} \\
 Ort, Datum \hspace * {4cm} Unterschrift
+
 
 
 \end{document}

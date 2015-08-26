@@ -21,7 +21,8 @@ public class MCorePreferencePage extends PreferencePage implements IWorkbenchPre
 	private Text gforthLoaderText;
 	private Button selectUSBDeviceButton;
 
-	public static final String USB_DEVICE_NAME_PREFERENCE = "usbDeviceNamePreference";
+	public static final String UMBILICAL_PORT_NAME_PREFERENCE = "umbilicalPortNamePreference";
+	public static final String UMBILICAL_PORT_ACTIVE = "umbilicalPortActivePreference";
 	public static final String GFORTH_LOADER_PREFERENCE = "gforthLoader";
 	private Button useUSBDeviceButton;
 
@@ -41,11 +42,12 @@ public class MCorePreferencePage extends PreferencePage implements IWorkbenchPre
 		final Composite container = new Composite(parent, SWT.NULL);
 		container.setLayout(new GridLayout(3, false));
 
-		final String usbDeviceName = getPreferenceStore().getString(USB_DEVICE_NAME_PREFERENCE);
+		final String usbDeviceName = getPreferenceStore().getString(UMBILICAL_PORT_NAME_PREFERENCE);
+		final boolean umbilicalPortActive = getPreferenceStore().getBoolean(UMBILICAL_PORT_ACTIVE);
 
 		useUSBDeviceButton = new Button(container, SWT.CHECK);
 		useUSBDeviceButton.setText("USB Device");
-		useUSBDeviceButton.setSelection(!usbDeviceName.equals(""));
+		useUSBDeviceButton.setSelection(umbilicalPortActive);
 		useUSBDeviceButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
@@ -56,18 +58,18 @@ public class MCorePreferencePage extends PreferencePage implements IWorkbenchPre
 		});
 
 		usbDeviceText = new Text(container, SWT.BORDER);
-		usbDeviceText.setEnabled(!usbDeviceName.equals(""));
+		usbDeviceText.setEnabled(umbilicalPortActive);
 		usbDeviceText.setText(usbDeviceName);
 		usbDeviceText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 
 		selectUSBDeviceButton = new Button(container, SWT.NONE);
-		selectUSBDeviceButton.setEnabled(!usbDeviceName.equals(""));
+		selectUSBDeviceButton.setEnabled(umbilicalPortActive);
 		selectUSBDeviceButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
-				final SelectUSBDeviceDialog selectUsbDeviceDialog = new SelectUSBDeviceDialog(getShell());
+				final SelectUmbilicalPortDialog selectUsbDeviceDialog = new SelectUmbilicalPortDialog(getShell());
 				final int response = selectUsbDeviceDialog.open();
-				if (response == SelectUSBDeviceDialog.OK) {
+				if (response == SelectUmbilicalPortDialog.OK) {
 					final String device = selectUsbDeviceDialog.getSelectedDevice();
 					usbDeviceText.setText(device);
 				}
@@ -106,9 +108,9 @@ public class MCorePreferencePage extends PreferencePage implements IWorkbenchPre
 
 	@Override
 	public boolean performOk() {
-
+		getPreferenceStore().setValue(UMBILICAL_PORT_ACTIVE, useUSBDeviceButton.getSelection());
 		if (useUSBDeviceButton.getSelection())
-			getPreferenceStore().setValue(USB_DEVICE_NAME_PREFERENCE, usbDeviceText.getText());
+			getPreferenceStore().setValue(UMBILICAL_PORT_NAME_PREFERENCE, usbDeviceText.getText());
 		getPreferenceStore().setValue(GFORTH_LOADER_PREFERENCE, gforthLoaderText.getText());
 
 		return true;

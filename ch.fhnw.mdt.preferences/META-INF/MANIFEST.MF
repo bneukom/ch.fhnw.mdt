@@ -5,7 +5,8 @@ Bundle-SymbolicName: ch.fhnw.mdt.preferences;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: ch.fhnw.mdt.preferences.MDTPreferencesPlugin
 Require-Bundle: org.eclipse.ui,
- org.eclipse.core.runtime
+ org.eclipse.core.runtime,
+ ch.fhnw.mdt.platform;bundle-version="1.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Export-Package: ch.fhnw.mdt.preferences

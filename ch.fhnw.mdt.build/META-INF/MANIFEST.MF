@@ -9,8 +9,11 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.cdt.core;bundle-version="5.8.0",
  org.eclipse.cdt.managedbuilder.core,
  org.eclipse.core.resources;bundle-version="3.9.1",
- ch.fhnw.mdt.platform
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+ ch.fhnw.mdt.platform,
+ org.eclipse.jface.text,
+ org.eclipse.ui.editors,
+ org.eclipse.xtext.xtext.ui
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Export-Package: ch.fhnw.mdt.build,
  ch.fhnw.mdt.build.nature

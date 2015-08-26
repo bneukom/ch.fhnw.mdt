@@ -1,4 +1,4 @@
 package ch.fhnw.peepholeoptimizer.values;
 
-public class AbstractValue {
+public abstract class AbstractValue {
 }

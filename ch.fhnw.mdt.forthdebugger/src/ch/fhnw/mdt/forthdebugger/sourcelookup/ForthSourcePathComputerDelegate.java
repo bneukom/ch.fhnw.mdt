@@ -22,23 +22,6 @@ public class ForthSourcePathComputerDelegate implements ISourcePathComputerDeleg
 	 */
 	@Override
 	public ISourceContainer[] computeSourceContainers(ILaunchConfiguration configuration, IProgressMonitor monitor) throws CoreException {
-		ISourceContainer sourceContainer = null;
-		// TODO implement how?
-		// String path = configuration.getAttribute(IMDTConstants.ATTR_PDA_PROGRAM, (String)null);
-		// if (path != null) {
-		// IResource resource = ResourcesPlugin.getWorkspace().getRoot().findMember(new Path(path));
-		// if (resource != null) {
-		// IContainer container = resource.getParent();
-		// if (container.getType() == IResource.PROJECT) {
-		// sourceContainer = new ProjectSourceContainer((IProject)container, false);
-		// } else if (container.getType() == IResource.FOLDER) {
-		// sourceContainer = new FolderSourceContainer(container, false);
-		// }
-		// }
-		// }
-		if (sourceContainer == null) {
-			sourceContainer = new WorkspaceSourceContainer();
-		}
-		return new ISourceContainer[] { sourceContainer };
+		return new ISourceContainer[] { new WorkspaceSourceContainer() };
 	}
 }

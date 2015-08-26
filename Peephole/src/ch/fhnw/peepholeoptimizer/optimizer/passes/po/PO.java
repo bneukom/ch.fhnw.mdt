@@ -25,14 +25,14 @@ public class PO implements OptimizerPass {
 
 	private static final int FUNCTION = 0;
 	private static final int OTHER = 1;
-	
+
 	public PO() {
 		final List<Tuple2<SymbolicOperation, Memory>> simulatedOperations = SymbolicOperation.OPERATIONS.stream().map(o -> {
 			Memory e = new Memory();
 			o.accept(e);
 			return new Tuple2<>(o, e);
 		}).collect(Collectors.toList());
-		
+
 		for (DyadicSymbolicOperation dyadicSymbolicOperation : combinations) {
 			final Memory dyadicSimulated = new Memory();
 			dyadicSymbolicOperation.accept(dyadicSimulated);
@@ -48,13 +48,12 @@ public class PO implements OptimizerPass {
 	@Override
 	public List<String> pass(List<String> input) {
 		PeepholeOptimizer.LOGGER.fine("- PO Pass");
-	
 
 		final ArrayList<String> optimized = new ArrayList<>(input);
 
 		ListIterator<String> listIterator = optimized.listIterator();
 
-		String prev = listIterator.next();
+		String prev = null;
 		int state = OTHER;
 
 		while (listIterator.hasNext()) {
@@ -63,34 +62,46 @@ public class PO implements OptimizerPass {
 			switch (state) {
 			case OTHER:
 				if (cur.trim().matches(": .*")) {
+					prev = cur;
 					state = FUNCTION;
 				}
 				break;
 			case FUNCTION:
 				if (cur.trim().matches(";")) {
+					prev = null;
 					state = OTHER;
 				} else {
 					if (prev != null) {
+						boolean matched = false;
 						for (Pattern pattern : patterns) {
 							if (pattern.matches(prev, cur)) {
 								listIterator.remove();
 								listIterator.previous();
 								listIterator.remove();
+								
 
 								PeepholeOptimizer.LOGGER.fine("\tApplied Pattern: " + pattern.toString());
-								cur = listIterator.hasNext() ? listIterator.next() : null;
 
 								// also remove NOP
 								if (pattern.getTo() != SymbolicOperation.NOP) {
 									listIterator.add(pattern.getTo().toString());
 								}
 
+								cur = listIterator.hasPrevious() ? listIterator.previous() : null;
+								prev = null;
+
+								matched = true;
 								break;
 							}
 						}
+
+						if (!matched) {
+							prev = cur;
+						}
+					} else {
+						prev = cur;
 					}
 
-					prev = cur;
 				}
 				break;
 			default:
@@ -98,7 +109,7 @@ public class PO implements OptimizerPass {
 			}
 
 		}
-		
+
 		PeepholeOptimizer.LOGGER.fine("Size after PO:" + optimized);
 		return optimized;
 	}

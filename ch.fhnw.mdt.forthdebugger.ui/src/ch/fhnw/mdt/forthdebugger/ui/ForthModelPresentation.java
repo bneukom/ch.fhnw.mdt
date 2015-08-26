@@ -106,7 +106,7 @@ public class ForthModelPresentation extends LabelProvider implements IDebugModel
 	@Override
 	public String getEditorId(IEditorInput input, Object element) {
 		if (element instanceof IFile || element instanceof ILineBreakpoint) {
-			return "org.eclipse.cdt.ui.editor.CEditor";
+			return "ch.fhnw.mdt.UForth";
 		}
 		return null;
 	}
@@ -125,6 +125,7 @@ public class ForthModelPresentation extends LabelProvider implements IDebugModel
 
 	@Override
 	public String getRowLabel(IMemoryBlock blk, BigInteger address) {
-		return "row lol";
+		return null;
 	}
+
 }

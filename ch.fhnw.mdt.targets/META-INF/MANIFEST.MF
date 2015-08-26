@@ -5,5 +5,5 @@ Bundle-SymbolicName: ch.fhnw.mdt.targets
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: ch.fhnw.mdt.targets.Activator
 Require-Bundle: org.eclipse.core.runtime
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy

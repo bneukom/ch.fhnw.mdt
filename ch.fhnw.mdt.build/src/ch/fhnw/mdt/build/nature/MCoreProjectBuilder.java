@@ -1,61 +1,108 @@
 package ch.fhnw.mdt.build.nature;
 
+import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
+import java.nio.file.Paths;
 import java.util.Map;
 
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-
 import org.eclipse.cdt.core.envvar.IEnvironmentVariable;
+import org.eclipse.cdt.managedbuilder.core.IConfiguration;
 import org.eclipse.cdt.managedbuilder.core.IManagedBuildInfo;
 import org.eclipse.cdt.managedbuilder.core.ManagedBuildManager;
 import org.eclipse.cdt.managedbuilder.envvar.IEnvironmentVariableProvider;
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IResourceDelta;
-import org.eclipse.core.resources.IResourceDeltaVisitor;
-import org.eclipse.core.resources.IResourceVisitor;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
-import org.xml.sax.helpers.DefaultHandler;
 
+import ch.fhnw.mdt.platform.IPlatformStrings;
+import ch.fhnw.mdt.platform.MDTPlatformPlugin;
+
+/**
+ * The {@link MCoreProjectBuilder} checks for wrong configurations in the environment and reports it to the user.
+ * It checks 
+ * <ul>
+ * <li>If the $GFORTHPATH variable set and its last entry points to a valid folder (it should be the workspace)</li>
+ * <li>If the $PATH contains a folder with the lcc-mcore program in it</li>
+ * </ul>
+ */
 public class MCoreProjectBuilder extends IncrementalProjectBuilder {
 
 	public static final String GFORTH_PATH_VARIABLE = "GFORTHPATH";
 
 	public static final String BUILDER_ID = "ch.fhnw.mdt.build.mcoreProjectBuilder";
 
-	private static final String MARKER_TYPE = "ch.fhnw.mdt.build.pathProblem";
+	private static final String MDT_PROBLEM = "ch.fhnw.mdt.build.pathProblem";
+
+	private final IPlatformStrings platformStrings = MDTPlatformPlugin.getDefault().getPlatformStrings();
 
 	@Override
 	protected IProject[] build(final int kind, final Map<String, String> args, final IProgressMonitor monitor) throws CoreException {
 		final IEnvironmentVariableProvider environmentVariableProvider = ManagedBuildManager.getEnvironmentVariableProvider();
 		final IProject project = getProject();
 		final IManagedBuildInfo buildInfo = ManagedBuildManager.getBuildInfo(project);
-		final IEnvironmentVariable[] variables = environmentVariableProvider.getVariables(buildInfo.getManagedProject().getConfigurations()[0], true);
-		
-		project.deleteMarkers(MARKER_TYPE, false, 1);
+		final String separator = MDTPlatformPlugin.getDefault().getPlatformStrings().getEnvironmentSeparators();
 
-		for (final IEnvironmentVariable environmentVariable : variables) {
-			if (environmentVariable.getName().equals(GFORTH_PATH_VARIABLE)) {
-				// TODO location, check if it exists, persistent?
-				
-				return null; // found
+		project.deleteMarkers(MDT_PROBLEM, false, 1);
+
+		final IConfiguration buildConfig = buildInfo.getManagedProject().getConfigurations()[0];
+		final String path = environmentVariableProvider.getVariable("PATH", buildInfo.getManagedProject().getConfigurations()[0], true).getValue();
+
+		if (!isInResolvedPath(path, "lcc-mcore", environmentVariableProvider, buildConfig)) {
+			final IMarker invalidPath = project.createMarker(MDT_PROBLEM);
+			invalidPath.setAttribute(IMarker.MESSAGE, "lcc-mcore not found in PATH=" + path);
+			invalidPath.setAttribute(IMarker.PRIORITY, IMarker.PRIORITY_HIGH);
+			invalidPath.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_ERROR);
+		}
+
+		final IEnvironmentVariable gforthPathVar = environmentVariableProvider.getVariable(GFORTH_PATH_VARIABLE, buildConfig, true);
+		if (gforthPathVar != null) {
+			final String gforthPath = gforthPathVar.getValue();
+			final String[] gforthPaths = gforthPath.split(separator);
+			final String workspace = gforthPaths[gforthPaths.length - 1];
+			if (!Files.exists(Paths.get(workspace))) {
+				final IMarker invalidPath = project.createMarker(MDT_PROBLEM);
+				invalidPath.setAttribute(IMarker.MESSAGE, "The last location (" + workspace + ") GFORTHPATH=" + gforthPath + " points to an invalid location.");
+				invalidPath.setAttribute(IMarker.PRIORITY, IMarker.PRIORITY_HIGH);
+				invalidPath.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_ERROR);
+			}
+
+		} else {
+			final IMarker pathNotFoundMarker = project.createMarker(MDT_PROBLEM);
+
+			pathNotFoundMarker.setAttribute(IMarker.MESSAGE, "GFORTHPATH could not be found in environment.");
+			pathNotFoundMarker.setAttribute(IMarker.PRIORITY, IMarker.PRIORITY_HIGH);
+			pathNotFoundMarker.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_ERROR);
+		}
+
+		return null;
+	}
+
+	private boolean isInResolvedPath(final String path, final String file, final IEnvironmentVariableProvider environmentVariableProvider, final IConfiguration config) {
+		final String separator = platformStrings.getEnvironmentSeparators();
+		final String[] paths = path.split(separator);
+		for (final String subPath : paths) {
+			if (platformStrings.isPathVariable(subPath)) {
+				final IEnvironmentVariable variable = environmentVariableProvider.getVariable(platformStrings.getVariableName(subPath), config, true);
+				if (variable != null) {
+					final boolean isInResolvedPath = isInResolvedPath(variable.getValue(), file, environmentVariableProvider, config);
+					if (isInResolvedPath) {
+						return true;
+					}
+				}
+			} else {
+				try {
+					if (Files.exists(Paths.get(subPath, file))) {
+						return true;
+					}
+				} catch (InvalidPathException invalidPath) {
+					// just ignore this entry
+				}
 			}
 		}
 
-		// gforth path not found in environment
-		IMarker pathNotFoundMarker = project.createMarker(MARKER_TYPE);
-
-		pathNotFoundMarker.setAttribute(IMarker.MESSAGE, "GFORTHPATH could not be found in environment");
-		pathNotFoundMarker.setAttribute(IMarker.PRIORITY, IMarker.PRIORITY_HIGH);
-		pathNotFoundMarker.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_ERROR);
-		return null;
+		return false;
 	}
 
 }

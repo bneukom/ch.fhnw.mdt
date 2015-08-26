@@ -23,7 +23,6 @@ public class LCCSession implements ICDISession {
 
 	@Override
 	public void setAttribute(String key, String value) {
-		// TODO implement
 	}
 
 	@Override

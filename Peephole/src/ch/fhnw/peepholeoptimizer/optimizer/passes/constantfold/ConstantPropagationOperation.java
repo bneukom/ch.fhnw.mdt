@@ -22,8 +22,9 @@ public class ConstantPropagationOperation implements Function<List<Long>, List<L
 	public static final ConstantPropagationOperation NEGATE = new ConstantPropagationOperation(1, "negate", i -> Arrays.asList(-i.get(0)));
 	public static final ConstantPropagationOperation ADD = new ConstantPropagationOperation(2, "+", i -> Arrays.asList(i.get(0) + i.get(1)));
 	public static final ConstantPropagationOperation MUL = new ConstantPropagationOperation(2, "*", i -> Arrays.asList(i.get(0) * i.get(1)));
+	public static final ConstantPropagationOperation ONE_PLUS = new ConstantPropagationOperation(1, "1+", i -> Arrays.asList(i.get(0) + 1));
 
-	public static final List<ConstantPropagationOperation> OPERATIONS = Arrays.asList(SWAP, DUP, ROT, NEG_ROT, ADD, MUL, NEGATE);
+	public static final List<ConstantPropagationOperation> OPERATIONS = Arrays.asList(SWAP, DUP, ROT, NEG_ROT, ADD, MUL, NEGATE, ONE_PLUS);
 
 	public int getRequiredStackSize() {
 		return requiredStackSize;
@@ -37,7 +38,7 @@ public class ConstantPropagationOperation implements Function<List<Long>, List<L
 	public List<Long> apply(List<Long> t) {
 		return function.apply(t);
 	}
-	
+
 	@Override
 	public String toString() {
 		return operationName;

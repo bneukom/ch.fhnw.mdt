@@ -21,7 +21,7 @@ public class ForthCommandAdapterFactory implements IAdapterFactory {
 	public ForthCommandAdapterFactory() {
 	}
 	
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public Object getAdapter(Object adaptableObject, Class adapterType) {
 		if (adapterType == IJumpHandler.class) {
@@ -34,7 +34,7 @@ public class ForthCommandAdapterFactory implements IAdapterFactory {
 		return null;
 	}
 
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public Class[] getAdapterList() {
 		return new Class[] { IJumpExtension.class, IAfterExtension.class, IKillProcessExtension.class };

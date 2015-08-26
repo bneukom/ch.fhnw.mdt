@@ -1,0 +1,223 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.8.4
+Bundle-ActivationPolicy: lazy
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Bundle-Name: %pluginName
+Bundle-SymbolicName: org.eclipse.xtext.doc;singleton:=true
+Eclipse-LazyStart: true
+Require-Bundle: org.eclipse.help;bundle-version="3.4.0"
+Created-By: 1.6.0_45-b06 (Sun Microsystems Inc.)
+Bundle-Version: 2.8.4.v201508050135
+Bundle-ManifestVersion: 2
+
+Name: contents/images/mwe2/component.png
+SHA1-Digest: tvPE9UVzdPo6dIrD9E+GJDSlyLs=
+
+Name: contents/202_scripting.html
+SHA1-Digest: mgCqVddt6skzbghbH4xZCp/F1Eo=
+
+Name: contents/images/template_screenshot.png
+SHA1-Digest: +WN9pjNgM/xw4bGw4HZWj3dT+gM=
+
+Name: contents/images/httprouting_screenshot.png
+SHA1-Digest: vz/CbDOObHcVWjXkSJM9QW+z6x0=
+
+Name: contents/101_five_minutes.html
+SHA1-Digest: OPi0cjd5jjlkSCg8Dxc3sv0cELs=
+
+Name: contents/images/mwe2/property.png
+SHA1-Digest: ueXuDlY3XzAaqzSH0PtYzqOPEyo=
+
+Name: contents/images/preferences_syntax.png
+SHA1-Digest: sBtWsEi0ZFKaofME0a/2yBHgUEQ=
+
+Name: contents/images/index_container.png
+SHA1-Digest: se9Z83O/RN1+3X9Tx6WKs4DGpzs=
+
+Name: contents/images/mongobeans_screenshot.png
+SHA1-Digest: dGunHvquKU77kdfJqJowpeYivpA=
+
+Name: contents/402_migrating_from_0_7.html
+SHA1-Digest: pEWaeM8UbzRbbvw0KGTkxi+V8bc=
+
+Name: contents/images/30min_wizard.png
+SHA1-Digest: XtydMVwUuxGvO34qPTcYHOqlyxE=
+
+Name: contents/images/30min_editor.png
+SHA1-Digest: 2tGS/3akRIM9ZZ6274dF2lbX/M0=
+
+Name: contents/images/Pythagoras.png
+SHA1-Digest: yy8xoMN+YlCCwu0kzExrJ2YjrsU=
+
+Name: contents/images/templates_crossref.png
+SHA1-Digest: HONfEPlcCH8erJz4qYGY0U6Ol6o=
+
+Name: contents/images/mwe2/module.png
+SHA1-Digest: a6Z/XeJ8GAHFdufGCFCZFlWDyPE=
+
+Name: contents/102_domainmodelwalkthrough.html
+SHA1-Digest: SwLpHVjLzvhKuTbASpkxYMvbY5A=
+
+Name: META-INF/eclipse.inf
+SHA1-Digest: 09gN05tobgS/MdtqyTNQhOhB73M=
+
+Name: contents/306_mwe2.html
+SHA1-Digest: IuHPrdkf5MwM/Tqm9vJ80uhEKJU=
+
+Name: contents/images/FiveMinTutorial_FreshProject.png
+SHA1-Digest: Y3uALspt/QpIx0ayLKRxXJ3fDR4=
+
+Name: contents/images/sample_outline.png
+SHA1-Digest: LLFGo9yaF85Baj0PKKE8ysRhe/o=
+
+Name: contents/103_domainmodelnextsteps.html
+SHA1-Digest: Tk39TlB3CNnzeDcahPCP5sQqeXc=
+
+Name: contents/images/highlighting.png
+SHA1-Digest: G0LW/EofA02LGIpjN9FTed+yu2A=
+
+Name: contents/images/generator-structure.png
+SHA1-Digest: lidP3KXJuZ2ggu6aCC8DLsz2rYw=
+
+Name: contents/205_guice.html
+SHA1-Digest: uAPd29lH5dm+RH/QoRPHYeZTXEA=
+
+Name: contents/201_sevenlang_introduction.html
+SHA1-Digest: rVhj04vQR0wY48rRv21RKEOD4qw=
+
+Name: contents/images/ast.png
+SHA1-Digest: IBbCyehE9TkvfhvzbuEax+3nzDA=
+
+Name: contents/images/ecore.png
+SHA1-Digest: ODBZMO+bxO1pGeWxkXdJ4+FIjzk=
+
+Name: contents/images/pdf_icon.gif
+SHA1-Digest: 1yk2Xx1Ks1ts7oKxy1nua583rWE=
+
+Name: contents/302_configuration.html
+SHA1-Digest: 5MaaRJzycXI6u/oVuIYoV/WX/v4=
+
+Name: contents/303_runtime_concepts.html
+SHA1-Digest: VhWREQiEgQMp5YhTnsu63yHbO2k=
+
+Name: contents/images/JvmTutorial_Editor.png
+SHA1-Digest: HL3A5r+gn4iUSIsrjqDEm5AtKI0=
+
+Name: contents/images/expression-ast.png
+SHA1-Digest: iorEGpUvx9Jdea/6rDplcsU3Dl4=
+
+Name: contents/images/index_datamodel.png
+SHA1-Digest: +5M6h3AUBw78IzDhHkEbBgpDgQI=
+
+Name: contents/images/FiveMinTutorial_Editor.png
+SHA1-Digest: rbb2+wJgpRyT8vkwt4iRQjP3AaY=
+
+Name: plugin.properties
+SHA1-Digest: pmuJd6w7NubSTcVPtbRg/rzyDQI=
+
+Name: contents/images/30min_rungenerator.png
+SHA1-Digest: 3cEAed5XMFOSzNZkq7JkNIdK7EE=
+
+Name: contents/images/Nikolaus.png
+SHA1-Digest: PRLJqscLoZxwDAtQih3Cu2t78m8=
+
+Name: contents/images/builddsl_screenshot.png
+SHA1-Digest: PYFxeEMOa9qf3WG87tLhQEkt6Ag=
+
+Name: contents/images/family_tree.png
+SHA1-Digest: oqla/hEh27HexxiWJvbHFSqa71E=
+
+Name: contents/book.css
+SHA1-Digest: cp8tW7kfcjwkSIrA0Em3k+GyoBU=
+
+Name: contents/208_tortoise.html
+SHA1-Digest: BEOkpruKynO9FqcKX8loKk/p6eI=
+
+Name: contents/206_httprouting.html
+SHA1-Digest: n7yWlKrEkMAeSbjMgA2jSim/hD8=
+
+Name: contents/code.css
+SHA1-Digest: P1Q6E2vwXDd2HqvW00cMDXWV9wQ=
+
+Name: plugin.xml
+SHA1-Digest: kWq2kop7SbB6yscXG0pj48DOGPI=
+
+Name: contents/index.html
+SHA1-Digest: rUBoP4cgzyrkviiGS5OYCsxlWlw=
+
+Name: contents/304_ide_concepts.html
+SHA1-Digest: rNVwpccSc8Nm8gzCl9+oXqUYhNk=
+
+Name: contents/images/JvmTutorial_LaunchEditor.png
+SHA1-Digest: kG3DnMAt8sM/yiMl9xS7hEY/Wfs=
+
+Name: contents/307_special_languages.html
+SHA1-Digest: 8EQGdCkY7K55k4P3U6d70n6RLCY=
+
+Name: contents/207_template.html
+SHA1-Digest: 5R+DwuYvINFKFpD4w/g715VIrZk=
+
+Name: contents/204_mongodb.html
+SHA1-Digest: q4ATfB0nh0JVSkum/U2b8n+9ptM=
+
+Name: contents/images/30min_multipleeditors.png
+SHA1-Digest: zw/d6afNuQZt+Z8mMF67u9enzyk=
+
+Name: contents/images/JvmTutorial_RunGenerator.png
+SHA1-Digest: T/cVVZDbjWC9+OtG3fXDXk68QSc=
+
+Name: contents/images/30min_initialprojectlayout.png
+SHA1-Digest: oPMsSmCXa58+EdHSSNC4EnT0FyA=
+
+Name: contents/images/scripting_screenshot.png
+SHA1-Digest: erhSJsuvxqir1jVy31ZKK1Gx2j4=
+
+Name: contents/images/preferences_templates.png
+SHA1-Digest: NiW4NtzFg4h4Q3UJ/1Po2NR2jrU=
+
+Name: contents/203_builddsl.html
+SHA1-Digest: TQT0CYOlEkHOX7v0X0y0JMCJtgE=
+
+Name: contents/305_xbase.html
+SHA1-Digest: ZxxrSPCuSwwXnaJ2xjFWbhN4MyE=
+
+Name: about.html
+SHA1-Digest: mLkmRLtG3amkcY0I7KSYZX6qKhs=
+
+Name: contents/images/30min_launchconfiguration.png
+SHA1-Digest: KMqVC9HbNHmrmBkUVjfhPfhNf7c=
+
+Name: contents/images/FiveMinTutorial_LaunchConfig.png
+SHA1-Digest: co/WlkENvemH3wC1fPWij2MpuxU=
+
+Name: contents/images/guicemodules_screenshot.png
+SHA1-Digest: NIVLZg1epA77mi2PqW4xzYyKwVg=
+
+Name: contents/images/tortoise_screenshot.png
+SHA1-Digest: Xzz/3vEco6sVfEihm3VL1G7XrTo=
+
+Name: contents/104_jvmdomainmodel.html
+SHA1-Digest: EhY2PouRvuwf23lNH0OElPIlBX0=
+
+Name: contents/301_grammarlanguage.html
+SHA1-Digest: Z4bCrsQzbPT9HKY3Gi2V2lWQHkM=
+
+Name: contents/toc.xml
+SHA1-Digest: 0vtMjaCOe9sAAZ08VNytgFnX3IA=
+
+Name: contents/images/metamodel.png
+SHA1-Digest: JfcJ7BKdZAxTVtMPRu1UmWBh5q8=
+
+Name: contents/401_migrating_from_1_0_x.html
+SHA1-Digest: a/QwWaKnyrYQEfrmMi/AH1v9y8A=
+
+Name: contents/images/mwe2/assignment.png
+SHA1-Digest: PM/OylSI3CJzASETWzbkWWN7p4Y=
+
+Name: contents/images/emf-integration.png
+SHA1-Digest: HviBOEuZaX/BnD2RAAEsgJD/UrQ=
+
+Name: contents/308_emf_integration.html
+SHA1-Digest: ZAezVf6lrACHdyE8qQxyRamqdGo=
+

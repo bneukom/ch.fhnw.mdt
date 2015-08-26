@@ -351,15 +351,6 @@ public class ForthStackFrame extends ForthDebugElement implements IStackFrame, I
 		getThread().terminate();
 	}
 
-	/**
-	 * Returns the name of the source file this stack frame is associated with.
-	 * 
-	 * @return the name of the source file this stack frame is associated with
-	 */
-	public String getSourceName() {
-		return fileName;
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -403,6 +394,16 @@ public class ForthStackFrame extends ForthDebugElement implements IStackFrame, I
 	 */
 	public String getFunctionName() {
 		return functionName;
+	}
+
+
+	/**
+	 * Returns the name of the source file this stack frame is associated with.
+	 * 
+	 * @return the name of the source file this stack frame is associated with
+	 */
+	public String getSourceName() {
+		return fileName;
 	}
 
 	/**

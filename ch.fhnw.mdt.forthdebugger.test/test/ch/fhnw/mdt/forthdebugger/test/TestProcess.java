@@ -23,8 +23,6 @@ public class TestProcess implements IProcessDectorator {
 	private final ProcessFunction processFunction;
 	private final ProcessThread processThread = new ProcessThread();
 
-	private static final String LINE_SEPARATOR = System.lineSeparator();
-
 	public TestProcess(ProcessFunction processFunction) {
 		this.processFunction = processFunction;
 
