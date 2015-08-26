@@ -472,7 +472,7 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget,
 		private final InputStream stream;
 		private final Pattern debugFunctionPattern = Pattern.compile("([^\\s]+)(\\s+)(-{15})");
 
-		private final Pattern stepPattern = Pattern.compile("([A-Fa-f0-9]{8}): ([A-Fa-f0-9 ]{8}) ?(([^\\s]+ [^\\s]+)|( [^\\s]+[A-Fa-f0-9 ]+ (call))|([^\\s]+))((-?[A-Fa-f0-9 ])*) (>+)");
+		private final Pattern stepPattern = Pattern.compile("([A-Fa-f0-9]{8}): ([A-Fa-f0-9 ]{8}) ?(([^\\s]+ [^\\s]+)|([^\\s]+ [A-Fa-f0-9 ]+ (call))|([^\\s]+))((-?[A-Fa-f0-9 ])*) (>+)");
 
 		public DebugStreamListener(InputStream stream) {
 			this.stream = stream;
