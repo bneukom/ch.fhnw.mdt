@@ -17,7 +17,7 @@ public class DefaultProcessDecorator implements IProcessDectorator {
 
 	@Override
 	public void destroy() {
-		process.destroy();
+		process.destroyForcibly();
 	}
 
 	@Override

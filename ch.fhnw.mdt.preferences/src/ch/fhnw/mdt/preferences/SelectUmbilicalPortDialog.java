@@ -137,7 +137,7 @@ public class SelectUmbilicalPortDialog extends TitleAreaDialog {
 		});
 
 		pollTimer.schedule(pollTask, 0, 500);
-
+		
 		return area;
 	}
 
@@ -169,12 +169,6 @@ public class SelectUmbilicalPortDialog extends TitleAreaDialog {
 	protected void createButtonsForButtonBar(final Composite parent) {
 		createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL, true);
 		createButton(parent, IDialogConstants.CANCEL_ID, IDialogConstants.CANCEL_LABEL, false);
-	}
-
-	@Override
-	protected Point getInitialSize() {
-		final Point dpi = Display.getDefault().getDPI();
-		return new Point(dpi.x * 3, dpi.y * 4);
 	}
 
 	@Override

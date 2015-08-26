@@ -632,6 +632,9 @@ public class ProcessCommunicator {
 						availableLock.unlock();
 					}
 
+					// shut down process communicator
+					shutdown();
+					
 					// abort and in case of input error
 					break;
 				}
@@ -682,12 +685,10 @@ public class ProcessCommunicator {
 		private volatile boolean hasTimedOut = false;
 
 		public Command(final String request, final WaitFor waitFor, CommandCompleted commandCompleted, boolean block) {
-			super();
 			this.commandCompleted = commandCompleted;
 			this.blocks = block;
 			this.request = Either.left(request);
 			this.waitFor = waitFor;
-
 		}
 
 		public Command(final int request, final WaitFor waitFor, CommandCompleted commandCompleted, boolean block) {
@@ -719,6 +720,10 @@ public class ProcessCommunicator {
 	public static final class CommandTimeOutException extends RuntimeException {
 
 		private static final long serialVersionUID = 7373433288586293807L;
+		
+		public CommandTimeOutException() {
+			super("A request to the process has timed out.");
+		}
 	}
 
 	/**

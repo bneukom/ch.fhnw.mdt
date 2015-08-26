@@ -14,21 +14,17 @@ import java.util.regex.Pattern;
 
 import org.eclipse.cdt.core.CCorePlugin;
 import org.eclipse.cdt.core.envvar.IEnvironmentVariable;
-import org.eclipse.cdt.core.model.CoreModel;
 import org.eclipse.cdt.launch.AbstractCLaunchDelegate;
 import org.eclipse.cdt.managedbuilder.core.IManagedBuildInfo;
 import org.eclipse.cdt.managedbuilder.core.ManagedBuildManager;
 import org.eclipse.cdt.managedbuilder.envvar.IEnvironmentVariableProvider;
-import org.eclipse.cdt.ui.CDTUITools;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.core.runtime.content.IContentType;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.ILaunch;
@@ -38,7 +34,6 @@ import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.debug.core.ILaunchManager;
 import org.eclipse.debug.core.model.IDebugTarget;
 import org.eclipse.debug.core.model.IProcess;
-import org.eclipse.debug.ui.DebugUITools;
 import org.eclipse.debug.ui.ILaunchShortcut;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
@@ -49,9 +44,9 @@ import org.eclipse.ui.console.ConsolePlugin;
 import org.eclipse.ui.console.IConsole;
 import org.eclipse.ui.console.IOConsole;
 import org.eclipse.ui.console.IOConsoleOutputStream;
-import org.eclipse.xtext.ui.editor.XtextEditor;
 
 import ch.fhnw.mdt.forthdebugger.ForthDebuggerPlugin;
+import ch.fhnw.mdt.forthdebugger.ForthProcess;
 import ch.fhnw.mdt.forthdebugger.communication.ProcessCommunicator;
 import ch.fhnw.mdt.forthdebugger.communication.ProcessCommunicator.CommandTimeOutException;
 import ch.fhnw.mdt.forthdebugger.communication.process.DefaultProcessDecorator;
@@ -78,7 +73,8 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate implements ILau
 
 			final IEnvironmentVariableProvider environmentVariableProvider = ManagedBuildManager.getEnvironmentVariableProvider();
 			final IManagedBuildInfo buildInfo = ManagedBuildManager.getBuildInfo(project);
-			final IEnvironmentVariable gforthPathEnvironmentVariable = environmentVariableProvider.getVariable(GFORTH_PATH_VARIABLE, buildInfo.getManagedProject().getConfigurations()[0], true);
+			final IEnvironmentVariable gforthPathEnvironmentVariable = environmentVariableProvider.getVariable(GFORTH_PATH_VARIABLE,
+					buildInfo.getManagedProject().getConfigurations()[0], true);
 
 			final String[] gforthPaths = gforthPathEnvironmentVariable.getValue().split(platformStrings.getEnvironmentSeparators());
 			final String workingDirectory = gforthPaths[gforthPaths.length - 1];
@@ -89,7 +85,8 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate implements ILau
 
 			String umbilical = preferencePlugin.getCheckedUmbilical();
 
-			// ask user for new umbilical port if it has been set in the preference but is not valid
+			// ask user for new umbilical port if it has been set in the
+			// preference but is not valid
 			if (umbilical == null && preferencePlugin.isUmbilicalPortPreferenceActive()) {
 				final SelectUmbilicalPortDialog selectPortDialog = new SelectUmbilicalPortDialog(null);
 
@@ -100,7 +97,8 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate implements ILau
 				umbilical = selectPortDialog.getSelectedDevice();
 			}
 
-			// abort in case we are in debug mode and the port is still not valid
+			// abort in case we are in debug mode and the port is still not
+			// valid
 			if (isDebugMode && !preferencePlugin.isValidUmbilical(umbilical)) {
 				Display.getDefault().asyncExec(new Runnable() {
 
@@ -126,6 +124,58 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate implements ILau
 			e.printStackTrace();
 		} finally {
 		}
+	}
+
+	@Override
+	public void launch(final ISelection selection, final String mode) {
+		final IStructuredSelection structuredSelection = (IStructuredSelection) selection;
+
+		final Object firstElement = structuredSelection.getFirstElement();
+
+		final IFile file;
+
+		if (firstElement instanceof IFile) {
+			file = (IFile) firstElement;
+
+			if (CCorePlugin.getContentType(file.getName()) != null) {
+				System.out.println("c file");
+			}
+
+			// try {
+			// IContentType contentType =
+			// file.getContentDescription().getContentType();
+			// } catch (CoreException e) {
+			// e.printStackTrace();
+			// }
+
+		} else if (firstElement instanceof IProject) {
+			file = null;
+		} else {
+			file = null;
+		}
+
+		if (file == null) {
+			return;
+		}
+
+		final ILaunchManager launchManager = DebugPlugin.getDefault().getLaunchManager();
+		final ILaunchConfigurationType type = launchManager.getLaunchConfigurationType("ch.fhnw.mdt.launch.mcorelaunch");
+
+		try {
+			final ILaunchConfigurationWorkingCopy workingCopy = type.newInstance(null, file.getName().toString());
+			workingCopy.setAttribute(IForthConstants.ATTR_PROJECT, file.getProject().getName());
+			workingCopy.setAttribute(IForthConstants.ATTR_FORTH_EXECUTABLE_FILE, file.getProjectRelativePath().toString());
+			final ILaunchConfiguration configuration = workingCopy.doSave();
+			configuration.launch(mode, null);
+			// DebugUITools.launch(configuration, mode);
+		} catch (final CoreException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void launch(final IEditorPart editor, final String mode) {
+
 	}
 
 	/**
@@ -218,7 +268,8 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate implements ILau
 		private final IFile executableFile;
 		private final List<String> forthSource;
 
-		public LaunchJob(final boolean isDebugMode, final ILaunch launch, final String workingDirectory, final String umbilical, final List<String> forthSource, final IFile executableFile) {
+		public LaunchJob(final boolean isDebugMode, final ILaunch launch, final String workingDirectory, final String umbilical, final List<String> forthSource,
+				final IFile executableFile) {
 			super("Launch MicroCore");
 			this.isDebugMode = isDebugMode;
 			this.launch = launch;
@@ -233,29 +284,27 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate implements ILau
 		@Override
 		protected IStatus run(final IProgressMonitor monitor) {
 			// start gforth
-			final MCoreLaunch mcoreLaunch = startGforth(launch, workingDirectory, umbilical, executableFile);
+			try {
+				final MCoreLaunch mcoreLaunch = startGforth(launch, workingDirectory, umbilical, executableFile);
 
-			if (mcoreLaunch == null) {
-				return new Status(IStatus.ERROR, ForthDebuggerPlugin.PLUGIN_ID, "Could not start the forth process.");
-			}
-
-			// start debugger if necessary
-			if (isDebugMode) {
-				try {
+				// start debugger if necessary
+				if (isDebugMode) {
 					startDebugger(launch, mcoreLaunch);
-				} catch (final CoreException e) {
-					return new Status(IStatus.ERROR, ForthDebuggerPlugin.PLUGIN_ID, e.getMessage());
 				}
+
+				// wait for done
+				mcoreLaunch.await();
+
+				return new Status(IStatus.OK, ForthDebuggerPlugin.PLUGIN_ID, "");
+
+			} catch (Exception e) {
+				return new Status(IStatus.ERROR, ForthDebuggerPlugin.PLUGIN_ID, e.getMessage());
 			}
-
-			// wait for done
-			mcoreLaunch.await();
-
-			return new Status(IStatus.OK, ForthDebuggerPlugin.PLUGIN_ID, "");
 		}
 
 		/**
-		 * Starts the gforth debugger. This must be called after {@link #startGforth(ILaunch, String, String, IFile)}
+		 * Starts the gforth debugger. This must be called after
+		 * {@link #startGforth(ILaunch, String, String, IFile)}
 		 * 
 		 * @param launch
 		 * @param mcoreLaunch
@@ -276,67 +325,61 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate implements ILau
 		 * @param executableFile
 		 * @return
 		 */
-		private MCoreLaunch startGforth(final ILaunch launch, final String workingDirectory, final String umbilical, final IFile executableFile) {
-			try {
-				launch.setAttribute(DebugPlugin.ATTR_PROCESS_FACTORY_ID, "ch.fhnw.mdt.launch.forthprocessfactory");
+		private MCoreLaunch startGforth(final ILaunch launch, final String workingDirectory, final String umbilical, final IFile executableFile) throws Exception {
+			launch.setAttribute(DebugPlugin.ATTR_PROCESS_FACTORY_ID, "ch.fhnw.mdt.launch.forthprocessfactory");
 
-				final ProcessBuilder processBuilder = new ProcessBuilder("gforth", "./load_eclipse.fs");
-				processBuilder.redirectErrorStream(true);
+			final ProcessBuilder processBuilder = new ProcessBuilder("gforth", "./load_eclipse.fs");
+			processBuilder.redirectErrorStream(true);
 
-				processBuilder.directory(new File(workingDirectory));
+			processBuilder.directory(new File(workingDirectory));
 
-				final Process process = processBuilder.start();
-				final IProcess eclipseProcess = DebugPlugin.newProcess(launch, process, "gforth");
+			final Process process = processBuilder.start();
+			final ForthProcess eclipseProcess = (ForthProcess) DebugPlugin.newProcess(launch, process, "gforth");
 
-				final IOConsole gforthConsole = new IOConsole("gforth console", null);
-				ConsolePlugin.getDefault().getConsoleManager().addConsoles(new IConsole[] { gforthConsole });
+			final IOConsole gforthConsole = new IOConsole("gforth console", null);
+			ConsolePlugin.getDefault().getConsoleManager().addConsoles(new IConsole[] { gforthConsole });
 
-				final ProcessCommunicator processCommunicator = new ProcessCommunicator(new DefaultProcessDecorator(process), 10000);
-				final InputThread inputThread = new InputThread(gforthConsole.getInputStream(), processCommunicator);
-				inputThread.start();
+			final ProcessCommunicator processCommunicator = new ProcessCommunicator(new DefaultProcessDecorator(process), 10000);
+			
+			
+			final InputThread inputThread = new InputThread(gforthConsole.getInputStream(), processCommunicator);
+			inputThread.start();
 
-				final IOConsoleOutputStream consoleOutputStream = gforthConsole.newOutputStream();
-				processCommunicator.forwardOutput(System.out);
-				processCommunicator.forwardOutput(consoleOutputStream);
+			final IOConsoleOutputStream consoleOutputStream = gforthConsole.newOutputStream();
+			processCommunicator.forwardOutput(System.out);
+			processCommunicator.forwardOutput(consoleOutputStream);
 
-				// display timeout
-				processCommunicator.addCommandTimeOutListener(() -> {
-					Display.getDefault().asyncExec(() -> {
-						try {
-							consoleOutputStream.write(System.lineSeparator() + System.lineSeparator() + "The process has timed out.");
-							consoleOutputStream.flush();
-						} catch (final Exception e) {
-							e.printStackTrace();
-						}
-					});
-				});
-
-				try {
-					processCommunicator.sendCommand("include load_eclipse.fs" + ProcessCommunicator.NL);
-					processCommunicator.awaitReadCompletion();
-
-					// can only run if the umbilical port is not null
-					if (umbilical != null) {
-						processCommunicator.sendCommandAwaitResult("umbilical: " + umbilical + ProcessCommunicator.NL, processCommunicator.newAwaitResult(ProcessCommunicator.OK));
-						processCommunicator.sendCommandAwaitResult("run" + ProcessCommunicator.NL, processCommunicator.newAwaitResult("HANDSHAKE"));
+			// display timeout
+			processCommunicator.addCommandTimeOutListener(() -> {
+				Display.getDefault().asyncExec(() -> {
+					
+					// TODO create popup
+					try {
+						consoleOutputStream.write(System.lineSeparator() + System.lineSeparator() + "The process has timed out.");
+						consoleOutputStream.flush();
+					} catch (final Exception e) {
+						e.printStackTrace();
 					}
-				} catch (final CommandTimeOutException e) {
-					return null;
-				}
+				});
+			});
 
-				return new MCoreLaunch(eclipseProcess, consoleOutputStream, processCommunicator);
+			processCommunicator.sendCommand("include load_eclipse.fs" + ProcessCommunicator.NL);
+			processCommunicator.awaitReadCompletion();
 
-			} catch (final IOException e) {
-				e.printStackTrace();
+			// can only run if the umbilical port is not null
+			if (umbilical != null) {
+				processCommunicator.sendCommandAwaitResult("umbilical: " + umbilical + ProcessCommunicator.NL, processCommunicator.newAwaitResult(ProcessCommunicator.OK));
+				processCommunicator.sendCommandAwaitResult("run" + ProcessCommunicator.NL, processCommunicator.newAwaitResult("HANDSHAKE"));
 			}
 
-			return null;
+			return new MCoreLaunch(eclipseProcess, consoleOutputStream, processCommunicator);
 
 		}
 	}
 
 	/**
-	 * Reads from the Console and passes the input as commands to {@link ProcessCommunicator}.
+	 * Reads from the Console and passes the input as commands to
+	 * {@link ProcessCommunicator}.
 	 */
 	private static class InputThread extends Thread {
 
@@ -409,61 +452,5 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate implements ILau
 				// ignore if can not close
 			}
 		}
-	}
-
-	@Override
-	public void launch(final ISelection selection, final String mode) {
-		System.out.println("");
-
-		final IStructuredSelection structuredSelection = (IStructuredSelection) selection;
-
-		final Object firstElement = structuredSelection.getFirstElement();
-
-		final IFile file;
-
-		if (firstElement instanceof IFile) {
-			file = (IFile) firstElement;
-
-			if (CCorePlugin.getContentType(file.getName()) != null) {
-				System.out.println("c file");
-			}
-			
-			// try {
-			// IContentType contentType = file.getContentDescription().getContentType();
-			// } catch (CoreException e) {
-			// e.printStackTrace();
-			// }
-
-		} else if (firstElement instanceof IProject) {
-			file = null;
-		} else {
-			file = null;
-		}
-
-		if (file == null) {
-			return;
-		}
-
-		final ILaunchManager launchManager = DebugPlugin.getDefault().getLaunchManager();
-		final ILaunchConfigurationType type = launchManager.getLaunchConfigurationType("ch.fhnw.mdt.launch.mcorelaunch");
-
-		try {
-			final ILaunchConfigurationWorkingCopy workingCopy = type.newInstance(null, file.getName().toString());
-			workingCopy.setAttribute(IForthConstants.ATTR_PROJECT, file.getProject().getName());
-			workingCopy.setAttribute(IForthConstants.ATTR_FORTH_EXECUTABLE_FILE, file.getName());
-			workingCopy.setMappedResources(new IResource[] { file });
-			final ILaunchConfiguration configuration = workingCopy.doSave();
-			DebugUITools.launch(configuration, mode);
-		} catch (final CoreException e) {
-			e.printStackTrace();
-		}
-	}
-
-	@Override
-	public void launch(final IEditorPart editor, final String mode) {
-		// XtextEditor xtexTeditor = (XtextEditor) editor;
-		// editor.getEditorInput();
-		System.out.println("lol");
-
 	}
 }
