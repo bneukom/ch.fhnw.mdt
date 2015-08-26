@@ -63,26 +63,26 @@ public class UForthGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cColonKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
+		private final RuleCall cNameWordParserRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
 		private final Assignment cWordsAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cWordsWordParserRuleCall_2_0 = (RuleCall)cWordsAssignment_2.eContents().get(0);
 		private final Keyword cSemicolonKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//Function:
-		//	":" name=ID words+=Word* ";";
+		//	":" name=Word words+=Word* ";";
 		@Override public ParserRule getRule() { return rule; }
 
-		//":" name=ID words+=Word* ";"
+		//":" name=Word words+=Word* ";"
 		public Group getGroup() { return cGroup; }
 
 		//":"
 		public Keyword getColonKeyword_0() { return cColonKeyword_0; }
 
-		//name=ID
+		//name=Word
 		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
 
-		//ID
-		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
+		//Word
+		public RuleCall getNameWordParserRuleCall_1_0() { return cNameWordParserRuleCall_1_0; }
 
 		//words+=Word*
 		public Assignment getWordsAssignment_2() { return cWordsAssignment_2; }
@@ -722,7 +722,7 @@ public class UForthGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Function:
-	//	":" name=ID words+=Word* ";";
+	//	":" name=Word words+=Word* ";";
 	public FunctionElements getFunctionAccess() {
 		return pFunction;
 	}

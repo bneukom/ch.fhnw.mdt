@@ -10,18 +10,20 @@
     <genClasses ecoreClass="UForth.ecore#//Forth">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UForth.ecore#//Forth/instructions"/>
     </genClasses>
-    <genClasses ecoreClass="UForth.ecore#//Instruction">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UForth.ecore#//Instruction/name"/>
-    </genClasses>
+    <genClasses ecoreClass="UForth.ecore#//Instruction"/>
     <genClasses ecoreClass="UForth.ecore#//Function">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UForth.ecore#//Function/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UForth.ecore#//Function/words"/>
     </genClasses>
     <genClasses ecoreClass="UForth.ecore#//Create">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UForth.ecore#//Create/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UForth.ecore#//Create/lit"/>
     </genClasses>
     <genClasses ecoreClass="UForth.ecore#//IntrinsicStackWords"/>
     <genClasses ecoreClass="UForth.ecore#//IntrinsicMemoryWords"/>
     <genClasses ecoreClass="UForth.ecore#//IntrinsicArithmeticWords"/>
-    <genClasses ecoreClass="UForth.ecore#//Word"/>
+    <genClasses ecoreClass="UForth.ecore#//Word">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UForth.ecore#//Word/name"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

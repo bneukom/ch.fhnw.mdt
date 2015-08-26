@@ -4392,21 +4392,25 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Function__NameAssignment_1"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1632:1: rule__Function__NameAssignment_1 : ( RULE_ID ) ;
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1632:1: rule__Function__NameAssignment_1 : ( ruleWord ) ;
     public final void rule__Function__NameAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1636:1: ( ( RULE_ID ) )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1637:1: ( RULE_ID )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1636:1: ( ( ruleWord ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1637:1: ( ruleWord )
             {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1637:1: ( RULE_ID )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1638:1: RULE_ID
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1637:1: ( ruleWord )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1638:1: ruleWord
             {
-             before(grammarAccess.getFunctionAccess().getNameIDTerminalRuleCall_1_0()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__Function__NameAssignment_13421); 
-             after(grammarAccess.getFunctionAccess().getNameIDTerminalRuleCall_1_0()); 
+             before(grammarAccess.getFunctionAccess().getNameWordParserRuleCall_1_0()); 
+            pushFollow(FOLLOW_ruleWord_in_rule__Function__NameAssignment_13421);
+            ruleWord();
+
+            state._fsp--;
+
+             after(grammarAccess.getFunctionAccess().getNameWordParserRuleCall_1_0()); 
 
             }
 
@@ -4885,7 +4889,7 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_ruleIntrinsicArithmeticWords_in_rule__Word__Alternatives2394 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__Word__NameAssignment_3_in_rule__Word__Alternatives2411 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__Word__NameAssignment_4_in_rule__Word__Alternatives2429 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Function__Group__0__Impl_in_rule__Function__Group__02460 = new BitSet(new long[]{0x0000000000000000L,0x0000000010000000L});
+    public static final BitSet FOLLOW_rule__Function__Group__0__Impl_in_rule__Function__Group__02460 = new BitSet(new long[]{0xFFFFFFFFFFFFFFF0L,0x000000001C2EFFFFL});
     public static final BitSet FOLLOW_rule__Function__Group__1_in_rule__Function__Group__02463 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_Colon_in_rule__Function__Group__0__Impl2491 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__Function__Group__1__Impl_in_rule__Function__Group__12522 = new BitSet(new long[]{0xFFFFFFFFFFFFFFF0L,0x000000001C3EFFFFL});
@@ -4922,7 +4926,7 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_rule__IntrinsicArithmeticWords__Group__1__Impl_in_rule__IntrinsicArithmeticWords__Group__13324 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__IntrinsicArithmeticWords__NameAssignment_1_in_rule__IntrinsicArithmeticWords__Group__1__Impl3351 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleInstruction_in_rule__Forth__InstructionsAssignment3390 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__Function__NameAssignment_13421 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleWord_in_rule__Function__NameAssignment_13421 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleWord_in_rule__Function__WordsAssignment_23452 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_ID_in_rule__Create__NameAssignment_13483 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleLITERAL_in_rule__Create__LitAssignment_2_03514 = new BitSet(new long[]{0x0000000000000002L});

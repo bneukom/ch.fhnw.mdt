@@ -182,16 +182,6 @@ public class UForthPackageImpl extends EPackageImpl implements UForthPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getInstruction_Name()
-  {
-    return (EAttribute)instructionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EClass getFunction()
   {
     return functionEClass;
@@ -202,9 +192,19 @@ public class UForthPackageImpl extends EPackageImpl implements UForthPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getFunction_Words()
+  public EReference getFunction_Name()
   {
     return (EReference)functionEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getFunction_Words()
+  {
+    return (EReference)functionEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -222,9 +222,19 @@ public class UForthPackageImpl extends EPackageImpl implements UForthPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getCreate_Lit()
+  public EAttribute getCreate_Name()
   {
     return (EAttribute)createEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getCreate_Lit()
+  {
+    return (EAttribute)createEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -272,6 +282,16 @@ public class UForthPackageImpl extends EPackageImpl implements UForthPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getWord_Name()
+  {
+    return (EAttribute)wordEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public UForthFactory getUForthFactory()
   {
     return (UForthFactory)getEFactoryInstance();
@@ -301,12 +321,13 @@ public class UForthPackageImpl extends EPackageImpl implements UForthPackage
     createEReference(forthEClass, FORTH__INSTRUCTIONS);
 
     instructionEClass = createEClass(INSTRUCTION);
-    createEAttribute(instructionEClass, INSTRUCTION__NAME);
 
     functionEClass = createEClass(FUNCTION);
+    createEReference(functionEClass, FUNCTION__NAME);
     createEReference(functionEClass, FUNCTION__WORDS);
 
     createEClass = createEClass(CREATE);
+    createEAttribute(createEClass, CREATE__NAME);
     createEAttribute(createEClass, CREATE__LIT);
 
     intrinsicStackWordsEClass = createEClass(INTRINSIC_STACK_WORDS);
@@ -316,6 +337,7 @@ public class UForthPackageImpl extends EPackageImpl implements UForthPackage
     intrinsicArithmeticWordsEClass = createEClass(INTRINSIC_ARITHMETIC_WORDS);
 
     wordEClass = createEClass(WORD);
+    createEAttribute(wordEClass, WORD__NAME);
   }
 
   /**
@@ -359,12 +381,13 @@ public class UForthPackageImpl extends EPackageImpl implements UForthPackage
     initEReference(getForth_Instructions(), this.getInstruction(), null, "instructions", null, 0, -1, Forth.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(instructionEClass, Instruction.class, "Instruction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getInstruction_Name(), ecorePackage.getEString(), "name", null, 0, 1, Instruction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(functionEClass, Function.class, "Function", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getFunction_Name(), this.getWord(), null, "name", null, 0, 1, Function.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getFunction_Words(), this.getWord(), null, "words", null, 0, -1, Function.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(createEClass, Create.class, "Create", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getCreate_Name(), ecorePackage.getEString(), "name", null, 0, 1, Create.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getCreate_Lit(), ecorePackage.getEString(), "lit", null, 0, -1, Create.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(intrinsicStackWordsEClass, IntrinsicStackWords.class, "IntrinsicStackWords", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -374,6 +397,7 @@ public class UForthPackageImpl extends EPackageImpl implements UForthPackage
     initEClass(intrinsicArithmeticWordsEClass, IntrinsicArithmeticWords.class, "IntrinsicArithmeticWords", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(wordEClass, Word.class, "Word", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getWord_Name(), ecorePackage.getEString(), "name", null, 0, 1, Word.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Create resource
     createResource(eNS_URI);

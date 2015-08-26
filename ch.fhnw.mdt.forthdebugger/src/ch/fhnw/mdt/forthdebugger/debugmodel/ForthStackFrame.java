@@ -28,7 +28,7 @@ public class ForthStackFrame extends ForthDebugElement implements IStackFrame, I
 
 	private ForthThread thread;
 	private String functionName;
-	private String fileName;
+	private String sourceName;
 	private int lineNumber;
 	private int id;
 	private String currentAddress;
@@ -41,11 +41,11 @@ public class ForthStackFrame extends ForthDebugElement implements IStackFrame, I
 	 * @param id
 	 *            stack frame id (0 is the bottom of the stack)
 	 */
-	public ForthStackFrame(ForthThread thread, String functionName, String fileName, int lineNumber, String currentAddress, int id) {
+	public ForthStackFrame(ForthThread thread, String functionName, String sourceName, int lineNumber, String currentAddress, int id) {
 		super((ForthDebugTarget) thread.getDebugTarget());
 		this.id = id;
 		this.thread = thread;
-		this.fileName = fileName;
+		this.sourceName = sourceName;
 		this.functionName = functionName;
 		this.lineNumber = lineNumber;
 		this.currentAddress = currentAddress;
@@ -184,7 +184,9 @@ public class ForthStackFrame extends ForthDebugElement implements IStackFrame, I
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see ch.fhnw.mdt.forthdebugger.debugmodel.extensions.IKillProcessExtension#kill()
+	 * @see
+	 * ch.fhnw.mdt.forthdebugger.debugmodel.extensions.IKillProcessExtension#
+	 * kill()
 	 */
 	@Override
 	public void kill() throws DebugException {
@@ -194,7 +196,9 @@ public class ForthStackFrame extends ForthDebugElement implements IStackFrame, I
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see ch.fhnw.mdt.forthdebugger.debugmodel.extensions.IKillProcessExtension#canKill()
+	 * @see
+	 * ch.fhnw.mdt.forthdebugger.debugmodel.extensions.IKillProcessExtension#
+	 * canKill()
 	 */
 	@Override
 	public boolean canKill() throws DebugException {
@@ -204,7 +208,8 @@ public class ForthStackFrame extends ForthDebugElement implements IStackFrame, I
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see ch.fhnw.mdt.forthdebugger.debugmodel.extensions.IAfterExtension#after()
+	 * @see
+	 * ch.fhnw.mdt.forthdebugger.debugmodel.extensions.IAfterExtension#after()
 	 */
 	@Override
 	public void after() throws DebugException {
@@ -214,7 +219,9 @@ public class ForthStackFrame extends ForthDebugElement implements IStackFrame, I
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see ch.fhnw.mdt.forthdebugger.debugmodel.extensions.IAfterExtension#canAfter()
+	 * @see
+	 * ch.fhnw.mdt.forthdebugger.debugmodel.extensions.IAfterExtension#canAfter(
+	 * )
 	 */
 	@Override
 	public boolean canAfter() throws DebugException {
@@ -396,14 +403,13 @@ public class ForthStackFrame extends ForthDebugElement implements IStackFrame, I
 		return functionName;
 	}
 
-
 	/**
 	 * Returns the name of the source file this stack frame is associated with.
 	 * 
 	 * @return the name of the source file this stack frame is associated with
 	 */
 	public String getSourceName() {
-		return fileName;
+		return sourceName;
 	}
 
 	/**

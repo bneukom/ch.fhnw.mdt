@@ -13,6 +13,7 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * </p>
  * <ul>
+ *   <li>{@link ch.fhnw.mdt.uForth.Function#getName <em>Name</em>}</li>
  *   <li>{@link ch.fhnw.mdt.uForth.Function#getWords <em>Words</em>}</li>
  * </ul>
  *
@@ -22,6 +23,32 @@ import org.eclipse.emf.common.util.EList;
  */
 public interface Function extends Instruction
 {
+  /**
+   * Returns the value of the '<em><b>Name</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Name</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Name</em>' containment reference.
+   * @see #setName(Word)
+   * @see ch.fhnw.mdt.uForth.UForthPackage#getFunction_Name()
+   * @model containment="true"
+   * @generated
+   */
+  Word getName();
+
+  /**
+   * Sets the value of the '{@link ch.fhnw.mdt.uForth.Function#getName <em>Name</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Name</em>' containment reference.
+   * @see #getName()
+   * @generated
+   */
+  void setName(Word value);
+
   /**
    * Returns the value of the '<em><b>Words</b></em>' containment reference list.
    * The list contents are of type {@link ch.fhnw.mdt.uForth.Word}.

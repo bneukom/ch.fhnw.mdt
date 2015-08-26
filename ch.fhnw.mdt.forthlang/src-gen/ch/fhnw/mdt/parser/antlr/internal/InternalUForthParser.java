@@ -543,48 +543,54 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleFunction"
-    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:159:1: ruleFunction returns [EObject current=null] : (otherlv_0= Colon ( (lv_name_1_0= RULE_ID ) ) ( (lv_words_2_0= ruleWord ) )* otherlv_3= Semicolon ) ;
+    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:159:1: ruleFunction returns [EObject current=null] : (otherlv_0= Colon ( (lv_name_1_0= ruleWord ) ) ( (lv_words_2_0= ruleWord ) )* otherlv_3= Semicolon ) ;
     public final EObject ruleFunction() throws RecognitionException {
         EObject current = null;
 
         Token otherlv_0=null;
-        Token lv_name_1_0=null;
         Token otherlv_3=null;
+        EObject lv_name_1_0 = null;
+
         EObject lv_words_2_0 = null;
 
 
          enterRule(); 
             
         try {
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:162:28: ( (otherlv_0= Colon ( (lv_name_1_0= RULE_ID ) ) ( (lv_words_2_0= ruleWord ) )* otherlv_3= Semicolon ) )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:163:1: (otherlv_0= Colon ( (lv_name_1_0= RULE_ID ) ) ( (lv_words_2_0= ruleWord ) )* otherlv_3= Semicolon )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:162:28: ( (otherlv_0= Colon ( (lv_name_1_0= ruleWord ) ) ( (lv_words_2_0= ruleWord ) )* otherlv_3= Semicolon ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:163:1: (otherlv_0= Colon ( (lv_name_1_0= ruleWord ) ) ( (lv_words_2_0= ruleWord ) )* otherlv_3= Semicolon )
             {
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:163:1: (otherlv_0= Colon ( (lv_name_1_0= RULE_ID ) ) ( (lv_words_2_0= ruleWord ) )* otherlv_3= Semicolon )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:164:2: otherlv_0= Colon ( (lv_name_1_0= RULE_ID ) ) ( (lv_words_2_0= ruleWord ) )* otherlv_3= Semicolon
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:163:1: (otherlv_0= Colon ( (lv_name_1_0= ruleWord ) ) ( (lv_words_2_0= ruleWord ) )* otherlv_3= Semicolon )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:164:2: otherlv_0= Colon ( (lv_name_1_0= ruleWord ) ) ( (lv_words_2_0= ruleWord ) )* otherlv_3= Semicolon
             {
             otherlv_0=(Token)match(input,Colon,FOLLOW_Colon_in_ruleFunction350); 
 
                 	newLeafNode(otherlv_0, grammarAccess.getFunctionAccess().getColonKeyword_0());
                 
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:168:1: ( (lv_name_1_0= RULE_ID ) )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:169:1: (lv_name_1_0= RULE_ID )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:168:1: ( (lv_name_1_0= ruleWord ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:169:1: (lv_name_1_0= ruleWord )
             {
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:169:1: (lv_name_1_0= RULE_ID )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:170:3: lv_name_1_0= RULE_ID
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:169:1: (lv_name_1_0= ruleWord )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:170:3: lv_name_1_0= ruleWord
             {
-            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleFunction366); 
+             
+            	        newCompositeNode(grammarAccess.getFunctionAccess().getNameWordParserRuleCall_1_0()); 
+            	    
+            pushFollow(FOLLOW_ruleWord_in_ruleFunction370);
+            lv_name_1_0=ruleWord();
 
-            			newLeafNode(lv_name_1_0, grammarAccess.getFunctionAccess().getNameIDTerminalRuleCall_1_0()); 
-            		
+            state._fsp--;
+
 
             	        if (current==null) {
-            	            current = createModelElement(grammarAccess.getFunctionRule());
+            	            current = createModelElementForParent(grammarAccess.getFunctionRule());
             	        }
-                   		setWithLastConsumed(
+                   		set(
                    			current, 
                    			"name",
                     		lv_name_1_0, 
-                    		"ID");
+                    		"Word");
+            	        afterParserOrEnumRuleCall();
             	    
 
             }
@@ -613,7 +619,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
             	     
             	    	        newCompositeNode(grammarAccess.getFunctionAccess().getWordsWordParserRuleCall_2_0()); 
             	    	    
-            	    pushFollow(FOLLOW_ruleWord_in_ruleFunction392);
+            	    pushFollow(FOLLOW_ruleWord_in_ruleFunction391);
             	    lv_words_2_0=ruleWord();
 
             	    state._fsp--;
@@ -641,7 +647,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 }
             } while (true);
 
-            otherlv_3=(Token)match(input,Semicolon,FOLLOW_Semicolon_in_ruleFunction406); 
+            otherlv_3=(Token)match(input,Semicolon,FOLLOW_Semicolon_in_ruleFunction405); 
 
                 	newLeafNode(otherlv_3, grammarAccess.getFunctionAccess().getSemicolonKeyword_3());
                 
@@ -678,13 +684,13 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
             // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:219:2: iv_ruleCreate= ruleCreate EOF
             {
              newCompositeNode(grammarAccess.getCreateRule()); 
-            pushFollow(FOLLOW_ruleCreate_in_entryRuleCreate440);
+            pushFollow(FOLLOW_ruleCreate_in_entryRuleCreate439);
             iv_ruleCreate=ruleCreate();
 
             state._fsp--;
 
              current =iv_ruleCreate; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleCreate450); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleCreate449); 
 
             }
 
@@ -721,7 +727,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
             // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:230:1: (otherlv_0= Create ( (lv_name_1_0= RULE_ID ) ) ( ( (lv_lit_2_0= ruleLITERAL ) ) otherlv_3= Comma )* )
             // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:231:2: otherlv_0= Create ( (lv_name_1_0= RULE_ID ) ) ( ( (lv_lit_2_0= ruleLITERAL ) ) otherlv_3= Comma )*
             {
-            otherlv_0=(Token)match(input,Create,FOLLOW_Create_in_ruleCreate488); 
+            otherlv_0=(Token)match(input,Create,FOLLOW_Create_in_ruleCreate487); 
 
                 	newLeafNode(otherlv_0, grammarAccess.getCreateAccess().getCreateKeyword_0());
                 
@@ -731,7 +737,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
             // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:236:1: (lv_name_1_0= RULE_ID )
             // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:237:3: lv_name_1_0= RULE_ID
             {
-            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleCreate504); 
+            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleCreate503); 
 
             			newLeafNode(lv_name_1_0, grammarAccess.getCreateAccess().getNameIDTerminalRuleCall_1_0()); 
             		
@@ -790,7 +796,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
             	     
             	    	        newCompositeNode(grammarAccess.getCreateAccess().getLitLITERALParserRuleCall_2_0_0()); 
             	    	    
-            	    pushFollow(FOLLOW_ruleLITERAL_in_ruleCreate531);
+            	    pushFollow(FOLLOW_ruleLITERAL_in_ruleCreate530);
             	    lv_lit_2_0=ruleLITERAL();
 
             	    state._fsp--;
@@ -812,7 +818,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    otherlv_3=(Token)match(input,Comma,FOLLOW_Comma_in_ruleCreate544); 
+            	    otherlv_3=(Token)match(input,Comma,FOLLOW_Comma_in_ruleCreate543); 
 
             	        	newLeafNode(otherlv_3, grammarAccess.getCreateAccess().getCommaKeyword_2_1());
             	        
@@ -858,13 +864,13 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
             // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:286:2: iv_ruleLITERAL= ruleLITERAL EOF
             {
              newCompositeNode(grammarAccess.getLITERALRule()); 
-            pushFollow(FOLLOW_ruleLITERAL_in_entryRuleLITERAL581);
+            pushFollow(FOLLOW_ruleLITERAL_in_entryRuleLITERAL580);
             iv_ruleLITERAL=ruleLITERAL();
 
             state._fsp--;
 
              current =iv_ruleLITERAL.getText(); 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleLITERAL592); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleLITERAL591); 
 
             }
 
@@ -915,7 +921,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 1 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:298:6: this_INT_0= RULE_INT
                     {
-                    this_INT_0=(Token)match(input,RULE_INT,FOLLOW_RULE_INT_in_ruleLITERAL632); 
+                    this_INT_0=(Token)match(input,RULE_INT,FOLLOW_RULE_INT_in_ruleLITERAL631); 
 
                     		current.merge(this_INT_0);
                         
@@ -928,7 +934,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 2 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:306:10: this_DOUBLE_1= RULE_DOUBLE
                     {
-                    this_DOUBLE_1=(Token)match(input,RULE_DOUBLE,FOLLOW_RULE_DOUBLE_in_ruleLITERAL658); 
+                    this_DOUBLE_1=(Token)match(input,RULE_DOUBLE,FOLLOW_RULE_DOUBLE_in_ruleLITERAL657); 
 
                     		current.merge(this_DOUBLE_1);
                         
@@ -972,13 +978,13 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
             // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:323:2: iv_ruleIntrinsicStackWords= ruleIntrinsicStackWords EOF
             {
              newCompositeNode(grammarAccess.getIntrinsicStackWordsRule()); 
-            pushFollow(FOLLOW_ruleIntrinsicStackWords_in_entryRuleIntrinsicStackWords702);
+            pushFollow(FOLLOW_ruleIntrinsicStackWords_in_entryRuleIntrinsicStackWords701);
             iv_ruleIntrinsicStackWords=ruleIntrinsicStackWords();
 
             state._fsp--;
 
              current =iv_ruleIntrinsicStackWords; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleIntrinsicStackWords712); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleIntrinsicStackWords711); 
 
             }
 
@@ -1161,7 +1167,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 1 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:343:3: lv_name_1_1= CLEAR
                     {
-                    lv_name_1_1=(Token)match(input,CLEAR,FOLLOW_CLEAR_in_ruleIntrinsicStackWords767); 
+                    lv_name_1_1=(Token)match(input,CLEAR,FOLLOW_CLEAR_in_ruleIntrinsicStackWords766); 
 
                             newLeafNode(lv_name_1_1, grammarAccess.getIntrinsicStackWordsAccess().getNameCLEARKeyword_1_0_0());
                         
@@ -1177,7 +1183,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 2 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:356:8: lv_name_1_2= DROP
                     {
-                    lv_name_1_2=(Token)match(input,DROP,FOLLOW_DROP_in_ruleIntrinsicStackWords795); 
+                    lv_name_1_2=(Token)match(input,DROP,FOLLOW_DROP_in_ruleIntrinsicStackWords794); 
 
                             newLeafNode(lv_name_1_2, grammarAccess.getIntrinsicStackWordsAccess().getNameDROPKeyword_1_0_1());
                         
@@ -1193,7 +1199,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 3 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:369:8: lv_name_1_3= DUP
                     {
-                    lv_name_1_3=(Token)match(input,DUP,FOLLOW_DUP_in_ruleIntrinsicStackWords823); 
+                    lv_name_1_3=(Token)match(input,DUP,FOLLOW_DUP_in_ruleIntrinsicStackWords822); 
 
                             newLeafNode(lv_name_1_3, grammarAccess.getIntrinsicStackWordsAccess().getNameDUPKeyword_1_0_2());
                         
@@ -1209,7 +1215,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 4 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:382:8: lv_name_1_4= DUP_2
                     {
-                    lv_name_1_4=(Token)match(input,DUP_2,FOLLOW_DUP_2_in_ruleIntrinsicStackWords851); 
+                    lv_name_1_4=(Token)match(input,DUP_2,FOLLOW_DUP_2_in_ruleIntrinsicStackWords850); 
 
                             newLeafNode(lv_name_1_4, grammarAccess.getIntrinsicStackWordsAccess().getNameDUPKeyword_1_0_3());
                         
@@ -1225,7 +1231,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 5 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:395:8: lv_name_1_5= SWAP
                     {
-                    lv_name_1_5=(Token)match(input,SWAP,FOLLOW_SWAP_in_ruleIntrinsicStackWords879); 
+                    lv_name_1_5=(Token)match(input,SWAP,FOLLOW_SWAP_in_ruleIntrinsicStackWords878); 
 
                             newLeafNode(lv_name_1_5, grammarAccess.getIntrinsicStackWordsAccess().getNameSWAPKeyword_1_0_4());
                         
@@ -1241,7 +1247,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 6 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:408:8: lv_name_1_6= NIP
                     {
-                    lv_name_1_6=(Token)match(input,NIP,FOLLOW_NIP_in_ruleIntrinsicStackWords907); 
+                    lv_name_1_6=(Token)match(input,NIP,FOLLOW_NIP_in_ruleIntrinsicStackWords906); 
 
                             newLeafNode(lv_name_1_6, grammarAccess.getIntrinsicStackWordsAccess().getNameNIPKeyword_1_0_5());
                         
@@ -1257,7 +1263,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 7 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:421:8: lv_name_1_7= OVER
                     {
-                    lv_name_1_7=(Token)match(input,OVER,FOLLOW_OVER_in_ruleIntrinsicStackWords935); 
+                    lv_name_1_7=(Token)match(input,OVER,FOLLOW_OVER_in_ruleIntrinsicStackWords934); 
 
                             newLeafNode(lv_name_1_7, grammarAccess.getIntrinsicStackWordsAccess().getNameOVERKeyword_1_0_6());
                         
@@ -1273,7 +1279,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 8 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:434:8: lv_name_1_8= ROT
                     {
-                    lv_name_1_8=(Token)match(input,ROT,FOLLOW_ROT_in_ruleIntrinsicStackWords963); 
+                    lv_name_1_8=(Token)match(input,ROT,FOLLOW_ROT_in_ruleIntrinsicStackWords962); 
 
                             newLeafNode(lv_name_1_8, grammarAccess.getIntrinsicStackWordsAccess().getNameROTKeyword_1_0_7());
                         
@@ -1289,7 +1295,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 9 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:447:8: lv_name_1_9= ROT_1
                     {
-                    lv_name_1_9=(Token)match(input,ROT_1,FOLLOW_ROT_1_in_ruleIntrinsicStackWords991); 
+                    lv_name_1_9=(Token)match(input,ROT_1,FOLLOW_ROT_1_in_ruleIntrinsicStackWords990); 
 
                             newLeafNode(lv_name_1_9, grammarAccess.getIntrinsicStackWordsAccess().getNameROTKeyword_1_0_8());
                         
@@ -1305,7 +1311,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 10 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:460:8: lv_name_1_10= TUCK
                     {
-                    lv_name_1_10=(Token)match(input,TUCK,FOLLOW_TUCK_in_ruleIntrinsicStackWords1019); 
+                    lv_name_1_10=(Token)match(input,TUCK,FOLLOW_TUCK_in_ruleIntrinsicStackWords1018); 
 
                             newLeafNode(lv_name_1_10, grammarAccess.getIntrinsicStackWordsAccess().getNameTUCKKeyword_1_0_9());
                         
@@ -1321,7 +1327,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 11 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:473:8: lv_name_1_11= UNDER
                     {
-                    lv_name_1_11=(Token)match(input,UNDER,FOLLOW_UNDER_in_ruleIntrinsicStackWords1047); 
+                    lv_name_1_11=(Token)match(input,UNDER,FOLLOW_UNDER_in_ruleIntrinsicStackWords1046); 
 
                             newLeafNode(lv_name_1_11, grammarAccess.getIntrinsicStackWordsAccess().getNameUNDERKeyword_1_0_10());
                         
@@ -1337,7 +1343,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 12 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:486:8: lv_name_1_12= DROP_1
                     {
-                    lv_name_1_12=(Token)match(input,DROP_1,FOLLOW_DROP_1_in_ruleIntrinsicStackWords1075); 
+                    lv_name_1_12=(Token)match(input,DROP_1,FOLLOW_DROP_1_in_ruleIntrinsicStackWords1074); 
 
                             newLeafNode(lv_name_1_12, grammarAccess.getIntrinsicStackWordsAccess().getName2DROPKeyword_1_0_11());
                         
@@ -1353,7 +1359,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 13 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:499:8: lv_name_1_13= DUP_1
                     {
-                    lv_name_1_13=(Token)match(input,DUP_1,FOLLOW_DUP_1_in_ruleIntrinsicStackWords1103); 
+                    lv_name_1_13=(Token)match(input,DUP_1,FOLLOW_DUP_1_in_ruleIntrinsicStackWords1102); 
 
                             newLeafNode(lv_name_1_13, grammarAccess.getIntrinsicStackWordsAccess().getName2DUPKeyword_1_0_12());
                         
@@ -1369,7 +1375,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 14 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:512:8: lv_name_1_14= SWAP_1
                     {
-                    lv_name_1_14=(Token)match(input,SWAP_1,FOLLOW_SWAP_1_in_ruleIntrinsicStackWords1131); 
+                    lv_name_1_14=(Token)match(input,SWAP_1,FOLLOW_SWAP_1_in_ruleIntrinsicStackWords1130); 
 
                             newLeafNode(lv_name_1_14, grammarAccess.getIntrinsicStackWordsAccess().getName2SWAPKeyword_1_0_13());
                         
@@ -1385,7 +1391,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 15 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:525:8: lv_name_1_15= OVER_1
                     {
-                    lv_name_1_15=(Token)match(input,OVER_1,FOLLOW_OVER_1_in_ruleIntrinsicStackWords1159); 
+                    lv_name_1_15=(Token)match(input,OVER_1,FOLLOW_OVER_1_in_ruleIntrinsicStackWords1158); 
 
                             newLeafNode(lv_name_1_15, grammarAccess.getIntrinsicStackWordsAccess().getName2OVERKeyword_1_0_14());
                         
@@ -1401,7 +1407,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 16 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:538:8: lv_name_1_16= RCLEAR
                     {
-                    lv_name_1_16=(Token)match(input,RCLEAR,FOLLOW_RCLEAR_in_ruleIntrinsicStackWords1187); 
+                    lv_name_1_16=(Token)match(input,RCLEAR,FOLLOW_RCLEAR_in_ruleIntrinsicStackWords1186); 
 
                             newLeafNode(lv_name_1_16, grammarAccess.getIntrinsicStackWordsAccess().getNameRCLEARKeyword_1_0_15());
                         
@@ -1417,7 +1423,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 17 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:551:8: lv_name_1_17= R_1
                     {
-                    lv_name_1_17=(Token)match(input,R_1,FOLLOW_R_1_in_ruleIntrinsicStackWords1215); 
+                    lv_name_1_17=(Token)match(input,R_1,FOLLOW_R_1_in_ruleIntrinsicStackWords1214); 
 
                             newLeafNode(lv_name_1_17, grammarAccess.getIntrinsicStackWordsAccess().getNameRKeyword_1_0_16());
                         
@@ -1433,7 +1439,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 18 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:564:8: lv_name_1_18= R_2
                     {
-                    lv_name_1_18=(Token)match(input,R_2,FOLLOW_R_2_in_ruleIntrinsicStackWords1243); 
+                    lv_name_1_18=(Token)match(input,R_2,FOLLOW_R_2_in_ruleIntrinsicStackWords1242); 
 
                             newLeafNode(lv_name_1_18, grammarAccess.getIntrinsicStackWordsAccess().getNameRKeyword_1_0_17());
                         
@@ -1449,7 +1455,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 19 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:577:8: lv_name_1_19= R
                     {
-                    lv_name_1_19=(Token)match(input,R,FOLLOW_R_in_ruleIntrinsicStackWords1271); 
+                    lv_name_1_19=(Token)match(input,R,FOLLOW_R_in_ruleIntrinsicStackWords1270); 
 
                             newLeafNode(lv_name_1_19, grammarAccess.getIntrinsicStackWordsAccess().getNameRKeyword_1_0_18());
                         
@@ -1465,7 +1471,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 20 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:590:8: lv_name_1_20= RDROP
                     {
-                    lv_name_1_20=(Token)match(input,RDROP,FOLLOW_RDROP_in_ruleIntrinsicStackWords1299); 
+                    lv_name_1_20=(Token)match(input,RDROP,FOLLOW_RDROP_in_ruleIntrinsicStackWords1298); 
 
                             newLeafNode(lv_name_1_20, grammarAccess.getIntrinsicStackWordsAccess().getNameRDROPKeyword_1_0_19());
                         
@@ -1520,13 +1526,13 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
             // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:616:2: iv_ruleIntrinsicMemoryWords= ruleIntrinsicMemoryWords EOF
             {
              newCompositeNode(grammarAccess.getIntrinsicMemoryWordsRule()); 
-            pushFollow(FOLLOW_ruleIntrinsicMemoryWords_in_entryRuleIntrinsicMemoryWords1348);
+            pushFollow(FOLLOW_ruleIntrinsicMemoryWords_in_entryRuleIntrinsicMemoryWords1347);
             iv_ruleIntrinsicMemoryWords=ruleIntrinsicMemoryWords();
 
             state._fsp--;
 
              current =iv_ruleIntrinsicMemoryWords; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleIntrinsicMemoryWords1358); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleIntrinsicMemoryWords1357); 
 
             }
 
@@ -1739,7 +1745,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 1 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:636:3: lv_name_1_1= LD
                     {
-                    lv_name_1_1=(Token)match(input,LD,FOLLOW_LD_in_ruleIntrinsicMemoryWords1413); 
+                    lv_name_1_1=(Token)match(input,LD,FOLLOW_LD_in_ruleIntrinsicMemoryWords1412); 
 
                             newLeafNode(lv_name_1_1, grammarAccess.getIntrinsicMemoryWordsAccess().getNameLDKeyword_1_0_0());
                         
@@ -1755,7 +1761,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 2 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:649:8: lv_name_1_2= CommercialAt
                     {
-                    lv_name_1_2=(Token)match(input,CommercialAt,FOLLOW_CommercialAt_in_ruleIntrinsicMemoryWords1441); 
+                    lv_name_1_2=(Token)match(input,CommercialAt,FOLLOW_CommercialAt_in_ruleIntrinsicMemoryWords1440); 
 
                             newLeafNode(lv_name_1_2, grammarAccess.getIntrinsicMemoryWordsAccess().getNameCommercialAtKeyword_1_0_1());
                         
@@ -1771,7 +1777,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 3 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:662:8: lv_name_1_3= ST
                     {
-                    lv_name_1_3=(Token)match(input,ST,FOLLOW_ST_in_ruleIntrinsicMemoryWords1469); 
+                    lv_name_1_3=(Token)match(input,ST,FOLLOW_ST_in_ruleIntrinsicMemoryWords1468); 
 
                             newLeafNode(lv_name_1_3, grammarAccess.getIntrinsicMemoryWordsAccess().getNameSTKeyword_1_0_2());
                         
@@ -1787,7 +1793,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 4 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:675:8: lv_name_1_4= ExclamationMark
                     {
-                    lv_name_1_4=(Token)match(input,ExclamationMark,FOLLOW_ExclamationMark_in_ruleIntrinsicMemoryWords1497); 
+                    lv_name_1_4=(Token)match(input,ExclamationMark,FOLLOW_ExclamationMark_in_ruleIntrinsicMemoryWords1496); 
 
                             newLeafNode(lv_name_1_4, grammarAccess.getIntrinsicMemoryWordsAccess().getNameExclamationMarkKeyword_1_0_3());
                         
@@ -1803,7 +1809,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 5 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:688:8: lv_name_1_5= DigitTwoCommercialAt
                     {
-                    lv_name_1_5=(Token)match(input,DigitTwoCommercialAt,FOLLOW_DigitTwoCommercialAt_in_ruleIntrinsicMemoryWords1525); 
+                    lv_name_1_5=(Token)match(input,DigitTwoCommercialAt,FOLLOW_DigitTwoCommercialAt_in_ruleIntrinsicMemoryWords1524); 
 
                             newLeafNode(lv_name_1_5, grammarAccess.getIntrinsicMemoryWordsAccess().getName2Keyword_1_0_4());
                         
@@ -1819,7 +1825,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 6 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:701:8: lv_name_1_6= DigitTwoExclamationMark
                     {
-                    lv_name_1_6=(Token)match(input,DigitTwoExclamationMark,FOLLOW_DigitTwoExclamationMark_in_ruleIntrinsicMemoryWords1553); 
+                    lv_name_1_6=(Token)match(input,DigitTwoExclamationMark,FOLLOW_DigitTwoExclamationMark_in_ruleIntrinsicMemoryWords1552); 
 
                             newLeafNode(lv_name_1_6, grammarAccess.getIntrinsicMemoryWordsAccess().getName2Keyword_1_0_5());
                         
@@ -1835,7 +1841,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 7 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:714:8: lv_name_1_7= LLD
                     {
-                    lv_name_1_7=(Token)match(input,LLD,FOLLOW_LLD_in_ruleIntrinsicMemoryWords1581); 
+                    lv_name_1_7=(Token)match(input,LLD,FOLLOW_LLD_in_ruleIntrinsicMemoryWords1580); 
 
                             newLeafNode(lv_name_1_7, grammarAccess.getIntrinsicMemoryWordsAccess().getNameLLDKeyword_1_0_6());
                         
@@ -1851,7 +1857,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 8 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:727:8: lv_name_1_8= L_1
                     {
-                    lv_name_1_8=(Token)match(input,L_1,FOLLOW_L_1_in_ruleIntrinsicMemoryWords1609); 
+                    lv_name_1_8=(Token)match(input,L_1,FOLLOW_L_1_in_ruleIntrinsicMemoryWords1608); 
 
                             newLeafNode(lv_name_1_8, grammarAccess.getIntrinsicMemoryWordsAccess().getNameLKeyword_1_0_7());
                         
@@ -1867,7 +1873,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 9 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:740:8: lv_name_1_9= LST
                     {
-                    lv_name_1_9=(Token)match(input,LST,FOLLOW_LST_in_ruleIntrinsicMemoryWords1637); 
+                    lv_name_1_9=(Token)match(input,LST,FOLLOW_LST_in_ruleIntrinsicMemoryWords1636); 
 
                             newLeafNode(lv_name_1_9, grammarAccess.getIntrinsicMemoryWordsAccess().getNameLSTKeyword_1_0_8());
                         
@@ -1883,7 +1889,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 10 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:753:8: lv_name_1_10= L
                     {
-                    lv_name_1_10=(Token)match(input,L,FOLLOW_L_in_ruleIntrinsicMemoryWords1665); 
+                    lv_name_1_10=(Token)match(input,L,FOLLOW_L_in_ruleIntrinsicMemoryWords1664); 
 
                             newLeafNode(lv_name_1_10, grammarAccess.getIntrinsicMemoryWordsAccess().getNameLKeyword_1_0_9());
                         
@@ -1899,7 +1905,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 11 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:766:8: lv_name_1_11= TLD
                     {
-                    lv_name_1_11=(Token)match(input,TLD,FOLLOW_TLD_in_ruleIntrinsicMemoryWords1693); 
+                    lv_name_1_11=(Token)match(input,TLD,FOLLOW_TLD_in_ruleIntrinsicMemoryWords1692); 
 
                             newLeafNode(lv_name_1_11, grammarAccess.getIntrinsicMemoryWordsAccess().getNameTLDKeyword_1_0_10());
                         
@@ -1915,7 +1921,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 12 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:779:8: lv_name_1_12= T_1
                     {
-                    lv_name_1_12=(Token)match(input,T_1,FOLLOW_T_1_in_ruleIntrinsicMemoryWords1721); 
+                    lv_name_1_12=(Token)match(input,T_1,FOLLOW_T_1_in_ruleIntrinsicMemoryWords1720); 
 
                             newLeafNode(lv_name_1_12, grammarAccess.getIntrinsicMemoryWordsAccess().getNameTKeyword_1_0_11());
                         
@@ -1931,7 +1937,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 13 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:792:8: lv_name_1_13= TST
                     {
-                    lv_name_1_13=(Token)match(input,TST,FOLLOW_TST_in_ruleIntrinsicMemoryWords1749); 
+                    lv_name_1_13=(Token)match(input,TST,FOLLOW_TST_in_ruleIntrinsicMemoryWords1748); 
 
                             newLeafNode(lv_name_1_13, grammarAccess.getIntrinsicMemoryWordsAccess().getNameTSTKeyword_1_0_12());
                         
@@ -1947,7 +1953,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 14 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:805:8: lv_name_1_14= T
                     {
-                    lv_name_1_14=(Token)match(input,T,FOLLOW_T_in_ruleIntrinsicMemoryWords1777); 
+                    lv_name_1_14=(Token)match(input,T,FOLLOW_T_in_ruleIntrinsicMemoryWords1776); 
 
                             newLeafNode(lv_name_1_14, grammarAccess.getIntrinsicMemoryWordsAccess().getNameTKeyword_1_0_13());
                         
@@ -1963,7 +1969,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 15 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:818:8: lv_name_1_15= ST_1
                     {
-                    lv_name_1_15=(Token)match(input,ST_1,FOLLOW_ST_1_in_ruleIntrinsicMemoryWords1805); 
+                    lv_name_1_15=(Token)match(input,ST_1,FOLLOW_ST_1_in_ruleIntrinsicMemoryWords1804); 
 
                             newLeafNode(lv_name_1_15, grammarAccess.getIntrinsicMemoryWordsAccess().getNameSTKeyword_1_0_14());
                         
@@ -1979,7 +1985,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 16 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:831:8: lv_name_1_16= PlusSignExclamationMark
                     {
-                    lv_name_1_16=(Token)match(input,PlusSignExclamationMark,FOLLOW_PlusSignExclamationMark_in_ruleIntrinsicMemoryWords1833); 
+                    lv_name_1_16=(Token)match(input,PlusSignExclamationMark,FOLLOW_PlusSignExclamationMark_in_ruleIntrinsicMemoryWords1832); 
 
                             newLeafNode(lv_name_1_16, grammarAccess.getIntrinsicMemoryWordsAccess().getNamePlusSignExclamationMarkKeyword_1_0_15());
                         
@@ -1995,7 +2001,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 17 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:844:8: lv_name_1_17= INC
                     {
-                    lv_name_1_17=(Token)match(input,INC,FOLLOW_INC_in_ruleIntrinsicMemoryWords1861); 
+                    lv_name_1_17=(Token)match(input,INC,FOLLOW_INC_in_ruleIntrinsicMemoryWords1860); 
 
                             newLeafNode(lv_name_1_17, grammarAccess.getIntrinsicMemoryWordsAccess().getNameINCKeyword_1_0_16());
                         
@@ -2011,7 +2017,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 18 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:857:8: lv_name_1_18= DEC
                     {
-                    lv_name_1_18=(Token)match(input,DEC,FOLLOW_DEC_in_ruleIntrinsicMemoryWords1889); 
+                    lv_name_1_18=(Token)match(input,DEC,FOLLOW_DEC_in_ruleIntrinsicMemoryWords1888); 
 
                             newLeafNode(lv_name_1_18, grammarAccess.getIntrinsicMemoryWordsAccess().getNameDECKeyword_1_0_17());
                         
@@ -2027,7 +2033,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 19 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:870:8: lv_name_1_19= ON
                     {
-                    lv_name_1_19=(Token)match(input,ON,FOLLOW_ON_in_ruleIntrinsicMemoryWords1917); 
+                    lv_name_1_19=(Token)match(input,ON,FOLLOW_ON_in_ruleIntrinsicMemoryWords1916); 
 
                             newLeafNode(lv_name_1_19, grammarAccess.getIntrinsicMemoryWordsAccess().getNameONKeyword_1_0_18());
                         
@@ -2043,7 +2049,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 20 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:883:8: lv_name_1_20= OFF
                     {
-                    lv_name_1_20=(Token)match(input,OFF,FOLLOW_OFF_in_ruleIntrinsicMemoryWords1945); 
+                    lv_name_1_20=(Token)match(input,OFF,FOLLOW_OFF_in_ruleIntrinsicMemoryWords1944); 
 
                             newLeafNode(lv_name_1_20, grammarAccess.getIntrinsicMemoryWordsAccess().getNameOFFKeyword_1_0_19());
                         
@@ -2059,7 +2065,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 21 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:896:8: lv_name_1_21= ERASE
                     {
-                    lv_name_1_21=(Token)match(input,ERASE,FOLLOW_ERASE_in_ruleIntrinsicMemoryWords1973); 
+                    lv_name_1_21=(Token)match(input,ERASE,FOLLOW_ERASE_in_ruleIntrinsicMemoryWords1972); 
 
                             newLeafNode(lv_name_1_21, grammarAccess.getIntrinsicMemoryWordsAccess().getNameERASEKeyword_1_0_20());
                         
@@ -2075,7 +2081,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 22 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:909:8: lv_name_1_22= FILL
                     {
-                    lv_name_1_22=(Token)match(input,FILL,FOLLOW_FILL_in_ruleIntrinsicMemoryWords2001); 
+                    lv_name_1_22=(Token)match(input,FILL,FOLLOW_FILL_in_ruleIntrinsicMemoryWords2000); 
 
                             newLeafNode(lv_name_1_22, grammarAccess.getIntrinsicMemoryWordsAccess().getNameFILLKeyword_1_0_21());
                         
@@ -2091,7 +2097,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 23 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:922:8: lv_name_1_23= COUNT
                     {
-                    lv_name_1_23=(Token)match(input,COUNT,FOLLOW_COUNT_in_ruleIntrinsicMemoryWords2029); 
+                    lv_name_1_23=(Token)match(input,COUNT,FOLLOW_COUNT_in_ruleIntrinsicMemoryWords2028); 
 
                             newLeafNode(lv_name_1_23, grammarAccess.getIntrinsicMemoryWordsAccess().getNameCOUNTKeyword_1_0_22());
                         
@@ -2107,7 +2113,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 24 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:935:8: lv_name_1_24= MOVE
                     {
-                    lv_name_1_24=(Token)match(input,MOVE,FOLLOW_MOVE_in_ruleIntrinsicMemoryWords2057); 
+                    lv_name_1_24=(Token)match(input,MOVE,FOLLOW_MOVE_in_ruleIntrinsicMemoryWords2056); 
 
                             newLeafNode(lv_name_1_24, grammarAccess.getIntrinsicMemoryWordsAccess().getNameMOVEKeyword_1_0_23());
                         
@@ -2123,7 +2129,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 25 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:948:8: lv_name_1_25= PLACE
                     {
-                    lv_name_1_25=(Token)match(input,PLACE,FOLLOW_PLACE_in_ruleIntrinsicMemoryWords2085); 
+                    lv_name_1_25=(Token)match(input,PLACE,FOLLOW_PLACE_in_ruleIntrinsicMemoryWords2084); 
 
                             newLeafNode(lv_name_1_25, grammarAccess.getIntrinsicMemoryWordsAccess().getNamePLACEKeyword_1_0_24());
                         
@@ -2178,13 +2184,13 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
             // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:974:2: iv_ruleIntrinsicArithmeticWords= ruleIntrinsicArithmeticWords EOF
             {
              newCompositeNode(grammarAccess.getIntrinsicArithmeticWordsRule()); 
-            pushFollow(FOLLOW_ruleIntrinsicArithmeticWords_in_entryRuleIntrinsicArithmeticWords2134);
+            pushFollow(FOLLOW_ruleIntrinsicArithmeticWords_in_entryRuleIntrinsicArithmeticWords2133);
             iv_ruleIntrinsicArithmeticWords=ruleIntrinsicArithmeticWords();
 
             state._fsp--;
 
              current =iv_ruleIntrinsicArithmeticWords; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleIntrinsicArithmeticWords2144); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleIntrinsicArithmeticWords2143); 
 
             }
 
@@ -2445,7 +2451,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 1 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:994:3: lv_name_1_1= PlusSign
                     {
-                    lv_name_1_1=(Token)match(input,PlusSign,FOLLOW_PlusSign_in_ruleIntrinsicArithmeticWords2199); 
+                    lv_name_1_1=(Token)match(input,PlusSign,FOLLOW_PlusSign_in_ruleIntrinsicArithmeticWords2198); 
 
                             newLeafNode(lv_name_1_1, grammarAccess.getIntrinsicArithmeticWordsAccess().getNamePlusSignKeyword_1_0_0());
                         
@@ -2461,7 +2467,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 2 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:1007:8: lv_name_1_2= HyphenMinus
                     {
-                    lv_name_1_2=(Token)match(input,HyphenMinus,FOLLOW_HyphenMinus_in_ruleIntrinsicArithmeticWords2227); 
+                    lv_name_1_2=(Token)match(input,HyphenMinus,FOLLOW_HyphenMinus_in_ruleIntrinsicArithmeticWords2226); 
 
                             newLeafNode(lv_name_1_2, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameHyphenMinusKeyword_1_0_1());
                         
@@ -2477,7 +2483,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 3 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:1020:8: lv_name_1_3= Asterisk
                     {
-                    lv_name_1_3=(Token)match(input,Asterisk,FOLLOW_Asterisk_in_ruleIntrinsicArithmeticWords2255); 
+                    lv_name_1_3=(Token)match(input,Asterisk,FOLLOW_Asterisk_in_ruleIntrinsicArithmeticWords2254); 
 
                             newLeafNode(lv_name_1_3, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameAsteriskKeyword_1_0_2());
                         
@@ -2493,7 +2499,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 4 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:1033:8: lv_name_1_4= Solidus
                     {
-                    lv_name_1_4=(Token)match(input,Solidus,FOLLOW_Solidus_in_ruleIntrinsicArithmeticWords2283); 
+                    lv_name_1_4=(Token)match(input,Solidus,FOLLOW_Solidus_in_ruleIntrinsicArithmeticWords2282); 
 
                             newLeafNode(lv_name_1_4, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameSolidusKeyword_1_0_3());
                         
@@ -2509,7 +2515,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 5 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:1046:8: lv_name_1_5= DigitTwoAsterisk
                     {
-                    lv_name_1_5=(Token)match(input,DigitTwoAsterisk,FOLLOW_DigitTwoAsterisk_in_ruleIntrinsicArithmeticWords2311); 
+                    lv_name_1_5=(Token)match(input,DigitTwoAsterisk,FOLLOW_DigitTwoAsterisk_in_ruleIntrinsicArithmeticWords2310); 
 
                             newLeafNode(lv_name_1_5, grammarAccess.getIntrinsicArithmeticWordsAccess().getName2Keyword_1_0_4());
                         
@@ -2525,7 +2531,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 6 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:1059:8: lv_name_1_6= DigitTwoSolidus
                     {
-                    lv_name_1_6=(Token)match(input,DigitTwoSolidus,FOLLOW_DigitTwoSolidus_in_ruleIntrinsicArithmeticWords2339); 
+                    lv_name_1_6=(Token)match(input,DigitTwoSolidus,FOLLOW_DigitTwoSolidus_in_ruleIntrinsicArithmeticWords2338); 
 
                             newLeafNode(lv_name_1_6, grammarAccess.getIntrinsicArithmeticWordsAccess().getName2Keyword_1_0_5());
                         
@@ -2541,7 +2547,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 7 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:1072:8: lv_name_1_7= U2
                     {
-                    lv_name_1_7=(Token)match(input,U2,FOLLOW_U2_in_ruleIntrinsicArithmeticWords2367); 
+                    lv_name_1_7=(Token)match(input,U2,FOLLOW_U2_in_ruleIntrinsicArithmeticWords2366); 
 
                             newLeafNode(lv_name_1_7, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameU2Keyword_1_0_6());
                         
@@ -2557,7 +2563,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 8 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:1085:8: lv_name_1_8= ROR
                     {
-                    lv_name_1_8=(Token)match(input,ROR,FOLLOW_ROR_in_ruleIntrinsicArithmeticWords2395); 
+                    lv_name_1_8=(Token)match(input,ROR,FOLLOW_ROR_in_ruleIntrinsicArithmeticWords2394); 
 
                             newLeafNode(lv_name_1_8, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameRORKeyword_1_0_7());
                         
@@ -2573,7 +2579,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 9 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:1098:8: lv_name_1_9= DROR
                     {
-                    lv_name_1_9=(Token)match(input,DROR,FOLLOW_DROR_in_ruleIntrinsicArithmeticWords2423); 
+                    lv_name_1_9=(Token)match(input,DROR,FOLLOW_DROR_in_ruleIntrinsicArithmeticWords2422); 
 
                             newLeafNode(lv_name_1_9, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameDRORKeyword_1_0_8());
                         
@@ -2589,7 +2595,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 10 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:1111:8: lv_name_1_10= ROL
                     {
-                    lv_name_1_10=(Token)match(input,ROL,FOLLOW_ROL_in_ruleIntrinsicArithmeticWords2451); 
+                    lv_name_1_10=(Token)match(input,ROL,FOLLOW_ROL_in_ruleIntrinsicArithmeticWords2450); 
 
                             newLeafNode(lv_name_1_10, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameROLKeyword_1_0_9());
                         
@@ -2605,7 +2611,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 11 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:1124:8: lv_name_1_11= DROL
                     {
-                    lv_name_1_11=(Token)match(input,DROL,FOLLOW_DROL_in_ruleIntrinsicArithmeticWords2479); 
+                    lv_name_1_11=(Token)match(input,DROL,FOLLOW_DROL_in_ruleIntrinsicArithmeticWords2478); 
 
                             newLeafNode(lv_name_1_11, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameDROLKeyword_1_0_10());
                         
@@ -2621,7 +2627,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 12 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:1137:8: lv_name_1_12= PACK
                     {
-                    lv_name_1_12=(Token)match(input,PACK,FOLLOW_PACK_in_ruleIntrinsicArithmeticWords2507); 
+                    lv_name_1_12=(Token)match(input,PACK,FOLLOW_PACK_in_ruleIntrinsicArithmeticWords2506); 
 
                             newLeafNode(lv_name_1_12, grammarAccess.getIntrinsicArithmeticWordsAccess().getNamePACKKeyword_1_0_11());
                         
@@ -2637,7 +2643,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 13 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:1150:8: lv_name_1_13= UNPACK
                     {
-                    lv_name_1_13=(Token)match(input,UNPACK,FOLLOW_UNPACK_in_ruleIntrinsicArithmeticWords2535); 
+                    lv_name_1_13=(Token)match(input,UNPACK,FOLLOW_UNPACK_in_ruleIntrinsicArithmeticWords2534); 
 
                             newLeafNode(lv_name_1_13, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameUNPACKKeyword_1_0_12());
                         
@@ -2653,7 +2659,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 14 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:1163:8: lv_name_1_14= SHIFT
                     {
-                    lv_name_1_14=(Token)match(input,SHIFT,FOLLOW_SHIFT_in_ruleIntrinsicArithmeticWords2563); 
+                    lv_name_1_14=(Token)match(input,SHIFT,FOLLOW_SHIFT_in_ruleIntrinsicArithmeticWords2562); 
 
                             newLeafNode(lv_name_1_14, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameSHIFTKeyword_1_0_13());
                         
@@ -2669,7 +2675,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 15 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:1176:8: lv_name_1_15= ASHIFT
                     {
-                    lv_name_1_15=(Token)match(input,ASHIFT,FOLLOW_ASHIFT_in_ruleIntrinsicArithmeticWords2591); 
+                    lv_name_1_15=(Token)match(input,ASHIFT,FOLLOW_ASHIFT_in_ruleIntrinsicArithmeticWords2590); 
 
                             newLeafNode(lv_name_1_15, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameASHIFTKeyword_1_0_14());
                         
@@ -2685,7 +2691,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 16 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:1189:8: lv_name_1_16= DigitTwoAsteriskAsterisk
                     {
-                    lv_name_1_16=(Token)match(input,DigitTwoAsteriskAsterisk,FOLLOW_DigitTwoAsteriskAsterisk_in_ruleIntrinsicArithmeticWords2619); 
+                    lv_name_1_16=(Token)match(input,DigitTwoAsteriskAsterisk,FOLLOW_DigitTwoAsteriskAsterisk_in_ruleIntrinsicArithmeticWords2618); 
 
                             newLeafNode(lv_name_1_16, grammarAccess.getIntrinsicArithmeticWordsAccess().getName2Keyword_1_0_15());
                         
@@ -2701,7 +2707,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 17 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:1202:8: lv_name_1_17= DigitZeroEqualsSign
                     {
-                    lv_name_1_17=(Token)match(input,DigitZeroEqualsSign,FOLLOW_DigitZeroEqualsSign_in_ruleIntrinsicArithmeticWords2647); 
+                    lv_name_1_17=(Token)match(input,DigitZeroEqualsSign,FOLLOW_DigitZeroEqualsSign_in_ruleIntrinsicArithmeticWords2646); 
 
                             newLeafNode(lv_name_1_17, grammarAccess.getIntrinsicArithmeticWordsAccess().getName0Keyword_1_0_16());
                         
@@ -2717,7 +2723,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 18 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:1215:8: lv_name_1_18= DigitZeroLessThanSignGreaterThanSign
                     {
-                    lv_name_1_18=(Token)match(input,DigitZeroLessThanSignGreaterThanSign,FOLLOW_DigitZeroLessThanSignGreaterThanSign_in_ruleIntrinsicArithmeticWords2675); 
+                    lv_name_1_18=(Token)match(input,DigitZeroLessThanSignGreaterThanSign,FOLLOW_DigitZeroLessThanSignGreaterThanSign_in_ruleIntrinsicArithmeticWords2674); 
 
                             newLeafNode(lv_name_1_18, grammarAccess.getIntrinsicArithmeticWordsAccess().getName0Keyword_1_0_17());
                         
@@ -2733,7 +2739,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 19 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:1228:8: lv_name_1_19= DigitZeroLessThanSign
                     {
-                    lv_name_1_19=(Token)match(input,DigitZeroLessThanSign,FOLLOW_DigitZeroLessThanSign_in_ruleIntrinsicArithmeticWords2703); 
+                    lv_name_1_19=(Token)match(input,DigitZeroLessThanSign,FOLLOW_DigitZeroLessThanSign_in_ruleIntrinsicArithmeticWords2702); 
 
                             newLeafNode(lv_name_1_19, grammarAccess.getIntrinsicArithmeticWordsAccess().getName0Keyword_1_0_18());
                         
@@ -2749,7 +2755,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 20 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:1241:8: lv_name_1_20= D0
                     {
-                    lv_name_1_20=(Token)match(input,D0,FOLLOW_D0_in_ruleIntrinsicArithmeticWords2731); 
+                    lv_name_1_20=(Token)match(input,D0,FOLLOW_D0_in_ruleIntrinsicArithmeticWords2730); 
 
                             newLeafNode(lv_name_1_20, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameD0Keyword_1_0_19());
                         
@@ -2765,7 +2771,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 21 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:1254:8: lv_name_1_21= NEGATE
                     {
-                    lv_name_1_21=(Token)match(input,NEGATE,FOLLOW_NEGATE_in_ruleIntrinsicArithmeticWords2759); 
+                    lv_name_1_21=(Token)match(input,NEGATE,FOLLOW_NEGATE_in_ruleIntrinsicArithmeticWords2758); 
 
                             newLeafNode(lv_name_1_21, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameNEGATEKeyword_1_0_20());
                         
@@ -2781,7 +2787,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 22 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:1267:8: lv_name_1_22= DNEGATE
                     {
-                    lv_name_1_22=(Token)match(input,DNEGATE,FOLLOW_DNEGATE_in_ruleIntrinsicArithmeticWords2787); 
+                    lv_name_1_22=(Token)match(input,DNEGATE,FOLLOW_DNEGATE_in_ruleIntrinsicArithmeticWords2786); 
 
                             newLeafNode(lv_name_1_22, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameDNEGATEKeyword_1_0_21());
                         
@@ -2797,7 +2803,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 23 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:1280:8: lv_name_1_23= DigitOnePlusSign
                     {
-                    lv_name_1_23=(Token)match(input,DigitOnePlusSign,FOLLOW_DigitOnePlusSign_in_ruleIntrinsicArithmeticWords2815); 
+                    lv_name_1_23=(Token)match(input,DigitOnePlusSign,FOLLOW_DigitOnePlusSign_in_ruleIntrinsicArithmeticWords2814); 
 
                             newLeafNode(lv_name_1_23, grammarAccess.getIntrinsicArithmeticWordsAccess().getName1Keyword_1_0_22());
                         
@@ -2813,7 +2819,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 24 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:1293:8: lv_name_1_24= DigitOneHyphenMinus
                     {
-                    lv_name_1_24=(Token)match(input,DigitOneHyphenMinus,FOLLOW_DigitOneHyphenMinus_in_ruleIntrinsicArithmeticWords2843); 
+                    lv_name_1_24=(Token)match(input,DigitOneHyphenMinus,FOLLOW_DigitOneHyphenMinus_in_ruleIntrinsicArithmeticWords2842); 
 
                             newLeafNode(lv_name_1_24, grammarAccess.getIntrinsicArithmeticWordsAccess().getName1Keyword_1_0_23());
                         
@@ -2829,7 +2835,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 25 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:1306:8: lv_name_1_25= TRUE
                     {
-                    lv_name_1_25=(Token)match(input,TRUE,FOLLOW_TRUE_in_ruleIntrinsicArithmeticWords2871); 
+                    lv_name_1_25=(Token)match(input,TRUE,FOLLOW_TRUE_in_ruleIntrinsicArithmeticWords2870); 
 
                             newLeafNode(lv_name_1_25, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameTRUEKeyword_1_0_24());
                         
@@ -2845,7 +2851,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 26 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:1319:8: lv_name_1_26= FALSE
                     {
-                    lv_name_1_26=(Token)match(input,FALSE,FOLLOW_FALSE_in_ruleIntrinsicArithmeticWords2899); 
+                    lv_name_1_26=(Token)match(input,FALSE,FOLLOW_FALSE_in_ruleIntrinsicArithmeticWords2898); 
 
                             newLeafNode(lv_name_1_26, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameFALSEKeyword_1_0_25());
                         
@@ -2861,7 +2867,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 27 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:1332:8: lv_name_1_27= CELL
                     {
-                    lv_name_1_27=(Token)match(input,CELL,FOLLOW_CELL_in_ruleIntrinsicArithmeticWords2927); 
+                    lv_name_1_27=(Token)match(input,CELL,FOLLOW_CELL_in_ruleIntrinsicArithmeticWords2926); 
 
                             newLeafNode(lv_name_1_27, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameCELLKeyword_1_0_26());
                         
@@ -2877,7 +2883,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 28 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:1345:8: lv_name_1_28= CELL_1
                     {
-                    lv_name_1_28=(Token)match(input,CELL_1,FOLLOW_CELL_1_in_ruleIntrinsicArithmeticWords2955); 
+                    lv_name_1_28=(Token)match(input,CELL_1,FOLLOW_CELL_1_in_ruleIntrinsicArithmeticWords2954); 
 
                             newLeafNode(lv_name_1_28, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameCELLKeyword_1_0_27());
                         
@@ -2893,7 +2899,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 29 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:1358:8: lv_name_1_29= CARRY_RESET
                     {
-                    lv_name_1_29=(Token)match(input,CARRY_RESET,FOLLOW_CARRY_RESET_in_ruleIntrinsicArithmeticWords2983); 
+                    lv_name_1_29=(Token)match(input,CARRY_RESET,FOLLOW_CARRY_RESET_in_ruleIntrinsicArithmeticWords2982); 
 
                             newLeafNode(lv_name_1_29, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameCARRY_RESETKeyword_1_0_28());
                         
@@ -2909,7 +2915,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 30 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:1371:8: lv_name_1_30= CARRYSET
                     {
-                    lv_name_1_30=(Token)match(input,CARRYSET,FOLLOW_CARRYSET_in_ruleIntrinsicArithmeticWords3011); 
+                    lv_name_1_30=(Token)match(input,CARRYSET,FOLLOW_CARRYSET_in_ruleIntrinsicArithmeticWords3010); 
 
                             newLeafNode(lv_name_1_30, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameCARRYSETKeyword_1_0_29());
                         
@@ -2925,7 +2931,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 31 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:1384:8: lv_name_1_31= ABS
                     {
-                    lv_name_1_31=(Token)match(input,ABS,FOLLOW_ABS_in_ruleIntrinsicArithmeticWords3039); 
+                    lv_name_1_31=(Token)match(input,ABS,FOLLOW_ABS_in_ruleIntrinsicArithmeticWords3038); 
 
                             newLeafNode(lv_name_1_31, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameABSKeyword_1_0_30());
                         
@@ -2941,7 +2947,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 32 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:1397:8: lv_name_1_32= DABS
                     {
-                    lv_name_1_32=(Token)match(input,DABS,FOLLOW_DABS_in_ruleIntrinsicArithmeticWords3067); 
+                    lv_name_1_32=(Token)match(input,DABS,FOLLOW_DABS_in_ruleIntrinsicArithmeticWords3066); 
 
                             newLeafNode(lv_name_1_32, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameDABSKeyword_1_0_31());
                         
@@ -2957,7 +2963,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                 case 33 :
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:1410:8: lv_name_1_33= EXTEND
                     {
-                    lv_name_1_33=(Token)match(input,EXTEND,FOLLOW_EXTEND_in_ruleIntrinsicArithmeticWords3095); 
+                    lv_name_1_33=(Token)match(input,EXTEND,FOLLOW_EXTEND_in_ruleIntrinsicArithmeticWords3094); 
 
                             newLeafNode(lv_name_1_33, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameEXTENDKeyword_1_0_32());
                         
@@ -3012,13 +3018,13 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
             // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:1436:2: iv_ruleWord= ruleWord EOF
             {
              newCompositeNode(grammarAccess.getWordRule()); 
-            pushFollow(FOLLOW_ruleWord_in_entryRuleWord3144);
+            pushFollow(FOLLOW_ruleWord_in_entryRuleWord3143);
             iv_ruleWord=ruleWord();
 
             state._fsp--;
 
              current =iv_ruleWord; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleWord3154); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleWord3153); 
 
             }
 
@@ -3174,7 +3180,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                      
                             newCompositeNode(grammarAccess.getWordAccess().getIntrinsicStackWordsParserRuleCall_0()); 
                         
-                    pushFollow(FOLLOW_ruleIntrinsicStackWords_in_ruleWord3201);
+                    pushFollow(FOLLOW_ruleIntrinsicStackWords_in_ruleWord3200);
                     this_IntrinsicStackWords_0=ruleIntrinsicStackWords();
 
                     state._fsp--;
@@ -3192,7 +3198,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                      
                             newCompositeNode(grammarAccess.getWordAccess().getIntrinsicMemoryWordsParserRuleCall_1()); 
                         
-                    pushFollow(FOLLOW_ruleIntrinsicMemoryWords_in_ruleWord3228);
+                    pushFollow(FOLLOW_ruleIntrinsicMemoryWords_in_ruleWord3227);
                     this_IntrinsicMemoryWords_1=ruleIntrinsicMemoryWords();
 
                     state._fsp--;
@@ -3210,7 +3216,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                      
                             newCompositeNode(grammarAccess.getWordAccess().getIntrinsicArithmeticWordsParserRuleCall_2()); 
                         
-                    pushFollow(FOLLOW_ruleIntrinsicArithmeticWords_in_ruleWord3255);
+                    pushFollow(FOLLOW_ruleIntrinsicArithmeticWords_in_ruleWord3254);
                     this_IntrinsicArithmeticWords_2=ruleIntrinsicArithmeticWords();
 
                     state._fsp--;
@@ -3234,7 +3240,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                      
                     	        newCompositeNode(grammarAccess.getWordAccess().getNameLITERALParserRuleCall_3_0()); 
                     	    
-                    pushFollow(FOLLOW_ruleLITERAL_in_ruleWord3281);
+                    pushFollow(FOLLOW_ruleLITERAL_in_ruleWord3280);
                     lv_name_3_0=ruleLITERAL();
 
                     state._fsp--;
@@ -3268,7 +3274,7 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:1497:1: (lv_name_4_0= RULE_ID )
                     // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/internal/InternalUForthParser.g:1498:3: lv_name_4_0= RULE_ID
                     {
-                    lv_name_4_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleWord3304); 
+                    lv_name_4_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleWord3303); 
 
                     			newLeafNode(lv_name_4_0, grammarAccess.getWordAccess().getNameIDTerminalRuleCall_4_0()); 
                     		
@@ -3325,110 +3331,110 @@ public class InternalUForthParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_ruleWord_in_ruleInstruction268 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleFunction_in_entryRuleFunction302 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleFunction312 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Colon_in_ruleFunction350 = new BitSet(new long[]{0x0000000000000000L,0x0000000010000000L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleFunction366 = new BitSet(new long[]{0xFFFFFFFFFFFFFFF0L,0x000000001C3EFFFFL});
-    public static final BitSet FOLLOW_ruleWord_in_ruleFunction392 = new BitSet(new long[]{0xFFFFFFFFFFFFFFF0L,0x000000001C3EFFFFL});
-    public static final BitSet FOLLOW_Semicolon_in_ruleFunction406 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleCreate_in_entryRuleCreate440 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleCreate450 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Create_in_ruleCreate488 = new BitSet(new long[]{0x0000000000000000L,0x0000000010000000L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleCreate504 = new BitSet(new long[]{0x0000000000000002L,0x000000000C000000L});
-    public static final BitSet FOLLOW_ruleLITERAL_in_ruleCreate531 = new BitSet(new long[]{0x0000000000000000L,0x0000000000010000L});
-    public static final BitSet FOLLOW_Comma_in_ruleCreate544 = new BitSet(new long[]{0x0000000000000002L,0x000000000C000000L});
-    public static final BitSet FOLLOW_ruleLITERAL_in_entryRuleLITERAL581 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleLITERAL592 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_INT_in_ruleLITERAL632 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_DOUBLE_in_ruleLITERAL658 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIntrinsicStackWords_in_entryRuleIntrinsicStackWords702 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleIntrinsicStackWords712 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_CLEAR_in_ruleIntrinsicStackWords767 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DROP_in_ruleIntrinsicStackWords795 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DUP_in_ruleIntrinsicStackWords823 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DUP_2_in_ruleIntrinsicStackWords851 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_SWAP_in_ruleIntrinsicStackWords879 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NIP_in_ruleIntrinsicStackWords907 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_OVER_in_ruleIntrinsicStackWords935 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ROT_in_ruleIntrinsicStackWords963 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ROT_1_in_ruleIntrinsicStackWords991 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_TUCK_in_ruleIntrinsicStackWords1019 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_UNDER_in_ruleIntrinsicStackWords1047 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DROP_1_in_ruleIntrinsicStackWords1075 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DUP_1_in_ruleIntrinsicStackWords1103 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_SWAP_1_in_ruleIntrinsicStackWords1131 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_OVER_1_in_ruleIntrinsicStackWords1159 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RCLEAR_in_ruleIntrinsicStackWords1187 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_R_1_in_ruleIntrinsicStackWords1215 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_R_2_in_ruleIntrinsicStackWords1243 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_R_in_ruleIntrinsicStackWords1271 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RDROP_in_ruleIntrinsicStackWords1299 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIntrinsicMemoryWords_in_entryRuleIntrinsicMemoryWords1348 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleIntrinsicMemoryWords1358 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LD_in_ruleIntrinsicMemoryWords1413 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_CommercialAt_in_ruleIntrinsicMemoryWords1441 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ST_in_ruleIntrinsicMemoryWords1469 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ExclamationMark_in_ruleIntrinsicMemoryWords1497 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DigitTwoCommercialAt_in_ruleIntrinsicMemoryWords1525 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DigitTwoExclamationMark_in_ruleIntrinsicMemoryWords1553 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LLD_in_ruleIntrinsicMemoryWords1581 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_L_1_in_ruleIntrinsicMemoryWords1609 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LST_in_ruleIntrinsicMemoryWords1637 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_L_in_ruleIntrinsicMemoryWords1665 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_TLD_in_ruleIntrinsicMemoryWords1693 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_T_1_in_ruleIntrinsicMemoryWords1721 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_TST_in_ruleIntrinsicMemoryWords1749 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_T_in_ruleIntrinsicMemoryWords1777 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ST_1_in_ruleIntrinsicMemoryWords1805 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_PlusSignExclamationMark_in_ruleIntrinsicMemoryWords1833 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_INC_in_ruleIntrinsicMemoryWords1861 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DEC_in_ruleIntrinsicMemoryWords1889 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ON_in_ruleIntrinsicMemoryWords1917 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_OFF_in_ruleIntrinsicMemoryWords1945 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ERASE_in_ruleIntrinsicMemoryWords1973 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_FILL_in_ruleIntrinsicMemoryWords2001 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_COUNT_in_ruleIntrinsicMemoryWords2029 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_MOVE_in_ruleIntrinsicMemoryWords2057 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_PLACE_in_ruleIntrinsicMemoryWords2085 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIntrinsicArithmeticWords_in_entryRuleIntrinsicArithmeticWords2134 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleIntrinsicArithmeticWords2144 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_PlusSign_in_ruleIntrinsicArithmeticWords2199 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_HyphenMinus_in_ruleIntrinsicArithmeticWords2227 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Asterisk_in_ruleIntrinsicArithmeticWords2255 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Solidus_in_ruleIntrinsicArithmeticWords2283 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DigitTwoAsterisk_in_ruleIntrinsicArithmeticWords2311 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DigitTwoSolidus_in_ruleIntrinsicArithmeticWords2339 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_U2_in_ruleIntrinsicArithmeticWords2367 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ROR_in_ruleIntrinsicArithmeticWords2395 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DROR_in_ruleIntrinsicArithmeticWords2423 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ROL_in_ruleIntrinsicArithmeticWords2451 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DROL_in_ruleIntrinsicArithmeticWords2479 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_PACK_in_ruleIntrinsicArithmeticWords2507 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_UNPACK_in_ruleIntrinsicArithmeticWords2535 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_SHIFT_in_ruleIntrinsicArithmeticWords2563 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ASHIFT_in_ruleIntrinsicArithmeticWords2591 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DigitTwoAsteriskAsterisk_in_ruleIntrinsicArithmeticWords2619 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DigitZeroEqualsSign_in_ruleIntrinsicArithmeticWords2647 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DigitZeroLessThanSignGreaterThanSign_in_ruleIntrinsicArithmeticWords2675 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DigitZeroLessThanSign_in_ruleIntrinsicArithmeticWords2703 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_D0_in_ruleIntrinsicArithmeticWords2731 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NEGATE_in_ruleIntrinsicArithmeticWords2759 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DNEGATE_in_ruleIntrinsicArithmeticWords2787 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DigitOnePlusSign_in_ruleIntrinsicArithmeticWords2815 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DigitOneHyphenMinus_in_ruleIntrinsicArithmeticWords2843 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_TRUE_in_ruleIntrinsicArithmeticWords2871 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_FALSE_in_ruleIntrinsicArithmeticWords2899 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_CELL_in_ruleIntrinsicArithmeticWords2927 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_CELL_1_in_ruleIntrinsicArithmeticWords2955 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_CARRY_RESET_in_ruleIntrinsicArithmeticWords2983 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_CARRYSET_in_ruleIntrinsicArithmeticWords3011 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ABS_in_ruleIntrinsicArithmeticWords3039 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DABS_in_ruleIntrinsicArithmeticWords3067 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_EXTEND_in_ruleIntrinsicArithmeticWords3095 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleWord_in_entryRuleWord3144 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleWord3154 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIntrinsicStackWords_in_ruleWord3201 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIntrinsicMemoryWords_in_ruleWord3228 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIntrinsicArithmeticWords_in_ruleWord3255 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleLITERAL_in_ruleWord3281 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleWord3304 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Colon_in_ruleFunction350 = new BitSet(new long[]{0xFFFFFFFFFFFFFFF0L,0x000000001C3EFFFFL});
+    public static final BitSet FOLLOW_ruleWord_in_ruleFunction370 = new BitSet(new long[]{0xFFFFFFFFFFFFFFF0L,0x000000001C3EFFFFL});
+    public static final BitSet FOLLOW_ruleWord_in_ruleFunction391 = new BitSet(new long[]{0xFFFFFFFFFFFFFFF0L,0x000000001C3EFFFFL});
+    public static final BitSet FOLLOW_Semicolon_in_ruleFunction405 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleCreate_in_entryRuleCreate439 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleCreate449 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Create_in_ruleCreate487 = new BitSet(new long[]{0x0000000000000000L,0x0000000010000000L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleCreate503 = new BitSet(new long[]{0x0000000000000002L,0x000000000C000000L});
+    public static final BitSet FOLLOW_ruleLITERAL_in_ruleCreate530 = new BitSet(new long[]{0x0000000000000000L,0x0000000000010000L});
+    public static final BitSet FOLLOW_Comma_in_ruleCreate543 = new BitSet(new long[]{0x0000000000000002L,0x000000000C000000L});
+    public static final BitSet FOLLOW_ruleLITERAL_in_entryRuleLITERAL580 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleLITERAL591 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_INT_in_ruleLITERAL631 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_DOUBLE_in_ruleLITERAL657 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIntrinsicStackWords_in_entryRuleIntrinsicStackWords701 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleIntrinsicStackWords711 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_CLEAR_in_ruleIntrinsicStackWords766 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DROP_in_ruleIntrinsicStackWords794 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DUP_in_ruleIntrinsicStackWords822 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DUP_2_in_ruleIntrinsicStackWords850 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_SWAP_in_ruleIntrinsicStackWords878 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NIP_in_ruleIntrinsicStackWords906 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_OVER_in_ruleIntrinsicStackWords934 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ROT_in_ruleIntrinsicStackWords962 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ROT_1_in_ruleIntrinsicStackWords990 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_TUCK_in_ruleIntrinsicStackWords1018 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_UNDER_in_ruleIntrinsicStackWords1046 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DROP_1_in_ruleIntrinsicStackWords1074 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DUP_1_in_ruleIntrinsicStackWords1102 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_SWAP_1_in_ruleIntrinsicStackWords1130 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_OVER_1_in_ruleIntrinsicStackWords1158 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RCLEAR_in_ruleIntrinsicStackWords1186 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_R_1_in_ruleIntrinsicStackWords1214 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_R_2_in_ruleIntrinsicStackWords1242 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_R_in_ruleIntrinsicStackWords1270 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RDROP_in_ruleIntrinsicStackWords1298 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIntrinsicMemoryWords_in_entryRuleIntrinsicMemoryWords1347 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleIntrinsicMemoryWords1357 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LD_in_ruleIntrinsicMemoryWords1412 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_CommercialAt_in_ruleIntrinsicMemoryWords1440 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ST_in_ruleIntrinsicMemoryWords1468 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ExclamationMark_in_ruleIntrinsicMemoryWords1496 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DigitTwoCommercialAt_in_ruleIntrinsicMemoryWords1524 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DigitTwoExclamationMark_in_ruleIntrinsicMemoryWords1552 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LLD_in_ruleIntrinsicMemoryWords1580 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_L_1_in_ruleIntrinsicMemoryWords1608 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LST_in_ruleIntrinsicMemoryWords1636 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_L_in_ruleIntrinsicMemoryWords1664 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_TLD_in_ruleIntrinsicMemoryWords1692 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_T_1_in_ruleIntrinsicMemoryWords1720 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_TST_in_ruleIntrinsicMemoryWords1748 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_T_in_ruleIntrinsicMemoryWords1776 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ST_1_in_ruleIntrinsicMemoryWords1804 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_PlusSignExclamationMark_in_ruleIntrinsicMemoryWords1832 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_INC_in_ruleIntrinsicMemoryWords1860 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DEC_in_ruleIntrinsicMemoryWords1888 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ON_in_ruleIntrinsicMemoryWords1916 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_OFF_in_ruleIntrinsicMemoryWords1944 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ERASE_in_ruleIntrinsicMemoryWords1972 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_FILL_in_ruleIntrinsicMemoryWords2000 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_COUNT_in_ruleIntrinsicMemoryWords2028 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_MOVE_in_ruleIntrinsicMemoryWords2056 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_PLACE_in_ruleIntrinsicMemoryWords2084 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIntrinsicArithmeticWords_in_entryRuleIntrinsicArithmeticWords2133 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleIntrinsicArithmeticWords2143 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_PlusSign_in_ruleIntrinsicArithmeticWords2198 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_HyphenMinus_in_ruleIntrinsicArithmeticWords2226 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Asterisk_in_ruleIntrinsicArithmeticWords2254 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Solidus_in_ruleIntrinsicArithmeticWords2282 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DigitTwoAsterisk_in_ruleIntrinsicArithmeticWords2310 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DigitTwoSolidus_in_ruleIntrinsicArithmeticWords2338 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_U2_in_ruleIntrinsicArithmeticWords2366 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ROR_in_ruleIntrinsicArithmeticWords2394 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DROR_in_ruleIntrinsicArithmeticWords2422 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ROL_in_ruleIntrinsicArithmeticWords2450 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DROL_in_ruleIntrinsicArithmeticWords2478 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_PACK_in_ruleIntrinsicArithmeticWords2506 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_UNPACK_in_ruleIntrinsicArithmeticWords2534 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_SHIFT_in_ruleIntrinsicArithmeticWords2562 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ASHIFT_in_ruleIntrinsicArithmeticWords2590 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DigitTwoAsteriskAsterisk_in_ruleIntrinsicArithmeticWords2618 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DigitZeroEqualsSign_in_ruleIntrinsicArithmeticWords2646 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DigitZeroLessThanSignGreaterThanSign_in_ruleIntrinsicArithmeticWords2674 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DigitZeroLessThanSign_in_ruleIntrinsicArithmeticWords2702 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_D0_in_ruleIntrinsicArithmeticWords2730 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NEGATE_in_ruleIntrinsicArithmeticWords2758 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DNEGATE_in_ruleIntrinsicArithmeticWords2786 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DigitOnePlusSign_in_ruleIntrinsicArithmeticWords2814 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DigitOneHyphenMinus_in_ruleIntrinsicArithmeticWords2842 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_TRUE_in_ruleIntrinsicArithmeticWords2870 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_FALSE_in_ruleIntrinsicArithmeticWords2898 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_CELL_in_ruleIntrinsicArithmeticWords2926 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_CELL_1_in_ruleIntrinsicArithmeticWords2954 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_CARRY_RESET_in_ruleIntrinsicArithmeticWords2982 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_CARRYSET_in_ruleIntrinsicArithmeticWords3010 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ABS_in_ruleIntrinsicArithmeticWords3038 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DABS_in_ruleIntrinsicArithmeticWords3066 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_EXTEND_in_ruleIntrinsicArithmeticWords3094 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleWord_in_entryRuleWord3143 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleWord3153 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIntrinsicStackWords_in_ruleWord3200 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIntrinsicMemoryWords_in_ruleWord3227 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIntrinsicArithmeticWords_in_ruleWord3254 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleLITERAL_in_ruleWord3280 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleWord3303 = new BitSet(new long[]{0x0000000000000002L});
 
 }

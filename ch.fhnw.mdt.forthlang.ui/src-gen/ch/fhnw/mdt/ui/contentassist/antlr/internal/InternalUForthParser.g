@@ -1635,8 +1635,8 @@ rule__Function__NameAssignment_1
     }
 :
 (
-{ before(grammarAccess.getFunctionAccess().getNameIDTerminalRuleCall_1_0()); }
-	RULE_ID{ after(grammarAccess.getFunctionAccess().getNameIDTerminalRuleCall_1_0()); }
+{ before(grammarAccess.getFunctionAccess().getNameWordParserRuleCall_1_0()); }
+	ruleWord{ after(grammarAccess.getFunctionAccess().getNameWordParserRuleCall_1_0()); }
 )
 
 ;

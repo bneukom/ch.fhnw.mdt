@@ -35,7 +35,8 @@ public class MDTPreferencesPlugin extends AbstractUIPlugin {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
+	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.
+	 * BundleContext)
 	 */
 	public void start(final BundleContext context) throws Exception {
 		super.start(context);
@@ -54,7 +55,8 @@ public class MDTPreferencesPlugin extends AbstractUIPlugin {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
+	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.
+	 * BundleContext)
 	 */
 	public void stop(final BundleContext context) throws Exception {
 		plugin = null;
@@ -71,7 +73,8 @@ public class MDTPreferencesPlugin extends AbstractUIPlugin {
 	}
 
 	/**
-	 * Returns the loader with the given input file replacement ($INPUT_FILE in the loader will get replaced).
+	 * Returns the loader with the given input file replacement ($INPUT_FILE in
+	 * the loader will get replaced).
 	 * 
 	 * @param inputFile
 	 * @param isDebugMode
@@ -94,8 +97,9 @@ public class MDTPreferencesPlugin extends AbstractUIPlugin {
 	}
 
 	/**
-	 * Returns the umbilical set as preference and checks if it is a valid umbilical port by looking for the file.
-	 * If the umbilical port is invalid this method will return null.
+	 * Returns the umbilical set as preference and checks if it is a valid
+	 * umbilical port by looking for the file. If the umbilical port is invalid
+	 * this method will return null.
 	 * 
 	 * @return
 	 */
@@ -114,7 +118,10 @@ public class MDTPreferencesPlugin extends AbstractUIPlugin {
 	 * @return whether the given umbilical port is valid
 	 */
 	public boolean isValidUmbilical(String port) {
-		return port != null && !port.isEmpty() && Files.exists(Paths.get(port));
+		// TODO this is unix specific!!!
+		// return port != null && !port.isEmpty() &&
+		// Files.exists(Paths.get(port));
+		return true;
 	}
 
 	/**

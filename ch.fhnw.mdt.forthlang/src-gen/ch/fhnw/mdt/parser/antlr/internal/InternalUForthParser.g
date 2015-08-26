@@ -167,19 +167,19 @@ ruleFunction returns [EObject current=null]
     }
 (
 (
-		lv_name_1_0=RULE_ID
-		{
-			newLeafNode(lv_name_1_0, grammarAccess.getFunctionAccess().getNameIDTerminalRuleCall_1_0()); 
-		}
-		{
+		{ 
+	        newCompositeNode(grammarAccess.getFunctionAccess().getNameWordParserRuleCall_1_0()); 
+	    }
+		lv_name_1_0=ruleWord		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getFunctionRule());
+	            $current = createModelElementForParent(grammarAccess.getFunctionRule());
 	        }
-       		setWithLastConsumed(
+       		set(
        			$current, 
        			"name",
         		lv_name_1_0, 
-        		"ID");
+        		"Word");
+	        afterParserOrEnumRuleCall();
 	    }
 
 )

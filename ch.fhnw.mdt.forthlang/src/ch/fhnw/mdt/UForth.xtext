@@ -29,7 +29,7 @@ Instruction:
 	Create | Function | Word;
 
 Function:
-	':' name=ID words+=Word* ';';
+	':' name=Word words+=Word* ';';
 
 Create:
 	'create' name=ID (lit+=LITERAL ',')*;

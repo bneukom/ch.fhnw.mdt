@@ -7,9 +7,13 @@ import ch.fhnw.mdt.uForth.UForthPackage;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.emf.ecore.util.EDataTypeEList;
 
@@ -21,6 +25,7 @@ import org.eclipse.emf.ecore.util.EDataTypeEList;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link ch.fhnw.mdt.uForth.impl.CreateImpl#getName <em>Name</em>}</li>
  *   <li>{@link ch.fhnw.mdt.uForth.impl.CreateImpl#getLit <em>Lit</em>}</li>
  * </ul>
  *
@@ -28,6 +33,26 @@ import org.eclipse.emf.ecore.util.EDataTypeEList;
  */
 public class CreateImpl extends InstructionImpl implements Create
 {
+  /**
+   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
+  protected static final String NAME_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
+  protected String name = NAME_EDEFAULT;
+
   /**
    * The cached value of the '{@link #getLit() <em>Lit</em>}' attribute list.
    * <!-- begin-user-doc -->
@@ -64,6 +89,29 @@ public class CreateImpl extends InstructionImpl implements Create
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getName()
+  {
+    return name;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setName(String newName)
+  {
+    String oldName = name;
+    name = newName;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, UForthPackage.CREATE__NAME, oldName, name));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EList<String> getLit()
   {
     if (lit == null)
@@ -83,6 +131,8 @@ public class CreateImpl extends InstructionImpl implements Create
   {
     switch (featureID)
     {
+      case UForthPackage.CREATE__NAME:
+        return getName();
       case UForthPackage.CREATE__LIT:
         return getLit();
     }
@@ -100,6 +150,9 @@ public class CreateImpl extends InstructionImpl implements Create
   {
     switch (featureID)
     {
+      case UForthPackage.CREATE__NAME:
+        setName((String)newValue);
+        return;
       case UForthPackage.CREATE__LIT:
         getLit().clear();
         getLit().addAll((Collection<? extends String>)newValue);
@@ -118,6 +171,9 @@ public class CreateImpl extends InstructionImpl implements Create
   {
     switch (featureID)
     {
+      case UForthPackage.CREATE__NAME:
+        setName(NAME_EDEFAULT);
+        return;
       case UForthPackage.CREATE__LIT:
         getLit().clear();
         return;
@@ -135,6 +191,8 @@ public class CreateImpl extends InstructionImpl implements Create
   {
     switch (featureID)
     {
+      case UForthPackage.CREATE__NAME:
+        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case UForthPackage.CREATE__LIT:
         return lit != null && !lit.isEmpty();
     }
@@ -152,7 +210,9 @@ public class CreateImpl extends InstructionImpl implements Create
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (lit: ");
+    result.append(" (name: ");
+    result.append(name);
+    result.append(", lit: ");
     result.append(lit);
     result.append(')');
     return result.toString();
