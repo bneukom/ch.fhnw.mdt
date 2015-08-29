@@ -28,10 +28,8 @@ public class ForthSemanticHighlightingCalculator implements ISemanticHighlightin
 
 			if (current instanceof IntrinsicMemoryWords) {
 				acceptor.addPosition(node.getOffset(), node.getLength(), ForthHighlightingConfiguration.KEYWORD_MEMORY_ID);
-
 			} else if (current instanceof IntrinsicArithmeticWords) {
 				acceptor.addPosition(node.getOffset(), node.getLength(), ForthHighlightingConfiguration.KEYWORD_ARITHMETIC_ID);
-
 			} else if (current instanceof IntrinsicStackWords) {
 				acceptor.addPosition(node.getOffset(), node.getLength(), ForthHighlightingConfiguration.KEYWORD_STACK_ID);
 			}

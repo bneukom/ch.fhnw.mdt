@@ -12,99 +12,110 @@ import java.util.ArrayList;
 
 @SuppressWarnings("all")
 public class InternalUForthLexer extends Lexer {
-    public static final int ROT_1=26;
-    public static final int DigitTwoExclamationMark=63;
-    public static final int NEGATE=9;
-    public static final int PlusSignExclamationMark=58;
-    public static final int T_1=75;
-    public static final int SWAP_1=15;
-    public static final int DigitZeroLessThanSign=59;
-    public static final int ExclamationMark=77;
-    public static final int RULE_ID=92;
-    public static final int RULE_DIGIT=86;
-    public static final int OVER_1=14;
-    public static final int DigitTwoCommercialAt=66;
-    public static final int DUP_2=28;
-    public static final int PlusSign=79;
-    public static final int RULE_INT=90;
-    public static final int DUP_1=27;
-    public static final int RULE_ML_COMMENT=94;
-    public static final int COUNT=19;
-    public static final int PACK=36;
-    public static final int DigitOnePlusSign=61;
-    public static final int L=68;
-    public static final int UNPACK=11;
-    public static final int OFF=50;
-    public static final int Comma=80;
-    public static final int ABS=43;
-    public static final int R=67;
-    public static final int HyphenMinus=81;
-    public static final int DROP_1=13;
-    public static final int T=74;
-    public static final int Solidus=82;
-    public static final int RULE_DECINT=87;
-    public static final int ASHIFT=7;
-    public static final int ST=73;
-    public static final int DNEGATE=6;
-    public static final int UNDER=25;
-    public static final int D0=56;
-    public static final int PLACE=22;
-    public static final int CommercialAt=85;
-    public static final int Semicolon=84;
-    public static final int ERASE=20;
-    public static final int DigitOneHyphenMinus=62;
-    public static final int LD=70;
-    public static final int CELL=16;
-    public static final int U2=57;
-    public static final int R_2=76;
-    public static final int R_1=72;
-    public static final int TUCK=39;
-    public static final int DABS=29;
-    public static final int CARRYSET=5;
-    public static final int FILL=33;
-    public static final int EXTEND=8;
-    public static final int TRUE=38;
-    public static final int LST=48;
-    public static final int ROL=51;
-    public static final int SWAP=37;
-    public static final int ROR=52;
-    public static final int TST=55;
-    public static final int ROT=53;
-    public static final int DigitTwoSolidus=65;
+    public static final int ROT_1=36;
+    public static final int DigitTwoExclamationMark=74;
+    public static final int NEGATE=18;
+    public static final int PlusSignExclamationMark=69;
+    public static final int T_1=86;
+    public static final int TorBranch=5;
+    public static final int SWAP_1=25;
+    public static final int DigitZeroLessThanSign=70;
+    public static final int ExclamationMark=88;
+    public static final int RULE_ID=103;
+    public static final int Jsr=67;
+    public static final int RULE_DIGIT=97;
+    public static final int OVER_1=24;
+    public static final int DigitTwoCommercialAt=77;
+    public static final int DUP_2=38;
+    public static final int PlusSign=90;
+    public static final int RULE_INT=101;
+    public static final int DUP_1=37;
+    public static final int RULE_ML_COMMENT=105;
+    public static final int COUNT=29;
+    public static final int PACK=46;
+    public static final int DigitOnePlusSign=72;
+    public static final int L=79;
+    public static final int UNPACK=20;
+    public static final int OFF=60;
+    public static final int Comma=91;
+    public static final int ABS=53;
+    public static final int R=78;
+    public static final int HyphenMinus=92;
+    public static final int DROP_1=23;
+    public static final int T=85;
+    public static final int Solidus=93;
+    public static final int RULE_DECINT=98;
+    public static final int ASHIFT=16;
+    public static final int NoBranch=9;
+    public static final int ST=84;
+    public static final int DNEGATE=14;
+    public static final int UNDER=35;
+    public static final int SBranch=13;
+    public static final int D0=66;
+    public static final int PLACE=32;
+    public static final int NcBranch=8;
+    public static final int CommercialAt=96;
+    public static final int Semicolon=95;
+    public static final int ERASE=30;
+    public static final int DigitOneHyphenMinus=73;
+    public static final int LD=81;
+    public static final int CELL=26;
+    public static final int U2=68;
+    public static final int R_2=87;
+    public static final int R_1=83;
+    public static final int ZExit=22;
+    public static final int TUCK=49;
+    public static final int DABS=39;
+    public static final int CARRYSET=7;
+    public static final int Branch_1=12;
+    public static final int Branch_2=6;
+    public static final int FILL=43;
+    public static final int EXTEND=17;
+    public static final int TRUE=48;
+    public static final int LST=58;
+    public static final int ROL=61;
+    public static final int SWAP=47;
+    public static final int ROR=62;
+    public static final int TST=65;
+    public static final int ROT=63;
+    public static final int DigitTwoSolidus=76;
     public static final int CARRY_RESET=4;
-    public static final int DigitTwoAsteriskAsterisk=42;
-    public static final int INC=46;
-    public static final int LLD=47;
-    public static final int RULE_STRING=93;
-    public static final int DROL=30;
-    public static final int TLD=54;
-    public static final int DROP=31;
-    public static final int RULE_SL_COMMENT=89;
-    public static final int CELL_1=17;
-    public static final int SHIFT=24;
-    public static final int DROR=32;
-    public static final int RULE_DOUBLE=91;
-    public static final int Create=12;
-    public static final int RCLEAR=10;
-    public static final int Colon=83;
-    public static final int DigitZeroEqualsSign=60;
+    public static final int DigitTwoAsteriskAsterisk=52;
+    public static final int INC=56;
+    public static final int LLD=57;
+    public static final int RULE_STRING=104;
+    public static final int DROL=40;
+    public static final int TLD=64;
+    public static final int DROP=41;
+    public static final int RULE_SL_COMMENT=100;
+    public static final int CELL_1=27;
+    public static final int SHIFT=34;
+    public static final int DROR=42;
+    public static final int RULE_DOUBLE=102;
+    public static final int Branch=11;
+    public static final int Create=21;
+    public static final int NzExit=15;
+    public static final int RCLEAR=19;
+    public static final int Colon=94;
+    public static final int DigitZeroEqualsSign=71;
     public static final int EOF=-1;
-    public static final int Asterisk=78;
-    public static final int DUP=45;
-    public static final int ON=71;
-    public static final int RDROP=23;
-    public static final int DEC=44;
-    public static final int RULE_WS=88;
-    public static final int RULE_ANY_OTHER=95;
-    public static final int OVER=35;
-    public static final int DigitTwoAsterisk=64;
-    public static final int DigitZeroLessThanSignGreaterThanSign=41;
-    public static final int ST_1=40;
-    public static final int NIP=49;
-    public static final int MOVE=34;
-    public static final int FALSE=21;
-    public static final int CLEAR=18;
-    public static final int L_1=69;
+    public static final int Asterisk=89;
+    public static final int DUP=55;
+    public static final int ON=82;
+    public static final int RDROP=33;
+    public static final int DEC=54;
+    public static final int RULE_WS=99;
+    public static final int RULE_ANY_OTHER=106;
+    public static final int OVER=45;
+    public static final int DigitTwoAsterisk=75;
+    public static final int DigitZeroLessThanSignGreaterThanSign=51;
+    public static final int ST_1=50;
+    public static final int NIP=59;
+    public static final int MOVE=44;
+    public static final int FALSE=31;
+    public static final int NsBranch=10;
+    public static final int CLEAR=28;
+    public static final int L_1=80;
 
     // delegates
     // delegators
@@ -229,13 +240,190 @@ public class InternalUForthLexer extends Lexer {
     }
     // $ANTLR end "CARRY_RESET"
 
+    // $ANTLR start "TorBranch"
+    public final void mTorBranch() throws RecognitionException {
+        try {
+            int _type = TorBranch;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:21:11: ( ( 'T' | 't' ) ( 'O' | 'o' ) ( 'R' | 'r' ) '-' ( 'B' | 'b' ) ( 'R' | 'r' ) ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'C' | 'c' ) ( 'H' | 'h' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:21:13: ( 'T' | 't' ) ( 'O' | 'o' ) ( 'R' | 'r' ) '-' ( 'B' | 'b' ) ( 'R' | 'r' ) ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'C' | 'c' ) ( 'H' | 'h' )
+            {
+            if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            match('-'); 
+            if ( input.LA(1)=='B'||input.LA(1)=='b' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='H'||input.LA(1)=='h' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "TorBranch"
+
+    // $ANTLR start "Branch_2"
+    public final void mBranch_2() throws RecognitionException {
+        try {
+            int _type = Branch_2;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:23:10: ( '0' '<' '>' ( 'B' | 'b' ) ( 'R' | 'r' ) ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'C' | 'c' ) ( 'H' | 'h' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:23:12: '0' '<' '>' ( 'B' | 'b' ) ( 'R' | 'r' ) ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'C' | 'c' ) ( 'H' | 'h' )
+            {
+            match('0'); 
+            match('<'); 
+            match('>'); 
+            if ( input.LA(1)=='B'||input.LA(1)=='b' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='H'||input.LA(1)=='h' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "Branch_2"
+
     // $ANTLR start "CARRYSET"
     public final void mCARRYSET() throws RecognitionException {
         try {
             int _type = CARRYSET;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:21:10: ( ( 'C' | 'c' ) ( 'A' | 'a' ) ( 'R' | 'r' ) ( 'R' | 'r' ) ( 'Y' | 'y' ) '-' ( 'S' | 's' ) ( 'E' | 'e' ) ( 'T' | 't' ) )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:21:12: ( 'C' | 'c' ) ( 'A' | 'a' ) ( 'R' | 'r' ) ( 'R' | 'r' ) ( 'Y' | 'y' ) '-' ( 'S' | 's' ) ( 'E' | 'e' ) ( 'T' | 't' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:25:10: ( ( 'C' | 'c' ) ( 'A' | 'a' ) ( 'R' | 'r' ) ( 'R' | 'r' ) ( 'Y' | 'y' ) '-' ( 'S' | 's' ) ( 'E' | 'e' ) ( 'T' | 't' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:25:12: ( 'C' | 'c' ) ( 'A' | 'a' ) ( 'R' | 'r' ) ( 'R' | 'r' ) ( 'Y' | 'y' ) '-' ( 'S' | 's' ) ( 'E' | 'e' ) ( 'T' | 't' )
             {
             if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
                 input.consume();
@@ -321,13 +509,522 @@ public class InternalUForthLexer extends Lexer {
     }
     // $ANTLR end "CARRYSET"
 
+    // $ANTLR start "NcBranch"
+    public final void mNcBranch() throws RecognitionException {
+        try {
+            int _type = NcBranch;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:27:10: ( ( 'N' | 'n' ) ( 'C' | 'c' ) '-' ( 'B' | 'b' ) ( 'R' | 'r' ) ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'C' | 'c' ) ( 'H' | 'h' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:27:12: ( 'N' | 'n' ) ( 'C' | 'c' ) '-' ( 'B' | 'b' ) ( 'R' | 'r' ) ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'C' | 'c' ) ( 'H' | 'h' )
+            {
+            if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            match('-'); 
+            if ( input.LA(1)=='B'||input.LA(1)=='b' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='H'||input.LA(1)=='h' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "NcBranch"
+
+    // $ANTLR start "NoBranch"
+    public final void mNoBranch() throws RecognitionException {
+        try {
+            int _type = NoBranch;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:29:10: ( ( 'N' | 'n' ) ( 'O' | 'o' ) '-' ( 'B' | 'b' ) ( 'R' | 'r' ) ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'C' | 'c' ) ( 'H' | 'h' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:29:12: ( 'N' | 'n' ) ( 'O' | 'o' ) '-' ( 'B' | 'b' ) ( 'R' | 'r' ) ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'C' | 'c' ) ( 'H' | 'h' )
+            {
+            if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            match('-'); 
+            if ( input.LA(1)=='B'||input.LA(1)=='b' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='H'||input.LA(1)=='h' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "NoBranch"
+
+    // $ANTLR start "NsBranch"
+    public final void mNsBranch() throws RecognitionException {
+        try {
+            int _type = NsBranch;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:31:10: ( ( 'N' | 'n' ) ( 'S' | 's' ) '-' ( 'B' | 'b' ) ( 'R' | 'r' ) ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'C' | 'c' ) ( 'H' | 'h' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:31:12: ( 'N' | 'n' ) ( 'S' | 's' ) '-' ( 'B' | 'b' ) ( 'R' | 'r' ) ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'C' | 'c' ) ( 'H' | 'h' )
+            {
+            if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            match('-'); 
+            if ( input.LA(1)=='B'||input.LA(1)=='b' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='H'||input.LA(1)=='h' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "NsBranch"
+
+    // $ANTLR start "Branch"
+    public final void mBranch() throws RecognitionException {
+        try {
+            int _type = Branch;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:33:8: ( '0' '=' ( 'B' | 'b' ) ( 'R' | 'r' ) ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'C' | 'c' ) ( 'H' | 'h' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:33:10: '0' '=' ( 'B' | 'b' ) ( 'R' | 'r' ) ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'C' | 'c' ) ( 'H' | 'h' )
+            {
+            match('0'); 
+            match('='); 
+            if ( input.LA(1)=='B'||input.LA(1)=='b' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='H'||input.LA(1)=='h' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "Branch"
+
+    // $ANTLR start "Branch_1"
+    public final void mBranch_1() throws RecognitionException {
+        try {
+            int _type = Branch_1;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:35:10: ( '?' '-' ( 'B' | 'b' ) ( 'R' | 'r' ) ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'C' | 'c' ) ( 'H' | 'h' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:35:12: '?' '-' ( 'B' | 'b' ) ( 'R' | 'r' ) ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'C' | 'c' ) ( 'H' | 'h' )
+            {
+            match('?'); 
+            match('-'); 
+            if ( input.LA(1)=='B'||input.LA(1)=='b' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='H'||input.LA(1)=='h' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "Branch_1"
+
+    // $ANTLR start "SBranch"
+    public final void mSBranch() throws RecognitionException {
+        try {
+            int _type = SBranch;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:37:9: ( ( 'S' | 's' ) '-' ( 'B' | 'b' ) ( 'R' | 'r' ) ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'C' | 'c' ) ( 'H' | 'h' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:37:11: ( 'S' | 's' ) '-' ( 'B' | 'b' ) ( 'R' | 'r' ) ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'C' | 'c' ) ( 'H' | 'h' )
+            {
+            if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            match('-'); 
+            if ( input.LA(1)=='B'||input.LA(1)=='b' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='H'||input.LA(1)=='h' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "SBranch"
+
     // $ANTLR start "DNEGATE"
     public final void mDNEGATE() throws RecognitionException {
         try {
             int _type = DNEGATE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:23:9: ( ( 'D' | 'd' ) ( 'N' | 'n' ) ( 'E' | 'e' ) ( 'G' | 'g' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'E' | 'e' ) )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:23:11: ( 'D' | 'd' ) ( 'N' | 'n' ) ( 'E' | 'e' ) ( 'G' | 'g' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'E' | 'e' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:39:9: ( ( 'D' | 'd' ) ( 'N' | 'n' ) ( 'E' | 'e' ) ( 'G' | 'g' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'E' | 'e' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:39:11: ( 'D' | 'd' ) ( 'N' | 'n' ) ( 'E' | 'e' ) ( 'G' | 'g' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'E' | 'e' )
             {
             if ( input.LA(1)=='D'||input.LA(1)=='d' ) {
                 input.consume();
@@ -403,13 +1100,87 @@ public class InternalUForthLexer extends Lexer {
     }
     // $ANTLR end "DNEGATE"
 
+    // $ANTLR start "NzExit"
+    public final void mNzExit() throws RecognitionException {
+        try {
+            int _type = NzExit;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:41:8: ( ( 'N' | 'n' ) ( 'Z' | 'z' ) '-' ( 'E' | 'e' ) ( 'X' | 'x' ) ( 'I' | 'i' ) ( 'T' | 't' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:41:10: ( 'N' | 'n' ) ( 'Z' | 'z' ) '-' ( 'E' | 'e' ) ( 'X' | 'x' ) ( 'I' | 'i' ) ( 'T' | 't' )
+            {
+            if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='Z'||input.LA(1)=='z' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            match('-'); 
+            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='X'||input.LA(1)=='x' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "NzExit"
+
     // $ANTLR start "ASHIFT"
     public final void mASHIFT() throws RecognitionException {
         try {
             int _type = ASHIFT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:25:8: ( ( 'A' | 'a' ) ( 'S' | 's' ) ( 'H' | 'h' ) ( 'I' | 'i' ) ( 'F' | 'f' ) ( 'T' | 't' ) )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:25:10: ( 'A' | 'a' ) ( 'S' | 's' ) ( 'H' | 'h' ) ( 'I' | 'i' ) ( 'F' | 'f' ) ( 'T' | 't' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:43:8: ( ( 'A' | 'a' ) ( 'S' | 's' ) ( 'H' | 'h' ) ( 'I' | 'i' ) ( 'F' | 'f' ) ( 'T' | 't' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:43:10: ( 'A' | 'a' ) ( 'S' | 's' ) ( 'H' | 'h' ) ( 'I' | 'i' ) ( 'F' | 'f' ) ( 'T' | 't' )
             {
             if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
                 input.consume();
@@ -481,8 +1252,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = EXTEND;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:27:8: ( ( 'E' | 'e' ) ( 'X' | 'x' ) ( 'T' | 't' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'D' | 'd' ) )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:27:10: ( 'E' | 'e' ) ( 'X' | 'x' ) ( 'T' | 't' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'D' | 'd' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:45:8: ( ( 'E' | 'e' ) ( 'X' | 'x' ) ( 'T' | 't' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'D' | 'd' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:45:10: ( 'E' | 'e' ) ( 'X' | 'x' ) ( 'T' | 't' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'D' | 'd' )
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -554,8 +1325,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = NEGATE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:29:8: ( ( 'N' | 'n' ) ( 'E' | 'e' ) ( 'G' | 'g' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'E' | 'e' ) )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:29:10: ( 'N' | 'n' ) ( 'E' | 'e' ) ( 'G' | 'g' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'E' | 'e' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:47:8: ( ( 'N' | 'n' ) ( 'E' | 'e' ) ( 'G' | 'g' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'E' | 'e' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:47:10: ( 'N' | 'n' ) ( 'E' | 'e' ) ( 'G' | 'g' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'E' | 'e' )
             {
             if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
                 input.consume();
@@ -627,8 +1398,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = RCLEAR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:31:8: ( ( 'R' | 'r' ) ( 'C' | 'c' ) ( 'L' | 'l' ) ( 'E' | 'e' ) ( 'A' | 'a' ) ( 'R' | 'r' ) )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:31:10: ( 'R' | 'r' ) ( 'C' | 'c' ) ( 'L' | 'l' ) ( 'E' | 'e' ) ( 'A' | 'a' ) ( 'R' | 'r' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:49:8: ( ( 'R' | 'r' ) ( 'C' | 'c' ) ( 'L' | 'l' ) ( 'E' | 'e' ) ( 'A' | 'a' ) ( 'R' | 'r' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:49:10: ( 'R' | 'r' ) ( 'C' | 'c' ) ( 'L' | 'l' ) ( 'E' | 'e' ) ( 'A' | 'a' ) ( 'R' | 'r' )
             {
             if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
                 input.consume();
@@ -700,8 +1471,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = UNPACK;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:33:8: ( ( 'U' | 'u' ) ( 'N' | 'n' ) ( 'P' | 'p' ) ( 'A' | 'a' ) ( 'C' | 'c' ) ( 'K' | 'k' ) )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:33:10: ( 'U' | 'u' ) ( 'N' | 'n' ) ( 'P' | 'p' ) ( 'A' | 'a' ) ( 'C' | 'c' ) ( 'K' | 'k' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:51:8: ( ( 'U' | 'u' ) ( 'N' | 'n' ) ( 'P' | 'p' ) ( 'A' | 'a' ) ( 'C' | 'c' ) ( 'K' | 'k' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:51:10: ( 'U' | 'u' ) ( 'N' | 'n' ) ( 'P' | 'p' ) ( 'A' | 'a' ) ( 'C' | 'c' ) ( 'K' | 'k' )
             {
             if ( input.LA(1)=='U'||input.LA(1)=='u' ) {
                 input.consume();
@@ -773,8 +1544,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = Create;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:35:8: ( ( 'C' | 'c' ) ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'E' | 'e' ) )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:35:10: ( 'C' | 'c' ) ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'E' | 'e' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:53:8: ( ( 'C' | 'c' ) ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'E' | 'e' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:53:10: ( 'C' | 'c' ) ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'E' | 'e' )
             {
             if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
                 input.consume();
@@ -841,13 +1612,78 @@ public class InternalUForthLexer extends Lexer {
     }
     // $ANTLR end "Create"
 
+    // $ANTLR start "ZExit"
+    public final void mZExit() throws RecognitionException {
+        try {
+            int _type = ZExit;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:55:7: ( ( 'Z' | 'z' ) '-' ( 'E' | 'e' ) ( 'X' | 'x' ) ( 'I' | 'i' ) ( 'T' | 't' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:55:9: ( 'Z' | 'z' ) '-' ( 'E' | 'e' ) ( 'X' | 'x' ) ( 'I' | 'i' ) ( 'T' | 't' )
+            {
+            if ( input.LA(1)=='Z'||input.LA(1)=='z' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            match('-'); 
+            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='X'||input.LA(1)=='x' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "ZExit"
+
     // $ANTLR start "DROP_1"
     public final void mDROP_1() throws RecognitionException {
         try {
             int _type = DROP_1;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:37:8: ( '2' ( 'D' | 'd' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'P' | 'p' ) )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:37:10: '2' ( 'D' | 'd' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'P' | 'p' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:57:8: ( '2' ( 'D' | 'd' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'P' | 'p' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:57:10: '2' ( 'D' | 'd' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'P' | 'p' )
             {
             match('2'); 
             if ( input.LA(1)=='D'||input.LA(1)=='d' ) {
@@ -902,8 +1738,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = OVER_1;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:39:8: ( '2' ( 'O' | 'o' ) ( 'V' | 'v' ) ( 'E' | 'e' ) ( 'R' | 'r' ) )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:39:10: '2' ( 'O' | 'o' ) ( 'V' | 'v' ) ( 'E' | 'e' ) ( 'R' | 'r' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:59:8: ( '2' ( 'O' | 'o' ) ( 'V' | 'v' ) ( 'E' | 'e' ) ( 'R' | 'r' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:59:10: '2' ( 'O' | 'o' ) ( 'V' | 'v' ) ( 'E' | 'e' ) ( 'R' | 'r' )
             {
             match('2'); 
             if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
@@ -958,8 +1794,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = SWAP_1;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:41:8: ( '2' ( 'S' | 's' ) ( 'W' | 'w' ) ( 'A' | 'a' ) ( 'P' | 'p' ) )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:41:10: '2' ( 'S' | 's' ) ( 'W' | 'w' ) ( 'A' | 'a' ) ( 'P' | 'p' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:61:8: ( '2' ( 'S' | 's' ) ( 'W' | 'w' ) ( 'A' | 'a' ) ( 'P' | 'p' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:61:10: '2' ( 'S' | 's' ) ( 'W' | 'w' ) ( 'A' | 'a' ) ( 'P' | 'p' )
             {
             match('2'); 
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
@@ -1014,8 +1850,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = CELL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:43:6: ( ( 'C' | 'c' ) ( 'E' | 'e' ) ( 'L' | 'l' ) ( 'L' | 'l' ) '+' )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:43:8: ( 'C' | 'c' ) ( 'E' | 'e' ) ( 'L' | 'l' ) ( 'L' | 'l' ) '+'
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:63:6: ( ( 'C' | 'c' ) ( 'E' | 'e' ) ( 'L' | 'l' ) ( 'L' | 'l' ) '+' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:63:8: ( 'C' | 'c' ) ( 'E' | 'e' ) ( 'L' | 'l' ) ( 'L' | 'l' ) '+'
             {
             if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
                 input.consume();
@@ -1070,8 +1906,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = CELL_1;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:45:8: ( ( 'C' | 'c' ) ( 'E' | 'e' ) ( 'L' | 'l' ) ( 'L' | 'l' ) '-' )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:45:10: ( 'C' | 'c' ) ( 'E' | 'e' ) ( 'L' | 'l' ) ( 'L' | 'l' ) '-'
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:65:8: ( ( 'C' | 'c' ) ( 'E' | 'e' ) ( 'L' | 'l' ) ( 'L' | 'l' ) '-' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:65:10: ( 'C' | 'c' ) ( 'E' | 'e' ) ( 'L' | 'l' ) ( 'L' | 'l' ) '-'
             {
             if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
                 input.consume();
@@ -1126,8 +1962,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = CLEAR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:47:7: ( ( 'C' | 'c' ) ( 'L' | 'l' ) ( 'E' | 'e' ) ( 'A' | 'a' ) ( 'R' | 'r' ) )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:47:9: ( 'C' | 'c' ) ( 'L' | 'l' ) ( 'E' | 'e' ) ( 'A' | 'a' ) ( 'R' | 'r' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:67:7: ( ( 'C' | 'c' ) ( 'L' | 'l' ) ( 'E' | 'e' ) ( 'A' | 'a' ) ( 'R' | 'r' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:67:9: ( 'C' | 'c' ) ( 'L' | 'l' ) ( 'E' | 'e' ) ( 'A' | 'a' ) ( 'R' | 'r' )
             {
             if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
                 input.consume();
@@ -1190,8 +2026,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = COUNT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:49:7: ( ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'U' | 'u' ) ( 'N' | 'n' ) ( 'T' | 't' ) )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:49:9: ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'U' | 'u' ) ( 'N' | 'n' ) ( 'T' | 't' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:69:7: ( ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'U' | 'u' ) ( 'N' | 'n' ) ( 'T' | 't' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:69:9: ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'U' | 'u' ) ( 'N' | 'n' ) ( 'T' | 't' )
             {
             if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
                 input.consume();
@@ -1254,8 +2090,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = ERASE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:51:7: ( ( 'E' | 'e' ) ( 'R' | 'r' ) ( 'A' | 'a' ) ( 'S' | 's' ) ( 'E' | 'e' ) )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:51:9: ( 'E' | 'e' ) ( 'R' | 'r' ) ( 'A' | 'a' ) ( 'S' | 's' ) ( 'E' | 'e' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:71:7: ( ( 'E' | 'e' ) ( 'R' | 'r' ) ( 'A' | 'a' ) ( 'S' | 's' ) ( 'E' | 'e' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:71:9: ( 'E' | 'e' ) ( 'R' | 'r' ) ( 'A' | 'a' ) ( 'S' | 's' ) ( 'E' | 'e' )
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -1318,8 +2154,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = FALSE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:53:7: ( ( 'F' | 'f' ) ( 'A' | 'a' ) ( 'L' | 'l' ) ( 'S' | 's' ) ( 'E' | 'e' ) )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:53:9: ( 'F' | 'f' ) ( 'A' | 'a' ) ( 'L' | 'l' ) ( 'S' | 's' ) ( 'E' | 'e' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:73:7: ( ( 'F' | 'f' ) ( 'A' | 'a' ) ( 'L' | 'l' ) ( 'S' | 's' ) ( 'E' | 'e' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:73:9: ( 'F' | 'f' ) ( 'A' | 'a' ) ( 'L' | 'l' ) ( 'S' | 's' ) ( 'E' | 'e' )
             {
             if ( input.LA(1)=='F'||input.LA(1)=='f' ) {
                 input.consume();
@@ -1382,8 +2218,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = PLACE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:55:7: ( ( 'P' | 'p' ) ( 'L' | 'l' ) ( 'A' | 'a' ) ( 'C' | 'c' ) ( 'E' | 'e' ) )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:55:9: ( 'P' | 'p' ) ( 'L' | 'l' ) ( 'A' | 'a' ) ( 'C' | 'c' ) ( 'E' | 'e' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:75:7: ( ( 'P' | 'p' ) ( 'L' | 'l' ) ( 'A' | 'a' ) ( 'C' | 'c' ) ( 'E' | 'e' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:75:9: ( 'P' | 'p' ) ( 'L' | 'l' ) ( 'A' | 'a' ) ( 'C' | 'c' ) ( 'E' | 'e' )
             {
             if ( input.LA(1)=='P'||input.LA(1)=='p' ) {
                 input.consume();
@@ -1446,8 +2282,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = RDROP;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:57:7: ( ( 'R' | 'r' ) ( 'D' | 'd' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'P' | 'p' ) )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:57:9: ( 'R' | 'r' ) ( 'D' | 'd' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'P' | 'p' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:77:7: ( ( 'R' | 'r' ) ( 'D' | 'd' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'P' | 'p' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:77:9: ( 'R' | 'r' ) ( 'D' | 'd' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'P' | 'p' )
             {
             if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
                 input.consume();
@@ -1510,8 +2346,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = SHIFT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:59:7: ( ( 'S' | 's' ) ( 'H' | 'h' ) ( 'I' | 'i' ) ( 'F' | 'f' ) ( 'T' | 't' ) )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:59:9: ( 'S' | 's' ) ( 'H' | 'h' ) ( 'I' | 'i' ) ( 'F' | 'f' ) ( 'T' | 't' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:79:7: ( ( 'S' | 's' ) ( 'H' | 'h' ) ( 'I' | 'i' ) ( 'F' | 'f' ) ( 'T' | 't' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:79:9: ( 'S' | 's' ) ( 'H' | 'h' ) ( 'I' | 'i' ) ( 'F' | 'f' ) ( 'T' | 't' )
             {
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
                 input.consume();
@@ -1574,8 +2410,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = UNDER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:61:7: ( ( 'U' | 'u' ) ( 'N' | 'n' ) ( 'D' | 'd' ) ( 'E' | 'e' ) ( 'R' | 'r' ) )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:61:9: ( 'U' | 'u' ) ( 'N' | 'n' ) ( 'D' | 'd' ) ( 'E' | 'e' ) ( 'R' | 'r' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:81:7: ( ( 'U' | 'u' ) ( 'N' | 'n' ) ( 'D' | 'd' ) ( 'E' | 'e' ) ( 'R' | 'r' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:81:9: ( 'U' | 'u' ) ( 'N' | 'n' ) ( 'D' | 'd' ) ( 'E' | 'e' ) ( 'R' | 'r' )
             {
             if ( input.LA(1)=='U'||input.LA(1)=='u' ) {
                 input.consume();
@@ -1638,8 +2474,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = ROT_1;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:63:7: ( '-' ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'T' | 't' ) )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:63:9: '-' ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'T' | 't' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:83:7: ( '-' ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'T' | 't' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:83:9: '-' ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'T' | 't' )
             {
             match('-'); 
             if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
@@ -1685,8 +2521,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = DUP_1;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:65:7: ( '2' ( 'D' | 'd' ) ( 'U' | 'u' ) ( 'P' | 'p' ) )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:65:9: '2' ( 'D' | 'd' ) ( 'U' | 'u' ) ( 'P' | 'p' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:85:7: ( '2' ( 'D' | 'd' ) ( 'U' | 'u' ) ( 'P' | 'p' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:85:9: '2' ( 'D' | 'd' ) ( 'U' | 'u' ) ( 'P' | 'p' )
             {
             match('2'); 
             if ( input.LA(1)=='D'||input.LA(1)=='d' ) {
@@ -1732,8 +2568,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = DUP_2;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:67:7: ( '?' ( 'D' | 'd' ) ( 'U' | 'u' ) ( 'P' | 'p' ) )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:67:9: '?' ( 'D' | 'd' ) ( 'U' | 'u' ) ( 'P' | 'p' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:87:7: ( '?' ( 'D' | 'd' ) ( 'U' | 'u' ) ( 'P' | 'p' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:87:9: '?' ( 'D' | 'd' ) ( 'U' | 'u' ) ( 'P' | 'p' )
             {
             match('?'); 
             if ( input.LA(1)=='D'||input.LA(1)=='d' ) {
@@ -1779,8 +2615,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = DABS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:69:6: ( ( 'D' | 'd' ) ( 'A' | 'a' ) ( 'B' | 'b' ) ( 'S' | 's' ) )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:69:8: ( 'D' | 'd' ) ( 'A' | 'a' ) ( 'B' | 'b' ) ( 'S' | 's' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:89:6: ( ( 'D' | 'd' ) ( 'A' | 'a' ) ( 'B' | 'b' ) ( 'S' | 's' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:89:8: ( 'D' | 'd' ) ( 'A' | 'a' ) ( 'B' | 'b' ) ( 'S' | 's' )
             {
             if ( input.LA(1)=='D'||input.LA(1)=='d' ) {
                 input.consume();
@@ -1834,8 +2670,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = DROL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:71:6: ( ( 'D' | 'd' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'L' | 'l' ) )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:71:8: ( 'D' | 'd' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'L' | 'l' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:91:6: ( ( 'D' | 'd' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'L' | 'l' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:91:8: ( 'D' | 'd' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'L' | 'l' )
             {
             if ( input.LA(1)=='D'||input.LA(1)=='d' ) {
                 input.consume();
@@ -1889,8 +2725,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = DROP;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:73:6: ( ( 'D' | 'd' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'P' | 'p' ) )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:73:8: ( 'D' | 'd' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'P' | 'p' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:93:6: ( ( 'D' | 'd' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'P' | 'p' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:93:8: ( 'D' | 'd' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'P' | 'p' )
             {
             if ( input.LA(1)=='D'||input.LA(1)=='d' ) {
                 input.consume();
@@ -1944,8 +2780,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = DROR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:75:6: ( ( 'D' | 'd' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'R' | 'r' ) )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:75:8: ( 'D' | 'd' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'R' | 'r' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:95:6: ( ( 'D' | 'd' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'R' | 'r' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:95:8: ( 'D' | 'd' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'R' | 'r' )
             {
             if ( input.LA(1)=='D'||input.LA(1)=='d' ) {
                 input.consume();
@@ -1999,8 +2835,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = FILL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:77:6: ( ( 'F' | 'f' ) ( 'I' | 'i' ) ( 'L' | 'l' ) ( 'L' | 'l' ) )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:77:8: ( 'F' | 'f' ) ( 'I' | 'i' ) ( 'L' | 'l' ) ( 'L' | 'l' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:97:6: ( ( 'F' | 'f' ) ( 'I' | 'i' ) ( 'L' | 'l' ) ( 'L' | 'l' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:97:8: ( 'F' | 'f' ) ( 'I' | 'i' ) ( 'L' | 'l' ) ( 'L' | 'l' )
             {
             if ( input.LA(1)=='F'||input.LA(1)=='f' ) {
                 input.consume();
@@ -2054,8 +2890,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = MOVE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:79:6: ( ( 'M' | 'm' ) ( 'O' | 'o' ) ( 'V' | 'v' ) ( 'E' | 'e' ) )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:79:8: ( 'M' | 'm' ) ( 'O' | 'o' ) ( 'V' | 'v' ) ( 'E' | 'e' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:99:6: ( ( 'M' | 'm' ) ( 'O' | 'o' ) ( 'V' | 'v' ) ( 'E' | 'e' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:99:8: ( 'M' | 'm' ) ( 'O' | 'o' ) ( 'V' | 'v' ) ( 'E' | 'e' )
             {
             if ( input.LA(1)=='M'||input.LA(1)=='m' ) {
                 input.consume();
@@ -2109,8 +2945,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = OVER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:81:6: ( ( 'O' | 'o' ) ( 'V' | 'v' ) ( 'E' | 'e' ) ( 'R' | 'r' ) )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:81:8: ( 'O' | 'o' ) ( 'V' | 'v' ) ( 'E' | 'e' ) ( 'R' | 'r' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:101:6: ( ( 'O' | 'o' ) ( 'V' | 'v' ) ( 'E' | 'e' ) ( 'R' | 'r' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:101:8: ( 'O' | 'o' ) ( 'V' | 'v' ) ( 'E' | 'e' ) ( 'R' | 'r' )
             {
             if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
                 input.consume();
@@ -2164,8 +3000,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = PACK;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:83:6: ( ( 'P' | 'p' ) ( 'A' | 'a' ) ( 'C' | 'c' ) ( 'K' | 'k' ) )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:83:8: ( 'P' | 'p' ) ( 'A' | 'a' ) ( 'C' | 'c' ) ( 'K' | 'k' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:103:6: ( ( 'P' | 'p' ) ( 'A' | 'a' ) ( 'C' | 'c' ) ( 'K' | 'k' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:103:8: ( 'P' | 'p' ) ( 'A' | 'a' ) ( 'C' | 'c' ) ( 'K' | 'k' )
             {
             if ( input.LA(1)=='P'||input.LA(1)=='p' ) {
                 input.consume();
@@ -2219,8 +3055,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = SWAP;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:85:6: ( ( 'S' | 's' ) ( 'W' | 'w' ) ( 'A' | 'a' ) ( 'P' | 'p' ) )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:85:8: ( 'S' | 's' ) ( 'W' | 'w' ) ( 'A' | 'a' ) ( 'P' | 'p' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:105:6: ( ( 'S' | 's' ) ( 'W' | 'w' ) ( 'A' | 'a' ) ( 'P' | 'p' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:105:8: ( 'S' | 's' ) ( 'W' | 'w' ) ( 'A' | 'a' ) ( 'P' | 'p' )
             {
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
                 input.consume();
@@ -2274,8 +3110,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = TRUE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:87:6: ( ( 'T' | 't' ) ( 'R' | 'r' ) ( 'U' | 'u' ) ( 'E' | 'e' ) )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:87:8: ( 'T' | 't' ) ( 'R' | 'r' ) ( 'U' | 'u' ) ( 'E' | 'e' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:107:6: ( ( 'T' | 't' ) ( 'R' | 'r' ) ( 'U' | 'u' ) ( 'E' | 'e' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:107:8: ( 'T' | 't' ) ( 'R' | 'r' ) ( 'U' | 'u' ) ( 'E' | 'e' )
             {
             if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
                 input.consume();
@@ -2329,8 +3165,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = TUCK;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:89:6: ( ( 'T' | 't' ) ( 'U' | 'u' ) ( 'C' | 'c' ) ( 'K' | 'k' ) )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:89:8: ( 'T' | 't' ) ( 'U' | 'u' ) ( 'C' | 'c' ) ( 'K' | 'k' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:109:6: ( ( 'T' | 't' ) ( 'U' | 'u' ) ( 'C' | 'c' ) ( 'K' | 'k' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:109:8: ( 'T' | 't' ) ( 'U' | 'u' ) ( 'C' | 'c' ) ( 'K' | 'k' )
             {
             if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
                 input.consume();
@@ -2384,8 +3220,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = ST_1;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:91:6: ( '+' ( 'S' | 's' ) ( 'T' | 't' ) )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:91:8: '+' ( 'S' | 's' ) ( 'T' | 't' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:111:6: ( '+' ( 'S' | 's' ) ( 'T' | 't' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:111:8: '+' ( 'S' | 's' ) ( 'T' | 't' )
             {
             match('+'); 
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
@@ -2422,8 +3258,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = DigitZeroLessThanSignGreaterThanSign;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:93:38: ( '0' '<' '>' )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:93:40: '0' '<' '>'
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:113:38: ( '0' '<' '>' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:113:40: '0' '<' '>'
             {
             match('0'); 
             match('<'); 
@@ -2444,8 +3280,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = DigitTwoAsteriskAsterisk;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:95:26: ( '2' '*' '*' )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:95:28: '2' '*' '*'
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:115:26: ( '2' '*' '*' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:115:28: '2' '*' '*'
             {
             match('2'); 
             match('*'); 
@@ -2466,8 +3302,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = ABS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:97:5: ( ( 'A' | 'a' ) ( 'B' | 'b' ) ( 'S' | 's' ) )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:97:7: ( 'A' | 'a' ) ( 'B' | 'b' ) ( 'S' | 's' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:117:5: ( ( 'A' | 'a' ) ( 'B' | 'b' ) ( 'S' | 's' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:117:7: ( 'A' | 'a' ) ( 'B' | 'b' ) ( 'S' | 's' )
             {
             if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
                 input.consume();
@@ -2512,8 +3348,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = DEC;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:99:5: ( ( 'D' | 'd' ) ( 'E' | 'e' ) ( 'C' | 'c' ) )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:99:7: ( 'D' | 'd' ) ( 'E' | 'e' ) ( 'C' | 'c' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:119:5: ( ( 'D' | 'd' ) ( 'E' | 'e' ) ( 'C' | 'c' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:119:7: ( 'D' | 'd' ) ( 'E' | 'e' ) ( 'C' | 'c' )
             {
             if ( input.LA(1)=='D'||input.LA(1)=='d' ) {
                 input.consume();
@@ -2558,8 +3394,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = DUP;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:101:5: ( ( 'D' | 'd' ) ( 'U' | 'u' ) ( 'P' | 'p' ) )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:101:7: ( 'D' | 'd' ) ( 'U' | 'u' ) ( 'P' | 'p' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:121:5: ( ( 'D' | 'd' ) ( 'U' | 'u' ) ( 'P' | 'p' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:121:7: ( 'D' | 'd' ) ( 'U' | 'u' ) ( 'P' | 'p' )
             {
             if ( input.LA(1)=='D'||input.LA(1)=='d' ) {
                 input.consume();
@@ -2604,8 +3440,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = INC;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:103:5: ( ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'C' | 'c' ) )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:103:7: ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'C' | 'c' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:123:5: ( ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'C' | 'c' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:123:7: ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'C' | 'c' )
             {
             if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
                 input.consume();
@@ -2650,8 +3486,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = LLD;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:105:5: ( ( 'L' | 'l' ) ( 'L' | 'l' ) ( 'D' | 'd' ) )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:105:7: ( 'L' | 'l' ) ( 'L' | 'l' ) ( 'D' | 'd' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:125:5: ( ( 'L' | 'l' ) ( 'L' | 'l' ) ( 'D' | 'd' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:125:7: ( 'L' | 'l' ) ( 'L' | 'l' ) ( 'D' | 'd' )
             {
             if ( input.LA(1)=='L'||input.LA(1)=='l' ) {
                 input.consume();
@@ -2696,8 +3532,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = LST;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:107:5: ( ( 'L' | 'l' ) ( 'S' | 's' ) ( 'T' | 't' ) )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:107:7: ( 'L' | 'l' ) ( 'S' | 's' ) ( 'T' | 't' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:127:5: ( ( 'L' | 'l' ) ( 'S' | 's' ) ( 'T' | 't' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:127:7: ( 'L' | 'l' ) ( 'S' | 's' ) ( 'T' | 't' )
             {
             if ( input.LA(1)=='L'||input.LA(1)=='l' ) {
                 input.consume();
@@ -2742,8 +3578,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = NIP;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:109:5: ( ( 'N' | 'n' ) ( 'I' | 'i' ) ( 'P' | 'p' ) )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:109:7: ( 'N' | 'n' ) ( 'I' | 'i' ) ( 'P' | 'p' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:129:5: ( ( 'N' | 'n' ) ( 'I' | 'i' ) ( 'P' | 'p' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:129:7: ( 'N' | 'n' ) ( 'I' | 'i' ) ( 'P' | 'p' )
             {
             if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
                 input.consume();
@@ -2788,8 +3624,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = OFF;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:111:5: ( ( 'O' | 'o' ) ( 'F' | 'f' ) ( 'F' | 'f' ) )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:111:7: ( 'O' | 'o' ) ( 'F' | 'f' ) ( 'F' | 'f' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:131:5: ( ( 'O' | 'o' ) ( 'F' | 'f' ) ( 'F' | 'f' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:131:7: ( 'O' | 'o' ) ( 'F' | 'f' ) ( 'F' | 'f' )
             {
             if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
                 input.consume();
@@ -2834,8 +3670,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = ROL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:113:5: ( ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'L' | 'l' ) )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:113:7: ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'L' | 'l' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:133:5: ( ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'L' | 'l' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:133:7: ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'L' | 'l' )
             {
             if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
                 input.consume();
@@ -2880,8 +3716,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = ROR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:115:5: ( ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'R' | 'r' ) )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:115:7: ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'R' | 'r' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:135:5: ( ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'R' | 'r' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:135:7: ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'R' | 'r' )
             {
             if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
                 input.consume();
@@ -2926,8 +3762,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = ROT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:117:5: ( ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'T' | 't' ) )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:117:7: ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'T' | 't' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:137:5: ( ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'T' | 't' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:137:7: ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'T' | 't' )
             {
             if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
                 input.consume();
@@ -2972,8 +3808,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = TLD;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:119:5: ( ( 'T' | 't' ) ( 'L' | 'l' ) ( 'D' | 'd' ) )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:119:7: ( 'T' | 't' ) ( 'L' | 'l' ) ( 'D' | 'd' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:139:5: ( ( 'T' | 't' ) ( 'L' | 'l' ) ( 'D' | 'd' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:139:7: ( 'T' | 't' ) ( 'L' | 'l' ) ( 'D' | 'd' )
             {
             if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
                 input.consume();
@@ -3018,8 +3854,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = TST;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:121:5: ( ( 'T' | 't' ) ( 'S' | 's' ) ( 'T' | 't' ) )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:121:7: ( 'T' | 't' ) ( 'S' | 's' ) ( 'T' | 't' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:141:5: ( ( 'T' | 't' ) ( 'S' | 's' ) ( 'T' | 't' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:141:7: ( 'T' | 't' ) ( 'S' | 's' ) ( 'T' | 't' )
             {
             if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
                 input.consume();
@@ -3064,8 +3900,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = D0;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:123:4: ( ( 'D' | 'd' ) '0' '=' )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:123:6: ( 'D' | 'd' ) '0' '='
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:143:4: ( ( 'D' | 'd' ) '0' '=' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:143:6: ( 'D' | 'd' ) '0' '='
             {
             if ( input.LA(1)=='D'||input.LA(1)=='d' ) {
                 input.consume();
@@ -3089,13 +3925,59 @@ public class InternalUForthLexer extends Lexer {
     }
     // $ANTLR end "D0"
 
+    // $ANTLR start "Jsr"
+    public final void mJsr() throws RecognitionException {
+        try {
+            int _type = Jsr;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:145:5: ( ( 'J' | 'j' ) ( 'S' | 's' ) ( 'R' | 'r' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:145:7: ( 'J' | 'j' ) ( 'S' | 's' ) ( 'R' | 'r' )
+            {
+            if ( input.LA(1)=='J'||input.LA(1)=='j' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "Jsr"
+
     // $ANTLR start "U2"
     public final void mU2() throws RecognitionException {
         try {
             int _type = U2;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:125:4: ( ( 'U' | 'u' ) '2' '/' )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:125:6: ( 'U' | 'u' ) '2' '/'
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:147:4: ( ( 'U' | 'u' ) '2' '/' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:147:6: ( 'U' | 'u' ) '2' '/'
             {
             if ( input.LA(1)=='U'||input.LA(1)=='u' ) {
                 input.consume();
@@ -3124,8 +4006,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = PlusSignExclamationMark;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:127:25: ( '+' '!' )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:127:27: '+' '!'
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:149:25: ( '+' '!' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:149:27: '+' '!'
             {
             match('+'); 
             match('!'); 
@@ -3145,8 +4027,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = DigitZeroLessThanSign;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:129:23: ( '0' '<' )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:129:25: '0' '<'
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:151:23: ( '0' '<' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:151:25: '0' '<'
             {
             match('0'); 
             match('<'); 
@@ -3166,8 +4048,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = DigitZeroEqualsSign;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:131:21: ( '0' '=' )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:131:23: '0' '='
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:153:21: ( '0' '=' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:153:23: '0' '='
             {
             match('0'); 
             match('='); 
@@ -3187,8 +4069,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = DigitOnePlusSign;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:133:18: ( '1' '+' )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:133:20: '1' '+'
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:155:18: ( '1' '+' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:155:20: '1' '+'
             {
             match('1'); 
             match('+'); 
@@ -3208,8 +4090,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = DigitOneHyphenMinus;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:135:21: ( '1' '-' )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:135:23: '1' '-'
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:157:21: ( '1' '-' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:157:23: '1' '-'
             {
             match('1'); 
             match('-'); 
@@ -3229,8 +4111,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = DigitTwoExclamationMark;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:137:25: ( '2' '!' )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:137:27: '2' '!'
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:159:25: ( '2' '!' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:159:27: '2' '!'
             {
             match('2'); 
             match('!'); 
@@ -3250,8 +4132,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = DigitTwoAsterisk;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:139:18: ( '2' '*' )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:139:20: '2' '*'
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:161:18: ( '2' '*' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:161:20: '2' '*'
             {
             match('2'); 
             match('*'); 
@@ -3271,8 +4153,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = DigitTwoSolidus;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:141:17: ( '2' '/' )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:141:19: '2' '/'
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:163:17: ( '2' '/' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:163:19: '2' '/'
             {
             match('2'); 
             match('/'); 
@@ -3292,8 +4174,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = DigitTwoCommercialAt;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:143:22: ( '2' '@' )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:143:24: '2' '@'
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:165:22: ( '2' '@' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:165:24: '2' '@'
             {
             match('2'); 
             match('@'); 
@@ -3313,8 +4195,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = R;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:145:3: ( '>' ( 'R' | 'r' ) )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:145:5: '>' ( 'R' | 'r' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:167:3: ( '>' ( 'R' | 'r' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:167:5: '>' ( 'R' | 'r' )
             {
             match('>'); 
             if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
@@ -3342,8 +4224,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = L;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:147:3: ( ( 'L' | 'l' ) '!' )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:147:5: ( 'L' | 'l' ) '!'
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:169:3: ( ( 'L' | 'l' ) '!' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:169:5: ( 'L' | 'l' ) '!'
             {
             if ( input.LA(1)=='L'||input.LA(1)=='l' ) {
                 input.consume();
@@ -3371,8 +4253,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = L_1;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:149:5: ( ( 'L' | 'l' ) '@' )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:149:7: ( 'L' | 'l' ) '@'
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:171:5: ( ( 'L' | 'l' ) '@' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:171:7: ( 'L' | 'l' ) '@'
             {
             if ( input.LA(1)=='L'||input.LA(1)=='l' ) {
                 input.consume();
@@ -3400,8 +4282,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = LD;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:151:4: ( ( 'L' | 'l' ) ( 'D' | 'd' ) )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:151:6: ( 'L' | 'l' ) ( 'D' | 'd' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:173:4: ( ( 'L' | 'l' ) ( 'D' | 'd' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:173:6: ( 'L' | 'l' ) ( 'D' | 'd' )
             {
             if ( input.LA(1)=='L'||input.LA(1)=='l' ) {
                 input.consume();
@@ -3437,8 +4319,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = ON;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:153:4: ( ( 'O' | 'o' ) ( 'N' | 'n' ) )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:153:6: ( 'O' | 'o' ) ( 'N' | 'n' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:175:4: ( ( 'O' | 'o' ) ( 'N' | 'n' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:175:6: ( 'O' | 'o' ) ( 'N' | 'n' )
             {
             if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
                 input.consume();
@@ -3474,8 +4356,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = R_1;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:155:5: ( ( 'R' | 'r' ) '@' )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:155:7: ( 'R' | 'r' ) '@'
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:177:5: ( ( 'R' | 'r' ) '@' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:177:7: ( 'R' | 'r' ) '@'
             {
             if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
                 input.consume();
@@ -3503,8 +4385,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = ST;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:157:4: ( ( 'S' | 's' ) ( 'T' | 't' ) )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:157:6: ( 'S' | 's' ) ( 'T' | 't' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:179:4: ( ( 'S' | 's' ) ( 'T' | 't' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:179:6: ( 'S' | 's' ) ( 'T' | 't' )
             {
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
                 input.consume();
@@ -3540,8 +4422,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = T;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:159:3: ( ( 'T' | 't' ) '!' )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:159:5: ( 'T' | 't' ) '!'
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:181:3: ( ( 'T' | 't' ) '!' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:181:5: ( 'T' | 't' ) '!'
             {
             if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
                 input.consume();
@@ -3569,8 +4451,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = T_1;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:161:5: ( ( 'T' | 't' ) '@' )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:161:7: ( 'T' | 't' ) '@'
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:183:5: ( ( 'T' | 't' ) '@' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:183:7: ( 'T' | 't' ) '@'
             {
             if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
                 input.consume();
@@ -3598,8 +4480,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = R_2;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:163:5: ( ( 'R' | 'r' ) '>' )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:163:7: ( 'R' | 'r' ) '>'
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:185:5: ( ( 'R' | 'r' ) '>' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:185:7: ( 'R' | 'r' ) '>'
             {
             if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
                 input.consume();
@@ -3627,8 +4509,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = ExclamationMark;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:165:17: ( '!' )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:165:19: '!'
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:187:17: ( '!' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:187:19: '!'
             {
             match('!'); 
 
@@ -3647,8 +4529,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = Asterisk;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:167:10: ( '*' )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:167:12: '*'
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:189:10: ( '*' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:189:12: '*'
             {
             match('*'); 
 
@@ -3667,8 +4549,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = PlusSign;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:169:10: ( '+' )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:169:12: '+'
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:191:10: ( '+' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:191:12: '+'
             {
             match('+'); 
 
@@ -3687,8 +4569,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = Comma;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:171:7: ( ',' )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:171:9: ','
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:193:7: ( ',' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:193:9: ','
             {
             match(','); 
 
@@ -3707,8 +4589,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = HyphenMinus;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:173:13: ( '-' )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:173:15: '-'
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:195:13: ( '-' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:195:15: '-'
             {
             match('-'); 
 
@@ -3727,8 +4609,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = Solidus;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:175:9: ( '/' )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:175:11: '/'
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:197:9: ( '/' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:197:11: '/'
             {
             match('/'); 
 
@@ -3747,8 +4629,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = Colon;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:177:7: ( ':' )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:177:9: ':'
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:199:7: ( ':' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:199:9: ':'
             {
             match(':'); 
 
@@ -3767,8 +4649,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = Semicolon;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:179:11: ( ';' )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:179:13: ';'
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:201:11: ( ';' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:201:13: ';'
             {
             match(';'); 
 
@@ -3787,8 +4669,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = CommercialAt;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:181:14: ( '@' )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:181:16: '@'
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:203:14: ( '@' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:203:16: '@'
             {
             match('@'); 
 
@@ -3805,8 +4687,8 @@ public class InternalUForthLexer extends Lexer {
     // $ANTLR start "RULE_DIGIT"
     public final void mRULE_DIGIT() throws RecognitionException {
         try {
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:185:21: ( '0' .. '9' )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:185:23: '0' .. '9'
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:207:21: ( '0' .. '9' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:207:23: '0' .. '9'
             {
             matchRange('0','9'); 
 
@@ -3821,10 +4703,10 @@ public class InternalUForthLexer extends Lexer {
     // $ANTLR start "RULE_DECINT"
     public final void mRULE_DECINT() throws RecognitionException {
         try {
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:187:22: ( ( RULE_DIGIT )+ )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:187:24: ( RULE_DIGIT )+
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:209:22: ( ( RULE_DIGIT )+ )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:209:24: ( RULE_DIGIT )+
             {
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:187:24: ( RULE_DIGIT )+
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:209:24: ( RULE_DIGIT )+
             int cnt1=0;
             loop1:
             do {
@@ -3838,7 +4720,7 @@ public class InternalUForthLexer extends Lexer {
 
                 switch (alt1) {
             	case 1 :
-            	    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:187:24: RULE_DIGIT
+            	    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:209:24: RULE_DIGIT
             	    {
             	    mRULE_DIGIT(); 
 
@@ -3868,18 +4750,18 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = RULE_SL_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:189:17: ( '(' (~ ( ( '\\n' | '\\r' ) ) )* ')' ( RULE_WS )* )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:189:19: '(' (~ ( ( '\\n' | '\\r' ) ) )* ')' ( RULE_WS )*
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:211:17: ( '(' (~ ( ( '\\n' | '\\r' ) ) )* ')' ( RULE_WS )* )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:211:19: '(' (~ ( ( '\\n' | '\\r' ) ) )* ')' ( RULE_WS )*
             {
             match('('); 
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:189:23: (~ ( ( '\\n' | '\\r' ) ) )*
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:211:23: (~ ( ( '\\n' | '\\r' ) ) )*
             loop2:
             do {
                 int alt2=2;
                 alt2 = dfa2.predict(input);
                 switch (alt2) {
             	case 1 :
-            	    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:189:23: ~ ( ( '\\n' | '\\r' ) )
+            	    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:211:23: ~ ( ( '\\n' | '\\r' ) )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -3900,7 +4782,7 @@ public class InternalUForthLexer extends Lexer {
             } while (true);
 
             match(')'); 
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:189:43: ( RULE_WS )*
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:211:43: ( RULE_WS )*
             loop3:
             do {
                 int alt3=2;
@@ -3913,7 +4795,7 @@ public class InternalUForthLexer extends Lexer {
 
                 switch (alt3) {
             	case 1 :
-            	    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:189:43: RULE_WS
+            	    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:211:43: RULE_WS
             	    {
             	    mRULE_WS(); 
 
@@ -3941,10 +4823,10 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = RULE_INT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:191:10: ( ( '-' )? ( '0' .. '9' | 'A' .. 'F' )+ )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:191:12: ( '-' )? ( '0' .. '9' | 'A' .. 'F' )+
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:213:10: ( ( '-' )? ( '0' .. '9' | 'A' .. 'F' )+ )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:213:12: ( '-' )? ( '0' .. '9' | 'A' .. 'F' )+
             {
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:191:12: ( '-' )?
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:213:12: ( '-' )?
             int alt4=2;
             int LA4_0 = input.LA(1);
 
@@ -3953,7 +4835,7 @@ public class InternalUForthLexer extends Lexer {
             }
             switch (alt4) {
                 case 1 :
-                    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:191:12: '-'
+                    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:213:12: '-'
                     {
                     match('-'); 
 
@@ -3962,7 +4844,7 @@ public class InternalUForthLexer extends Lexer {
 
             }
 
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:191:17: ( '0' .. '9' | 'A' .. 'F' )+
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:213:17: ( '0' .. '9' | 'A' .. 'F' )+
             int cnt5=0;
             loop5:
             do {
@@ -4016,19 +4898,19 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = RULE_DOUBLE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:193:13: ( RULE_DECINT ( '.' ( RULE_DIGIT )* | ( '.' ( RULE_DIGIT )* )? ( 'E' | 'e' ) ( '-' | '+' )? RULE_DECINT ) )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:193:15: RULE_DECINT ( '.' ( RULE_DIGIT )* | ( '.' ( RULE_DIGIT )* )? ( 'E' | 'e' ) ( '-' | '+' )? RULE_DECINT )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:215:13: ( RULE_DECINT ( '.' ( RULE_DIGIT )* | ( '.' ( RULE_DIGIT )* )? ( 'E' | 'e' ) ( '-' | '+' )? RULE_DECINT ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:215:15: RULE_DECINT ( '.' ( RULE_DIGIT )* | ( '.' ( RULE_DIGIT )* )? ( 'E' | 'e' ) ( '-' | '+' )? RULE_DECINT )
             {
             mRULE_DECINT(); 
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:193:27: ( '.' ( RULE_DIGIT )* | ( '.' ( RULE_DIGIT )* )? ( 'E' | 'e' ) ( '-' | '+' )? RULE_DECINT )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:215:27: ( '.' ( RULE_DIGIT )* | ( '.' ( RULE_DIGIT )* )? ( 'E' | 'e' ) ( '-' | '+' )? RULE_DECINT )
             int alt10=2;
             alt10 = dfa10.predict(input);
             switch (alt10) {
                 case 1 :
-                    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:193:28: '.' ( RULE_DIGIT )*
+                    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:215:28: '.' ( RULE_DIGIT )*
                     {
                     match('.'); 
-                    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:193:32: ( RULE_DIGIT )*
+                    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:215:32: ( RULE_DIGIT )*
                     loop6:
                     do {
                         int alt6=2;
@@ -4041,7 +4923,7 @@ public class InternalUForthLexer extends Lexer {
 
                         switch (alt6) {
                     	case 1 :
-                    	    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:193:32: RULE_DIGIT
+                    	    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:215:32: RULE_DIGIT
                     	    {
                     	    mRULE_DIGIT(); 
 
@@ -4057,9 +4939,9 @@ public class InternalUForthLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:193:44: ( '.' ( RULE_DIGIT )* )? ( 'E' | 'e' ) ( '-' | '+' )? RULE_DECINT
+                    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:215:44: ( '.' ( RULE_DIGIT )* )? ( 'E' | 'e' ) ( '-' | '+' )? RULE_DECINT
                     {
-                    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:193:44: ( '.' ( RULE_DIGIT )* )?
+                    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:215:44: ( '.' ( RULE_DIGIT )* )?
                     int alt8=2;
                     int LA8_0 = input.LA(1);
 
@@ -4068,10 +4950,10 @@ public class InternalUForthLexer extends Lexer {
                     }
                     switch (alt8) {
                         case 1 :
-                            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:193:45: '.' ( RULE_DIGIT )*
+                            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:215:45: '.' ( RULE_DIGIT )*
                             {
                             match('.'); 
-                            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:193:49: ( RULE_DIGIT )*
+                            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:215:49: ( RULE_DIGIT )*
                             loop7:
                             do {
                                 int alt7=2;
@@ -4084,7 +4966,7 @@ public class InternalUForthLexer extends Lexer {
 
                                 switch (alt7) {
                             	case 1 :
-                            	    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:193:49: RULE_DIGIT
+                            	    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:215:49: RULE_DIGIT
                             	    {
                             	    mRULE_DIGIT(); 
 
@@ -4111,7 +4993,7 @@ public class InternalUForthLexer extends Lexer {
                         recover(mse);
                         throw mse;}
 
-                    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:193:73: ( '-' | '+' )?
+                    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:215:73: ( '-' | '+' )?
                     int alt9=2;
                     int LA9_0 = input.LA(1);
 
@@ -4160,10 +5042,10 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = RULE_ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:195:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '!' | '@' | '?' | ',' | '<' | '>' | '=' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '!' | '?' | '@' | '<' | '>' | '0' .. '9' | ',' | '=' )* )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:195:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '!' | '@' | '?' | ',' | '<' | '>' | '=' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '!' | '?' | '@' | '<' | '>' | '0' .. '9' | ',' | '=' )*
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:217:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '!' | '@' | '?' | ',' | '<' | '>' | '=' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '!' | '?' | '@' | '<' | '>' | '0' .. '9' | ',' | '=' )* )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:217:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '!' | '@' | '?' | ',' | '<' | '>' | '=' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '!' | '?' | '@' | '<' | '>' | '0' .. '9' | ',' | '=' )*
             {
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:195:11: ( '^' )?
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:217:11: ( '^' )?
             int alt11=2;
             int LA11_0 = input.LA(1);
 
@@ -4172,7 +5054,7 @@ public class InternalUForthLexer extends Lexer {
             }
             switch (alt11) {
                 case 1 :
-                    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:195:11: '^'
+                    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:217:11: '^'
                     {
                     match('^'); 
 
@@ -4190,7 +5072,7 @@ public class InternalUForthLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:195:68: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '!' | '?' | '@' | '<' | '>' | '0' .. '9' | ',' | '=' )*
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:217:68: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '!' | '?' | '@' | '<' | '>' | '0' .. '9' | ',' | '=' )*
             loop12:
             do {
                 int alt12=2;
@@ -4239,10 +5121,10 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = RULE_STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:197:13: ( ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:197:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:219:13: ( ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:219:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             {
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:197:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:219:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             int alt15=2;
             int LA15_0 = input.LA(1);
 
@@ -4260,10 +5142,10 @@ public class InternalUForthLexer extends Lexer {
             }
             switch (alt15) {
                 case 1 :
-                    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:197:16: '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
+                    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:219:16: '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
                     {
                     match('\"'); 
-                    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:197:20: ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )*
+                    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:219:20: ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )*
                     loop13:
                     do {
                         int alt13=3;
@@ -4279,7 +5161,7 @@ public class InternalUForthLexer extends Lexer {
 
                         switch (alt13) {
                     	case 1 :
-                    	    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:197:21: '\\\\' .
+                    	    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:219:21: '\\\\' .
                     	    {
                     	    match('\\'); 
                     	    matchAny(); 
@@ -4287,7 +5169,7 @@ public class InternalUForthLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:197:28: ~ ( ( '\\\\' | '\"' ) )
+                    	    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:219:28: ~ ( ( '\\\\' | '\"' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -4312,10 +5194,10 @@ public class InternalUForthLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:197:48: '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
+                    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:219:48: '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
                     {
                     match('\''); 
-                    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:197:53: ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )*
+                    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:219:53: ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )*
                     loop14:
                     do {
                         int alt14=3;
@@ -4331,7 +5213,7 @@ public class InternalUForthLexer extends Lexer {
 
                         switch (alt14) {
                     	case 1 :
-                    	    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:197:54: '\\\\' .
+                    	    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:219:54: '\\\\' .
                     	    {
                     	    match('\\'); 
                     	    matchAny(); 
@@ -4339,7 +5221,7 @@ public class InternalUForthLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:197:61: ~ ( ( '\\\\' | '\\'' ) )
+                    	    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:219:61: ~ ( ( '\\\\' | '\\'' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -4382,12 +5264,12 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = RULE_ML_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:199:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:199:19: '/*' ( options {greedy=false; } : . )* '*/'
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:221:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:221:19: '/*' ( options {greedy=false; } : . )* '*/'
             {
             match("/*"); 
 
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:199:24: ( options {greedy=false; } : . )*
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:221:24: ( options {greedy=false; } : . )*
             loop16:
             do {
                 int alt16=2;
@@ -4412,7 +5294,7 @@ public class InternalUForthLexer extends Lexer {
 
                 switch (alt16) {
             	case 1 :
-            	    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:199:52: .
+            	    // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:221:52: .
             	    {
             	    matchAny(); 
 
@@ -4442,10 +5324,10 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = RULE_WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:201:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:201:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:223:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:223:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             {
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:201:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:223:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             int cnt17=0;
             loop17:
             do {
@@ -4499,8 +5381,8 @@ public class InternalUForthLexer extends Lexer {
         try {
             int _type = RULE_ANY_OTHER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:203:16: ( . )
-            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:203:18: .
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:225:16: ( . )
+            // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:225:18: .
             {
             matchAny(); 
 
@@ -4515,8 +5397,8 @@ public class InternalUForthLexer extends Lexer {
     // $ANTLR end "RULE_ANY_OTHER"
 
     public void mTokens() throws RecognitionException {
-        // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:8: ( CARRY_RESET | CARRYSET | DNEGATE | ASHIFT | EXTEND | NEGATE | RCLEAR | UNPACK | Create | DROP_1 | OVER_1 | SWAP_1 | CELL | CELL_1 | CLEAR | COUNT | ERASE | FALSE | PLACE | RDROP | SHIFT | UNDER | ROT_1 | DUP_1 | DUP_2 | DABS | DROL | DROP | DROR | FILL | MOVE | OVER | PACK | SWAP | TRUE | TUCK | ST_1 | DigitZeroLessThanSignGreaterThanSign | DigitTwoAsteriskAsterisk | ABS | DEC | DUP | INC | LLD | LST | NIP | OFF | ROL | ROR | ROT | TLD | TST | D0 | U2 | PlusSignExclamationMark | DigitZeroLessThanSign | DigitZeroEqualsSign | DigitOnePlusSign | DigitOneHyphenMinus | DigitTwoExclamationMark | DigitTwoAsterisk | DigitTwoSolidus | DigitTwoCommercialAt | R | L | L_1 | LD | ON | R_1 | ST | T | T_1 | R_2 | ExclamationMark | Asterisk | PlusSign | Comma | HyphenMinus | Solidus | Colon | Semicolon | CommercialAt | RULE_SL_COMMENT | RULE_INT | RULE_DOUBLE | RULE_ID | RULE_STRING | RULE_ML_COMMENT | RULE_WS | RULE_ANY_OTHER )
-        int alt18=90;
+        // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:8: ( CARRY_RESET | TorBranch | Branch_2 | CARRYSET | NcBranch | NoBranch | NsBranch | Branch | Branch_1 | SBranch | DNEGATE | NzExit | ASHIFT | EXTEND | NEGATE | RCLEAR | UNPACK | Create | ZExit | DROP_1 | OVER_1 | SWAP_1 | CELL | CELL_1 | CLEAR | COUNT | ERASE | FALSE | PLACE | RDROP | SHIFT | UNDER | ROT_1 | DUP_1 | DUP_2 | DABS | DROL | DROP | DROR | FILL | MOVE | OVER | PACK | SWAP | TRUE | TUCK | ST_1 | DigitZeroLessThanSignGreaterThanSign | DigitTwoAsteriskAsterisk | ABS | DEC | DUP | INC | LLD | LST | NIP | OFF | ROL | ROR | ROT | TLD | TST | D0 | Jsr | U2 | PlusSignExclamationMark | DigitZeroLessThanSign | DigitZeroEqualsSign | DigitOnePlusSign | DigitOneHyphenMinus | DigitTwoExclamationMark | DigitTwoAsterisk | DigitTwoSolidus | DigitTwoCommercialAt | R | L | L_1 | LD | ON | R_1 | ST | T | T_1 | R_2 | ExclamationMark | Asterisk | PlusSign | Comma | HyphenMinus | Solidus | Colon | Semicolon | CommercialAt | RULE_SL_COMMENT | RULE_INT | RULE_DOUBLE | RULE_ID | RULE_STRING | RULE_ML_COMMENT | RULE_WS | RULE_ANY_OTHER )
+        int alt18=101;
         alt18 = dfa18.predict(input);
         switch (alt18) {
             case 1 :
@@ -4527,623 +5409,700 @@ public class InternalUForthLexer extends Lexer {
                 }
                 break;
             case 2 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:22: CARRYSET
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:22: TorBranch
+                {
+                mTorBranch(); 
+
+                }
+                break;
+            case 3 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:32: Branch_2
+                {
+                mBranch_2(); 
+
+                }
+                break;
+            case 4 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:41: CARRYSET
                 {
                 mCARRYSET(); 
 
                 }
                 break;
-            case 3 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:31: DNEGATE
+            case 5 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:50: NcBranch
+                {
+                mNcBranch(); 
+
+                }
+                break;
+            case 6 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:59: NoBranch
+                {
+                mNoBranch(); 
+
+                }
+                break;
+            case 7 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:68: NsBranch
+                {
+                mNsBranch(); 
+
+                }
+                break;
+            case 8 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:77: Branch
+                {
+                mBranch(); 
+
+                }
+                break;
+            case 9 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:84: Branch_1
+                {
+                mBranch_1(); 
+
+                }
+                break;
+            case 10 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:93: SBranch
+                {
+                mSBranch(); 
+
+                }
+                break;
+            case 11 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:101: DNEGATE
                 {
                 mDNEGATE(); 
 
                 }
                 break;
-            case 4 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:39: ASHIFT
+            case 12 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:109: NzExit
+                {
+                mNzExit(); 
+
+                }
+                break;
+            case 13 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:116: ASHIFT
                 {
                 mASHIFT(); 
 
                 }
                 break;
-            case 5 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:46: EXTEND
+            case 14 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:123: EXTEND
                 {
                 mEXTEND(); 
 
                 }
                 break;
-            case 6 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:53: NEGATE
+            case 15 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:130: NEGATE
                 {
                 mNEGATE(); 
 
                 }
                 break;
-            case 7 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:60: RCLEAR
+            case 16 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:137: RCLEAR
                 {
                 mRCLEAR(); 
 
                 }
                 break;
-            case 8 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:67: UNPACK
+            case 17 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:144: UNPACK
                 {
                 mUNPACK(); 
 
                 }
                 break;
-            case 9 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:74: Create
+            case 18 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:151: Create
                 {
                 mCreate(); 
 
                 }
                 break;
-            case 10 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:81: DROP_1
+            case 19 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:158: ZExit
+                {
+                mZExit(); 
+
+                }
+                break;
+            case 20 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:164: DROP_1
                 {
                 mDROP_1(); 
 
                 }
                 break;
-            case 11 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:88: OVER_1
+            case 21 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:171: OVER_1
                 {
                 mOVER_1(); 
 
                 }
                 break;
-            case 12 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:95: SWAP_1
+            case 22 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:178: SWAP_1
                 {
                 mSWAP_1(); 
 
                 }
                 break;
-            case 13 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:102: CELL
+            case 23 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:185: CELL
                 {
                 mCELL(); 
 
                 }
                 break;
-            case 14 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:107: CELL_1
+            case 24 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:190: CELL_1
                 {
                 mCELL_1(); 
 
                 }
                 break;
-            case 15 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:114: CLEAR
+            case 25 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:197: CLEAR
                 {
                 mCLEAR(); 
 
                 }
                 break;
-            case 16 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:120: COUNT
+            case 26 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:203: COUNT
                 {
                 mCOUNT(); 
 
                 }
                 break;
-            case 17 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:126: ERASE
+            case 27 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:209: ERASE
                 {
                 mERASE(); 
 
                 }
                 break;
-            case 18 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:132: FALSE
+            case 28 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:215: FALSE
                 {
                 mFALSE(); 
 
                 }
                 break;
-            case 19 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:138: PLACE
+            case 29 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:221: PLACE
                 {
                 mPLACE(); 
 
                 }
                 break;
-            case 20 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:144: RDROP
+            case 30 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:227: RDROP
                 {
                 mRDROP(); 
 
                 }
                 break;
-            case 21 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:150: SHIFT
+            case 31 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:233: SHIFT
                 {
                 mSHIFT(); 
 
                 }
                 break;
-            case 22 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:156: UNDER
+            case 32 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:239: UNDER
                 {
                 mUNDER(); 
 
                 }
                 break;
-            case 23 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:162: ROT_1
+            case 33 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:245: ROT_1
                 {
                 mROT_1(); 
 
                 }
                 break;
-            case 24 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:168: DUP_1
+            case 34 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:251: DUP_1
                 {
                 mDUP_1(); 
 
                 }
                 break;
-            case 25 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:174: DUP_2
+            case 35 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:257: DUP_2
                 {
                 mDUP_2(); 
 
                 }
                 break;
-            case 26 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:180: DABS
+            case 36 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:263: DABS
                 {
                 mDABS(); 
 
                 }
                 break;
-            case 27 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:185: DROL
+            case 37 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:268: DROL
                 {
                 mDROL(); 
 
                 }
                 break;
-            case 28 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:190: DROP
+            case 38 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:273: DROP
                 {
                 mDROP(); 
 
                 }
                 break;
-            case 29 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:195: DROR
+            case 39 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:278: DROR
                 {
                 mDROR(); 
 
                 }
                 break;
-            case 30 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:200: FILL
+            case 40 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:283: FILL
                 {
                 mFILL(); 
 
                 }
                 break;
-            case 31 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:205: MOVE
+            case 41 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:288: MOVE
                 {
                 mMOVE(); 
 
                 }
                 break;
-            case 32 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:210: OVER
+            case 42 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:293: OVER
                 {
                 mOVER(); 
 
                 }
                 break;
-            case 33 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:215: PACK
+            case 43 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:298: PACK
                 {
                 mPACK(); 
 
                 }
                 break;
-            case 34 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:220: SWAP
+            case 44 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:303: SWAP
                 {
                 mSWAP(); 
 
                 }
                 break;
-            case 35 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:225: TRUE
+            case 45 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:308: TRUE
                 {
                 mTRUE(); 
 
                 }
                 break;
-            case 36 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:230: TUCK
+            case 46 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:313: TUCK
                 {
                 mTUCK(); 
 
                 }
                 break;
-            case 37 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:235: ST_1
+            case 47 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:318: ST_1
                 {
                 mST_1(); 
 
                 }
                 break;
-            case 38 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:240: DigitZeroLessThanSignGreaterThanSign
+            case 48 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:323: DigitZeroLessThanSignGreaterThanSign
                 {
                 mDigitZeroLessThanSignGreaterThanSign(); 
 
                 }
                 break;
-            case 39 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:277: DigitTwoAsteriskAsterisk
+            case 49 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:360: DigitTwoAsteriskAsterisk
                 {
                 mDigitTwoAsteriskAsterisk(); 
 
                 }
                 break;
-            case 40 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:302: ABS
+            case 50 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:385: ABS
                 {
                 mABS(); 
 
                 }
                 break;
-            case 41 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:306: DEC
+            case 51 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:389: DEC
                 {
                 mDEC(); 
 
                 }
                 break;
-            case 42 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:310: DUP
+            case 52 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:393: DUP
                 {
                 mDUP(); 
 
                 }
                 break;
-            case 43 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:314: INC
+            case 53 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:397: INC
                 {
                 mINC(); 
 
                 }
                 break;
-            case 44 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:318: LLD
+            case 54 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:401: LLD
                 {
                 mLLD(); 
 
                 }
                 break;
-            case 45 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:322: LST
+            case 55 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:405: LST
                 {
                 mLST(); 
 
                 }
                 break;
-            case 46 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:326: NIP
+            case 56 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:409: NIP
                 {
                 mNIP(); 
 
                 }
                 break;
-            case 47 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:330: OFF
+            case 57 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:413: OFF
                 {
                 mOFF(); 
 
                 }
                 break;
-            case 48 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:334: ROL
+            case 58 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:417: ROL
                 {
                 mROL(); 
 
                 }
                 break;
-            case 49 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:338: ROR
+            case 59 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:421: ROR
                 {
                 mROR(); 
 
                 }
                 break;
-            case 50 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:342: ROT
+            case 60 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:425: ROT
                 {
                 mROT(); 
 
                 }
                 break;
-            case 51 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:346: TLD
+            case 61 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:429: TLD
                 {
                 mTLD(); 
 
                 }
                 break;
-            case 52 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:350: TST
+            case 62 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:433: TST
                 {
                 mTST(); 
 
                 }
                 break;
-            case 53 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:354: D0
+            case 63 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:437: D0
                 {
                 mD0(); 
 
                 }
                 break;
-            case 54 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:357: U2
+            case 64 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:440: Jsr
+                {
+                mJsr(); 
+
+                }
+                break;
+            case 65 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:444: U2
                 {
                 mU2(); 
 
                 }
                 break;
-            case 55 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:360: PlusSignExclamationMark
+            case 66 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:447: PlusSignExclamationMark
                 {
                 mPlusSignExclamationMark(); 
 
                 }
                 break;
-            case 56 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:384: DigitZeroLessThanSign
+            case 67 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:471: DigitZeroLessThanSign
                 {
                 mDigitZeroLessThanSign(); 
 
                 }
                 break;
-            case 57 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:406: DigitZeroEqualsSign
+            case 68 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:493: DigitZeroEqualsSign
                 {
                 mDigitZeroEqualsSign(); 
 
                 }
                 break;
-            case 58 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:426: DigitOnePlusSign
+            case 69 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:513: DigitOnePlusSign
                 {
                 mDigitOnePlusSign(); 
 
                 }
                 break;
-            case 59 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:443: DigitOneHyphenMinus
+            case 70 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:530: DigitOneHyphenMinus
                 {
                 mDigitOneHyphenMinus(); 
 
                 }
                 break;
-            case 60 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:463: DigitTwoExclamationMark
+            case 71 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:550: DigitTwoExclamationMark
                 {
                 mDigitTwoExclamationMark(); 
 
                 }
                 break;
-            case 61 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:487: DigitTwoAsterisk
+            case 72 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:574: DigitTwoAsterisk
                 {
                 mDigitTwoAsterisk(); 
 
                 }
                 break;
-            case 62 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:504: DigitTwoSolidus
+            case 73 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:591: DigitTwoSolidus
                 {
                 mDigitTwoSolidus(); 
 
                 }
                 break;
-            case 63 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:520: DigitTwoCommercialAt
+            case 74 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:607: DigitTwoCommercialAt
                 {
                 mDigitTwoCommercialAt(); 
 
                 }
                 break;
-            case 64 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:541: R
+            case 75 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:628: R
                 {
                 mR(); 
 
                 }
                 break;
-            case 65 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:543: L
+            case 76 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:630: L
                 {
                 mL(); 
 
                 }
                 break;
-            case 66 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:545: L_1
+            case 77 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:632: L_1
                 {
                 mL_1(); 
 
                 }
                 break;
-            case 67 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:549: LD
+            case 78 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:636: LD
                 {
                 mLD(); 
 
                 }
                 break;
-            case 68 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:552: ON
+            case 79 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:639: ON
                 {
                 mON(); 
 
                 }
                 break;
-            case 69 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:555: R_1
+            case 80 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:642: R_1
                 {
                 mR_1(); 
 
                 }
                 break;
-            case 70 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:559: ST
+            case 81 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:646: ST
                 {
                 mST(); 
 
                 }
                 break;
-            case 71 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:562: T
+            case 82 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:649: T
                 {
                 mT(); 
 
                 }
                 break;
-            case 72 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:564: T_1
+            case 83 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:651: T_1
                 {
                 mT_1(); 
 
                 }
                 break;
-            case 73 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:568: R_2
+            case 84 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:655: R_2
                 {
                 mR_2(); 
 
                 }
                 break;
-            case 74 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:572: ExclamationMark
+            case 85 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:659: ExclamationMark
                 {
                 mExclamationMark(); 
 
                 }
                 break;
-            case 75 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:588: Asterisk
+            case 86 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:675: Asterisk
                 {
                 mAsterisk(); 
 
                 }
                 break;
-            case 76 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:597: PlusSign
+            case 87 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:684: PlusSign
                 {
                 mPlusSign(); 
 
                 }
                 break;
-            case 77 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:606: Comma
+            case 88 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:693: Comma
                 {
                 mComma(); 
 
                 }
                 break;
-            case 78 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:612: HyphenMinus
+            case 89 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:699: HyphenMinus
                 {
                 mHyphenMinus(); 
 
                 }
                 break;
-            case 79 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:624: Solidus
+            case 90 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:711: Solidus
                 {
                 mSolidus(); 
 
                 }
                 break;
-            case 80 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:632: Colon
+            case 91 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:719: Colon
                 {
                 mColon(); 
 
                 }
                 break;
-            case 81 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:638: Semicolon
+            case 92 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:725: Semicolon
                 {
                 mSemicolon(); 
 
                 }
                 break;
-            case 82 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:648: CommercialAt
+            case 93 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:735: CommercialAt
                 {
                 mCommercialAt(); 
 
                 }
                 break;
-            case 83 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:661: RULE_SL_COMMENT
+            case 94 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:748: RULE_SL_COMMENT
                 {
                 mRULE_SL_COMMENT(); 
 
                 }
                 break;
-            case 84 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:677: RULE_INT
+            case 95 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:764: RULE_INT
                 {
                 mRULE_INT(); 
 
                 }
                 break;
-            case 85 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:686: RULE_DOUBLE
+            case 96 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:773: RULE_DOUBLE
                 {
                 mRULE_DOUBLE(); 
 
                 }
                 break;
-            case 86 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:698: RULE_ID
+            case 97 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:785: RULE_ID
                 {
                 mRULE_ID(); 
 
                 }
                 break;
-            case 87 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:706: RULE_STRING
+            case 98 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:793: RULE_STRING
                 {
                 mRULE_STRING(); 
 
                 }
                 break;
-            case 88 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:718: RULE_ML_COMMENT
+            case 99 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:805: RULE_ML_COMMENT
                 {
                 mRULE_ML_COMMENT(); 
 
                 }
                 break;
-            case 89 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:734: RULE_WS
+            case 100 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:821: RULE_WS
                 {
                 mRULE_WS(); 
 
                 }
                 break;
-            case 90 :
-                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:742: RULE_ANY_OTHER
+            case 101 :
+                // ../ch.fhnw.mdt.forthlang/src-gen/ch/fhnw/mdt/parser/antlr/lexer/InternalUForthLexer.g:1:829: RULE_ANY_OTHER
                 {
                 mRULE_ANY_OTHER(); 
 
@@ -5169,7 +6128,7 @@ public class InternalUForthLexer extends Lexer {
     static final String DFA2_acceptS =
         "\2\uffff\1\1\1\uffff\1\2";
     static final String DFA2_specialS =
-        "\1\0\1\2\1\uffff\1\1\1\uffff}>";
+        "\1\0\1\1\1\uffff\1\2\1\uffff}>";
     static final String[] DFA2_transitionS = {
             "\12\2\1\uffff\2\2\1\uffff\33\2\1\1\uffd6\2",
             "\11\2\1\3\1\uffff\2\2\1\uffff\22\2\1\3\uffdf\2",
@@ -5208,7 +6167,7 @@ public class InternalUForthLexer extends Lexer {
             this.transition = DFA2_transition;
         }
         public String getDescription() {
-            return "()* loopback of 189:23: (~ ( ( '\\n' | '\\r' ) ) )*";
+            return "()* loopback of 211:23: (~ ( ( '\\n' | '\\r' ) ) )*";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             IntStream input = _input;
@@ -5225,24 +6184,24 @@ public class InternalUForthLexer extends Lexer {
                         if ( s>=0 ) return s;
                         break;
                     case 1 : 
-                        int LA2_3 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA2_3>='\u0000' && LA2_3<='\b')||(LA2_3>='\u000B' && LA2_3<='\f')||(LA2_3>='\u000E' && LA2_3<='\u001F')||(LA2_3>='!' && LA2_3<='\uFFFF')) ) {s = 2;}
-
-                        else if ( (LA2_3=='\t'||LA2_3==' ') ) {s = 3;}
-
-                        else s = 4;
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 2 : 
                         int LA2_1 = input.LA(1);
 
                         s = -1;
                         if ( ((LA2_1>='\u0000' && LA2_1<='\b')||(LA2_1>='\u000B' && LA2_1<='\f')||(LA2_1>='\u000E' && LA2_1<='\u001F')||(LA2_1>='!' && LA2_1<='\uFFFF')) ) {s = 2;}
 
                         else if ( (LA2_1=='\t'||LA2_1==' ') ) {s = 3;}
+
+                        else s = 4;
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 2 : 
+                        int LA2_3 = input.LA(1);
+
+                        s = -1;
+                        if ( (LA2_3=='\t'||LA2_3==' ') ) {s = 3;}
+
+                        else if ( ((LA2_3>='\u0000' && LA2_3<='\b')||(LA2_3>='\u000B' && LA2_3<='\f')||(LA2_3>='\u000E' && LA2_3<='\u001F')||(LA2_3>='!' && LA2_3<='\uFFFF')) ) {s = 2;}
 
                         else s = 4;
 
@@ -5305,487 +6264,524 @@ public class InternalUForthLexer extends Lexer {
             this.transition = DFA10_transition;
         }
         public String getDescription() {
-            return "193:27: ( '.' ( RULE_DIGIT )* | ( '.' ( RULE_DIGIT )* )? ( 'E' | 'e' ) ( '-' | '+' )? RULE_DECINT )";
+            return "215:27: ( '.' ( RULE_DIGIT )* | ( '.' ( RULE_DIGIT )* )? ( 'E' | 'e' ) ( '-' | '+' )? RULE_DECINT )";
         }
     }
     static final String DFA18_eotS =
-        "\1\uffff\4\61\3\65\2\61\2\65\1\140\4\65\1\156\1\61\2\65\1\61\1"+
-        "\65\1\172\1\uffff\1\174\1\176\2\uffff\1\u0081\1\53\5\65\2\61\1\53"+
-        "\1\uffff\2\53\2\uffff\1\61\1\65\1\61\2\65\1\uffff\2\65\1\61\1\uffff"+
-        "\1\65\1\61\1\65\1\61\1\65\1\61\3\65\1\61\10\65\1\u009e\1\u009f\2"+
-        "\65\1\61\2\uffff\1\u00a6\4\uffff\1\61\1\uffff\2\61\6\65\1\u00ae"+
-        "\2\uffff\4\65\1\u00b3\4\65\1\u00b8\1\u00b9\3\uffff\1\u00bb\1\uffff"+
-        "\3\65\1\u00bf\1\u00c0\1\u00c1\2\uffff\1\u00c2\11\uffff\1\65\2\uffff"+
-        "\6\65\1\61\2\65\2\u00cd\1\u00ce\1\u00cf\1\65\1\u00d1\3\65\1\u00d5"+
-        "\2\65\1\u00d8\1\u00d9\1\u00da\2\uffff\2\65\5\uffff\1\61\6\65\1\uffff"+
-        "\3\65\1\u00e6\1\uffff\2\65\1\u00e9\1\u00ea\4\uffff\1\u00eb\1\u00ec"+
-        "\1\u00ed\4\uffff\6\65\1\u00f5\1\u00f6\1\u00f7\1\u00f8\3\uffff\1"+
-        "\65\1\uffff\3\65\1\uffff\2\65\3\uffff\3\65\1\u0102\1\65\1\u0104"+
-        "\1\65\1\u0106\1\u0107\1\u0108\1\u0109\1\uffff\1\u010a\1\u010b\5"+
-        "\uffff\2\65\2\uffff\1\u010f\1\u0110\1\65\4\uffff\2\65\1\u0114\2"+
-        "\65\1\u0117\1\65\1\u0119\1\u011a\1\uffff\1\u011b\1\uffff\1\u011c"+
-        "\6\uffff\1\65\1\uffff\1\u011e\2\uffff\1\65\1\u0120\1\u0121\1\uffff"+
-        "\1\u0122\1\u0123\1\uffff\1\u0124\4\uffff\1\65\1\uffff\1\u0126\5"+
-        "\uffff\1\65\1\uffff\2\65\1\u012a\1\uffff";
+        "\1\uffff\1\63\1\67\1\63\3\67\3\63\3\67\2\63\1\67\1\163\2\67\1\172"+
+        "\3\67\1\63\1\67\1\u0085\1\uffff\1\u0087\1\u0089\2\uffff\1\u008c"+
+        "\1\55\5\67\2\63\1\55\1\uffff\2\55\2\uffff\1\63\1\67\1\63\2\67\1"+
+        "\uffff\2\67\1\63\1\uffff\5\67\1\u009b\1\u009c\1\u009e\1\u00a0\1"+
+        "\63\1\uffff\1\63\6\67\1\uffff\1\67\1\uffff\2\67\1\u00ab\1\67\1\63"+
+        "\1\67\1\63\1\67\1\63\3\67\1\63\6\67\1\u00bd\1\u00be\2\67\1\uffff"+
+        "\1\63\2\uffff\1\u00c5\4\uffff\1\63\4\67\2\uffff\3\67\1\u00cd\3\uffff"+
+        "\3\67\1\u00d1\1\u00d2\1\u00d3\1\67\2\uffff\1\u00d5\11\uffff\1\67"+
+        "\2\uffff\10\67\1\u00de\1\u00df\2\uffff\1\u00e1\3\uffff\1\63\4\uffff"+
+        "\1\67\1\u00e3\3\67\1\uffff\1\67\1\63\2\67\2\u00ec\1\u00ed\1\u00ee"+
+        "\1\67\1\u00f0\4\67\1\u00f5\1\u00f6\1\u00f7\2\uffff\2\67\5\uffff"+
+        "\6\67\1\u0100\1\uffff\1\u0101\1\u0102\1\u0103\3\uffff\1\u0104\1"+
+        "\uffff\5\67\1\uffff\1\u010b\1\u010c\4\uffff\1\67\1\uffff\1\u010e"+
+        "\1\67\1\u0110\1\67\1\u0112\1\u0113\1\u0114\1\u0115\3\uffff\1\67"+
+        "\1\uffff\4\67\3\uffff\3\67\1\u011e\1\67\1\u0120\1\u0121\1\u0122"+
+        "\5\uffff\2\67\2\uffff\1\u0126\1\u0127\2\uffff\1\67\1\uffff\1\u0129"+
+        "\1\uffff\1\67\4\uffff\2\67\1\u012d\1\67\1\u012f\1\67\1\u0131\1\u0132"+
+        "\1\uffff\1\u0133\3\uffff\1\67\1\uffff\1\u0135\2\uffff\1\u0136\1"+
+        "\uffff\1\67\1\u0138\1\u0139\1\uffff\1\u013a\1\uffff\1\u013b\3\uffff"+
+        "\1\67\2\uffff\1\u013d\4\uffff\1\67\1\uffff\2\67\1\u0141\1\uffff";
     static final String DFA18_eofS =
-        "\u012b\uffff";
+        "\u0142\uffff";
     static final String DFA18_minS =
-        "\1\0\4\41\1\105\1\76\1\62\2\41\1\101\1\110\1\60\1\104\1\117\1\106"+
-        "\2\41\1\56\1\116\1\41\1\53\1\122\1\41\1\uffff\1\41\1\52\2\uffff"+
-        "\1\41\1\0\1\101\1\60\1\102\1\122\1\101\1\56\2\41\1\uffff\2\0\2\uffff"+
-        "\1\41\1\105\1\41\1\105\1\125\1\uffff\1\122\1\114\1\41\1\uffff\1"+
+        "\1\0\2\41\1\56\1\103\2\55\3\41\1\76\1\62\1\55\2\41\1\101\1\60\1"+
+        "\117\1\106\1\41\1\116\1\41\1\123\1\53\1\122\1\41\1\uffff\1\41\1"+
+        "\52\2\uffff\1\41\1\0\1\101\1\60\1\102\1\122\1\101\1\56\2\41\1\uffff"+
+        "\2\0\2\uffff\1\41\1\105\1\41\1\105\1\125\1\uffff\1\122\1\114\1\41"+
+        "\1\uffff\1\122\1\125\1\103\1\104\1\124\2\41\1\76\1\102\1\53\1\uffff"+
+        "\1\56\4\55\1\107\1\120\1\uffff\1\125\1\uffff\1\111\1\101\1\41\1"+
         "\105\1\41\1\117\1\41\1\120\1\41\1\102\1\103\1\110\1\41\1\123\1\124"+
-        "\1\101\1\107\1\120\1\114\1\122\1\114\2\41\1\104\1\57\1\122\2\uffff"+
-        "\1\52\3\uffff\1\122\1\53\1\uffff\1\56\1\41\2\114\1\101\1\103\1\111"+
-        "\1\101\1\41\2\uffff\1\125\1\126\1\105\1\106\1\41\1\125\1\103\1\104"+
-        "\1\124\2\41\3\uffff\1\76\1\uffff\1\103\1\104\1\124\3\41\2\uffff"+
-        "\1\41\11\uffff\1\75\2\uffff\1\122\1\101\1\114\1\101\1\116\1\107"+
-        "\1\41\1\123\1\114\4\41\1\111\1\41\1\105\1\123\1\101\1\41\1\105\1"+
-        "\117\3\41\2\uffff\1\101\1\105\5\uffff\1\60\1\123\1\114\1\103\1\113"+
-        "\1\106\1\120\1\uffff\1\120\1\105\1\122\1\41\1\uffff\1\105\1\113"+
-        "\2\41\4\uffff\3\41\4\uffff\1\131\1\124\1\53\1\122\1\124\1\101\4"+
-        "\41\3\uffff\1\106\1\uffff\1\116\1\105\1\124\1\uffff\1\101\1\120"+
-        "\3\uffff\1\103\1\122\1\105\1\41\1\105\1\41\1\124\4\41\1\uffff\2"+
-        "\41\5\uffff\1\55\1\105\2\uffff\2\41\1\124\4\uffff\1\124\1\104\1"+
-        "\41\1\105\1\122\1\41\1\113\2\41\1\uffff\1\41\1\uffff\1\41\6\uffff"+
-        "\1\122\1\uffff\1\41\2\uffff\1\105\2\41\1\uffff\2\41\1\uffff\1\41"+
-        "\4\uffff\1\105\1\uffff\1\41\5\uffff\1\123\1\uffff\1\105\1\124\1"+
-        "\41\1\uffff";
+        "\1\101\1\114\1\122\1\114\2\41\1\104\1\57\1\uffff\1\122\2\uffff\1"+
+        "\52\3\uffff\1\122\1\41\2\114\1\101\1\103\2\uffff\1\126\1\105\1\106"+
+        "\1\41\3\uffff\1\103\1\104\1\124\3\41\1\122\2\uffff\1\41\11\uffff"+
+        "\1\75\2\uffff\1\122\1\101\1\114\1\101\1\116\1\55\1\105\1\113\2\41"+
+        "\2\uffff\1\102\3\uffff\1\60\4\uffff\1\101\1\41\1\120\1\106\1\120"+
+        "\1\uffff\1\107\1\41\1\123\1\114\4\41\1\111\1\41\1\105\1\123\1\105"+
+        "\1\117\3\41\2\uffff\1\101\1\105\5\uffff\1\123\1\114\1\103\1\113"+
+        "\1\105\1\122\1\41\1\uffff\3\41\3\uffff\1\41\1\uffff\1\131\1\124"+
+        "\1\53\1\122\1\124\1\uffff\2\41\4\uffff\1\124\1\uffff\1\41\1\124"+
+        "\1\41\1\101\4\41\3\uffff\1\106\1\uffff\1\116\1\105\1\101\1\120\3"+
+        "\uffff\1\103\1\122\1\105\1\41\1\105\3\41\5\uffff\1\55\1\105\2\uffff"+
+        "\2\41\2\uffff\1\105\1\uffff\1\41\1\uffff\1\124\4\uffff\1\124\1\104"+
+        "\1\41\1\122\1\41\1\113\2\41\1\uffff\1\41\3\uffff\1\122\1\uffff\1"+
+        "\41\2\uffff\1\41\1\uffff\1\105\2\41\1\uffff\1\41\1\uffff\1\41\3"+
+        "\uffff\1\105\2\uffff\1\41\4\uffff\1\123\1\uffff\1\105\1\124\1\41"+
+        "\1\uffff";
     static final String DFA18_maxS =
-        "\1\uffff\4\172\1\151\1\157\1\156\1\163\1\172\1\154\1\167\1\162"+
-        "\1\144\1\157\1\166\1\165\1\163\1\145\1\156\1\163\1\145\1\162\1\172"+
-        "\1\uffff\1\172\1\52\2\uffff\1\172\1\uffff\1\162\1\165\1\163\1\170"+
-        "\1\151\1\145\2\172\1\uffff\2\uffff\2\uffff\1\172\1\145\1\172\1\145"+
-        "\1\165\1\uffff\1\162\1\154\1\172\1\uffff\1\145\1\172\1\157\1\172"+
-        "\1\160\1\172\1\142\1\143\1\150\1\172\1\163\1\164\1\141\1\147\1\160"+
-        "\1\154\1\162\1\164\2\172\1\160\1\57\1\165\2\uffff\1\52\3\uffff\1"+
-        "\165\1\71\1\uffff\1\145\1\172\2\154\1\141\1\143\1\151\1\141\1\172"+
-        "\2\uffff\1\165\1\166\1\145\1\146\1\172\1\165\1\143\1\144\1\164\2"+
-        "\172\3\uffff\1\76\1\uffff\1\143\1\144\1\164\3\172\2\uffff\1\172"+
-        "\11\uffff\1\75\2\uffff\1\162\1\141\1\154\1\141\1\156\1\147\1\172"+
-        "\1\163\1\162\4\172\1\151\1\172\1\145\1\163\1\141\1\172\1\145\1\157"+
-        "\3\172\2\uffff\1\141\1\145\5\uffff\1\71\1\163\1\154\1\143\1\153"+
-        "\1\146\1\160\1\uffff\1\160\1\145\1\162\1\172\1\uffff\1\145\1\153"+
-        "\2\172\4\uffff\3\172\4\uffff\1\171\1\164\1\55\1\162\1\164\1\141"+
-        "\4\172\3\uffff\1\146\1\uffff\1\156\1\145\1\164\1\uffff\1\141\1\160"+
-        "\3\uffff\1\143\1\162\1\145\1\172\1\145\1\172\1\164\4\172\1\uffff"+
-        "\2\172\5\uffff\1\137\1\145\2\uffff\2\172\1\164\4\uffff\1\164\1\144"+
-        "\1\172\1\145\1\162\1\172\1\153\2\172\1\uffff\1\172\1\uffff\1\172"+
-        "\6\uffff\1\162\1\uffff\1\172\2\uffff\1\145\2\172\1\uffff\2\172\1"+
-        "\uffff\1\172\4\uffff\1\145\1\uffff\1\172\5\uffff\1\163\1\uffff\1"+
-        "\145\1\164\1\172\1\uffff";
+        "\1\uffff\1\172\1\165\1\145\1\172\1\144\1\167\3\172\1\157\1\156"+
+        "\1\55\1\163\1\172\1\154\1\162\1\157\1\166\1\163\1\156\2\163\1\145"+
+        "\1\162\1\172\1\uffff\1\172\1\52\2\uffff\1\172\1\uffff\1\162\1\165"+
+        "\1\163\1\170\1\151\1\145\2\172\1\uffff\2\uffff\2\uffff\1\172\1\145"+
+        "\1\172\1\145\1\165\1\uffff\1\162\1\154\1\172\1\uffff\1\162\1\165"+
+        "\1\143\1\144\1\164\2\172\1\76\1\142\1\71\1\uffff\1\145\4\55\1\147"+
+        "\1\160\1\uffff\1\165\1\uffff\1\151\1\141\1\172\1\145\1\172\1\157"+
+        "\1\172\1\160\1\172\1\142\1\143\1\150\1\172\1\163\1\164\1\141\1\154"+
+        "\1\162\1\164\2\172\1\160\1\57\1\uffff\1\165\2\uffff\1\52\3\uffff"+
+        "\1\165\1\172\2\154\1\141\1\143\2\uffff\1\166\1\145\1\146\1\172\3"+
+        "\uffff\1\143\1\144\1\164\3\172\1\162\2\uffff\1\172\11\uffff\1\75"+
+        "\2\uffff\1\162\1\141\1\154\1\141\1\156\1\55\1\145\1\153\2\172\2"+
+        "\uffff\1\142\3\uffff\1\71\4\uffff\1\141\1\172\1\160\1\146\1\160"+
+        "\1\uffff\1\147\1\172\1\163\1\162\4\172\1\151\1\172\1\145\1\163\1"+
+        "\145\1\157\3\172\2\uffff\1\141\1\145\5\uffff\1\163\1\154\1\143\1"+
+        "\153\1\145\1\162\1\172\1\uffff\3\172\3\uffff\1\172\1\uffff\1\171"+
+        "\1\164\1\55\1\162\1\164\1\uffff\2\172\4\uffff\1\164\1\uffff\1\172"+
+        "\1\164\1\172\1\141\4\172\3\uffff\1\146\1\uffff\1\156\1\145\1\141"+
+        "\1\160\3\uffff\1\143\1\162\1\145\1\172\1\145\3\172\5\uffff\1\137"+
+        "\1\145\2\uffff\2\172\2\uffff\1\145\1\uffff\1\172\1\uffff\1\164\4"+
+        "\uffff\1\164\1\144\1\172\1\162\1\172\1\153\2\172\1\uffff\1\172\3"+
+        "\uffff\1\162\1\uffff\1\172\2\uffff\1\172\1\uffff\1\145\2\172\1\uffff"+
+        "\1\172\1\uffff\1\172\3\uffff\1\145\2\uffff\1\172\4\uffff\1\163\1"+
+        "\uffff\1\145\1\164\1\172\1\uffff";
     static final String DFA18_acceptS =
-        "\30\uffff\1\113\2\uffff\1\120\1\121\12\uffff\1\126\2\uffff\1\131"+
-        "\1\132\5\uffff\1\124\3\uffff\1\126\27\uffff\1\13\1\14\1\uffff\1"+
-        "\74\1\76\1\77\2\uffff\1\125\11\uffff\1\27\1\116\13\uffff\1\45\1"+
-        "\67\1\114\1\uffff\1\71\6\uffff\1\72\1\73\1\uffff\1\112\1\113\1\115"+
-        "\1\130\1\117\1\120\1\121\1\122\1\123\1\uffff\1\127\1\131\30\uffff"+
-        "\1\105\1\111\2\uffff\1\66\1\12\1\30\1\47\1\75\7\uffff\1\106\4\uffff"+
-        "\1\104\4\uffff\1\107\1\110\1\46\1\70\3\uffff\1\101\1\102\1\103\1"+
-        "\100\12\uffff\1\51\1\52\1\65\1\uffff\1\50\3\uffff\1\56\2\uffff\1"+
-        "\60\1\61\1\62\13\uffff\1\57\2\uffff\1\63\1\64\1\53\1\54\1\55\2\uffff"+
-        "\1\15\1\16\3\uffff\1\32\1\33\1\34\1\35\11\uffff\1\36\1\uffff\1\41"+
-        "\1\uffff\1\42\1\31\1\37\1\40\1\43\1\44\1\uffff\1\2\1\uffff\1\17"+
-        "\1\20\3\uffff\1\21\2\uffff\1\24\1\uffff\1\26\1\22\1\23\1\25\1\uffff"+
-        "\1\11\1\uffff\1\4\1\5\1\6\1\7\1\10\1\uffff\1\3\3\uffff\1\1";
+        "\32\uffff\1\126\2\uffff\1\133\1\134\12\uffff\1\141\2\uffff\1\144"+
+        "\1\145\5\uffff\1\137\3\uffff\1\141\12\uffff\1\140\7\uffff\1\11\1"+
+        "\uffff\1\12\27\uffff\1\23\1\uffff\1\25\1\26\1\uffff\1\107\1\111"+
+        "\1\112\6\uffff\1\41\1\131\4\uffff\1\57\1\102\1\127\7\uffff\1\105"+
+        "\1\106\1\uffff\1\125\1\126\1\130\1\143\1\132\1\133\1\134\1\135\1"+
+        "\136\1\uffff\1\142\1\144\12\uffff\1\122\1\123\1\uffff\1\103\1\10"+
+        "\1\104\1\uffff\1\5\1\6\1\7\1\14\5\uffff\1\121\21\uffff\1\120\1\124"+
+        "\2\uffff\1\101\1\24\1\42\1\61\1\110\7\uffff\1\117\3\uffff\1\114"+
+        "\1\115\1\116\1\uffff\1\113\5\uffff\1\2\2\uffff\1\75\1\76\1\3\1\60"+
+        "\1\uffff\1\70\10\uffff\1\63\1\64\1\77\1\uffff\1\62\4\uffff\1\72"+
+        "\1\73\1\74\10\uffff\1\71\1\65\1\66\1\67\1\100\2\uffff\1\27\1\30"+
+        "\2\uffff\1\55\1\56\1\uffff\1\43\1\uffff\1\54\1\uffff\1\44\1\45\1"+
+        "\46\1\47\10\uffff\1\50\1\uffff\1\53\1\51\1\52\1\uffff\1\4\1\uffff"+
+        "\1\31\1\32\1\uffff\1\37\3\uffff\1\33\1\uffff\1\36\1\uffff\1\40\1"+
+        "\34\1\35\1\uffff\1\22\1\17\1\uffff\1\15\1\16\1\20\1\21\1\uffff\1"+
+        "\13\3\uffff\1\1";
     static final String DFA18_specialS =
-        "\1\3\35\uffff\1\0\11\uffff\1\1\1\2\u0101\uffff}>";
+        "\1\1\37\uffff\1\0\11\uffff\1\3\1\2\u0116\uffff}>";
     static final String[] DFA18_transitionS = {
-            "\11\53\2\52\2\53\1\52\22\53\1\52\1\27\1\50\4\53\1\51\1\36\1"+
-            "\53\1\30\1\21\1\31\1\14\1\53\1\32\1\22\1\25\1\10\7\44\1\33\1"+
-            "\34\2\47\1\26\1\15\1\35\1\3\1\45\1\1\1\2\1\4\1\11\2\47\1\23"+
-            "\2\47\1\24\1\16\1\5\1\17\1\12\1\47\1\6\1\13\1\20\1\7\5\47\3"+
-            "\53\1\46\1\47\1\53\1\41\1\47\1\37\1\40\1\42\1\43\2\47\1\23\2"+
-            "\47\1\24\1\16\1\5\1\17\1\12\1\47\1\6\1\13\1\20\1\7\5\47\uff85"+
-            "\53",
-            "\1\65\12\uffff\1\65\3\uffff\12\64\2\uffff\5\65\1\54\3\64\1"+
-            "\56\1\64\5\65\1\57\2\65\1\60\2\65\1\55\10\65\4\uffff\1\65\1"+
-            "\uffff\1\62\3\65\1\63\6\65\1\57\2\65\1\60\2\65\1\55\10\65",
-            "\1\65\12\uffff\1\65\3\uffff\1\73\11\64\2\uffff\5\65\1\67\3"+
-            "\64\1\71\1\64\7\65\1\66\3\65\1\70\2\65\1\72\5\65\4\uffff\1\65"+
-            "\1\uffff\1\74\3\65\1\75\10\65\1\66\3\65\1\70\2\65\1\72\5\65",
-            "\1\65\12\uffff\1\65\3\uffff\12\64\2\uffff\5\65\1\64\1\77\4"+
-            "\64\14\65\1\76\7\65\4\uffff\1\65\1\uffff\1\65\1\100\20\65\1"+
-            "\76\7\65",
-            "\1\65\12\uffff\1\65\3\uffff\12\64\2\uffff\5\65\6\64\13\65"+
-            "\1\102\5\65\1\101\2\65\4\uffff\1\65\1\uffff\21\65\1\102\5\65"+
-            "\1\101\2\65",
-            "\1\103\3\uffff\1\104\33\uffff\1\103\3\uffff\1\104",
-            "\1\111\1\uffff\1\110\2\uffff\1\105\1\106\12\uffff\1\107\23"+
-            "\uffff\1\105\1\106\12\uffff\1\107",
-            "\1\113\33\uffff\1\112\37\uffff\1\112",
-            "\1\120\10\uffff\1\117\3\uffff\1\125\1\121\12\126\6\uffff\1"+
-            "\122\3\uffff\1\114\1\124\11\uffff\1\115\3\uffff\1\116\20\uffff"+
-            "\1\123\1\125\11\uffff\1\115\3\uffff\1\116",
-            "\1\65\12\uffff\1\65\3\uffff\12\64\2\uffff\5\65\1\127\5\64"+
-            "\2\65\1\130\21\65\4\uffff\1\65\1\uffff\1\131\7\65\1\130\21\65",
-            "\1\133\12\uffff\1\132\24\uffff\1\133\12\uffff\1\132",
-            "\1\134\13\uffff\1\136\2\uffff\1\135\20\uffff\1\134\13\uffff"+
-            "\1\136\2\uffff\1\135",
-            "\12\61\7\uffff\6\61\13\uffff\1\137\37\uffff\1\137",
-            "\1\141\37\uffff\1\141",
-            "\1\142\37\uffff\1\142",
-            "\1\144\7\uffff\1\145\7\uffff\1\143\17\uffff\1\144\7\uffff"+
-            "\1\145\7\uffff\1\143",
-            "\1\152\36\uffff\1\153\13\uffff\1\150\5\uffff\1\146\1\151\1"+
-            "\uffff\1\147\26\uffff\1\150\5\uffff\1\146\1\151\1\uffff\1\147",
-            "\1\155\61\uffff\1\154\37\uffff\1\154",
-            "\1\125\1\uffff\12\126\2\uffff\1\157\1\160\7\uffff\1\124\37"+
-            "\uffff\1\125",
-            "\1\161\37\uffff\1\161",
-            "\1\164\36\uffff\1\165\3\uffff\1\166\7\uffff\1\162\6\uffff"+
-            "\1\163\20\uffff\1\166\7\uffff\1\162\6\uffff\1\163",
-            "\1\167\1\uffff\1\170\1\125\1\uffff\12\126\13\uffff\1\124\37"+
-            "\uffff\1\125",
-            "\1\171\37\uffff\1\171",
-            "\1\65\12\uffff\1\65\3\uffff\12\65\2\uffff\37\65\4\uffff\1"+
-            "\65\1\uffff\32\65",
+            "\11\55\2\54\2\55\1\54\22\55\1\54\1\31\1\52\4\55\1\53\1\40\1"+
+            "\55\1\32\1\23\1\33\1\20\1\55\1\34\1\3\1\27\1\15\7\46\1\35\1"+
+            "\36\2\51\1\30\1\5\1\37\1\10\1\47\1\1\1\7\1\11\1\16\2\51\1\24"+
+            "\1\26\1\51\1\25\1\21\1\4\1\22\1\17\1\51\1\12\1\6\1\2\1\13\4"+
+            "\51\1\14\3\55\1\50\1\51\1\55\1\43\1\51\1\41\1\42\1\44\1\45\2"+
+            "\51\1\24\1\26\1\51\1\25\1\21\1\4\1\22\1\17\1\51\1\12\1\6\1\2"+
+            "\1\13\4\51\1\14\uff85\55",
+            "\1\67\12\uffff\1\67\3\uffff\12\66\2\uffff\5\67\1\56\3\66\1"+
+            "\60\1\66\5\67\1\61\2\67\1\62\2\67\1\57\10\67\4\uffff\1\67\1"+
+            "\uffff\1\64\3\67\1\65\6\67\1\61\2\67\1\62\2\67\1\57\10\67",
+            "\1\75\36\uffff\1\76\13\uffff\1\73\2\uffff\1\70\2\uffff\1\71"+
+            "\1\74\1\uffff\1\72\26\uffff\1\73\2\uffff\1\70\2\uffff\1\71\1"+
+            "\74\1\uffff\1\72",
+            "\1\102\1\uffff\12\103\2\uffff\1\77\1\100\7\uffff\1\101\37"+
+            "\uffff\1\102",
+            "\1\104\1\uffff\1\110\3\uffff\1\111\5\uffff\1\105\3\uffff\1"+
+            "\106\6\uffff\1\107\10\uffff\1\104\1\uffff\1\110\3\uffff\1\111"+
+            "\5\uffff\1\105\3\uffff\1\106\6\uffff\1\107",
+            "\1\112\26\uffff\1\113\37\uffff\1\113",
+            "\1\114\32\uffff\1\115\13\uffff\1\117\2\uffff\1\116\20\uffff"+
+            "\1\115\13\uffff\1\117\2\uffff\1\116",
+            "\1\67\12\uffff\1\67\3\uffff\1\125\11\66\2\uffff\5\67\1\121"+
+            "\3\66\1\123\1\66\7\67\1\120\3\67\1\122\2\67\1\124\5\67\4\uffff"+
+            "\1\67\1\uffff\1\126\3\67\1\127\10\67\1\120\3\67\1\122\2\67\1"+
+            "\124\5\67",
+            "\1\67\12\uffff\1\67\3\uffff\12\66\2\uffff\5\67\1\66\1\131"+
+            "\4\66\14\67\1\130\7\67\4\uffff\1\67\1\uffff\1\67\1\132\20\67"+
+            "\1\130\7\67",
+            "\1\67\12\uffff\1\67\3\uffff\12\66\2\uffff\5\67\6\66\13\67"+
+            "\1\134\5\67\1\133\2\67\4\uffff\1\67\1\uffff\21\67\1\134\5\67"+
+            "\1\133\2\67",
+            "\1\141\1\uffff\1\140\2\uffff\1\135\1\136\12\uffff\1\137\23"+
+            "\uffff\1\135\1\136\12\uffff\1\137",
+            "\1\143\33\uffff\1\142\37\uffff\1\142",
+            "\1\144",
+            "\1\151\10\uffff\1\150\3\uffff\1\102\1\152\12\103\6\uffff\1"+
+            "\153\3\uffff\1\145\1\101\11\uffff\1\146\3\uffff\1\147\20\uffff"+
+            "\1\154\1\102\11\uffff\1\146\3\uffff\1\147",
+            "\1\67\12\uffff\1\67\3\uffff\12\66\2\uffff\5\67\1\155\5\66"+
+            "\2\67\1\156\21\67\4\uffff\1\67\1\uffff\1\157\7\67\1\156\21\67",
+            "\1\161\12\uffff\1\160\24\uffff\1\161\12\uffff\1\160",
+            "\12\63\7\uffff\6\63\13\uffff\1\162\37\uffff\1\162",
+            "\1\164\37\uffff\1\164",
+            "\1\166\7\uffff\1\167\7\uffff\1\165\17\uffff\1\166\7\uffff"+
+            "\1\167\7\uffff\1\165",
+            "\1\171\61\uffff\1\170\37\uffff\1\170",
+            "\1\173\37\uffff\1\173",
+            "\1\176\36\uffff\1\177\3\uffff\1\u0080\7\uffff\1\174\6\uffff"+
+            "\1\175\20\uffff\1\u0080\7\uffff\1\174\6\uffff\1\175",
+            "\1\u0081\37\uffff\1\u0081",
+            "\1\u0082\1\uffff\1\u0083\1\102\1\uffff\12\103\13\uffff\1\101"+
+            "\37\uffff\1\102",
+            "\1\u0084\37\uffff\1\u0084",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
             "",
-            "\1\65\12\uffff\1\65\3\uffff\12\65\2\uffff\37\65\4\uffff\1"+
-            "\65\1\uffff\32\65",
-            "\1\175",
-            "",
-            "",
-            "\1\65\12\uffff\1\65\3\uffff\12\65\2\uffff\37\65\4\uffff\1"+
-            "\65\1\uffff\32\65",
-            "\12\u0082\1\uffff\2\u0082\1\uffff\ufff2\u0082",
-            "\1\62\3\uffff\1\63\6\uffff\1\57\2\uffff\1\60\2\uffff\1\55"+
-            "\16\uffff\1\62\3\uffff\1\63\6\uffff\1\57\2\uffff\1\60\2\uffff"+
-            "\1\55",
-            "\1\u0083\20\uffff\1\74\3\uffff\1\75\10\uffff\1\66\3\uffff"+
-            "\1\70\2\uffff\1\72\13\uffff\1\74\3\uffff\1\75\10\uffff\1\66"+
-            "\3\uffff\1\70\2\uffff\1\72",
-            "\1\100\20\uffff\1\76\16\uffff\1\100\20\uffff\1\76",
-            "\1\102\5\uffff\1\101\31\uffff\1\102\5\uffff\1\101",
-            "\1\131\7\uffff\1\130\27\uffff\1\131\7\uffff\1\130",
-            "\1\125\1\uffff\12\126\13\uffff\1\124\37\uffff\1\125",
-            "\1\65\12\uffff\1\65\3\uffff\12\64\2\uffff\5\65\6\64\24\65"+
-            "\4\uffff\1\65\1\uffff\32\65",
-            "\1\65\12\uffff\1\65\17\uffff\37\65\4\uffff\1\65\1\uffff\32"+
-            "\65",
-            "",
-            "\0\u0084",
-            "\0\u0084",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
+            "\1\u0088",
             "",
             "",
-            "\1\65\12\uffff\1\65\3\uffff\12\64\2\uffff\5\65\6\64\13\65"+
-            "\1\u0086\10\65\4\uffff\1\65\1\uffff\21\65\1\u0086\10\65",
-            "\1\u0087\37\uffff\1\u0087",
-            "\1\65\12\uffff\1\65\3\uffff\12\64\2\uffff\5\65\6\64\5\65\1"+
-            "\u0088\16\65\4\uffff\1\65\1\uffff\13\65\1\u0088\16\65",
-            "\1\u0089\37\uffff\1\u0089",
-            "\1\u008a\37\uffff\1\u008a",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
+            "\12\u008d\1\uffff\2\u008d\1\uffff\ufff2\u008d",
+            "\1\64\3\uffff\1\65\6\uffff\1\61\2\uffff\1\62\2\uffff\1\57"+
+            "\16\uffff\1\64\3\uffff\1\65\6\uffff\1\61\2\uffff\1\62\2\uffff"+
+            "\1\57",
+            "\1\u008e\20\uffff\1\126\3\uffff\1\127\10\uffff\1\120\3\uffff"+
+            "\1\122\2\uffff\1\124\13\uffff\1\126\3\uffff\1\127\10\uffff\1"+
+            "\120\3\uffff\1\122\2\uffff\1\124",
+            "\1\132\20\uffff\1\130\16\uffff\1\132\20\uffff\1\130",
+            "\1\134\5\uffff\1\133\31\uffff\1\134\5\uffff\1\133",
+            "\1\157\7\uffff\1\156\27\uffff\1\157\7\uffff\1\156",
+            "\1\102\1\uffff\12\103\13\uffff\1\101\37\uffff\1\102",
+            "\1\67\12\uffff\1\67\3\uffff\12\66\2\uffff\5\67\6\66\24\67"+
+            "\4\uffff\1\67\1\uffff\32\67",
+            "\1\67\12\uffff\1\67\17\uffff\37\67\4\uffff\1\67\1\uffff\32"+
+            "\67",
             "",
-            "\1\u0086\37\uffff\1\u0086",
-            "\1\u0088\37\uffff\1\u0088",
-            "\1\65\12\uffff\1\65\3\uffff\12\64\2\uffff\5\65\6\64\24\65"+
-            "\4\uffff\1\65\1\uffff\32\65",
+            "\0\u008f",
+            "\0\u008f",
             "",
-            "\1\u008b\37\uffff\1\u008b",
-            "\1\65\12\uffff\1\65\3\uffff\12\64\2\uffff\5\65\1\64\1\u008c"+
-            "\4\64\24\65\4\uffff\1\65\1\uffff\1\65\1\u008d\30\65",
-            "\1\u008e\37\uffff\1\u008e",
-            "\1\65\12\uffff\1\65\3\uffff\12\64\2\uffff\5\65\2\64\1\u008f"+
-            "\3\64\24\65\4\uffff\1\65\1\uffff\2\65\1\u0090\27\65",
-            "\1\u0091\37\uffff\1\u0091",
-            "\1\65\12\uffff\1\65\3\uffff\12\64\2\uffff\1\65\1\u0092\3\65"+
-            "\6\64\24\65\4\uffff\1\65\1\uffff\32\65",
-            "\1\u008d\37\uffff\1\u008d",
-            "\1\u0090\37\uffff\1\u0090",
-            "\1\u0093\37\uffff\1\u0093",
-            "\1\65\12\uffff\1\65\3\uffff\12\64\2\uffff\5\65\6\64\14\65"+
-            "\1\u0094\7\65\4\uffff\1\65\1\uffff\22\65\1\u0094\7\65",
+            "",
+            "\1\67\12\uffff\1\67\3\uffff\12\66\2\uffff\5\67\6\66\13\67"+
+            "\1\u0091\10\67\4\uffff\1\67\1\uffff\21\67\1\u0091\10\67",
+            "\1\u0092\37\uffff\1\u0092",
+            "\1\67\12\uffff\1\67\3\uffff\12\66\2\uffff\5\67\6\66\5\67\1"+
+            "\u0093\16\67\4\uffff\1\67\1\uffff\13\67\1\u0093\16\67",
             "\1\u0094\37\uffff\1\u0094",
             "\1\u0095\37\uffff\1\u0095",
+            "",
+            "\1\u0091\37\uffff\1\u0091",
+            "\1\u0093\37\uffff\1\u0093",
+            "\1\67\12\uffff\1\67\3\uffff\12\66\2\uffff\5\67\6\66\24\67"+
+            "\4\uffff\1\67\1\uffff\32\67",
+            "",
             "\1\u0096\37\uffff\1\u0096",
             "\1\u0097\37\uffff\1\u0097",
             "\1\u0098\37\uffff\1\u0098",
             "\1\u0099\37\uffff\1\u0099",
             "\1\u009a\37\uffff\1\u009a",
-            "\1\u009b\5\uffff\1\u009c\1\uffff\1\u009d\27\uffff\1\u009b"+
-            "\5\uffff\1\u009c\1\uffff\1\u009d",
-            "\1\65\12\uffff\1\65\3\uffff\12\65\2\uffff\37\65\4\uffff\1"+
-            "\65\1\uffff\32\65",
-            "\1\65\12\uffff\1\65\3\uffff\12\65\2\uffff\37\65\4\uffff\1"+
-            "\65\1\uffff\32\65",
-            "\1\u00a1\13\uffff\1\u00a0\23\uffff\1\u00a1\13\uffff\1\u00a0",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
+            "\1\u009d",
+            "\1\u009f\37\uffff\1\u009f",
+            "\1\102\1\uffff\1\102\2\uffff\12\u00a1",
+            "",
+            "\1\102\1\uffff\12\103\13\uffff\1\101\37\uffff\1\102",
             "\1\u00a2",
-            "\1\u00a3\2\uffff\1\u00a4\34\uffff\1\u00a3\2\uffff\1\u00a4",
-            "",
-            "",
+            "\1\u00a3",
+            "\1\u00a4",
             "\1\u00a5",
+            "\1\u00a6\37\uffff\1\u00a6",
+            "\1\u00a7\37\uffff\1\u00a7",
             "",
-            "",
-            "",
-            "\1\u00a3\2\uffff\1\u00a4\34\uffff\1\u00a3\2\uffff\1\u00a4",
-            "\1\125\1\uffff\1\125\2\uffff\12\u00a7",
-            "",
-            "\1\125\1\uffff\12\126\13\uffff\1\124\37\uffff\1\125",
-            "\1\65\12\uffff\1\65\3\uffff\12\64\2\uffff\5\65\6\64\5\65\1"+
-            "\u00a8\16\65\4\uffff\1\65\1\uffff\13\65\1\u00a8\16\65",
-            "\1\u00a9\37\uffff\1\u00a9",
             "\1\u00a8\37\uffff\1\u00a8",
+            "",
+            "\1\u00a9\37\uffff\1\u00a9",
             "\1\u00aa\37\uffff\1\u00aa",
-            "\1\u00ab\37\uffff\1\u00ab",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
             "\1\u00ac\37\uffff\1\u00ac",
-            "\1\u00ad\37\uffff\1\u00ad",
-            "\1\65\12\uffff\1\65\3\uffff\12\65\2\uffff\37\65\4\uffff\1"+
-            "\65\1\uffff\32\65",
-            "",
-            "",
+            "\1\67\12\uffff\1\67\3\uffff\12\66\2\uffff\5\67\1\66\1\u00ad"+
+            "\4\66\24\67\4\uffff\1\67\1\uffff\1\67\1\u00ae\30\67",
             "\1\u00af\37\uffff\1\u00af",
-            "\1\u00b0\37\uffff\1\u00b0",
-            "\1\u00b1\37\uffff\1\u00b1",
+            "\1\67\12\uffff\1\67\3\uffff\12\66\2\uffff\5\67\2\66\1\u00b0"+
+            "\3\66\24\67\4\uffff\1\67\1\uffff\2\67\1\u00b1\27\67",
             "\1\u00b2\37\uffff\1\u00b2",
-            "\1\65\12\uffff\1\65\3\uffff\12\65\2\uffff\37\65\4\uffff\1"+
-            "\65\1\uffff\32\65",
+            "\1\67\12\uffff\1\67\3\uffff\12\66\2\uffff\1\67\1\u00b3\3\67"+
+            "\6\66\24\67\4\uffff\1\67\1\uffff\32\67",
+            "\1\u00ae\37\uffff\1\u00ae",
+            "\1\u00b1\37\uffff\1\u00b1",
             "\1\u00b4\37\uffff\1\u00b4",
+            "\1\67\12\uffff\1\67\3\uffff\12\66\2\uffff\5\67\6\66\14\67"+
+            "\1\u00b5\7\67\4\uffff\1\67\1\uffff\22\67\1\u00b5\7\67",
             "\1\u00b5\37\uffff\1\u00b5",
             "\1\u00b6\37\uffff\1\u00b6",
             "\1\u00b7\37\uffff\1\u00b7",
-            "\1\65\12\uffff\1\65\3\uffff\12\65\2\uffff\37\65\4\uffff\1"+
-            "\65\1\uffff\32\65",
-            "\1\65\12\uffff\1\65\3\uffff\12\65\2\uffff\37\65\4\uffff\1"+
-            "\65\1\uffff\32\65",
+            "\1\u00b8\37\uffff\1\u00b8",
+            "\1\u00b9\37\uffff\1\u00b9",
+            "\1\u00ba\5\uffff\1\u00bb\1\uffff\1\u00bc\27\uffff\1\u00ba"+
+            "\5\uffff\1\u00bb\1\uffff\1\u00bc",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
+            "\1\u00c0\13\uffff\1\u00bf\23\uffff\1\u00c0\13\uffff\1\u00bf",
+            "\1\u00c1",
+            "",
+            "\1\u00c2\2\uffff\1\u00c3\34\uffff\1\u00c2\2\uffff\1\u00c3",
+            "",
+            "",
+            "\1\u00c4",
             "",
             "",
             "",
-            "\1\u00ba",
-            "",
-            "\1\u00bc\37\uffff\1\u00bc",
-            "\1\u00bd\37\uffff\1\u00bd",
-            "\1\u00be\37\uffff\1\u00be",
-            "\1\65\12\uffff\1\65\3\uffff\12\65\2\uffff\37\65\4\uffff\1"+
-            "\65\1\uffff\32\65",
-            "\1\65\12\uffff\1\65\3\uffff\12\65\2\uffff\37\65\4\uffff\1"+
-            "\65\1\uffff\32\65",
-            "\1\65\12\uffff\1\65\3\uffff\12\65\2\uffff\37\65\4\uffff\1"+
-            "\65\1\uffff\32\65",
-            "",
-            "",
-            "\1\65\12\uffff\1\65\3\uffff\12\65\2\uffff\37\65\4\uffff\1"+
-            "\65\1\uffff\32\65",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "\1\u0092",
-            "",
-            "",
-            "\1\u00c3\37\uffff\1\u00c3",
-            "\1\u00c4\37\uffff\1\u00c4",
-            "\1\u00c5\37\uffff\1\u00c5",
-            "\1\u00c6\37\uffff\1\u00c6",
+            "\1\u00c2\2\uffff\1\u00c3\34\uffff\1\u00c2\2\uffff\1\u00c3",
+            "\1\67\12\uffff\1\67\3\uffff\12\66\2\uffff\5\67\6\66\5\67\1"+
+            "\u00c6\16\67\4\uffff\1\67\1\uffff\13\67\1\u00c6\16\67",
             "\1\u00c7\37\uffff\1\u00c7",
+            "\1\u00c6\37\uffff\1\u00c6",
             "\1\u00c8\37\uffff\1\u00c8",
-            "\1\65\12\uffff\1\65\3\uffff\12\64\2\uffff\5\65\6\64\14\65"+
-            "\1\u00c9\7\65\4\uffff\1\65\1\uffff\22\65\1\u00c9\7\65",
             "\1\u00c9\37\uffff\1\u00c9",
-            "\1\u00ca\3\uffff\1\u00cb\1\uffff\1\u00cc\31\uffff\1\u00ca"+
-            "\3\uffff\1\u00cb\1\uffff\1\u00cc",
-            "\1\65\12\uffff\1\65\3\uffff\12\64\2\uffff\5\65\6\64\24\65"+
-            "\4\uffff\1\65\1\uffff\32\65",
-            "\1\65\12\uffff\1\65\3\uffff\12\65\2\uffff\37\65\4\uffff\1"+
-            "\65\1\uffff\32\65",
-            "\1\65\12\uffff\1\65\3\uffff\12\65\2\uffff\37\65\4\uffff\1"+
-            "\65\1\uffff\32\65",
-            "\1\65\12\uffff\1\65\3\uffff\12\65\2\uffff\37\65\4\uffff\1"+
-            "\65\1\uffff\32\65",
+            "",
+            "",
+            "\1\u00ca\37\uffff\1\u00ca",
+            "\1\u00cb\37\uffff\1\u00cb",
+            "\1\u00cc\37\uffff\1\u00cc",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
+            "",
+            "",
+            "",
+            "\1\u00ce\37\uffff\1\u00ce",
+            "\1\u00cf\37\uffff\1\u00cf",
             "\1\u00d0\37\uffff\1\u00d0",
-            "\1\65\12\uffff\1\65\3\uffff\12\65\2\uffff\37\65\4\uffff\1"+
-            "\65\1\uffff\32\65",
-            "\1\u00d2\37\uffff\1\u00d2",
-            "\1\u00d3\37\uffff\1\u00d3",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
             "\1\u00d4\37\uffff\1\u00d4",
-            "\1\65\12\uffff\1\65\3\uffff\12\65\2\uffff\37\65\4\uffff\1"+
-            "\65\1\uffff\32\65",
+            "",
+            "",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "\1\u00b3",
+            "",
+            "",
             "\1\u00d6\37\uffff\1\u00d6",
             "\1\u00d7\37\uffff\1\u00d7",
-            "\1\65\12\uffff\1\65\3\uffff\12\65\2\uffff\37\65\4\uffff\1"+
-            "\65\1\uffff\32\65",
-            "\1\65\12\uffff\1\65\3\uffff\12\65\2\uffff\37\65\4\uffff\1"+
-            "\65\1\uffff\32\65",
-            "\1\65\12\uffff\1\65\3\uffff\12\65\2\uffff\37\65\4\uffff\1"+
-            "\65\1\uffff\32\65",
-            "",
-            "",
-            "\1\u00db\37\uffff\1\u00db",
+            "\1\u00d8\37\uffff\1\u00d8",
+            "\1\u00d9\37\uffff\1\u00d9",
+            "\1\u00da\37\uffff\1\u00da",
+            "\1\u00db",
             "\1\u00dc\37\uffff\1\u00dc",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "\12\u00a7",
             "\1\u00dd\37\uffff\1\u00dd",
-            "\1\u00de\37\uffff\1\u00de",
-            "\1\u00df\37\uffff\1\u00df",
-            "\1\u00e0\37\uffff\1\u00e0",
-            "\1\u00e1\37\uffff\1\u00e1",
-            "\1\u00e2\37\uffff\1\u00e2",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
             "",
-            "\1\u00e3\37\uffff\1\u00e3",
+            "",
+            "\1\u00e0\37\uffff\1\u00e0",
+            "",
+            "",
+            "",
+            "\12\u00a1",
+            "",
+            "",
+            "",
+            "",
+            "\1\u00e2\37\uffff\1\u00e2",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
             "\1\u00e4\37\uffff\1\u00e4",
             "\1\u00e5\37\uffff\1\u00e5",
-            "\1\65\12\uffff\1\65\3\uffff\12\65\2\uffff\37\65\4\uffff\1"+
-            "\65\1\uffff\32\65",
+            "\1\u00e6\37\uffff\1\u00e6",
             "",
             "\1\u00e7\37\uffff\1\u00e7",
+            "\1\67\12\uffff\1\67\3\uffff\12\66\2\uffff\5\67\6\66\14\67"+
+            "\1\u00e8\7\67\4\uffff\1\67\1\uffff\22\67\1\u00e8\7\67",
             "\1\u00e8\37\uffff\1\u00e8",
-            "\1\65\12\uffff\1\65\3\uffff\12\65\2\uffff\37\65\4\uffff\1"+
-            "\65\1\uffff\32\65",
-            "\1\65\12\uffff\1\65\3\uffff\12\65\2\uffff\37\65\4\uffff\1"+
-            "\65\1\uffff\32\65",
-            "",
-            "",
-            "",
-            "",
-            "\1\65\12\uffff\1\65\3\uffff\12\65\2\uffff\37\65\4\uffff\1"+
-            "\65\1\uffff\32\65",
-            "\1\65\12\uffff\1\65\3\uffff\12\65\2\uffff\37\65\4\uffff\1"+
-            "\65\1\uffff\32\65",
-            "\1\65\12\uffff\1\65\3\uffff\12\65\2\uffff\37\65\4\uffff\1"+
-            "\65\1\uffff\32\65",
-            "",
-            "",
-            "",
-            "",
-            "\1\u00ee\37\uffff\1\u00ee",
+            "\1\u00e9\3\uffff\1\u00ea\1\uffff\1\u00eb\31\uffff\1\u00e9"+
+            "\3\uffff\1\u00ea\1\uffff\1\u00eb",
+            "\1\67\12\uffff\1\67\3\uffff\12\66\2\uffff\5\67\6\66\24\67"+
+            "\4\uffff\1\67\1\uffff\32\67",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
             "\1\u00ef\37\uffff\1\u00ef",
-            "\1\u00f0\1\uffff\1\u00f1",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
+            "\1\u00f1\37\uffff\1\u00f1",
             "\1\u00f2\37\uffff\1\u00f2",
             "\1\u00f3\37\uffff\1\u00f3",
             "\1\u00f4\37\uffff\1\u00f4",
-            "\1\65\12\uffff\1\65\3\uffff\12\65\2\uffff\37\65\4\uffff\1"+
-            "\65\1\uffff\32\65",
-            "\1\65\12\uffff\1\65\3\uffff\12\65\2\uffff\37\65\4\uffff\1"+
-            "\65\1\uffff\32\65",
-            "\1\65\12\uffff\1\65\3\uffff\12\65\2\uffff\37\65\4\uffff\1"+
-            "\65\1\uffff\32\65",
-            "\1\65\12\uffff\1\65\3\uffff\12\65\2\uffff\37\65\4\uffff\1"+
-            "\65\1\uffff\32\65",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
             "",
             "",
-            "",
+            "\1\u00f8\37\uffff\1\u00f8",
             "\1\u00f9\37\uffff\1\u00f9",
+            "",
+            "",
+            "",
+            "",
             "",
             "\1\u00fa\37\uffff\1\u00fa",
             "\1\u00fb\37\uffff\1\u00fb",
             "\1\u00fc\37\uffff\1\u00fc",
-            "",
             "\1\u00fd\37\uffff\1\u00fd",
             "\1\u00fe\37\uffff\1\u00fe",
-            "",
-            "",
-            "",
             "\1\u00ff\37\uffff\1\u00ff",
-            "\1\u0100\37\uffff\1\u0100",
-            "\1\u0101\37\uffff\1\u0101",
-            "\1\65\12\uffff\1\65\3\uffff\12\65\2\uffff\37\65\4\uffff\1"+
-            "\65\1\uffff\32\65",
-            "\1\u0103\37\uffff\1\u0103",
-            "\1\65\12\uffff\1\65\3\uffff\12\65\2\uffff\37\65\4\uffff\1"+
-            "\65\1\uffff\32\65",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
+            "",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
+            "",
+            "",
+            "",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
+            "",
             "\1\u0105\37\uffff\1\u0105",
-            "\1\65\12\uffff\1\65\3\uffff\12\65\2\uffff\37\65\4\uffff\1"+
-            "\65\1\uffff\32\65",
-            "\1\65\12\uffff\1\65\3\uffff\12\65\2\uffff\37\65\4\uffff\1"+
-            "\65\1\uffff\32\65",
-            "\1\65\12\uffff\1\65\3\uffff\12\65\2\uffff\37\65\4\uffff\1"+
-            "\65\1\uffff\32\65",
-            "\1\65\12\uffff\1\65\3\uffff\12\65\2\uffff\37\65\4\uffff\1"+
-            "\65\1\uffff\32\65",
+            "\1\u0106\37\uffff\1\u0106",
+            "\1\u0107\1\uffff\1\u0108",
+            "\1\u0109\37\uffff\1\u0109",
+            "\1\u010a\37\uffff\1\u010a",
             "",
-            "\1\65\12\uffff\1\65\3\uffff\12\65\2\uffff\37\65\4\uffff\1"+
-            "\65\1\uffff\32\65",
-            "\1\65\12\uffff\1\65\3\uffff\12\65\2\uffff\37\65\4\uffff\1"+
-            "\65\1\uffff\32\65",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
             "",
             "",
             "",
             "",
+            "\1\u010d\37\uffff\1\u010d",
             "",
-            "\1\u010d\61\uffff\1\u010c",
-            "\1\u010e\37\uffff\1\u010e",
-            "",
-            "",
-            "\1\65\12\uffff\1\65\3\uffff\12\65\2\uffff\37\65\4\uffff\1"+
-            "\65\1\uffff\32\65",
-            "\1\65\12\uffff\1\65\3\uffff\12\65\2\uffff\37\65\4\uffff\1"+
-            "\65\1\uffff\32\65",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
+            "\1\u010f\37\uffff\1\u010f",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
             "\1\u0111\37\uffff\1\u0111",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
             "",
             "",
             "",
-            "",
-            "\1\u0112\37\uffff\1\u0112",
-            "\1\u0113\37\uffff\1\u0113",
-            "\1\65\12\uffff\1\65\3\uffff\12\65\2\uffff\37\65\4\uffff\1"+
-            "\65\1\uffff\32\65",
-            "\1\u0115\37\uffff\1\u0115",
             "\1\u0116\37\uffff\1\u0116",
-            "\1\65\12\uffff\1\65\3\uffff\12\65\2\uffff\37\65\4\uffff\1"+
-            "\65\1\uffff\32\65",
+            "",
+            "\1\u0117\37\uffff\1\u0117",
             "\1\u0118\37\uffff\1\u0118",
-            "\1\65\12\uffff\1\65\3\uffff\12\65\2\uffff\37\65\4\uffff\1"+
-            "\65\1\uffff\32\65",
-            "\1\65\12\uffff\1\65\3\uffff\12\65\2\uffff\37\65\4\uffff\1"+
-            "\65\1\uffff\32\65",
-            "",
-            "\1\65\12\uffff\1\65\3\uffff\12\65\2\uffff\37\65\4\uffff\1"+
-            "\65\1\uffff\32\65",
-            "",
-            "\1\65\12\uffff\1\65\3\uffff\12\65\2\uffff\37\65\4\uffff\1"+
-            "\65\1\uffff\32\65",
+            "\1\u0119\37\uffff\1\u0119",
+            "\1\u011a\37\uffff\1\u011a",
             "",
             "",
             "",
-            "",
-            "",
-            "",
+            "\1\u011b\37\uffff\1\u011b",
+            "\1\u011c\37\uffff\1\u011c",
             "\1\u011d\37\uffff\1\u011d",
-            "",
-            "\1\65\12\uffff\1\65\3\uffff\12\65\2\uffff\37\65\4\uffff\1"+
-            "\65\1\uffff\32\65",
-            "",
-            "",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
             "\1\u011f\37\uffff\1\u011f",
-            "\1\65\12\uffff\1\65\3\uffff\12\65\2\uffff\37\65\4\uffff\1"+
-            "\65\1\uffff\32\65",
-            "\1\65\12\uffff\1\65\3\uffff\12\65\2\uffff\37\65\4\uffff\1"+
-            "\65\1\uffff\32\65",
-            "",
-            "\1\65\12\uffff\1\65\3\uffff\12\65\2\uffff\37\65\4\uffff\1"+
-            "\65\1\uffff\32\65",
-            "\1\65\12\uffff\1\65\3\uffff\12\65\2\uffff\37\65\4\uffff\1"+
-            "\65\1\uffff\32\65",
-            "",
-            "\1\65\12\uffff\1\65\3\uffff\12\65\2\uffff\37\65\4\uffff\1"+
-            "\65\1\uffff\32\65",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
             "",
             "",
             "",
             "",
+            "",
+            "\1\u0124\61\uffff\1\u0123",
             "\1\u0125\37\uffff\1\u0125",
             "",
-            "\1\65\12\uffff\1\65\3\uffff\12\65\2\uffff\37\65\4\uffff\1"+
-            "\65\1\uffff\32\65",
             "",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
             "",
-            "",
-            "",
-            "",
-            "\1\u0127\37\uffff\1\u0127",
             "",
             "\1\u0128\37\uffff\1\u0128",
-            "\1\u0129\37\uffff\1\u0129",
-            "\1\65\12\uffff\1\65\3\uffff\12\65\2\uffff\37\65\4\uffff\1"+
-            "\65\1\uffff\32\65",
+            "",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
+            "",
+            "\1\u012a\37\uffff\1\u012a",
+            "",
+            "",
+            "",
+            "",
+            "\1\u012b\37\uffff\1\u012b",
+            "\1\u012c\37\uffff\1\u012c",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
+            "\1\u012e\37\uffff\1\u012e",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
+            "\1\u0130\37\uffff\1\u0130",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
+            "",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
+            "",
+            "",
+            "",
+            "\1\u0134\37\uffff\1\u0134",
+            "",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
+            "",
+            "",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
+            "",
+            "\1\u0137\37\uffff\1\u0137",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
+            "",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
+            "",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
+            "",
+            "",
+            "",
+            "\1\u013c\37\uffff\1\u013c",
+            "",
+            "",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
+            "",
+            "",
+            "",
+            "",
+            "\1\u013e\37\uffff\1\u013e",
+            "",
+            "\1\u013f\37\uffff\1\u013f",
+            "\1\u0140\37\uffff\1\u0140",
+            "\1\67\12\uffff\1\67\3\uffff\12\67\2\uffff\37\67\4\uffff\1"+
+            "\67\1\uffff\32\67",
             ""
     };
 
@@ -5819,131 +6815,135 @@ public class InternalUForthLexer extends Lexer {
             this.transition = DFA18_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( CARRY_RESET | CARRYSET | DNEGATE | ASHIFT | EXTEND | NEGATE | RCLEAR | UNPACK | Create | DROP_1 | OVER_1 | SWAP_1 | CELL | CELL_1 | CLEAR | COUNT | ERASE | FALSE | PLACE | RDROP | SHIFT | UNDER | ROT_1 | DUP_1 | DUP_2 | DABS | DROL | DROP | DROR | FILL | MOVE | OVER | PACK | SWAP | TRUE | TUCK | ST_1 | DigitZeroLessThanSignGreaterThanSign | DigitTwoAsteriskAsterisk | ABS | DEC | DUP | INC | LLD | LST | NIP | OFF | ROL | ROR | ROT | TLD | TST | D0 | U2 | PlusSignExclamationMark | DigitZeroLessThanSign | DigitZeroEqualsSign | DigitOnePlusSign | DigitOneHyphenMinus | DigitTwoExclamationMark | DigitTwoAsterisk | DigitTwoSolidus | DigitTwoCommercialAt | R | L | L_1 | LD | ON | R_1 | ST | T | T_1 | R_2 | ExclamationMark | Asterisk | PlusSign | Comma | HyphenMinus | Solidus | Colon | Semicolon | CommercialAt | RULE_SL_COMMENT | RULE_INT | RULE_DOUBLE | RULE_ID | RULE_STRING | RULE_ML_COMMENT | RULE_WS | RULE_ANY_OTHER );";
+            return "1:1: Tokens : ( CARRY_RESET | TorBranch | Branch_2 | CARRYSET | NcBranch | NoBranch | NsBranch | Branch | Branch_1 | SBranch | DNEGATE | NzExit | ASHIFT | EXTEND | NEGATE | RCLEAR | UNPACK | Create | ZExit | DROP_1 | OVER_1 | SWAP_1 | CELL | CELL_1 | CLEAR | COUNT | ERASE | FALSE | PLACE | RDROP | SHIFT | UNDER | ROT_1 | DUP_1 | DUP_2 | DABS | DROL | DROP | DROR | FILL | MOVE | OVER | PACK | SWAP | TRUE | TUCK | ST_1 | DigitZeroLessThanSignGreaterThanSign | DigitTwoAsteriskAsterisk | ABS | DEC | DUP | INC | LLD | LST | NIP | OFF | ROL | ROR | ROT | TLD | TST | D0 | Jsr | U2 | PlusSignExclamationMark | DigitZeroLessThanSign | DigitZeroEqualsSign | DigitOnePlusSign | DigitOneHyphenMinus | DigitTwoExclamationMark | DigitTwoAsterisk | DigitTwoSolidus | DigitTwoCommercialAt | R | L | L_1 | LD | ON | R_1 | ST | T | T_1 | R_2 | ExclamationMark | Asterisk | PlusSign | Comma | HyphenMinus | Solidus | Colon | Semicolon | CommercialAt | RULE_SL_COMMENT | RULE_INT | RULE_DOUBLE | RULE_ID | RULE_STRING | RULE_ML_COMMENT | RULE_WS | RULE_ANY_OTHER );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             IntStream input = _input;
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA18_30 = input.LA(1);
+                        int LA18_32 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA18_30>='\u0000' && LA18_30<='\t')||(LA18_30>='\u000B' && LA18_30<='\f')||(LA18_30>='\u000E' && LA18_30<='\uFFFF')) ) {s = 130;}
+                        if ( ((LA18_32>='\u0000' && LA18_32<='\t')||(LA18_32>='\u000B' && LA18_32<='\f')||(LA18_32>='\u000E' && LA18_32<='\uFFFF')) ) {s = 141;}
 
-                        else s = 43;
+                        else s = 45;
 
                         if ( s>=0 ) return s;
                         break;
                     case 1 : 
-                        int LA18_40 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA18_40>='\u0000' && LA18_40<='\uFFFF')) ) {s = 132;}
-
-                        else s = 43;
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 2 : 
-                        int LA18_41 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA18_41>='\u0000' && LA18_41<='\uFFFF')) ) {s = 132;}
-
-                        else s = 43;
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 3 : 
                         int LA18_0 = input.LA(1);
 
                         s = -1;
                         if ( (LA18_0=='C') ) {s = 1;}
 
-                        else if ( (LA18_0=='D') ) {s = 2;}
+                        else if ( (LA18_0=='T'||LA18_0=='t') ) {s = 2;}
 
-                        else if ( (LA18_0=='A') ) {s = 3;}
+                        else if ( (LA18_0=='0') ) {s = 3;}
 
-                        else if ( (LA18_0=='E') ) {s = 4;}
+                        else if ( (LA18_0=='N'||LA18_0=='n') ) {s = 4;}
 
-                        else if ( (LA18_0=='N'||LA18_0=='n') ) {s = 5;}
+                        else if ( (LA18_0=='?') ) {s = 5;}
 
-                        else if ( (LA18_0=='R'||LA18_0=='r') ) {s = 6;}
+                        else if ( (LA18_0=='S'||LA18_0=='s') ) {s = 6;}
 
-                        else if ( (LA18_0=='U'||LA18_0=='u') ) {s = 7;}
+                        else if ( (LA18_0=='D') ) {s = 7;}
 
-                        else if ( (LA18_0=='2') ) {s = 8;}
+                        else if ( (LA18_0=='A') ) {s = 8;}
 
-                        else if ( (LA18_0=='F') ) {s = 9;}
+                        else if ( (LA18_0=='E') ) {s = 9;}
 
-                        else if ( (LA18_0=='P'||LA18_0=='p') ) {s = 10;}
+                        else if ( (LA18_0=='R'||LA18_0=='r') ) {s = 10;}
 
-                        else if ( (LA18_0=='S'||LA18_0=='s') ) {s = 11;}
+                        else if ( (LA18_0=='U'||LA18_0=='u') ) {s = 11;}
 
-                        else if ( (LA18_0=='-') ) {s = 12;}
+                        else if ( (LA18_0=='Z'||LA18_0=='z') ) {s = 12;}
 
-                        else if ( (LA18_0=='?') ) {s = 13;}
+                        else if ( (LA18_0=='2') ) {s = 13;}
 
-                        else if ( (LA18_0=='M'||LA18_0=='m') ) {s = 14;}
+                        else if ( (LA18_0=='F') ) {s = 14;}
 
-                        else if ( (LA18_0=='O'||LA18_0=='o') ) {s = 15;}
+                        else if ( (LA18_0=='P'||LA18_0=='p') ) {s = 15;}
 
-                        else if ( (LA18_0=='T'||LA18_0=='t') ) {s = 16;}
+                        else if ( (LA18_0=='-') ) {s = 16;}
 
-                        else if ( (LA18_0=='+') ) {s = 17;}
+                        else if ( (LA18_0=='M'||LA18_0=='m') ) {s = 17;}
 
-                        else if ( (LA18_0=='0') ) {s = 18;}
+                        else if ( (LA18_0=='O'||LA18_0=='o') ) {s = 18;}
 
-                        else if ( (LA18_0=='I'||LA18_0=='i') ) {s = 19;}
+                        else if ( (LA18_0=='+') ) {s = 19;}
 
-                        else if ( (LA18_0=='L'||LA18_0=='l') ) {s = 20;}
+                        else if ( (LA18_0=='I'||LA18_0=='i') ) {s = 20;}
 
-                        else if ( (LA18_0=='1') ) {s = 21;}
+                        else if ( (LA18_0=='L'||LA18_0=='l') ) {s = 21;}
 
-                        else if ( (LA18_0=='>') ) {s = 22;}
+                        else if ( (LA18_0=='J'||LA18_0=='j') ) {s = 22;}
 
-                        else if ( (LA18_0=='!') ) {s = 23;}
+                        else if ( (LA18_0=='1') ) {s = 23;}
 
-                        else if ( (LA18_0=='*') ) {s = 24;}
+                        else if ( (LA18_0=='>') ) {s = 24;}
 
-                        else if ( (LA18_0==',') ) {s = 25;}
+                        else if ( (LA18_0=='!') ) {s = 25;}
 
-                        else if ( (LA18_0=='/') ) {s = 26;}
+                        else if ( (LA18_0=='*') ) {s = 26;}
 
-                        else if ( (LA18_0==':') ) {s = 27;}
+                        else if ( (LA18_0==',') ) {s = 27;}
 
-                        else if ( (LA18_0==';') ) {s = 28;}
+                        else if ( (LA18_0=='/') ) {s = 28;}
 
-                        else if ( (LA18_0=='@') ) {s = 29;}
+                        else if ( (LA18_0==':') ) {s = 29;}
 
-                        else if ( (LA18_0=='(') ) {s = 30;}
+                        else if ( (LA18_0==';') ) {s = 30;}
 
-                        else if ( (LA18_0=='c') ) {s = 31;}
+                        else if ( (LA18_0=='@') ) {s = 31;}
 
-                        else if ( (LA18_0=='d') ) {s = 32;}
+                        else if ( (LA18_0=='(') ) {s = 32;}
 
-                        else if ( (LA18_0=='a') ) {s = 33;}
+                        else if ( (LA18_0=='c') ) {s = 33;}
 
-                        else if ( (LA18_0=='e') ) {s = 34;}
+                        else if ( (LA18_0=='d') ) {s = 34;}
 
-                        else if ( (LA18_0=='f') ) {s = 35;}
+                        else if ( (LA18_0=='a') ) {s = 35;}
 
-                        else if ( ((LA18_0>='3' && LA18_0<='9')) ) {s = 36;}
+                        else if ( (LA18_0=='e') ) {s = 36;}
 
-                        else if ( (LA18_0=='B') ) {s = 37;}
+                        else if ( (LA18_0=='f') ) {s = 37;}
 
-                        else if ( (LA18_0=='^') ) {s = 38;}
+                        else if ( ((LA18_0>='3' && LA18_0<='9')) ) {s = 38;}
 
-                        else if ( ((LA18_0>='<' && LA18_0<='=')||(LA18_0>='G' && LA18_0<='H')||(LA18_0>='J' && LA18_0<='K')||LA18_0=='Q'||(LA18_0>='V' && LA18_0<='Z')||LA18_0=='_'||LA18_0=='b'||(LA18_0>='g' && LA18_0<='h')||(LA18_0>='j' && LA18_0<='k')||LA18_0=='q'||(LA18_0>='v' && LA18_0<='z')) ) {s = 39;}
+                        else if ( (LA18_0=='B') ) {s = 39;}
 
-                        else if ( (LA18_0=='\"') ) {s = 40;}
+                        else if ( (LA18_0=='^') ) {s = 40;}
 
-                        else if ( (LA18_0=='\'') ) {s = 41;}
+                        else if ( ((LA18_0>='<' && LA18_0<='=')||(LA18_0>='G' && LA18_0<='H')||LA18_0=='K'||LA18_0=='Q'||(LA18_0>='V' && LA18_0<='Y')||LA18_0=='_'||LA18_0=='b'||(LA18_0>='g' && LA18_0<='h')||LA18_0=='k'||LA18_0=='q'||(LA18_0>='v' && LA18_0<='y')) ) {s = 41;}
 
-                        else if ( ((LA18_0>='\t' && LA18_0<='\n')||LA18_0=='\r'||LA18_0==' ') ) {s = 42;}
+                        else if ( (LA18_0=='\"') ) {s = 42;}
 
-                        else if ( ((LA18_0>='\u0000' && LA18_0<='\b')||(LA18_0>='\u000B' && LA18_0<='\f')||(LA18_0>='\u000E' && LA18_0<='\u001F')||(LA18_0>='#' && LA18_0<='&')||LA18_0==')'||LA18_0=='.'||(LA18_0>='[' && LA18_0<=']')||LA18_0=='`'||(LA18_0>='{' && LA18_0<='\uFFFF')) ) {s = 43;}
+                        else if ( (LA18_0=='\'') ) {s = 43;}
+
+                        else if ( ((LA18_0>='\t' && LA18_0<='\n')||LA18_0=='\r'||LA18_0==' ') ) {s = 44;}
+
+                        else if ( ((LA18_0>='\u0000' && LA18_0<='\b')||(LA18_0>='\u000B' && LA18_0<='\f')||(LA18_0>='\u000E' && LA18_0<='\u001F')||(LA18_0>='#' && LA18_0<='&')||LA18_0==')'||LA18_0=='.'||(LA18_0>='[' && LA18_0<=']')||LA18_0=='`'||(LA18_0>='{' && LA18_0<='\uFFFF')) ) {s = 45;}
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 2 : 
+                        int LA18_43 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA18_43>='\u0000' && LA18_43<='\uFFFF')) ) {s = 143;}
+
+                        else s = 45;
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 3 : 
+                        int LA18_42 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA18_42>='\u0000' && LA18_42<='\uFFFF')) ) {s = 143;}
+
+                        else s = 45;
 
                         if ( s>=0 ) return s;
                         break;

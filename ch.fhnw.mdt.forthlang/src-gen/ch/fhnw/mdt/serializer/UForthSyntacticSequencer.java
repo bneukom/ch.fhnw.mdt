@@ -11,6 +11,8 @@ import org.eclipse.xtext.IGrammarAccess;
 import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.serializer.analysis.GrammarAlias.AbstractElementAlias;
+import org.eclipse.xtext.serializer.analysis.GrammarAlias.TokenAlias;
+import org.eclipse.xtext.serializer.analysis.ISyntacticSequencerPDAProvider.ISynNavigable;
 import org.eclipse.xtext.serializer.analysis.ISyntacticSequencerPDAProvider.ISynTransition;
 import org.eclipse.xtext.serializer.sequencer.AbstractSyntacticSequencer;
 
@@ -18,10 +20,12 @@ import org.eclipse.xtext.serializer.sequencer.AbstractSyntacticSequencer;
 public class UForthSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected UForthGrammarAccess grammarAccess;
+	protected AbstractElementAlias match_Function_ColonKeyword_0_q;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (UForthGrammarAccess) access;
+		match_Function_ColonKeyword_0_q = new TokenAlias(false, true, grammarAccess.getFunctionAccess().getColonKeyword_0());
 	}
 	
 	@Override
@@ -36,8 +40,111 @@ public class UForthSyntacticSequencer extends AbstractSyntacticSequencer {
 		List<INode> transitionNodes = collectNodes(fromNode, toNode);
 		for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
-			acceptNodes(getLastNavigableState(), syntaxNodes);
+			if(match_Function_ColonKeyword_0_q.equals(syntax))
+				emit_Function_ColonKeyword_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else acceptNodes(getLastNavigableState(), syntaxNodes);
 		}
 	}
 
+	/**
+	 * Ambiguous syntax:
+	 *     ':'?
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     (rule start) (ambiguity) name='!'
+	 *     (rule start) (ambiguity) name='*'
+	 *     (rule start) (ambiguity) name='+!'
+	 *     (rule start) (ambiguity) name='+'
+	 *     (rule start) (ambiguity) name='+ST'
+	 *     (rule start) (ambiguity) name='-'
+	 *     (rule start) (ambiguity) name='-ROT'
+	 *     (rule start) (ambiguity) name='/'
+	 *     (rule start) (ambiguity) name='0<'
+	 *     (rule start) (ambiguity) name='0<>'
+	 *     (rule start) (ambiguity) name='0<>branch'
+	 *     (rule start) (ambiguity) name='0='
+	 *     (rule start) (ambiguity) name='0=branch'
+	 *     (rule start) (ambiguity) name='1+'
+	 *     (rule start) (ambiguity) name='1-'
+	 *     (rule start) (ambiguity) name='2!'
+	 *     (rule start) (ambiguity) name='2*'
+	 *     (rule start) (ambiguity) name='2**'
+	 *     (rule start) (ambiguity) name='2/'
+	 *     (rule start) (ambiguity) name='2@'
+	 *     (rule start) (ambiguity) name='2DROP'
+	 *     (rule start) (ambiguity) name='2DUP'
+	 *     (rule start) (ambiguity) name='2OVER'
+	 *     (rule start) (ambiguity) name='2SWAP'
+	 *     (rule start) (ambiguity) name='>r'
+	 *     (rule start) (ambiguity) name='?-branch'
+	 *     (rule start) (ambiguity) name='?DUP'
+	 *     (rule start) (ambiguity) name='@'
+	 *     (rule start) (ambiguity) name='ABS'
+	 *     (rule start) (ambiguity) name='ASHIFT'
+	 *     (rule start) (ambiguity) name='CARRY-SET'
+	 *     (rule start) (ambiguity) name='CARRY_RESET'
+	 *     (rule start) (ambiguity) name='CELL+'
+	 *     (rule start) (ambiguity) name='CELL-'
+	 *     (rule start) (ambiguity) name='CLEAR'
+	 *     (rule start) (ambiguity) name='COUNT'
+	 *     (rule start) (ambiguity) name='DABS'
+	 *     (rule start) (ambiguity) name='DEC'
+	 *     (rule start) (ambiguity) name='DNEGATE'
+	 *     (rule start) (ambiguity) name='DROL'
+	 *     (rule start) (ambiguity) name='DROP'
+	 *     (rule start) (ambiguity) name='DROR'
+	 *     (rule start) (ambiguity) name='DUP'
+	 *     (rule start) (ambiguity) name='ERASE'
+	 *     (rule start) (ambiguity) name='EXTEND'
+	 *     (rule start) (ambiguity) name='FALSE'
+	 *     (rule start) (ambiguity) name='FILL'
+	 *     (rule start) (ambiguity) name='INC'
+	 *     (rule start) (ambiguity) name='L!'
+	 *     (rule start) (ambiguity) name='L@'
+	 *     (rule start) (ambiguity) name='LD'
+	 *     (rule start) (ambiguity) name='LLD'
+	 *     (rule start) (ambiguity) name='LST'
+	 *     (rule start) (ambiguity) name='MOVE'
+	 *     (rule start) (ambiguity) name='NEGATE'
+	 *     (rule start) (ambiguity) name='NIP'
+	 *     (rule start) (ambiguity) name='OFF'
+	 *     (rule start) (ambiguity) name='ON'
+	 *     (rule start) (ambiguity) name='OVER'
+	 *     (rule start) (ambiguity) name='PACK'
+	 *     (rule start) (ambiguity) name='PLACE'
+	 *     (rule start) (ambiguity) name='R@'
+	 *     (rule start) (ambiguity) name='RCLEAR'
+	 *     (rule start) (ambiguity) name='RDROP'
+	 *     (rule start) (ambiguity) name='ROL'
+	 *     (rule start) (ambiguity) name='ROR'
+	 *     (rule start) (ambiguity) name='ROT'
+	 *     (rule start) (ambiguity) name='SHIFT'
+	 *     (rule start) (ambiguity) name='ST'
+	 *     (rule start) (ambiguity) name='SWAP'
+	 *     (rule start) (ambiguity) name='T!'
+	 *     (rule start) (ambiguity) name='T@'
+	 *     (rule start) (ambiguity) name='TLD'
+	 *     (rule start) (ambiguity) name='TRUE'
+	 *     (rule start) (ambiguity) name='TST'
+	 *     (rule start) (ambiguity) name='TUCK'
+	 *     (rule start) (ambiguity) name='UNDER'
+	 *     (rule start) (ambiguity) name='UNPACK'
+	 *     (rule start) (ambiguity) name='d0='
+	 *     (rule start) (ambiguity) name='jsr'
+	 *     (rule start) (ambiguity) name='nc-branch'
+	 *     (rule start) (ambiguity) name='no-branch'
+	 *     (rule start) (ambiguity) name='ns-branch'
+	 *     (rule start) (ambiguity) name='nz-exit'
+	 *     (rule start) (ambiguity) name='r>'
+	 *     (rule start) (ambiguity) name='s-branch'
+	 *     (rule start) (ambiguity) name='tor-branch'
+	 *     (rule start) (ambiguity) name='u2/'
+	 *     (rule start) (ambiguity) name='z-exit'
+	 *     (rule start) (ambiguity) name=ID
+	 *     (rule start) (ambiguity) name=LITERAL
+	 */
+	protected void emit_Function_ColonKeyword_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
 }

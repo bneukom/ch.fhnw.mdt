@@ -68,6 +68,7 @@ public class UForthFactoryImpl extends EFactoryImpl implements UForthFactory
       case UForthPackage.INSTRUCTION: return createInstruction();
       case UForthPackage.FUNCTION: return createFunction();
       case UForthPackage.CREATE: return createCreate();
+      case UForthPackage.INTRINSIC_BRANCH_WORDS: return createIntrinsicBranchWords();
       case UForthPackage.INTRINSIC_STACK_WORDS: return createIntrinsicStackWords();
       case UForthPackage.INTRINSIC_MEMORY_WORDS: return createIntrinsicMemoryWords();
       case UForthPackage.INTRINSIC_ARITHMETIC_WORDS: return createIntrinsicArithmeticWords();
@@ -119,6 +120,17 @@ public class UForthFactoryImpl extends EFactoryImpl implements UForthFactory
   {
     CreateImpl create = new CreateImpl();
     return create;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public IntrinsicBranchWords createIntrinsicBranchWords()
+  {
+    IntrinsicBranchWordsImpl intrinsicBranchWords = new IntrinsicBranchWordsImpl();
+    return intrinsicBranchWords;
   }
 
   /**

@@ -114,31 +114,13 @@ public interface UForthPackage extends EPackage
   int FUNCTION = 2;
 
   /**
-   * The feature id for the '<em><b>Name</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FUNCTION__NAME = INSTRUCTION_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Words</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FUNCTION__WORDS = INSTRUCTION_FEATURE_COUNT + 1;
-
-  /**
    * The number of structural features of the '<em>Function</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int FUNCTION_FEATURE_COUNT = INSTRUCTION_FEATURE_COUNT + 2;
+  int FUNCTION_FEATURE_COUNT = INSTRUCTION_FEATURE_COUNT + 0;
 
   /**
    * The meta object id for the '{@link ch.fhnw.mdt.uForth.impl.CreateImpl <em>Create</em>}' class.
@@ -185,7 +167,16 @@ public interface UForthPackage extends EPackage
    * @see ch.fhnw.mdt.uForth.impl.UForthPackageImpl#getWord()
    * @generated
    */
-  int WORD = 7;
+  int WORD = 8;
+
+  /**
+   * The feature id for the '<em><b>Words</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int WORD__WORDS = INSTRUCTION_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -194,7 +185,7 @@ public interface UForthPackage extends EPackage
    * @generated
    * @ordered
    */
-  int WORD__NAME = INSTRUCTION_FEATURE_COUNT + 0;
+  int WORD__NAME = INSTRUCTION_FEATURE_COUNT + 1;
 
   /**
    * The number of structural features of the '<em>Word</em>' class.
@@ -203,7 +194,44 @@ public interface UForthPackage extends EPackage
    * @generated
    * @ordered
    */
-  int WORD_FEATURE_COUNT = INSTRUCTION_FEATURE_COUNT + 1;
+  int WORD_FEATURE_COUNT = INSTRUCTION_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link ch.fhnw.mdt.uForth.impl.IntrinsicBranchWordsImpl <em>Intrinsic Branch Words</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see ch.fhnw.mdt.uForth.impl.IntrinsicBranchWordsImpl
+   * @see ch.fhnw.mdt.uForth.impl.UForthPackageImpl#getIntrinsicBranchWords()
+   * @generated
+   */
+  int INTRINSIC_BRANCH_WORDS = 4;
+
+  /**
+   * The feature id for the '<em><b>Words</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INTRINSIC_BRANCH_WORDS__WORDS = WORD__WORDS;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INTRINSIC_BRANCH_WORDS__NAME = WORD__NAME;
+
+  /**
+   * The number of structural features of the '<em>Intrinsic Branch Words</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INTRINSIC_BRANCH_WORDS_FEATURE_COUNT = WORD_FEATURE_COUNT + 0;
 
   /**
    * The meta object id for the '{@link ch.fhnw.mdt.uForth.impl.IntrinsicStackWordsImpl <em>Intrinsic Stack Words</em>}' class.
@@ -213,7 +241,16 @@ public interface UForthPackage extends EPackage
    * @see ch.fhnw.mdt.uForth.impl.UForthPackageImpl#getIntrinsicStackWords()
    * @generated
    */
-  int INTRINSIC_STACK_WORDS = 4;
+  int INTRINSIC_STACK_WORDS = 5;
+
+  /**
+   * The feature id for the '<em><b>Words</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INTRINSIC_STACK_WORDS__WORDS = WORD__WORDS;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -241,7 +278,16 @@ public interface UForthPackage extends EPackage
    * @see ch.fhnw.mdt.uForth.impl.UForthPackageImpl#getIntrinsicMemoryWords()
    * @generated
    */
-  int INTRINSIC_MEMORY_WORDS = 5;
+  int INTRINSIC_MEMORY_WORDS = 6;
+
+  /**
+   * The feature id for the '<em><b>Words</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INTRINSIC_MEMORY_WORDS__WORDS = WORD__WORDS;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -269,7 +315,16 @@ public interface UForthPackage extends EPackage
    * @see ch.fhnw.mdt.uForth.impl.UForthPackageImpl#getIntrinsicArithmeticWords()
    * @generated
    */
-  int INTRINSIC_ARITHMETIC_WORDS = 6;
+  int INTRINSIC_ARITHMETIC_WORDS = 7;
+
+  /**
+   * The feature id for the '<em><b>Words</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INTRINSIC_ARITHMETIC_WORDS__WORDS = WORD__WORDS;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -332,28 +387,6 @@ public interface UForthPackage extends EPackage
   EClass getFunction();
 
   /**
-   * Returns the meta object for the containment reference '{@link ch.fhnw.mdt.uForth.Function#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Name</em>'.
-   * @see ch.fhnw.mdt.uForth.Function#getName()
-   * @see #getFunction()
-   * @generated
-   */
-  EReference getFunction_Name();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link ch.fhnw.mdt.uForth.Function#getWords <em>Words</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Words</em>'.
-   * @see ch.fhnw.mdt.uForth.Function#getWords()
-   * @see #getFunction()
-   * @generated
-   */
-  EReference getFunction_Words();
-
-  /**
    * Returns the meta object for class '{@link ch.fhnw.mdt.uForth.Create <em>Create</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -384,6 +417,16 @@ public interface UForthPackage extends EPackage
    * @generated
    */
   EAttribute getCreate_Lit();
+
+  /**
+   * Returns the meta object for class '{@link ch.fhnw.mdt.uForth.IntrinsicBranchWords <em>Intrinsic Branch Words</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Intrinsic Branch Words</em>'.
+   * @see ch.fhnw.mdt.uForth.IntrinsicBranchWords
+   * @generated
+   */
+  EClass getIntrinsicBranchWords();
 
   /**
    * Returns the meta object for class '{@link ch.fhnw.mdt.uForth.IntrinsicStackWords <em>Intrinsic Stack Words</em>}'.
@@ -424,6 +467,17 @@ public interface UForthPackage extends EPackage
    * @generated
    */
   EClass getWord();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link ch.fhnw.mdt.uForth.Word#getWords <em>Words</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Words</em>'.
+   * @see ch.fhnw.mdt.uForth.Word#getWords()
+   * @see #getWord()
+   * @generated
+   */
+  EReference getWord_Words();
 
   /**
    * Returns the meta object for the attribute '{@link ch.fhnw.mdt.uForth.Word#getName <em>Name</em>}'.
@@ -498,22 +552,6 @@ public interface UForthPackage extends EPackage
     EClass FUNCTION = eINSTANCE.getFunction();
 
     /**
-     * The meta object literal for the '<em><b>Name</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference FUNCTION__NAME = eINSTANCE.getFunction_Name();
-
-    /**
-     * The meta object literal for the '<em><b>Words</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference FUNCTION__WORDS = eINSTANCE.getFunction_Words();
-
-    /**
      * The meta object literal for the '{@link ch.fhnw.mdt.uForth.impl.CreateImpl <em>Create</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -538,6 +576,16 @@ public interface UForthPackage extends EPackage
      * @generated
      */
     EAttribute CREATE__LIT = eINSTANCE.getCreate_Lit();
+
+    /**
+     * The meta object literal for the '{@link ch.fhnw.mdt.uForth.impl.IntrinsicBranchWordsImpl <em>Intrinsic Branch Words</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see ch.fhnw.mdt.uForth.impl.IntrinsicBranchWordsImpl
+     * @see ch.fhnw.mdt.uForth.impl.UForthPackageImpl#getIntrinsicBranchWords()
+     * @generated
+     */
+    EClass INTRINSIC_BRANCH_WORDS = eINSTANCE.getIntrinsicBranchWords();
 
     /**
      * The meta object literal for the '{@link ch.fhnw.mdt.uForth.impl.IntrinsicStackWordsImpl <em>Intrinsic Stack Words</em>}' class.
@@ -578,6 +626,14 @@ public interface UForthPackage extends EPackage
      * @generated
      */
     EClass WORD = eINSTANCE.getWord();
+
+    /**
+     * The meta object literal for the '<em><b>Words</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference WORD__WORDS = eINSTANCE.getWord_Words();
 
     /**
      * The meta object literal for the '<em><b>Name</b></em>' attribute feature.

@@ -165,25 +165,16 @@ ruleFunction returns [EObject current=null]
     {
     	newLeafNode(otherlv_0, grammarAccess.getFunctionAccess().getColonKeyword_0());
     }
-(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getFunctionAccess().getNameWordParserRuleCall_1_0()); 
-	    }
-		lv_name_1_0=ruleWord		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getFunctionRule());
-	        }
-       		set(
-       			$current, 
-       			"name",
-        		lv_name_1_0, 
-        		"Word");
-	        afterParserOrEnumRuleCall();
-	    }
 
-)
-)(
+    { 
+        newCompositeNode(grammarAccess.getFunctionAccess().getWordParserRuleCall_1()); 
+    }
+    this_Word_1=ruleWord
+    {
+        $current = $this_Word_1.current;
+        afterParserOrEnumRuleCall();
+    }
+(
 (
 		{ 
 	        newCompositeNode(grammarAccess.getFunctionAccess().getWordsWordParserRuleCall_2_0()); 
@@ -317,6 +308,176 @@ ruleLITERAL returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()
 
 
 
+// Entry rule entryRuleIntrinsicBranchWords
+entryRuleIntrinsicBranchWords returns [EObject current=null]
+	:
+	{ newCompositeNode(grammarAccess.getIntrinsicBranchWordsRule()); }
+	 iv_ruleIntrinsicBranchWords=ruleIntrinsicBranchWords 
+	 { $current=$iv_ruleIntrinsicBranchWords.current; } 
+	 EOF 
+;
+
+// Rule IntrinsicBranchWords
+ruleIntrinsicBranchWords returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(
+(
+(
+		lv_name_0_1=
+	Jsr
+    {
+        newLeafNode(lv_name_0_1, grammarAccess.getIntrinsicBranchWordsAccess().getNameJsrKeyword_0_0());
+    }
+
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getIntrinsicBranchWordsRule());
+	        }
+       		setWithLastConsumed($current, "name", lv_name_0_1, null);
+	    }
+
+    |		lv_name_0_2=
+	Branch
+    {
+        newLeafNode(lv_name_0_2, grammarAccess.getIntrinsicBranchWordsAccess().getName0BranchKeyword_0_1());
+    }
+
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getIntrinsicBranchWordsRule());
+	        }
+       		setWithLastConsumed($current, "name", lv_name_0_2, null);
+	    }
+
+    |		lv_name_0_3=
+	Branch_2
+    {
+        newLeafNode(lv_name_0_3, grammarAccess.getIntrinsicBranchWordsAccess().getName0BranchKeyword_0_2());
+    }
+
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getIntrinsicBranchWordsRule());
+	        }
+       		setWithLastConsumed($current, "name", lv_name_0_3, null);
+	    }
+
+    |		lv_name_0_4=
+	Branch_1
+    {
+        newLeafNode(lv_name_0_4, grammarAccess.getIntrinsicBranchWordsAccess().getNameBranchKeyword_0_3());
+    }
+
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getIntrinsicBranchWordsRule());
+	        }
+       		setWithLastConsumed($current, "name", lv_name_0_4, null);
+	    }
+
+    |		lv_name_0_5=
+	SBranch
+    {
+        newLeafNode(lv_name_0_5, grammarAccess.getIntrinsicBranchWordsAccess().getNameSBranchKeyword_0_4());
+    }
+
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getIntrinsicBranchWordsRule());
+	        }
+       		setWithLastConsumed($current, "name", lv_name_0_5, null);
+	    }
+
+    |		lv_name_0_6=
+	NsBranch
+    {
+        newLeafNode(lv_name_0_6, grammarAccess.getIntrinsicBranchWordsAccess().getNameNsBranchKeyword_0_5());
+    }
+
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getIntrinsicBranchWordsRule());
+	        }
+       		setWithLastConsumed($current, "name", lv_name_0_6, null);
+	    }
+
+    |		lv_name_0_7=
+	NcBranch
+    {
+        newLeafNode(lv_name_0_7, grammarAccess.getIntrinsicBranchWordsAccess().getNameNcBranchKeyword_0_6());
+    }
+
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getIntrinsicBranchWordsRule());
+	        }
+       		setWithLastConsumed($current, "name", lv_name_0_7, null);
+	    }
+
+    |		lv_name_0_8=
+	NoBranch
+    {
+        newLeafNode(lv_name_0_8, grammarAccess.getIntrinsicBranchWordsAccess().getNameNoBranchKeyword_0_7());
+    }
+
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getIntrinsicBranchWordsRule());
+	        }
+       		setWithLastConsumed($current, "name", lv_name_0_8, null);
+	    }
+
+    |		lv_name_0_9=
+	TorBranch
+    {
+        newLeafNode(lv_name_0_9, grammarAccess.getIntrinsicBranchWordsAccess().getNameTorBranchKeyword_0_8());
+    }
+
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getIntrinsicBranchWordsRule());
+	        }
+       		setWithLastConsumed($current, "name", lv_name_0_9, null);
+	    }
+
+    |		lv_name_0_10=
+	ZExit
+    {
+        newLeafNode(lv_name_0_10, grammarAccess.getIntrinsicBranchWordsAccess().getNameZExitKeyword_0_9());
+    }
+
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getIntrinsicBranchWordsRule());
+	        }
+       		setWithLastConsumed($current, "name", lv_name_0_10, null);
+	    }
+
+    |		lv_name_0_11=
+	NzExit
+    {
+        newLeafNode(lv_name_0_11, grammarAccess.getIntrinsicBranchWordsAccess().getNameNzExitKeyword_0_10());
+    }
+
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getIntrinsicBranchWordsRule());
+	        }
+       		setWithLastConsumed($current, "name", lv_name_0_11, null);
+	    }
+
+)
+
+)
+)
+;
+
+
+
+
+
 // Entry rule entryRuleIntrinsicStackWords
 entryRuleIntrinsicStackWords returns [EObject current=null]
 	:
@@ -331,279 +492,273 @@ ruleIntrinsicStackWords returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-((
-    {
-        $current = forceCreateModelElement(
-            grammarAccess.getIntrinsicStackWordsAccess().getIntrinsicStackWordsAction_0(),
-            $current);
-    }
-)(
 (
 (
-		lv_name_1_1=
+(
+		lv_name_0_1=
 	CLEAR
     {
-        newLeafNode(lv_name_1_1, grammarAccess.getIntrinsicStackWordsAccess().getNameCLEARKeyword_1_0_0());
+        newLeafNode(lv_name_0_1, grammarAccess.getIntrinsicStackWordsAccess().getNameCLEARKeyword_0_0());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicStackWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_1, null);
+       		setWithLastConsumed($current, "name", lv_name_0_1, null);
 	    }
 
-    |		lv_name_1_2=
+    |		lv_name_0_2=
 	DROP
     {
-        newLeafNode(lv_name_1_2, grammarAccess.getIntrinsicStackWordsAccess().getNameDROPKeyword_1_0_1());
+        newLeafNode(lv_name_0_2, grammarAccess.getIntrinsicStackWordsAccess().getNameDROPKeyword_0_1());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicStackWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_2, null);
+       		setWithLastConsumed($current, "name", lv_name_0_2, null);
 	    }
 
-    |		lv_name_1_3=
+    |		lv_name_0_3=
 	DUP
     {
-        newLeafNode(lv_name_1_3, grammarAccess.getIntrinsicStackWordsAccess().getNameDUPKeyword_1_0_2());
+        newLeafNode(lv_name_0_3, grammarAccess.getIntrinsicStackWordsAccess().getNameDUPKeyword_0_2());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicStackWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_3, null);
+       		setWithLastConsumed($current, "name", lv_name_0_3, null);
 	    }
 
-    |		lv_name_1_4=
+    |		lv_name_0_4=
 	DUP_2
     {
-        newLeafNode(lv_name_1_4, grammarAccess.getIntrinsicStackWordsAccess().getNameDUPKeyword_1_0_3());
+        newLeafNode(lv_name_0_4, grammarAccess.getIntrinsicStackWordsAccess().getNameDUPKeyword_0_3());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicStackWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_4, null);
+       		setWithLastConsumed($current, "name", lv_name_0_4, null);
 	    }
 
-    |		lv_name_1_5=
+    |		lv_name_0_5=
 	SWAP
     {
-        newLeafNode(lv_name_1_5, grammarAccess.getIntrinsicStackWordsAccess().getNameSWAPKeyword_1_0_4());
+        newLeafNode(lv_name_0_5, grammarAccess.getIntrinsicStackWordsAccess().getNameSWAPKeyword_0_4());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicStackWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_5, null);
+       		setWithLastConsumed($current, "name", lv_name_0_5, null);
 	    }
 
-    |		lv_name_1_6=
+    |		lv_name_0_6=
 	NIP
     {
-        newLeafNode(lv_name_1_6, grammarAccess.getIntrinsicStackWordsAccess().getNameNIPKeyword_1_0_5());
+        newLeafNode(lv_name_0_6, grammarAccess.getIntrinsicStackWordsAccess().getNameNIPKeyword_0_5());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicStackWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_6, null);
+       		setWithLastConsumed($current, "name", lv_name_0_6, null);
 	    }
 
-    |		lv_name_1_7=
+    |		lv_name_0_7=
 	OVER
     {
-        newLeafNode(lv_name_1_7, grammarAccess.getIntrinsicStackWordsAccess().getNameOVERKeyword_1_0_6());
+        newLeafNode(lv_name_0_7, grammarAccess.getIntrinsicStackWordsAccess().getNameOVERKeyword_0_6());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicStackWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_7, null);
+       		setWithLastConsumed($current, "name", lv_name_0_7, null);
 	    }
 
-    |		lv_name_1_8=
+    |		lv_name_0_8=
 	ROT
     {
-        newLeafNode(lv_name_1_8, grammarAccess.getIntrinsicStackWordsAccess().getNameROTKeyword_1_0_7());
+        newLeafNode(lv_name_0_8, grammarAccess.getIntrinsicStackWordsAccess().getNameROTKeyword_0_7());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicStackWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_8, null);
+       		setWithLastConsumed($current, "name", lv_name_0_8, null);
 	    }
 
-    |		lv_name_1_9=
+    |		lv_name_0_9=
 	ROT_1
     {
-        newLeafNode(lv_name_1_9, grammarAccess.getIntrinsicStackWordsAccess().getNameROTKeyword_1_0_8());
+        newLeafNode(lv_name_0_9, grammarAccess.getIntrinsicStackWordsAccess().getNameROTKeyword_0_8());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicStackWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_9, null);
+       		setWithLastConsumed($current, "name", lv_name_0_9, null);
 	    }
 
-    |		lv_name_1_10=
+    |		lv_name_0_10=
 	TUCK
     {
-        newLeafNode(lv_name_1_10, grammarAccess.getIntrinsicStackWordsAccess().getNameTUCKKeyword_1_0_9());
+        newLeafNode(lv_name_0_10, grammarAccess.getIntrinsicStackWordsAccess().getNameTUCKKeyword_0_9());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicStackWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_10, null);
+       		setWithLastConsumed($current, "name", lv_name_0_10, null);
 	    }
 
-    |		lv_name_1_11=
+    |		lv_name_0_11=
 	UNDER
     {
-        newLeafNode(lv_name_1_11, grammarAccess.getIntrinsicStackWordsAccess().getNameUNDERKeyword_1_0_10());
+        newLeafNode(lv_name_0_11, grammarAccess.getIntrinsicStackWordsAccess().getNameUNDERKeyword_0_10());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicStackWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_11, null);
+       		setWithLastConsumed($current, "name", lv_name_0_11, null);
 	    }
 
-    |		lv_name_1_12=
+    |		lv_name_0_12=
 	DROP_1
     {
-        newLeafNode(lv_name_1_12, grammarAccess.getIntrinsicStackWordsAccess().getName2DROPKeyword_1_0_11());
+        newLeafNode(lv_name_0_12, grammarAccess.getIntrinsicStackWordsAccess().getName2DROPKeyword_0_11());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicStackWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_12, null);
+       		setWithLastConsumed($current, "name", lv_name_0_12, null);
 	    }
 
-    |		lv_name_1_13=
+    |		lv_name_0_13=
 	DUP_1
     {
-        newLeafNode(lv_name_1_13, grammarAccess.getIntrinsicStackWordsAccess().getName2DUPKeyword_1_0_12());
+        newLeafNode(lv_name_0_13, grammarAccess.getIntrinsicStackWordsAccess().getName2DUPKeyword_0_12());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicStackWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_13, null);
+       		setWithLastConsumed($current, "name", lv_name_0_13, null);
 	    }
 
-    |		lv_name_1_14=
+    |		lv_name_0_14=
 	SWAP_1
     {
-        newLeafNode(lv_name_1_14, grammarAccess.getIntrinsicStackWordsAccess().getName2SWAPKeyword_1_0_13());
+        newLeafNode(lv_name_0_14, grammarAccess.getIntrinsicStackWordsAccess().getName2SWAPKeyword_0_13());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicStackWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_14, null);
+       		setWithLastConsumed($current, "name", lv_name_0_14, null);
 	    }
 
-    |		lv_name_1_15=
+    |		lv_name_0_15=
 	OVER_1
     {
-        newLeafNode(lv_name_1_15, grammarAccess.getIntrinsicStackWordsAccess().getName2OVERKeyword_1_0_14());
+        newLeafNode(lv_name_0_15, grammarAccess.getIntrinsicStackWordsAccess().getName2OVERKeyword_0_14());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicStackWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_15, null);
+       		setWithLastConsumed($current, "name", lv_name_0_15, null);
 	    }
 
-    |		lv_name_1_16=
+    |		lv_name_0_16=
 	RCLEAR
     {
-        newLeafNode(lv_name_1_16, grammarAccess.getIntrinsicStackWordsAccess().getNameRCLEARKeyword_1_0_15());
+        newLeafNode(lv_name_0_16, grammarAccess.getIntrinsicStackWordsAccess().getNameRCLEARKeyword_0_15());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicStackWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_16, null);
+       		setWithLastConsumed($current, "name", lv_name_0_16, null);
 	    }
 
-    |		lv_name_1_17=
+    |		lv_name_0_17=
 	R_1
     {
-        newLeafNode(lv_name_1_17, grammarAccess.getIntrinsicStackWordsAccess().getNameRKeyword_1_0_16());
+        newLeafNode(lv_name_0_17, grammarAccess.getIntrinsicStackWordsAccess().getNameRKeyword_0_16());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicStackWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_17, null);
+       		setWithLastConsumed($current, "name", lv_name_0_17, null);
 	    }
 
-    |		lv_name_1_18=
+    |		lv_name_0_18=
 	R_2
     {
-        newLeafNode(lv_name_1_18, grammarAccess.getIntrinsicStackWordsAccess().getNameRKeyword_1_0_17());
+        newLeafNode(lv_name_0_18, grammarAccess.getIntrinsicStackWordsAccess().getNameRKeyword_0_17());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicStackWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_18, null);
+       		setWithLastConsumed($current, "name", lv_name_0_18, null);
 	    }
 
-    |		lv_name_1_19=
+    |		lv_name_0_19=
 	R
     {
-        newLeafNode(lv_name_1_19, grammarAccess.getIntrinsicStackWordsAccess().getNameRKeyword_1_0_18());
+        newLeafNode(lv_name_0_19, grammarAccess.getIntrinsicStackWordsAccess().getNameRKeyword_0_18());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicStackWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_19, null);
+       		setWithLastConsumed($current, "name", lv_name_0_19, null);
 	    }
 
-    |		lv_name_1_20=
+    |		lv_name_0_20=
 	RDROP
     {
-        newLeafNode(lv_name_1_20, grammarAccess.getIntrinsicStackWordsAccess().getNameRDROPKeyword_1_0_19());
+        newLeafNode(lv_name_0_20, grammarAccess.getIntrinsicStackWordsAccess().getNameRDROPKeyword_0_19());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicStackWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_20, null);
+       		setWithLastConsumed($current, "name", lv_name_0_20, null);
 	    }
 
 )
 
 )
-))
+)
 ;
 
 
@@ -624,344 +779,338 @@ ruleIntrinsicMemoryWords returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-((
-    {
-        $current = forceCreateModelElement(
-            grammarAccess.getIntrinsicMemoryWordsAccess().getIntrinsicMemoryWordsAction_0(),
-            $current);
-    }
-)(
 (
 (
-		lv_name_1_1=
+(
+		lv_name_0_1=
 	LD
     {
-        newLeafNode(lv_name_1_1, grammarAccess.getIntrinsicMemoryWordsAccess().getNameLDKeyword_1_0_0());
+        newLeafNode(lv_name_0_1, grammarAccess.getIntrinsicMemoryWordsAccess().getNameLDKeyword_0_0());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicMemoryWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_1, null);
+       		setWithLastConsumed($current, "name", lv_name_0_1, null);
 	    }
 
-    |		lv_name_1_2=
+    |		lv_name_0_2=
 	CommercialAt
     {
-        newLeafNode(lv_name_1_2, grammarAccess.getIntrinsicMemoryWordsAccess().getNameCommercialAtKeyword_1_0_1());
+        newLeafNode(lv_name_0_2, grammarAccess.getIntrinsicMemoryWordsAccess().getNameCommercialAtKeyword_0_1());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicMemoryWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_2, null);
+       		setWithLastConsumed($current, "name", lv_name_0_2, null);
 	    }
 
-    |		lv_name_1_3=
+    |		lv_name_0_3=
 	ST
     {
-        newLeafNode(lv_name_1_3, grammarAccess.getIntrinsicMemoryWordsAccess().getNameSTKeyword_1_0_2());
+        newLeafNode(lv_name_0_3, grammarAccess.getIntrinsicMemoryWordsAccess().getNameSTKeyword_0_2());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicMemoryWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_3, null);
+       		setWithLastConsumed($current, "name", lv_name_0_3, null);
 	    }
 
-    |		lv_name_1_4=
+    |		lv_name_0_4=
 	ExclamationMark
     {
-        newLeafNode(lv_name_1_4, grammarAccess.getIntrinsicMemoryWordsAccess().getNameExclamationMarkKeyword_1_0_3());
+        newLeafNode(lv_name_0_4, grammarAccess.getIntrinsicMemoryWordsAccess().getNameExclamationMarkKeyword_0_3());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicMemoryWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_4, null);
+       		setWithLastConsumed($current, "name", lv_name_0_4, null);
 	    }
 
-    |		lv_name_1_5=
+    |		lv_name_0_5=
 	DigitTwoCommercialAt
     {
-        newLeafNode(lv_name_1_5, grammarAccess.getIntrinsicMemoryWordsAccess().getName2Keyword_1_0_4());
+        newLeafNode(lv_name_0_5, grammarAccess.getIntrinsicMemoryWordsAccess().getName2Keyword_0_4());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicMemoryWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_5, null);
+       		setWithLastConsumed($current, "name", lv_name_0_5, null);
 	    }
 
-    |		lv_name_1_6=
+    |		lv_name_0_6=
 	DigitTwoExclamationMark
     {
-        newLeafNode(lv_name_1_6, grammarAccess.getIntrinsicMemoryWordsAccess().getName2Keyword_1_0_5());
+        newLeafNode(lv_name_0_6, grammarAccess.getIntrinsicMemoryWordsAccess().getName2Keyword_0_5());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicMemoryWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_6, null);
+       		setWithLastConsumed($current, "name", lv_name_0_6, null);
 	    }
 
-    |		lv_name_1_7=
+    |		lv_name_0_7=
 	LLD
     {
-        newLeafNode(lv_name_1_7, grammarAccess.getIntrinsicMemoryWordsAccess().getNameLLDKeyword_1_0_6());
+        newLeafNode(lv_name_0_7, grammarAccess.getIntrinsicMemoryWordsAccess().getNameLLDKeyword_0_6());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicMemoryWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_7, null);
+       		setWithLastConsumed($current, "name", lv_name_0_7, null);
 	    }
 
-    |		lv_name_1_8=
+    |		lv_name_0_8=
 	L_1
     {
-        newLeafNode(lv_name_1_8, grammarAccess.getIntrinsicMemoryWordsAccess().getNameLKeyword_1_0_7());
+        newLeafNode(lv_name_0_8, grammarAccess.getIntrinsicMemoryWordsAccess().getNameLKeyword_0_7());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicMemoryWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_8, null);
+       		setWithLastConsumed($current, "name", lv_name_0_8, null);
 	    }
 
-    |		lv_name_1_9=
+    |		lv_name_0_9=
 	LST
     {
-        newLeafNode(lv_name_1_9, grammarAccess.getIntrinsicMemoryWordsAccess().getNameLSTKeyword_1_0_8());
+        newLeafNode(lv_name_0_9, grammarAccess.getIntrinsicMemoryWordsAccess().getNameLSTKeyword_0_8());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicMemoryWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_9, null);
+       		setWithLastConsumed($current, "name", lv_name_0_9, null);
 	    }
 
-    |		lv_name_1_10=
+    |		lv_name_0_10=
 	L
     {
-        newLeafNode(lv_name_1_10, grammarAccess.getIntrinsicMemoryWordsAccess().getNameLKeyword_1_0_9());
+        newLeafNode(lv_name_0_10, grammarAccess.getIntrinsicMemoryWordsAccess().getNameLKeyword_0_9());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicMemoryWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_10, null);
+       		setWithLastConsumed($current, "name", lv_name_0_10, null);
 	    }
 
-    |		lv_name_1_11=
+    |		lv_name_0_11=
 	TLD
     {
-        newLeafNode(lv_name_1_11, grammarAccess.getIntrinsicMemoryWordsAccess().getNameTLDKeyword_1_0_10());
+        newLeafNode(lv_name_0_11, grammarAccess.getIntrinsicMemoryWordsAccess().getNameTLDKeyword_0_10());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicMemoryWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_11, null);
+       		setWithLastConsumed($current, "name", lv_name_0_11, null);
 	    }
 
-    |		lv_name_1_12=
+    |		lv_name_0_12=
 	T_1
     {
-        newLeafNode(lv_name_1_12, grammarAccess.getIntrinsicMemoryWordsAccess().getNameTKeyword_1_0_11());
+        newLeafNode(lv_name_0_12, grammarAccess.getIntrinsicMemoryWordsAccess().getNameTKeyword_0_11());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicMemoryWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_12, null);
+       		setWithLastConsumed($current, "name", lv_name_0_12, null);
 	    }
 
-    |		lv_name_1_13=
+    |		lv_name_0_13=
 	TST
     {
-        newLeafNode(lv_name_1_13, grammarAccess.getIntrinsicMemoryWordsAccess().getNameTSTKeyword_1_0_12());
+        newLeafNode(lv_name_0_13, grammarAccess.getIntrinsicMemoryWordsAccess().getNameTSTKeyword_0_12());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicMemoryWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_13, null);
+       		setWithLastConsumed($current, "name", lv_name_0_13, null);
 	    }
 
-    |		lv_name_1_14=
+    |		lv_name_0_14=
 	T
     {
-        newLeafNode(lv_name_1_14, grammarAccess.getIntrinsicMemoryWordsAccess().getNameTKeyword_1_0_13());
+        newLeafNode(lv_name_0_14, grammarAccess.getIntrinsicMemoryWordsAccess().getNameTKeyword_0_13());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicMemoryWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_14, null);
+       		setWithLastConsumed($current, "name", lv_name_0_14, null);
 	    }
 
-    |		lv_name_1_15=
+    |		lv_name_0_15=
 	ST_1
     {
-        newLeafNode(lv_name_1_15, grammarAccess.getIntrinsicMemoryWordsAccess().getNameSTKeyword_1_0_14());
+        newLeafNode(lv_name_0_15, grammarAccess.getIntrinsicMemoryWordsAccess().getNameSTKeyword_0_14());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicMemoryWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_15, null);
+       		setWithLastConsumed($current, "name", lv_name_0_15, null);
 	    }
 
-    |		lv_name_1_16=
+    |		lv_name_0_16=
 	PlusSignExclamationMark
     {
-        newLeafNode(lv_name_1_16, grammarAccess.getIntrinsicMemoryWordsAccess().getNamePlusSignExclamationMarkKeyword_1_0_15());
+        newLeafNode(lv_name_0_16, grammarAccess.getIntrinsicMemoryWordsAccess().getNamePlusSignExclamationMarkKeyword_0_15());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicMemoryWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_16, null);
+       		setWithLastConsumed($current, "name", lv_name_0_16, null);
 	    }
 
-    |		lv_name_1_17=
+    |		lv_name_0_17=
 	INC
     {
-        newLeafNode(lv_name_1_17, grammarAccess.getIntrinsicMemoryWordsAccess().getNameINCKeyword_1_0_16());
+        newLeafNode(lv_name_0_17, grammarAccess.getIntrinsicMemoryWordsAccess().getNameINCKeyword_0_16());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicMemoryWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_17, null);
+       		setWithLastConsumed($current, "name", lv_name_0_17, null);
 	    }
 
-    |		lv_name_1_18=
+    |		lv_name_0_18=
 	DEC
     {
-        newLeafNode(lv_name_1_18, grammarAccess.getIntrinsicMemoryWordsAccess().getNameDECKeyword_1_0_17());
+        newLeafNode(lv_name_0_18, grammarAccess.getIntrinsicMemoryWordsAccess().getNameDECKeyword_0_17());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicMemoryWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_18, null);
+       		setWithLastConsumed($current, "name", lv_name_0_18, null);
 	    }
 
-    |		lv_name_1_19=
+    |		lv_name_0_19=
 	ON
     {
-        newLeafNode(lv_name_1_19, grammarAccess.getIntrinsicMemoryWordsAccess().getNameONKeyword_1_0_18());
+        newLeafNode(lv_name_0_19, grammarAccess.getIntrinsicMemoryWordsAccess().getNameONKeyword_0_18());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicMemoryWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_19, null);
+       		setWithLastConsumed($current, "name", lv_name_0_19, null);
 	    }
 
-    |		lv_name_1_20=
+    |		lv_name_0_20=
 	OFF
     {
-        newLeafNode(lv_name_1_20, grammarAccess.getIntrinsicMemoryWordsAccess().getNameOFFKeyword_1_0_19());
+        newLeafNode(lv_name_0_20, grammarAccess.getIntrinsicMemoryWordsAccess().getNameOFFKeyword_0_19());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicMemoryWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_20, null);
+       		setWithLastConsumed($current, "name", lv_name_0_20, null);
 	    }
 
-    |		lv_name_1_21=
+    |		lv_name_0_21=
 	ERASE
     {
-        newLeafNode(lv_name_1_21, grammarAccess.getIntrinsicMemoryWordsAccess().getNameERASEKeyword_1_0_20());
+        newLeafNode(lv_name_0_21, grammarAccess.getIntrinsicMemoryWordsAccess().getNameERASEKeyword_0_20());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicMemoryWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_21, null);
+       		setWithLastConsumed($current, "name", lv_name_0_21, null);
 	    }
 
-    |		lv_name_1_22=
+    |		lv_name_0_22=
 	FILL
     {
-        newLeafNode(lv_name_1_22, grammarAccess.getIntrinsicMemoryWordsAccess().getNameFILLKeyword_1_0_21());
+        newLeafNode(lv_name_0_22, grammarAccess.getIntrinsicMemoryWordsAccess().getNameFILLKeyword_0_21());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicMemoryWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_22, null);
+       		setWithLastConsumed($current, "name", lv_name_0_22, null);
 	    }
 
-    |		lv_name_1_23=
+    |		lv_name_0_23=
 	COUNT
     {
-        newLeafNode(lv_name_1_23, grammarAccess.getIntrinsicMemoryWordsAccess().getNameCOUNTKeyword_1_0_22());
+        newLeafNode(lv_name_0_23, grammarAccess.getIntrinsicMemoryWordsAccess().getNameCOUNTKeyword_0_22());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicMemoryWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_23, null);
+       		setWithLastConsumed($current, "name", lv_name_0_23, null);
 	    }
 
-    |		lv_name_1_24=
+    |		lv_name_0_24=
 	MOVE
     {
-        newLeafNode(lv_name_1_24, grammarAccess.getIntrinsicMemoryWordsAccess().getNameMOVEKeyword_1_0_23());
+        newLeafNode(lv_name_0_24, grammarAccess.getIntrinsicMemoryWordsAccess().getNameMOVEKeyword_0_23());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicMemoryWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_24, null);
+       		setWithLastConsumed($current, "name", lv_name_0_24, null);
 	    }
 
-    |		lv_name_1_25=
+    |		lv_name_0_25=
 	PLACE
     {
-        newLeafNode(lv_name_1_25, grammarAccess.getIntrinsicMemoryWordsAccess().getNamePLACEKeyword_1_0_24());
+        newLeafNode(lv_name_0_25, grammarAccess.getIntrinsicMemoryWordsAccess().getNamePLACEKeyword_0_24());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicMemoryWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_25, null);
+       		setWithLastConsumed($current, "name", lv_name_0_25, null);
 	    }
 
 )
 
 )
-))
+)
 ;
 
 
@@ -982,448 +1131,442 @@ ruleIntrinsicArithmeticWords returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-((
-    {
-        $current = forceCreateModelElement(
-            grammarAccess.getIntrinsicArithmeticWordsAccess().getIntrinsicArithmeticWordsAction_0(),
-            $current);
-    }
-)(
 (
 (
-		lv_name_1_1=
+(
+		lv_name_0_1=
 	PlusSign
     {
-        newLeafNode(lv_name_1_1, grammarAccess.getIntrinsicArithmeticWordsAccess().getNamePlusSignKeyword_1_0_0());
+        newLeafNode(lv_name_0_1, grammarAccess.getIntrinsicArithmeticWordsAccess().getNamePlusSignKeyword_0_0());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicArithmeticWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_1, null);
+       		setWithLastConsumed($current, "name", lv_name_0_1, null);
 	    }
 
-    |		lv_name_1_2=
+    |		lv_name_0_2=
 	HyphenMinus
     {
-        newLeafNode(lv_name_1_2, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameHyphenMinusKeyword_1_0_1());
+        newLeafNode(lv_name_0_2, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameHyphenMinusKeyword_0_1());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicArithmeticWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_2, null);
+       		setWithLastConsumed($current, "name", lv_name_0_2, null);
 	    }
 
-    |		lv_name_1_3=
+    |		lv_name_0_3=
 	Asterisk
     {
-        newLeafNode(lv_name_1_3, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameAsteriskKeyword_1_0_2());
+        newLeafNode(lv_name_0_3, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameAsteriskKeyword_0_2());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicArithmeticWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_3, null);
+       		setWithLastConsumed($current, "name", lv_name_0_3, null);
 	    }
 
-    |		lv_name_1_4=
+    |		lv_name_0_4=
 	Solidus
     {
-        newLeafNode(lv_name_1_4, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameSolidusKeyword_1_0_3());
+        newLeafNode(lv_name_0_4, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameSolidusKeyword_0_3());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicArithmeticWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_4, null);
+       		setWithLastConsumed($current, "name", lv_name_0_4, null);
 	    }
 
-    |		lv_name_1_5=
+    |		lv_name_0_5=
 	DigitTwoAsterisk
     {
-        newLeafNode(lv_name_1_5, grammarAccess.getIntrinsicArithmeticWordsAccess().getName2Keyword_1_0_4());
+        newLeafNode(lv_name_0_5, grammarAccess.getIntrinsicArithmeticWordsAccess().getName2Keyword_0_4());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicArithmeticWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_5, null);
+       		setWithLastConsumed($current, "name", lv_name_0_5, null);
 	    }
 
-    |		lv_name_1_6=
+    |		lv_name_0_6=
 	DigitTwoSolidus
     {
-        newLeafNode(lv_name_1_6, grammarAccess.getIntrinsicArithmeticWordsAccess().getName2Keyword_1_0_5());
+        newLeafNode(lv_name_0_6, grammarAccess.getIntrinsicArithmeticWordsAccess().getName2Keyword_0_5());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicArithmeticWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_6, null);
+       		setWithLastConsumed($current, "name", lv_name_0_6, null);
 	    }
 
-    |		lv_name_1_7=
+    |		lv_name_0_7=
 	U2
     {
-        newLeafNode(lv_name_1_7, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameU2Keyword_1_0_6());
+        newLeafNode(lv_name_0_7, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameU2Keyword_0_6());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicArithmeticWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_7, null);
+       		setWithLastConsumed($current, "name", lv_name_0_7, null);
 	    }
 
-    |		lv_name_1_8=
+    |		lv_name_0_8=
 	ROR
     {
-        newLeafNode(lv_name_1_8, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameRORKeyword_1_0_7());
+        newLeafNode(lv_name_0_8, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameRORKeyword_0_7());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicArithmeticWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_8, null);
+       		setWithLastConsumed($current, "name", lv_name_0_8, null);
 	    }
 
-    |		lv_name_1_9=
+    |		lv_name_0_9=
 	DROR
     {
-        newLeafNode(lv_name_1_9, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameDRORKeyword_1_0_8());
+        newLeafNode(lv_name_0_9, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameDRORKeyword_0_8());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicArithmeticWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_9, null);
+       		setWithLastConsumed($current, "name", lv_name_0_9, null);
 	    }
 
-    |		lv_name_1_10=
+    |		lv_name_0_10=
 	ROL
     {
-        newLeafNode(lv_name_1_10, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameROLKeyword_1_0_9());
+        newLeafNode(lv_name_0_10, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameROLKeyword_0_9());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicArithmeticWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_10, null);
+       		setWithLastConsumed($current, "name", lv_name_0_10, null);
 	    }
 
-    |		lv_name_1_11=
+    |		lv_name_0_11=
 	DROL
     {
-        newLeafNode(lv_name_1_11, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameDROLKeyword_1_0_10());
+        newLeafNode(lv_name_0_11, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameDROLKeyword_0_10());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicArithmeticWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_11, null);
+       		setWithLastConsumed($current, "name", lv_name_0_11, null);
 	    }
 
-    |		lv_name_1_12=
+    |		lv_name_0_12=
 	PACK
     {
-        newLeafNode(lv_name_1_12, grammarAccess.getIntrinsicArithmeticWordsAccess().getNamePACKKeyword_1_0_11());
+        newLeafNode(lv_name_0_12, grammarAccess.getIntrinsicArithmeticWordsAccess().getNamePACKKeyword_0_11());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicArithmeticWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_12, null);
+       		setWithLastConsumed($current, "name", lv_name_0_12, null);
 	    }
 
-    |		lv_name_1_13=
+    |		lv_name_0_13=
 	UNPACK
     {
-        newLeafNode(lv_name_1_13, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameUNPACKKeyword_1_0_12());
+        newLeafNode(lv_name_0_13, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameUNPACKKeyword_0_12());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicArithmeticWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_13, null);
+       		setWithLastConsumed($current, "name", lv_name_0_13, null);
 	    }
 
-    |		lv_name_1_14=
+    |		lv_name_0_14=
 	SHIFT
     {
-        newLeafNode(lv_name_1_14, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameSHIFTKeyword_1_0_13());
+        newLeafNode(lv_name_0_14, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameSHIFTKeyword_0_13());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicArithmeticWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_14, null);
+       		setWithLastConsumed($current, "name", lv_name_0_14, null);
 	    }
 
-    |		lv_name_1_15=
+    |		lv_name_0_15=
 	ASHIFT
     {
-        newLeafNode(lv_name_1_15, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameASHIFTKeyword_1_0_14());
+        newLeafNode(lv_name_0_15, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameASHIFTKeyword_0_14());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicArithmeticWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_15, null);
+       		setWithLastConsumed($current, "name", lv_name_0_15, null);
 	    }
 
-    |		lv_name_1_16=
+    |		lv_name_0_16=
 	DigitTwoAsteriskAsterisk
     {
-        newLeafNode(lv_name_1_16, grammarAccess.getIntrinsicArithmeticWordsAccess().getName2Keyword_1_0_15());
+        newLeafNode(lv_name_0_16, grammarAccess.getIntrinsicArithmeticWordsAccess().getName2Keyword_0_15());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicArithmeticWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_16, null);
+       		setWithLastConsumed($current, "name", lv_name_0_16, null);
 	    }
 
-    |		lv_name_1_17=
+    |		lv_name_0_17=
 	DigitZeroEqualsSign
     {
-        newLeafNode(lv_name_1_17, grammarAccess.getIntrinsicArithmeticWordsAccess().getName0Keyword_1_0_16());
+        newLeafNode(lv_name_0_17, grammarAccess.getIntrinsicArithmeticWordsAccess().getName0Keyword_0_16());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicArithmeticWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_17, null);
+       		setWithLastConsumed($current, "name", lv_name_0_17, null);
 	    }
 
-    |		lv_name_1_18=
+    |		lv_name_0_18=
 	DigitZeroLessThanSignGreaterThanSign
     {
-        newLeafNode(lv_name_1_18, grammarAccess.getIntrinsicArithmeticWordsAccess().getName0Keyword_1_0_17());
+        newLeafNode(lv_name_0_18, grammarAccess.getIntrinsicArithmeticWordsAccess().getName0Keyword_0_17());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicArithmeticWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_18, null);
+       		setWithLastConsumed($current, "name", lv_name_0_18, null);
 	    }
 
-    |		lv_name_1_19=
+    |		lv_name_0_19=
 	DigitZeroLessThanSign
     {
-        newLeafNode(lv_name_1_19, grammarAccess.getIntrinsicArithmeticWordsAccess().getName0Keyword_1_0_18());
+        newLeafNode(lv_name_0_19, grammarAccess.getIntrinsicArithmeticWordsAccess().getName0Keyword_0_18());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicArithmeticWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_19, null);
+       		setWithLastConsumed($current, "name", lv_name_0_19, null);
 	    }
 
-    |		lv_name_1_20=
+    |		lv_name_0_20=
 	D0
     {
-        newLeafNode(lv_name_1_20, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameD0Keyword_1_0_19());
+        newLeafNode(lv_name_0_20, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameD0Keyword_0_19());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicArithmeticWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_20, null);
+       		setWithLastConsumed($current, "name", lv_name_0_20, null);
 	    }
 
-    |		lv_name_1_21=
+    |		lv_name_0_21=
 	NEGATE
     {
-        newLeafNode(lv_name_1_21, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameNEGATEKeyword_1_0_20());
+        newLeafNode(lv_name_0_21, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameNEGATEKeyword_0_20());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicArithmeticWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_21, null);
+       		setWithLastConsumed($current, "name", lv_name_0_21, null);
 	    }
 
-    |		lv_name_1_22=
+    |		lv_name_0_22=
 	DNEGATE
     {
-        newLeafNode(lv_name_1_22, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameDNEGATEKeyword_1_0_21());
+        newLeafNode(lv_name_0_22, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameDNEGATEKeyword_0_21());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicArithmeticWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_22, null);
+       		setWithLastConsumed($current, "name", lv_name_0_22, null);
 	    }
 
-    |		lv_name_1_23=
+    |		lv_name_0_23=
 	DigitOnePlusSign
     {
-        newLeafNode(lv_name_1_23, grammarAccess.getIntrinsicArithmeticWordsAccess().getName1Keyword_1_0_22());
+        newLeafNode(lv_name_0_23, grammarAccess.getIntrinsicArithmeticWordsAccess().getName1Keyword_0_22());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicArithmeticWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_23, null);
+       		setWithLastConsumed($current, "name", lv_name_0_23, null);
 	    }
 
-    |		lv_name_1_24=
+    |		lv_name_0_24=
 	DigitOneHyphenMinus
     {
-        newLeafNode(lv_name_1_24, grammarAccess.getIntrinsicArithmeticWordsAccess().getName1Keyword_1_0_23());
+        newLeafNode(lv_name_0_24, grammarAccess.getIntrinsicArithmeticWordsAccess().getName1Keyword_0_23());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicArithmeticWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_24, null);
+       		setWithLastConsumed($current, "name", lv_name_0_24, null);
 	    }
 
-    |		lv_name_1_25=
+    |		lv_name_0_25=
 	TRUE
     {
-        newLeafNode(lv_name_1_25, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameTRUEKeyword_1_0_24());
+        newLeafNode(lv_name_0_25, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameTRUEKeyword_0_24());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicArithmeticWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_25, null);
+       		setWithLastConsumed($current, "name", lv_name_0_25, null);
 	    }
 
-    |		lv_name_1_26=
+    |		lv_name_0_26=
 	FALSE
     {
-        newLeafNode(lv_name_1_26, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameFALSEKeyword_1_0_25());
+        newLeafNode(lv_name_0_26, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameFALSEKeyword_0_25());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicArithmeticWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_26, null);
+       		setWithLastConsumed($current, "name", lv_name_0_26, null);
 	    }
 
-    |		lv_name_1_27=
+    |		lv_name_0_27=
 	CELL
     {
-        newLeafNode(lv_name_1_27, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameCELLKeyword_1_0_26());
+        newLeafNode(lv_name_0_27, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameCELLKeyword_0_26());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicArithmeticWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_27, null);
+       		setWithLastConsumed($current, "name", lv_name_0_27, null);
 	    }
 
-    |		lv_name_1_28=
+    |		lv_name_0_28=
 	CELL_1
     {
-        newLeafNode(lv_name_1_28, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameCELLKeyword_1_0_27());
+        newLeafNode(lv_name_0_28, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameCELLKeyword_0_27());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicArithmeticWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_28, null);
+       		setWithLastConsumed($current, "name", lv_name_0_28, null);
 	    }
 
-    |		lv_name_1_29=
+    |		lv_name_0_29=
 	CARRY_RESET
     {
-        newLeafNode(lv_name_1_29, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameCARRY_RESETKeyword_1_0_28());
+        newLeafNode(lv_name_0_29, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameCARRY_RESETKeyword_0_28());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicArithmeticWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_29, null);
+       		setWithLastConsumed($current, "name", lv_name_0_29, null);
 	    }
 
-    |		lv_name_1_30=
+    |		lv_name_0_30=
 	CARRYSET
     {
-        newLeafNode(lv_name_1_30, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameCARRYSETKeyword_1_0_29());
+        newLeafNode(lv_name_0_30, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameCARRYSETKeyword_0_29());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicArithmeticWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_30, null);
+       		setWithLastConsumed($current, "name", lv_name_0_30, null);
 	    }
 
-    |		lv_name_1_31=
+    |		lv_name_0_31=
 	ABS
     {
-        newLeafNode(lv_name_1_31, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameABSKeyword_1_0_30());
+        newLeafNode(lv_name_0_31, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameABSKeyword_0_30());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicArithmeticWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_31, null);
+       		setWithLastConsumed($current, "name", lv_name_0_31, null);
 	    }
 
-    |		lv_name_1_32=
+    |		lv_name_0_32=
 	DABS
     {
-        newLeafNode(lv_name_1_32, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameDABSKeyword_1_0_31());
+        newLeafNode(lv_name_0_32, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameDABSKeyword_0_31());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicArithmeticWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_32, null);
+       		setWithLastConsumed($current, "name", lv_name_0_32, null);
 	    }
 
-    |		lv_name_1_33=
+    |		lv_name_0_33=
 	EXTEND
     {
-        newLeafNode(lv_name_1_33, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameEXTENDKeyword_1_0_32());
+        newLeafNode(lv_name_0_33, grammarAccess.getIntrinsicArithmeticWordsAccess().getNameEXTENDKeyword_0_32());
     }
 
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getIntrinsicArithmeticWordsRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_1_33, null);
+       		setWithLastConsumed($current, "name", lv_name_0_33, null);
 	    }
 
 )
 
 )
-))
+)
 ;
 
 
@@ -1446,47 +1589,57 @@ ruleWord returns [EObject current=null]
     @after { leaveRule(); }:
 (
     { 
-        newCompositeNode(grammarAccess.getWordAccess().getIntrinsicStackWordsParserRuleCall_0()); 
+        newCompositeNode(grammarAccess.getWordAccess().getIntrinsicBranchWordsParserRuleCall_0()); 
     }
-    this_IntrinsicStackWords_0=ruleIntrinsicStackWords
+    this_IntrinsicBranchWords_0=ruleIntrinsicBranchWords
     {
-        $current = $this_IntrinsicStackWords_0.current;
+        $current = $this_IntrinsicBranchWords_0.current;
         afterParserOrEnumRuleCall();
     }
 
     |
     { 
-        newCompositeNode(grammarAccess.getWordAccess().getIntrinsicMemoryWordsParserRuleCall_1()); 
+        newCompositeNode(grammarAccess.getWordAccess().getIntrinsicStackWordsParserRuleCall_1()); 
     }
-    this_IntrinsicMemoryWords_1=ruleIntrinsicMemoryWords
+    this_IntrinsicStackWords_1=ruleIntrinsicStackWords
     {
-        $current = $this_IntrinsicMemoryWords_1.current;
+        $current = $this_IntrinsicStackWords_1.current;
         afterParserOrEnumRuleCall();
     }
 
     |
     { 
-        newCompositeNode(grammarAccess.getWordAccess().getIntrinsicArithmeticWordsParserRuleCall_2()); 
+        newCompositeNode(grammarAccess.getWordAccess().getIntrinsicMemoryWordsParserRuleCall_2()); 
     }
-    this_IntrinsicArithmeticWords_2=ruleIntrinsicArithmeticWords
+    this_IntrinsicMemoryWords_2=ruleIntrinsicMemoryWords
     {
-        $current = $this_IntrinsicArithmeticWords_2.current;
+        $current = $this_IntrinsicMemoryWords_2.current;
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getWordAccess().getIntrinsicArithmeticWordsParserRuleCall_3()); 
+    }
+    this_IntrinsicArithmeticWords_3=ruleIntrinsicArithmeticWords
+    {
+        $current = $this_IntrinsicArithmeticWords_3.current;
         afterParserOrEnumRuleCall();
     }
 
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getWordAccess().getNameLITERALParserRuleCall_3_0()); 
+	        newCompositeNode(grammarAccess.getWordAccess().getNameLITERALParserRuleCall_4_0()); 
 	    }
-		lv_name_3_0=ruleLITERAL		{
+		lv_name_4_0=ruleLITERAL		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getWordRule());
 	        }
        		set(
        			$current, 
        			"name",
-        		lv_name_3_0, 
+        		lv_name_4_0, 
         		"LITERAL");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -1495,9 +1648,9 @@ ruleWord returns [EObject current=null]
 )
     |(
 (
-		lv_name_4_0=RULE_ID
+		lv_name_5_0=RULE_ID
 		{
-			newLeafNode(lv_name_4_0, grammarAccess.getWordAccess().getNameIDTerminalRuleCall_4_0()); 
+			newLeafNode(lv_name_5_0, grammarAccess.getWordAccess().getNameIDTerminalRuleCall_5_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -1506,7 +1659,7 @@ ruleWord returns [EObject current=null]
        		setWithLastConsumed(
        			$current, 
        			"name",
-        		lv_name_4_0, 
+        		lv_name_5_0, 
         		"ID");
 	    }
 

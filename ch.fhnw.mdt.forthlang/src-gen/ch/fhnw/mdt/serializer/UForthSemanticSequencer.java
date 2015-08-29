@@ -6,8 +6,8 @@ package ch.fhnw.mdt.serializer;
 import ch.fhnw.mdt.services.UForthGrammarAccess;
 import ch.fhnw.mdt.uForth.Create;
 import ch.fhnw.mdt.uForth.Forth;
-import ch.fhnw.mdt.uForth.Function;
 import ch.fhnw.mdt.uForth.IntrinsicArithmeticWords;
+import ch.fhnw.mdt.uForth.IntrinsicBranchWords;
 import ch.fhnw.mdt.uForth.IntrinsicMemoryWords;
 import ch.fhnw.mdt.uForth.IntrinsicStackWords;
 import ch.fhnw.mdt.uForth.UForthPackage;
@@ -38,21 +38,65 @@ public class UForthSemanticSequencer extends AbstractDelegatingSemanticSequencer
 			case UForthPackage.FORTH:
 				sequence_Forth(context, (Forth) semanticObject); 
 				return; 
-			case UForthPackage.FUNCTION:
-				sequence_Function(context, (Function) semanticObject); 
-				return; 
 			case UForthPackage.INTRINSIC_ARITHMETIC_WORDS:
-				sequence_IntrinsicArithmeticWords(context, (IntrinsicArithmeticWords) semanticObject); 
-				return; 
+				if(context == grammarAccess.getFunctionRule() ||
+				   context == grammarAccess.getInstructionRule()) {
+					sequence_Function_IntrinsicArithmeticWords(context, (IntrinsicArithmeticWords) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getIntrinsicArithmeticWordsRule() ||
+				   context == grammarAccess.getWordRule()) {
+					sequence_IntrinsicArithmeticWords(context, (IntrinsicArithmeticWords) semanticObject); 
+					return; 
+				}
+				else break;
+			case UForthPackage.INTRINSIC_BRANCH_WORDS:
+				if(context == grammarAccess.getFunctionRule() ||
+				   context == grammarAccess.getInstructionRule()) {
+					sequence_Function_IntrinsicBranchWords(context, (IntrinsicBranchWords) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getIntrinsicBranchWordsRule() ||
+				   context == grammarAccess.getWordRule()) {
+					sequence_IntrinsicBranchWords(context, (IntrinsicBranchWords) semanticObject); 
+					return; 
+				}
+				else break;
 			case UForthPackage.INTRINSIC_MEMORY_WORDS:
-				sequence_IntrinsicMemoryWords(context, (IntrinsicMemoryWords) semanticObject); 
-				return; 
+				if(context == grammarAccess.getFunctionRule() ||
+				   context == grammarAccess.getInstructionRule()) {
+					sequence_Function_IntrinsicMemoryWords(context, (IntrinsicMemoryWords) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getIntrinsicMemoryWordsRule() ||
+				   context == grammarAccess.getWordRule()) {
+					sequence_IntrinsicMemoryWords(context, (IntrinsicMemoryWords) semanticObject); 
+					return; 
+				}
+				else break;
 			case UForthPackage.INTRINSIC_STACK_WORDS:
-				sequence_IntrinsicStackWords(context, (IntrinsicStackWords) semanticObject); 
-				return; 
+				if(context == grammarAccess.getFunctionRule() ||
+				   context == grammarAccess.getInstructionRule()) {
+					sequence_Function_IntrinsicStackWords(context, (IntrinsicStackWords) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getIntrinsicStackWordsRule() ||
+				   context == grammarAccess.getWordRule()) {
+					sequence_IntrinsicStackWords(context, (IntrinsicStackWords) semanticObject); 
+					return; 
+				}
+				else break;
 			case UForthPackage.WORD:
-				sequence_Word(context, (Word) semanticObject); 
-				return; 
+				if(context == grammarAccess.getFunctionRule() ||
+				   context == grammarAccess.getInstructionRule()) {
+					sequence_Function_Word(context, (Word) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getWordRule()) {
+					sequence_Word(context, (Word) semanticObject); 
+					return; 
+				}
+				else break;
 			}
 		if (errorAcceptor != null) errorAcceptor.accept(diagnosticProvider.createInvalidContextOrTypeDiagnostic(semanticObject, context));
 	}
@@ -77,9 +121,150 @@ public class UForthSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	
 	/**
 	 * Constraint:
-	 *     (name=Word words+=Word*)
+	 *     (
+	 *         (
+	 *             name='+' | 
+	 *             name='-' | 
+	 *             name='*' | 
+	 *             name='/' | 
+	 *             name='2*' | 
+	 *             name='2/' | 
+	 *             name='u2/' | 
+	 *             name='ROR' | 
+	 *             name='DROR' | 
+	 *             name='ROL' | 
+	 *             name='DROL' | 
+	 *             name='PACK' | 
+	 *             name='UNPACK' | 
+	 *             name='SHIFT' | 
+	 *             name='ASHIFT' | 
+	 *             name='2**' | 
+	 *             name='0=' | 
+	 *             name='0<>' | 
+	 *             name='0<' | 
+	 *             name='d0=' | 
+	 *             name='NEGATE' | 
+	 *             name='DNEGATE' | 
+	 *             name='1+' | 
+	 *             name='1-' | 
+	 *             name='TRUE' | 
+	 *             name='FALSE' | 
+	 *             name='CELL+' | 
+	 *             name='CELL-' | 
+	 *             name='CARRY_RESET' | 
+	 *             name='CARRY-SET' | 
+	 *             name='ABS' | 
+	 *             name='DABS' | 
+	 *             name='EXTEND'
+	 *         ) 
+	 *         words+=Word*
+	 *     )
 	 */
-	protected void sequence_Function(EObject context, Function semanticObject) {
+	protected void sequence_Function_IntrinsicArithmeticWords(EObject context, IntrinsicArithmeticWords semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (
+	 *             name='jsr' | 
+	 *             name='0=branch' | 
+	 *             name='0<>branch' | 
+	 *             name='?-branch' | 
+	 *             name='s-branch' | 
+	 *             name='ns-branch' | 
+	 *             name='nc-branch' | 
+	 *             name='no-branch' | 
+	 *             name='tor-branch' | 
+	 *             name='z-exit' | 
+	 *             name='nz-exit'
+	 *         ) 
+	 *         words+=Word*
+	 *     )
+	 */
+	protected void sequence_Function_IntrinsicBranchWords(EObject context, IntrinsicBranchWords semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (
+	 *             name='LD' | 
+	 *             name='@' | 
+	 *             name='ST' | 
+	 *             name='!' | 
+	 *             name='2@' | 
+	 *             name='2!' | 
+	 *             name='LLD' | 
+	 *             name='L@' | 
+	 *             name='LST' | 
+	 *             name='L!' | 
+	 *             name='TLD' | 
+	 *             name='T@' | 
+	 *             name='TST' | 
+	 *             name='T!' | 
+	 *             name='+ST' | 
+	 *             name='+!' | 
+	 *             name='INC' | 
+	 *             name='DEC' | 
+	 *             name='ON' | 
+	 *             name='OFF' | 
+	 *             name='ERASE' | 
+	 *             name='FILL' | 
+	 *             name='COUNT' | 
+	 *             name='MOVE' | 
+	 *             name='PLACE'
+	 *         ) 
+	 *         words+=Word*
+	 *     )
+	 */
+	protected void sequence_Function_IntrinsicMemoryWords(EObject context, IntrinsicMemoryWords semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (
+	 *             name='CLEAR' | 
+	 *             name='DROP' | 
+	 *             name='DUP' | 
+	 *             name='?DUP' | 
+	 *             name='SWAP' | 
+	 *             name='NIP' | 
+	 *             name='OVER' | 
+	 *             name='ROT' | 
+	 *             name='-ROT' | 
+	 *             name='TUCK' | 
+	 *             name='UNDER' | 
+	 *             name='2DROP' | 
+	 *             name='2DUP' | 
+	 *             name='2SWAP' | 
+	 *             name='2OVER' | 
+	 *             name='RCLEAR' | 
+	 *             name='R@' | 
+	 *             name='r>' | 
+	 *             name='>r' | 
+	 *             name='RDROP'
+	 *         ) 
+	 *         words+=Word*
+	 *     )
+	 */
+	protected void sequence_Function_IntrinsicStackWords(EObject context, IntrinsicStackWords semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     ((name=LITERAL | name=ID) words+=Word*)
+	 */
+	protected void sequence_Function_Word(EObject context, Word semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -123,6 +308,27 @@ public class UForthSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	 *     )
 	 */
 	protected void sequence_IntrinsicArithmeticWords(EObject context, IntrinsicArithmeticWords semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         name='jsr' | 
+	 *         name='0=branch' | 
+	 *         name='0<>branch' | 
+	 *         name='?-branch' | 
+	 *         name='s-branch' | 
+	 *         name='ns-branch' | 
+	 *         name='nc-branch' | 
+	 *         name='no-branch' | 
+	 *         name='tor-branch' | 
+	 *         name='z-exit' | 
+	 *         name='nz-exit'
+	 *     )
+	 */
+	protected void sequence_IntrinsicBranchWords(EObject context, IntrinsicBranchWords semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

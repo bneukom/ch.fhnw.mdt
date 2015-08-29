@@ -59,6 +59,15 @@ public interface UForthFactory extends EFactory
   Create createCreate();
 
   /**
+   * Returns a new object of class '<em>Intrinsic Branch Words</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Intrinsic Branch Words</em>'.
+   * @generated
+   */
+  IntrinsicBranchWords createIntrinsicBranchWords();
+
+  /**
    * Returns a new object of class '<em>Intrinsic Stack Words</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

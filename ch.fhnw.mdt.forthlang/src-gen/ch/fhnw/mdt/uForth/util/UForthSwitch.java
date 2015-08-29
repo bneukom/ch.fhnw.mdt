@@ -102,11 +102,22 @@ public class UForthSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case UForthPackage.INTRINSIC_BRANCH_WORDS:
+      {
+        IntrinsicBranchWords intrinsicBranchWords = (IntrinsicBranchWords)theEObject;
+        T result = caseIntrinsicBranchWords(intrinsicBranchWords);
+        if (result == null) result = caseWord(intrinsicBranchWords);
+        if (result == null) result = caseFunction(intrinsicBranchWords);
+        if (result == null) result = caseInstruction(intrinsicBranchWords);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case UForthPackage.INTRINSIC_STACK_WORDS:
       {
         IntrinsicStackWords intrinsicStackWords = (IntrinsicStackWords)theEObject;
         T result = caseIntrinsicStackWords(intrinsicStackWords);
         if (result == null) result = caseWord(intrinsicStackWords);
+        if (result == null) result = caseFunction(intrinsicStackWords);
         if (result == null) result = caseInstruction(intrinsicStackWords);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -116,6 +127,7 @@ public class UForthSwitch<T> extends Switch<T>
         IntrinsicMemoryWords intrinsicMemoryWords = (IntrinsicMemoryWords)theEObject;
         T result = caseIntrinsicMemoryWords(intrinsicMemoryWords);
         if (result == null) result = caseWord(intrinsicMemoryWords);
+        if (result == null) result = caseFunction(intrinsicMemoryWords);
         if (result == null) result = caseInstruction(intrinsicMemoryWords);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -125,6 +137,7 @@ public class UForthSwitch<T> extends Switch<T>
         IntrinsicArithmeticWords intrinsicArithmeticWords = (IntrinsicArithmeticWords)theEObject;
         T result = caseIntrinsicArithmeticWords(intrinsicArithmeticWords);
         if (result == null) result = caseWord(intrinsicArithmeticWords);
+        if (result == null) result = caseFunction(intrinsicArithmeticWords);
         if (result == null) result = caseInstruction(intrinsicArithmeticWords);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -133,6 +146,7 @@ public class UForthSwitch<T> extends Switch<T>
       {
         Word word = (Word)theEObject;
         T result = caseWord(word);
+        if (result == null) result = caseFunction(word);
         if (result == null) result = caseInstruction(word);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -201,6 +215,22 @@ public class UForthSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseCreate(Create object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Intrinsic Branch Words</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Intrinsic Branch Words</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseIntrinsicBranchWords(IntrinsicBranchWords object)
   {
     return null;
   }

@@ -95,6 +95,11 @@ public class UForthAdapterFactory extends AdapterFactoryImpl
         return createCreateAdapter();
       }
       @Override
+      public Adapter caseIntrinsicBranchWords(IntrinsicBranchWords object)
+      {
+        return createIntrinsicBranchWordsAdapter();
+      }
+      @Override
       public Adapter caseIntrinsicStackWords(IntrinsicStackWords object)
       {
         return createIntrinsicStackWordsAdapter();
@@ -192,6 +197,21 @@ public class UForthAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createCreateAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link ch.fhnw.mdt.uForth.IntrinsicBranchWords <em>Intrinsic Branch Words</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see ch.fhnw.mdt.uForth.IntrinsicBranchWords
+   * @generated
+   */
+  public Adapter createIntrinsicBranchWordsAdapter()
   {
     return null;
   }

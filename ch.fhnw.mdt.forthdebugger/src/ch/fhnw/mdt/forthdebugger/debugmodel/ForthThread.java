@@ -512,7 +512,9 @@ public class ForthThread extends ForthDebugElement implements IThread, IJumpExte
 	}
 
 	/**
-	 * Disassebles the given functions the resulting code is stored in the debug folder of the project into the given filename.
+	 * Disassembles the given functions the resulting code is stored in the
+	 * debug folder of the project into the given filename.
+	 * 
 	 * @param functions
 	 * @param fileName
 	 */
@@ -596,7 +598,6 @@ public class ForthThread extends ForthDebugElement implements IThread, IJumpExte
 			e.printStackTrace();
 		}
 	}
-
 
 	/**
 	 * Adds a line to the debug output file.

@@ -25,101 +25,112 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class InternalUForthParser extends AbstractInternalContentAssistParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "CARRY_RESET", "CARRYSET", "DNEGATE", "ASHIFT", "EXTEND", "NEGATE", "RCLEAR", "UNPACK", "Create", "DROP_1", "OVER_1", "SWAP_1", "CELL", "CELL_1", "CLEAR", "COUNT", "ERASE", "FALSE", "PLACE", "RDROP", "SHIFT", "UNDER", "ROT_1", "DUP_1", "DUP_2", "DABS", "DROL", "DROP", "DROR", "FILL", "MOVE", "OVER", "PACK", "SWAP", "TRUE", "TUCK", "ST_1", "DigitZeroLessThanSignGreaterThanSign", "DigitTwoAsteriskAsterisk", "ABS", "DEC", "DUP", "INC", "LLD", "LST", "NIP", "OFF", "ROL", "ROR", "ROT", "TLD", "TST", "D0", "U2", "PlusSignExclamationMark", "DigitZeroLessThanSign", "DigitZeroEqualsSign", "DigitOnePlusSign", "DigitOneHyphenMinus", "DigitTwoExclamationMark", "DigitTwoAsterisk", "DigitTwoSolidus", "DigitTwoCommercialAt", "R", "L", "L_1", "LD", "ON", "R_1", "ST", "T", "T_1", "R_2", "ExclamationMark", "Asterisk", "PlusSign", "Comma", "HyphenMinus", "Solidus", "Colon", "Semicolon", "CommercialAt", "RULE_DIGIT", "RULE_DECINT", "RULE_WS", "RULE_SL_COMMENT", "RULE_INT", "RULE_DOUBLE", "RULE_ID", "RULE_STRING", "RULE_ML_COMMENT", "RULE_ANY_OTHER"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "CARRY_RESET", "TorBranch", "Branch_2", "CARRYSET", "NcBranch", "NoBranch", "NsBranch", "Branch", "Branch_1", "SBranch", "DNEGATE", "NzExit", "ASHIFT", "EXTEND", "NEGATE", "RCLEAR", "UNPACK", "Create", "ZExit", "DROP_1", "OVER_1", "SWAP_1", "CELL", "CELL_1", "CLEAR", "COUNT", "ERASE", "FALSE", "PLACE", "RDROP", "SHIFT", "UNDER", "ROT_1", "DUP_1", "DUP_2", "DABS", "DROL", "DROP", "DROR", "FILL", "MOVE", "OVER", "PACK", "SWAP", "TRUE", "TUCK", "ST_1", "DigitZeroLessThanSignGreaterThanSign", "DigitTwoAsteriskAsterisk", "ABS", "DEC", "DUP", "INC", "LLD", "LST", "NIP", "OFF", "ROL", "ROR", "ROT", "TLD", "TST", "D0", "Jsr", "U2", "PlusSignExclamationMark", "DigitZeroLessThanSign", "DigitZeroEqualsSign", "DigitOnePlusSign", "DigitOneHyphenMinus", "DigitTwoExclamationMark", "DigitTwoAsterisk", "DigitTwoSolidus", "DigitTwoCommercialAt", "R", "L", "L_1", "LD", "ON", "R_1", "ST", "T", "T_1", "R_2", "ExclamationMark", "Asterisk", "PlusSign", "Comma", "HyphenMinus", "Solidus", "Colon", "Semicolon", "CommercialAt", "RULE_DIGIT", "RULE_DECINT", "RULE_WS", "RULE_SL_COMMENT", "RULE_INT", "RULE_DOUBLE", "RULE_ID", "RULE_STRING", "RULE_ML_COMMENT", "RULE_ANY_OTHER"
     };
-    public static final int ROT_1=26;
-    public static final int DigitTwoExclamationMark=63;
-    public static final int NEGATE=9;
-    public static final int PlusSignExclamationMark=58;
-    public static final int T_1=75;
-    public static final int SWAP_1=15;
-    public static final int DigitZeroLessThanSign=59;
-    public static final int ExclamationMark=77;
-    public static final int RULE_ID=92;
-    public static final int RULE_DIGIT=86;
-    public static final int OVER_1=14;
-    public static final int DigitTwoCommercialAt=66;
-    public static final int DUP_2=28;
-    public static final int PlusSign=79;
-    public static final int RULE_INT=90;
-    public static final int DUP_1=27;
-    public static final int RULE_ML_COMMENT=94;
-    public static final int COUNT=19;
-    public static final int PACK=36;
-    public static final int DigitOnePlusSign=61;
-    public static final int L=68;
-    public static final int UNPACK=11;
-    public static final int OFF=50;
-    public static final int Comma=80;
-    public static final int ABS=43;
-    public static final int R=67;
-    public static final int HyphenMinus=81;
-    public static final int DROP_1=13;
-    public static final int T=74;
-    public static final int Solidus=82;
-    public static final int RULE_DECINT=87;
-    public static final int ASHIFT=7;
-    public static final int ST=73;
-    public static final int DNEGATE=6;
-    public static final int UNDER=25;
-    public static final int D0=56;
-    public static final int PLACE=22;
-    public static final int CommercialAt=85;
-    public static final int Semicolon=84;
-    public static final int ERASE=20;
-    public static final int DigitOneHyphenMinus=62;
-    public static final int LD=70;
-    public static final int CELL=16;
-    public static final int U2=57;
-    public static final int R_2=76;
-    public static final int R_1=72;
-    public static final int TUCK=39;
-    public static final int DABS=29;
-    public static final int CARRYSET=5;
-    public static final int FILL=33;
-    public static final int EXTEND=8;
-    public static final int TRUE=38;
-    public static final int LST=48;
-    public static final int ROL=51;
-    public static final int SWAP=37;
-    public static final int ROR=52;
-    public static final int TST=55;
-    public static final int ROT=53;
-    public static final int DigitTwoSolidus=65;
+    public static final int ROT_1=36;
+    public static final int DigitTwoExclamationMark=74;
+    public static final int NEGATE=18;
+    public static final int PlusSignExclamationMark=69;
+    public static final int T_1=86;
+    public static final int TorBranch=5;
+    public static final int SWAP_1=25;
+    public static final int DigitZeroLessThanSign=70;
+    public static final int ExclamationMark=88;
+    public static final int RULE_ID=103;
+    public static final int Jsr=67;
+    public static final int RULE_DIGIT=97;
+    public static final int OVER_1=24;
+    public static final int DigitTwoCommercialAt=77;
+    public static final int DUP_2=38;
+    public static final int PlusSign=90;
+    public static final int RULE_INT=101;
+    public static final int DUP_1=37;
+    public static final int RULE_ML_COMMENT=105;
+    public static final int COUNT=29;
+    public static final int PACK=46;
+    public static final int DigitOnePlusSign=72;
+    public static final int L=79;
+    public static final int UNPACK=20;
+    public static final int OFF=60;
+    public static final int Comma=91;
+    public static final int ABS=53;
+    public static final int R=78;
+    public static final int HyphenMinus=92;
+    public static final int DROP_1=23;
+    public static final int T=85;
+    public static final int Solidus=93;
+    public static final int RULE_DECINT=98;
+    public static final int ASHIFT=16;
+    public static final int NoBranch=9;
+    public static final int ST=84;
+    public static final int DNEGATE=14;
+    public static final int UNDER=35;
+    public static final int SBranch=13;
+    public static final int D0=66;
+    public static final int PLACE=32;
+    public static final int NcBranch=8;
+    public static final int CommercialAt=96;
+    public static final int Semicolon=95;
+    public static final int ERASE=30;
+    public static final int DigitOneHyphenMinus=73;
+    public static final int LD=81;
+    public static final int CELL=26;
+    public static final int U2=68;
+    public static final int R_2=87;
+    public static final int R_1=83;
+    public static final int ZExit=22;
+    public static final int TUCK=49;
+    public static final int DABS=39;
+    public static final int CARRYSET=7;
+    public static final int Branch_1=12;
+    public static final int Branch_2=6;
+    public static final int FILL=43;
+    public static final int EXTEND=17;
+    public static final int TRUE=48;
+    public static final int LST=58;
+    public static final int ROL=61;
+    public static final int SWAP=47;
+    public static final int ROR=62;
+    public static final int TST=65;
+    public static final int ROT=63;
+    public static final int DigitTwoSolidus=76;
     public static final int CARRY_RESET=4;
-    public static final int DigitTwoAsteriskAsterisk=42;
-    public static final int INC=46;
-    public static final int LLD=47;
-    public static final int RULE_STRING=93;
-    public static final int DROL=30;
-    public static final int TLD=54;
-    public static final int DROP=31;
-    public static final int RULE_SL_COMMENT=89;
-    public static final int CELL_1=17;
-    public static final int SHIFT=24;
-    public static final int DROR=32;
-    public static final int RULE_DOUBLE=91;
-    public static final int Create=12;
-    public static final int RCLEAR=10;
-    public static final int Colon=83;
-    public static final int DigitZeroEqualsSign=60;
+    public static final int DigitTwoAsteriskAsterisk=52;
+    public static final int INC=56;
+    public static final int LLD=57;
+    public static final int RULE_STRING=104;
+    public static final int DROL=40;
+    public static final int TLD=64;
+    public static final int DROP=41;
+    public static final int RULE_SL_COMMENT=100;
+    public static final int CELL_1=27;
+    public static final int SHIFT=34;
+    public static final int DROR=42;
+    public static final int RULE_DOUBLE=102;
+    public static final int Branch=11;
+    public static final int Create=21;
+    public static final int NzExit=15;
+    public static final int RCLEAR=19;
+    public static final int Colon=94;
+    public static final int DigitZeroEqualsSign=71;
     public static final int EOF=-1;
-    public static final int Asterisk=78;
-    public static final int DUP=45;
-    public static final int ON=71;
-    public static final int RDROP=23;
-    public static final int DEC=44;
-    public static final int RULE_WS=88;
-    public static final int RULE_ANY_OTHER=95;
-    public static final int OVER=35;
-    public static final int DigitTwoAsterisk=64;
-    public static final int DigitZeroLessThanSignGreaterThanSign=41;
-    public static final int ST_1=40;
-    public static final int NIP=49;
-    public static final int MOVE=34;
-    public static final int FALSE=21;
-    public static final int CLEAR=18;
-    public static final int L_1=69;
+    public static final int Asterisk=89;
+    public static final int DUP=55;
+    public static final int ON=82;
+    public static final int RDROP=33;
+    public static final int DEC=54;
+    public static final int RULE_WS=99;
+    public static final int RULE_ANY_OTHER=106;
+    public static final int OVER=45;
+    public static final int DigitTwoAsterisk=75;
+    public static final int DigitZeroLessThanSignGreaterThanSign=51;
+    public static final int ST_1=50;
+    public static final int NIP=59;
+    public static final int MOVE=44;
+    public static final int FALSE=31;
+    public static final int NsBranch=10;
+    public static final int CLEAR=28;
+    public static final int L_1=80;
 
     // delegates
     // delegators
@@ -189,6 +200,7 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
     		tokenNameToValue.put("TLD", "'TLD'");
     		tokenNameToValue.put("TST", "'TST'");
     		tokenNameToValue.put("D0", "'d0='");
+    		tokenNameToValue.put("Jsr", "'jsr'");
     		tokenNameToValue.put("U2", "'u2/'");
     		tokenNameToValue.put("ROT_1", "'-ROT'");
     		tokenNameToValue.put("DUP_1", "'2DUP'");
@@ -223,8 +235,18 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
     		tokenNameToValue.put("RCLEAR", "'RCLEAR'");
     		tokenNameToValue.put("UNPACK", "'UNPACK'");
     		tokenNameToValue.put("Create", "'create'");
+    		tokenNameToValue.put("ZExit", "'z-exit'");
     		tokenNameToValue.put("DNEGATE", "'DNEGATE'");
+    		tokenNameToValue.put("NzExit", "'nz-exit'");
+    		tokenNameToValue.put("Branch", "'0=branch'");
+    		tokenNameToValue.put("Branch_1", "'?-branch'");
+    		tokenNameToValue.put("SBranch", "'s-branch'");
+    		tokenNameToValue.put("Branch_2", "'0<>branch'");
     		tokenNameToValue.put("CARRYSET", "'CARRY-SET'");
+    		tokenNameToValue.put("NcBranch", "'nc-branch'");
+    		tokenNameToValue.put("NoBranch", "'no-branch'");
+    		tokenNameToValue.put("NsBranch", "'ns-branch'");
+    		tokenNameToValue.put("TorBranch", "'tor-branch'");
     		tokenNameToValue.put("CARRY_RESET", "'CARRY_RESET'");
      	}
      	
@@ -248,11 +270,11 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "entryRuleForth"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:145:1: entryRuleForth : ruleForth EOF ;
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:156:1: entryRuleForth : ruleForth EOF ;
     public final void entryRuleForth() throws RecognitionException {
         try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:146:1: ( ruleForth EOF )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:147:1: ruleForth EOF
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:157:1: ( ruleForth EOF )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:158:1: ruleForth EOF
             {
              before(grammarAccess.getForthRule()); 
             pushFollow(FOLLOW_ruleForth_in_entryRuleForth54);
@@ -278,20 +300,20 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "ruleForth"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:154:1: ruleForth : ( ( rule__Forth__InstructionsAssignment )* ) ;
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:165:1: ruleForth : ( ( rule__Forth__InstructionsAssignment )* ) ;
     public final void ruleForth() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:158:5: ( ( ( rule__Forth__InstructionsAssignment )* ) )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:159:1: ( ( rule__Forth__InstructionsAssignment )* )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:169:5: ( ( ( rule__Forth__InstructionsAssignment )* ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:170:1: ( ( rule__Forth__InstructionsAssignment )* )
             {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:159:1: ( ( rule__Forth__InstructionsAssignment )* )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:160:1: ( rule__Forth__InstructionsAssignment )*
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:170:1: ( ( rule__Forth__InstructionsAssignment )* )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:171:1: ( rule__Forth__InstructionsAssignment )*
             {
              before(grammarAccess.getForthAccess().getInstructionsAssignment()); 
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:161:1: ( rule__Forth__InstructionsAssignment )*
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:172:1: ( rule__Forth__InstructionsAssignment )*
             loop1:
             do {
                 int alt1=2;
@@ -304,7 +326,7 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
 
                 switch (alt1) {
             	case 1 :
-            	    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:161:2: rule__Forth__InstructionsAssignment
+            	    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:172:2: rule__Forth__InstructionsAssignment
             	    {
             	    pushFollow(FOLLOW_rule__Forth__InstructionsAssignment_in_ruleForth91);
             	    rule__Forth__InstructionsAssignment();
@@ -343,11 +365,11 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "entryRuleInstruction"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:173:1: entryRuleInstruction : ruleInstruction EOF ;
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:184:1: entryRuleInstruction : ruleInstruction EOF ;
     public final void entryRuleInstruction() throws RecognitionException {
         try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:174:1: ( ruleInstruction EOF )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:175:1: ruleInstruction EOF
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:185:1: ( ruleInstruction EOF )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:186:1: ruleInstruction EOF
             {
              before(grammarAccess.getInstructionRule()); 
             pushFollow(FOLLOW_ruleInstruction_in_entryRuleInstruction119);
@@ -373,21 +395,21 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "ruleInstruction"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:182:1: ruleInstruction : ( ( rule__Instruction__Alternatives ) ) ;
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:193:1: ruleInstruction : ( ( rule__Instruction__Alternatives ) ) ;
     public final void ruleInstruction() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:186:5: ( ( ( rule__Instruction__Alternatives ) ) )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:187:1: ( ( rule__Instruction__Alternatives ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:197:5: ( ( ( rule__Instruction__Alternatives ) ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:198:1: ( ( rule__Instruction__Alternatives ) )
             {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:187:1: ( ( rule__Instruction__Alternatives ) )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:188:1: ( rule__Instruction__Alternatives )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:198:1: ( ( rule__Instruction__Alternatives ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:199:1: ( rule__Instruction__Alternatives )
             {
              before(grammarAccess.getInstructionAccess().getAlternatives()); 
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:189:1: ( rule__Instruction__Alternatives )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:189:2: rule__Instruction__Alternatives
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:200:1: ( rule__Instruction__Alternatives )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:200:2: rule__Instruction__Alternatives
             {
             pushFollow(FOLLOW_rule__Instruction__Alternatives_in_ruleInstruction156);
             rule__Instruction__Alternatives();
@@ -420,11 +442,11 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "entryRuleFunction"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:201:1: entryRuleFunction : ruleFunction EOF ;
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:212:1: entryRuleFunction : ruleFunction EOF ;
     public final void entryRuleFunction() throws RecognitionException {
         try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:202:1: ( ruleFunction EOF )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:203:1: ruleFunction EOF
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:213:1: ( ruleFunction EOF )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:214:1: ruleFunction EOF
             {
              before(grammarAccess.getFunctionRule()); 
             pushFollow(FOLLOW_ruleFunction_in_entryRuleFunction183);
@@ -450,21 +472,21 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "ruleFunction"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:210:1: ruleFunction : ( ( rule__Function__Group__0 ) ) ;
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:221:1: ruleFunction : ( ( rule__Function__Group__0 ) ) ;
     public final void ruleFunction() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:214:5: ( ( ( rule__Function__Group__0 ) ) )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:215:1: ( ( rule__Function__Group__0 ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:225:5: ( ( ( rule__Function__Group__0 ) ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:226:1: ( ( rule__Function__Group__0 ) )
             {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:215:1: ( ( rule__Function__Group__0 ) )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:216:1: ( rule__Function__Group__0 )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:226:1: ( ( rule__Function__Group__0 ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:227:1: ( rule__Function__Group__0 )
             {
              before(grammarAccess.getFunctionAccess().getGroup()); 
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:217:1: ( rule__Function__Group__0 )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:217:2: rule__Function__Group__0
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:228:1: ( rule__Function__Group__0 )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:228:2: rule__Function__Group__0
             {
             pushFollow(FOLLOW_rule__Function__Group__0_in_ruleFunction220);
             rule__Function__Group__0();
@@ -497,11 +519,11 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "entryRuleCreate"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:229:1: entryRuleCreate : ruleCreate EOF ;
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:240:1: entryRuleCreate : ruleCreate EOF ;
     public final void entryRuleCreate() throws RecognitionException {
         try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:230:1: ( ruleCreate EOF )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:231:1: ruleCreate EOF
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:241:1: ( ruleCreate EOF )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:242:1: ruleCreate EOF
             {
              before(grammarAccess.getCreateRule()); 
             pushFollow(FOLLOW_ruleCreate_in_entryRuleCreate247);
@@ -527,21 +549,21 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "ruleCreate"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:238:1: ruleCreate : ( ( rule__Create__Group__0 ) ) ;
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:249:1: ruleCreate : ( ( rule__Create__Group__0 ) ) ;
     public final void ruleCreate() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:242:5: ( ( ( rule__Create__Group__0 ) ) )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:243:1: ( ( rule__Create__Group__0 ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:253:5: ( ( ( rule__Create__Group__0 ) ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:254:1: ( ( rule__Create__Group__0 ) )
             {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:243:1: ( ( rule__Create__Group__0 ) )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:244:1: ( rule__Create__Group__0 )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:254:1: ( ( rule__Create__Group__0 ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:255:1: ( rule__Create__Group__0 )
             {
              before(grammarAccess.getCreateAccess().getGroup()); 
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:245:1: ( rule__Create__Group__0 )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:245:2: rule__Create__Group__0
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:256:1: ( rule__Create__Group__0 )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:256:2: rule__Create__Group__0
             {
             pushFollow(FOLLOW_rule__Create__Group__0_in_ruleCreate284);
             rule__Create__Group__0();
@@ -574,11 +596,11 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "entryRuleLITERAL"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:257:1: entryRuleLITERAL : ruleLITERAL EOF ;
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:268:1: entryRuleLITERAL : ruleLITERAL EOF ;
     public final void entryRuleLITERAL() throws RecognitionException {
         try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:258:1: ( ruleLITERAL EOF )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:259:1: ruleLITERAL EOF
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:269:1: ( ruleLITERAL EOF )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:270:1: ruleLITERAL EOF
             {
              before(grammarAccess.getLITERALRule()); 
             pushFollow(FOLLOW_ruleLITERAL_in_entryRuleLITERAL311);
@@ -604,21 +626,21 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "ruleLITERAL"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:266:1: ruleLITERAL : ( ( rule__LITERAL__Alternatives ) ) ;
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:277:1: ruleLITERAL : ( ( rule__LITERAL__Alternatives ) ) ;
     public final void ruleLITERAL() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:270:5: ( ( ( rule__LITERAL__Alternatives ) ) )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:271:1: ( ( rule__LITERAL__Alternatives ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:281:5: ( ( ( rule__LITERAL__Alternatives ) ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:282:1: ( ( rule__LITERAL__Alternatives ) )
             {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:271:1: ( ( rule__LITERAL__Alternatives ) )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:272:1: ( rule__LITERAL__Alternatives )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:282:1: ( ( rule__LITERAL__Alternatives ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:283:1: ( rule__LITERAL__Alternatives )
             {
              before(grammarAccess.getLITERALAccess().getAlternatives()); 
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:273:1: ( rule__LITERAL__Alternatives )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:273:2: rule__LITERAL__Alternatives
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:284:1: ( rule__LITERAL__Alternatives )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:284:2: rule__LITERAL__Alternatives
             {
             pushFollow(FOLLOW_rule__LITERAL__Alternatives_in_ruleLITERAL348);
             rule__LITERAL__Alternatives();
@@ -650,21 +672,98 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "ruleLITERAL"
 
 
+    // $ANTLR start "entryRuleIntrinsicBranchWords"
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:296:1: entryRuleIntrinsicBranchWords : ruleIntrinsicBranchWords EOF ;
+    public final void entryRuleIntrinsicBranchWords() throws RecognitionException {
+        try {
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:297:1: ( ruleIntrinsicBranchWords EOF )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:298:1: ruleIntrinsicBranchWords EOF
+            {
+             before(grammarAccess.getIntrinsicBranchWordsRule()); 
+            pushFollow(FOLLOW_ruleIntrinsicBranchWords_in_entryRuleIntrinsicBranchWords375);
+            ruleIntrinsicBranchWords();
+
+            state._fsp--;
+
+             after(grammarAccess.getIntrinsicBranchWordsRule()); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleIntrinsicBranchWords382); 
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+        }
+        return ;
+    }
+    // $ANTLR end "entryRuleIntrinsicBranchWords"
+
+
+    // $ANTLR start "ruleIntrinsicBranchWords"
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:305:1: ruleIntrinsicBranchWords : ( ( rule__IntrinsicBranchWords__NameAssignment ) ) ;
+    public final void ruleIntrinsicBranchWords() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:309:5: ( ( ( rule__IntrinsicBranchWords__NameAssignment ) ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:310:1: ( ( rule__IntrinsicBranchWords__NameAssignment ) )
+            {
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:310:1: ( ( rule__IntrinsicBranchWords__NameAssignment ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:311:1: ( rule__IntrinsicBranchWords__NameAssignment )
+            {
+             before(grammarAccess.getIntrinsicBranchWordsAccess().getNameAssignment()); 
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:312:1: ( rule__IntrinsicBranchWords__NameAssignment )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:312:2: rule__IntrinsicBranchWords__NameAssignment
+            {
+            pushFollow(FOLLOW_rule__IntrinsicBranchWords__NameAssignment_in_ruleIntrinsicBranchWords412);
+            rule__IntrinsicBranchWords__NameAssignment();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getIntrinsicBranchWordsAccess().getNameAssignment()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "ruleIntrinsicBranchWords"
+
+
     // $ANTLR start "entryRuleIntrinsicStackWords"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:285:1: entryRuleIntrinsicStackWords : ruleIntrinsicStackWords EOF ;
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:324:1: entryRuleIntrinsicStackWords : ruleIntrinsicStackWords EOF ;
     public final void entryRuleIntrinsicStackWords() throws RecognitionException {
         try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:286:1: ( ruleIntrinsicStackWords EOF )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:287:1: ruleIntrinsicStackWords EOF
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:325:1: ( ruleIntrinsicStackWords EOF )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:326:1: ruleIntrinsicStackWords EOF
             {
              before(grammarAccess.getIntrinsicStackWordsRule()); 
-            pushFollow(FOLLOW_ruleIntrinsicStackWords_in_entryRuleIntrinsicStackWords375);
+            pushFollow(FOLLOW_ruleIntrinsicStackWords_in_entryRuleIntrinsicStackWords439);
             ruleIntrinsicStackWords();
 
             state._fsp--;
 
              after(grammarAccess.getIntrinsicStackWordsRule()); 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleIntrinsicStackWords382); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleIntrinsicStackWords446); 
 
             }
 
@@ -681,31 +780,31 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "ruleIntrinsicStackWords"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:294:1: ruleIntrinsicStackWords : ( ( rule__IntrinsicStackWords__Group__0 ) ) ;
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:333:1: ruleIntrinsicStackWords : ( ( rule__IntrinsicStackWords__NameAssignment ) ) ;
     public final void ruleIntrinsicStackWords() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:298:5: ( ( ( rule__IntrinsicStackWords__Group__0 ) ) )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:299:1: ( ( rule__IntrinsicStackWords__Group__0 ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:337:5: ( ( ( rule__IntrinsicStackWords__NameAssignment ) ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:338:1: ( ( rule__IntrinsicStackWords__NameAssignment ) )
             {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:299:1: ( ( rule__IntrinsicStackWords__Group__0 ) )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:300:1: ( rule__IntrinsicStackWords__Group__0 )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:338:1: ( ( rule__IntrinsicStackWords__NameAssignment ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:339:1: ( rule__IntrinsicStackWords__NameAssignment )
             {
-             before(grammarAccess.getIntrinsicStackWordsAccess().getGroup()); 
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:301:1: ( rule__IntrinsicStackWords__Group__0 )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:301:2: rule__IntrinsicStackWords__Group__0
+             before(grammarAccess.getIntrinsicStackWordsAccess().getNameAssignment()); 
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:340:1: ( rule__IntrinsicStackWords__NameAssignment )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:340:2: rule__IntrinsicStackWords__NameAssignment
             {
-            pushFollow(FOLLOW_rule__IntrinsicStackWords__Group__0_in_ruleIntrinsicStackWords412);
-            rule__IntrinsicStackWords__Group__0();
+            pushFollow(FOLLOW_rule__IntrinsicStackWords__NameAssignment_in_ruleIntrinsicStackWords476);
+            rule__IntrinsicStackWords__NameAssignment();
 
             state._fsp--;
 
 
             }
 
-             after(grammarAccess.getIntrinsicStackWordsAccess().getGroup()); 
+             after(grammarAccess.getIntrinsicStackWordsAccess().getNameAssignment()); 
 
             }
 
@@ -728,20 +827,20 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "entryRuleIntrinsicMemoryWords"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:313:1: entryRuleIntrinsicMemoryWords : ruleIntrinsicMemoryWords EOF ;
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:352:1: entryRuleIntrinsicMemoryWords : ruleIntrinsicMemoryWords EOF ;
     public final void entryRuleIntrinsicMemoryWords() throws RecognitionException {
         try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:314:1: ( ruleIntrinsicMemoryWords EOF )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:315:1: ruleIntrinsicMemoryWords EOF
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:353:1: ( ruleIntrinsicMemoryWords EOF )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:354:1: ruleIntrinsicMemoryWords EOF
             {
              before(grammarAccess.getIntrinsicMemoryWordsRule()); 
-            pushFollow(FOLLOW_ruleIntrinsicMemoryWords_in_entryRuleIntrinsicMemoryWords439);
+            pushFollow(FOLLOW_ruleIntrinsicMemoryWords_in_entryRuleIntrinsicMemoryWords503);
             ruleIntrinsicMemoryWords();
 
             state._fsp--;
 
              after(grammarAccess.getIntrinsicMemoryWordsRule()); 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleIntrinsicMemoryWords446); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleIntrinsicMemoryWords510); 
 
             }
 
@@ -758,31 +857,31 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "ruleIntrinsicMemoryWords"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:322:1: ruleIntrinsicMemoryWords : ( ( rule__IntrinsicMemoryWords__Group__0 ) ) ;
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:361:1: ruleIntrinsicMemoryWords : ( ( rule__IntrinsicMemoryWords__NameAssignment ) ) ;
     public final void ruleIntrinsicMemoryWords() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:326:5: ( ( ( rule__IntrinsicMemoryWords__Group__0 ) ) )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:327:1: ( ( rule__IntrinsicMemoryWords__Group__0 ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:365:5: ( ( ( rule__IntrinsicMemoryWords__NameAssignment ) ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:366:1: ( ( rule__IntrinsicMemoryWords__NameAssignment ) )
             {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:327:1: ( ( rule__IntrinsicMemoryWords__Group__0 ) )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:328:1: ( rule__IntrinsicMemoryWords__Group__0 )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:366:1: ( ( rule__IntrinsicMemoryWords__NameAssignment ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:367:1: ( rule__IntrinsicMemoryWords__NameAssignment )
             {
-             before(grammarAccess.getIntrinsicMemoryWordsAccess().getGroup()); 
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:329:1: ( rule__IntrinsicMemoryWords__Group__0 )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:329:2: rule__IntrinsicMemoryWords__Group__0
+             before(grammarAccess.getIntrinsicMemoryWordsAccess().getNameAssignment()); 
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:368:1: ( rule__IntrinsicMemoryWords__NameAssignment )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:368:2: rule__IntrinsicMemoryWords__NameAssignment
             {
-            pushFollow(FOLLOW_rule__IntrinsicMemoryWords__Group__0_in_ruleIntrinsicMemoryWords476);
-            rule__IntrinsicMemoryWords__Group__0();
+            pushFollow(FOLLOW_rule__IntrinsicMemoryWords__NameAssignment_in_ruleIntrinsicMemoryWords540);
+            rule__IntrinsicMemoryWords__NameAssignment();
 
             state._fsp--;
 
 
             }
 
-             after(grammarAccess.getIntrinsicMemoryWordsAccess().getGroup()); 
+             after(grammarAccess.getIntrinsicMemoryWordsAccess().getNameAssignment()); 
 
             }
 
@@ -805,20 +904,20 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "entryRuleIntrinsicArithmeticWords"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:341:1: entryRuleIntrinsicArithmeticWords : ruleIntrinsicArithmeticWords EOF ;
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:380:1: entryRuleIntrinsicArithmeticWords : ruleIntrinsicArithmeticWords EOF ;
     public final void entryRuleIntrinsicArithmeticWords() throws RecognitionException {
         try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:342:1: ( ruleIntrinsicArithmeticWords EOF )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:343:1: ruleIntrinsicArithmeticWords EOF
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:381:1: ( ruleIntrinsicArithmeticWords EOF )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:382:1: ruleIntrinsicArithmeticWords EOF
             {
              before(grammarAccess.getIntrinsicArithmeticWordsRule()); 
-            pushFollow(FOLLOW_ruleIntrinsicArithmeticWords_in_entryRuleIntrinsicArithmeticWords503);
+            pushFollow(FOLLOW_ruleIntrinsicArithmeticWords_in_entryRuleIntrinsicArithmeticWords567);
             ruleIntrinsicArithmeticWords();
 
             state._fsp--;
 
              after(grammarAccess.getIntrinsicArithmeticWordsRule()); 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleIntrinsicArithmeticWords510); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleIntrinsicArithmeticWords574); 
 
             }
 
@@ -835,31 +934,31 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "ruleIntrinsicArithmeticWords"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:350:1: ruleIntrinsicArithmeticWords : ( ( rule__IntrinsicArithmeticWords__Group__0 ) ) ;
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:389:1: ruleIntrinsicArithmeticWords : ( ( rule__IntrinsicArithmeticWords__NameAssignment ) ) ;
     public final void ruleIntrinsicArithmeticWords() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:354:5: ( ( ( rule__IntrinsicArithmeticWords__Group__0 ) ) )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:355:1: ( ( rule__IntrinsicArithmeticWords__Group__0 ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:393:5: ( ( ( rule__IntrinsicArithmeticWords__NameAssignment ) ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:394:1: ( ( rule__IntrinsicArithmeticWords__NameAssignment ) )
             {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:355:1: ( ( rule__IntrinsicArithmeticWords__Group__0 ) )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:356:1: ( rule__IntrinsicArithmeticWords__Group__0 )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:394:1: ( ( rule__IntrinsicArithmeticWords__NameAssignment ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:395:1: ( rule__IntrinsicArithmeticWords__NameAssignment )
             {
-             before(grammarAccess.getIntrinsicArithmeticWordsAccess().getGroup()); 
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:357:1: ( rule__IntrinsicArithmeticWords__Group__0 )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:357:2: rule__IntrinsicArithmeticWords__Group__0
+             before(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameAssignment()); 
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:396:1: ( rule__IntrinsicArithmeticWords__NameAssignment )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:396:2: rule__IntrinsicArithmeticWords__NameAssignment
             {
-            pushFollow(FOLLOW_rule__IntrinsicArithmeticWords__Group__0_in_ruleIntrinsicArithmeticWords540);
-            rule__IntrinsicArithmeticWords__Group__0();
+            pushFollow(FOLLOW_rule__IntrinsicArithmeticWords__NameAssignment_in_ruleIntrinsicArithmeticWords604);
+            rule__IntrinsicArithmeticWords__NameAssignment();
 
             state._fsp--;
 
 
             }
 
-             after(grammarAccess.getIntrinsicArithmeticWordsAccess().getGroup()); 
+             after(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameAssignment()); 
 
             }
 
@@ -882,20 +981,20 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "entryRuleWord"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:369:1: entryRuleWord : ruleWord EOF ;
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:408:1: entryRuleWord : ruleWord EOF ;
     public final void entryRuleWord() throws RecognitionException {
         try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:370:1: ( ruleWord EOF )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:371:1: ruleWord EOF
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:409:1: ( ruleWord EOF )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:410:1: ruleWord EOF
             {
              before(grammarAccess.getWordRule()); 
-            pushFollow(FOLLOW_ruleWord_in_entryRuleWord567);
+            pushFollow(FOLLOW_ruleWord_in_entryRuleWord631);
             ruleWord();
 
             state._fsp--;
 
              after(grammarAccess.getWordRule()); 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleWord574); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleWord638); 
 
             }
 
@@ -912,23 +1011,23 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "ruleWord"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:378:1: ruleWord : ( ( rule__Word__Alternatives ) ) ;
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:417:1: ruleWord : ( ( rule__Word__Alternatives ) ) ;
     public final void ruleWord() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:382:5: ( ( ( rule__Word__Alternatives ) ) )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:383:1: ( ( rule__Word__Alternatives ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:421:5: ( ( ( rule__Word__Alternatives ) ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:422:1: ( ( rule__Word__Alternatives ) )
             {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:383:1: ( ( rule__Word__Alternatives ) )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:384:1: ( rule__Word__Alternatives )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:422:1: ( ( rule__Word__Alternatives ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:423:1: ( rule__Word__Alternatives )
             {
              before(grammarAccess.getWordAccess().getAlternatives()); 
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:385:1: ( rule__Word__Alternatives )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:385:2: rule__Word__Alternatives
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:424:1: ( rule__Word__Alternatives )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:424:2: rule__Word__Alternatives
             {
-            pushFollow(FOLLOW_rule__Word__Alternatives_in_ruleWord604);
+            pushFollow(FOLLOW_rule__Word__Alternatives_in_ruleWord668);
             rule__Word__Alternatives();
 
             state._fsp--;
@@ -959,13 +1058,13 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Instruction__Alternatives"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:397:1: rule__Instruction__Alternatives : ( ( ruleCreate ) | ( ruleFunction ) | ( ruleWord ) );
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:436:1: rule__Instruction__Alternatives : ( ( ruleCreate ) | ( ruleFunction ) | ( ruleWord ) );
     public final void rule__Instruction__Alternatives() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:401:1: ( ( ruleCreate ) | ( ruleFunction ) | ( ruleWord ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:440:1: ( ( ruleCreate ) | ( ruleFunction ) | ( ruleWord ) )
             int alt2=3;
             switch ( input.LA(1) ) {
             case Create:
@@ -979,13 +1078,23 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                 }
                 break;
             case CARRY_RESET:
+            case TorBranch:
+            case Branch_2:
             case CARRYSET:
+            case NcBranch:
+            case NoBranch:
+            case NsBranch:
+            case Branch:
+            case Branch_1:
+            case SBranch:
             case DNEGATE:
+            case NzExit:
             case ASHIFT:
             case EXTEND:
             case NEGATE:
             case RCLEAR:
             case UNPACK:
+            case ZExit:
             case DROP_1:
             case OVER_1:
             case SWAP_1:
@@ -1030,6 +1139,7 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
             case TLD:
             case TST:
             case D0:
+            case Jsr:
             case U2:
             case PlusSignExclamationMark:
             case DigitZeroLessThanSign:
@@ -1072,13 +1182,13 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
 
             switch (alt2) {
                 case 1 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:402:1: ( ruleCreate )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:441:1: ( ruleCreate )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:402:1: ( ruleCreate )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:403:1: ruleCreate
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:441:1: ( ruleCreate )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:442:1: ruleCreate
                     {
                      before(grammarAccess.getInstructionAccess().getCreateParserRuleCall_0()); 
-                    pushFollow(FOLLOW_ruleCreate_in_rule__Instruction__Alternatives640);
+                    pushFollow(FOLLOW_ruleCreate_in_rule__Instruction__Alternatives704);
                     ruleCreate();
 
                     state._fsp--;
@@ -1091,13 +1201,13 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 2 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:408:6: ( ruleFunction )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:447:6: ( ruleFunction )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:408:6: ( ruleFunction )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:409:1: ruleFunction
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:447:6: ( ruleFunction )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:448:1: ruleFunction
                     {
                      before(grammarAccess.getInstructionAccess().getFunctionParserRuleCall_1()); 
-                    pushFollow(FOLLOW_ruleFunction_in_rule__Instruction__Alternatives657);
+                    pushFollow(FOLLOW_ruleFunction_in_rule__Instruction__Alternatives721);
                     ruleFunction();
 
                     state._fsp--;
@@ -1110,13 +1220,13 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 3 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:414:6: ( ruleWord )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:453:6: ( ruleWord )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:414:6: ( ruleWord )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:415:1: ruleWord
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:453:6: ( ruleWord )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:454:1: ruleWord
                     {
                      before(grammarAccess.getInstructionAccess().getWordParserRuleCall_2()); 
-                    pushFollow(FOLLOW_ruleWord_in_rule__Instruction__Alternatives674);
+                    pushFollow(FOLLOW_ruleWord_in_rule__Instruction__Alternatives738);
                     ruleWord();
 
                     state._fsp--;
@@ -1146,13 +1256,13 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__LITERAL__Alternatives"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:425:1: rule__LITERAL__Alternatives : ( ( RULE_INT ) | ( RULE_DOUBLE ) );
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:464:1: rule__LITERAL__Alternatives : ( ( RULE_INT ) | ( RULE_DOUBLE ) );
     public final void rule__LITERAL__Alternatives() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:429:1: ( ( RULE_INT ) | ( RULE_DOUBLE ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:468:1: ( ( RULE_INT ) | ( RULE_DOUBLE ) )
             int alt3=2;
             int LA3_0 = input.LA(1);
 
@@ -1170,13 +1280,13 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
             }
             switch (alt3) {
                 case 1 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:430:1: ( RULE_INT )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:469:1: ( RULE_INT )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:430:1: ( RULE_INT )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:431:1: RULE_INT
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:469:1: ( RULE_INT )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:470:1: RULE_INT
                     {
                      before(grammarAccess.getLITERALAccess().getINTTerminalRuleCall_0()); 
-                    match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__LITERAL__Alternatives706); 
+                    match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__LITERAL__Alternatives770); 
                      after(grammarAccess.getLITERALAccess().getINTTerminalRuleCall_0()); 
 
                     }
@@ -1185,13 +1295,13 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 2 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:436:6: ( RULE_DOUBLE )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:475:6: ( RULE_DOUBLE )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:436:6: ( RULE_DOUBLE )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:437:1: RULE_DOUBLE
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:475:6: ( RULE_DOUBLE )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:476:1: RULE_DOUBLE
                     {
                      before(grammarAccess.getLITERALAccess().getDOUBLETerminalRuleCall_1()); 
-                    match(input,RULE_DOUBLE,FOLLOW_RULE_DOUBLE_in_rule__LITERAL__Alternatives723); 
+                    match(input,RULE_DOUBLE,FOLLOW_RULE_DOUBLE_in_rule__LITERAL__Alternatives787); 
                      after(grammarAccess.getLITERALAccess().getDOUBLETerminalRuleCall_1()); 
 
                     }
@@ -1216,114 +1326,69 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__LITERAL__Alternatives"
 
 
-    // $ANTLR start "rule__IntrinsicStackWords__NameAlternatives_1_0"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:447:1: rule__IntrinsicStackWords__NameAlternatives_1_0 : ( ( CLEAR ) | ( DROP ) | ( DUP ) | ( DUP_2 ) | ( SWAP ) | ( NIP ) | ( OVER ) | ( ROT ) | ( ROT_1 ) | ( TUCK ) | ( UNDER ) | ( DROP_1 ) | ( DUP_1 ) | ( SWAP_1 ) | ( OVER_1 ) | ( RCLEAR ) | ( R_1 ) | ( R_2 ) | ( R ) | ( RDROP ) );
-    public final void rule__IntrinsicStackWords__NameAlternatives_1_0() throws RecognitionException {
+    // $ANTLR start "rule__IntrinsicBranchWords__NameAlternatives_0"
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:486:1: rule__IntrinsicBranchWords__NameAlternatives_0 : ( ( Jsr ) | ( Branch ) | ( Branch_2 ) | ( Branch_1 ) | ( SBranch ) | ( NsBranch ) | ( NcBranch ) | ( NoBranch ) | ( TorBranch ) | ( ZExit ) | ( NzExit ) );
+    public final void rule__IntrinsicBranchWords__NameAlternatives_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:451:1: ( ( CLEAR ) | ( DROP ) | ( DUP ) | ( DUP_2 ) | ( SWAP ) | ( NIP ) | ( OVER ) | ( ROT ) | ( ROT_1 ) | ( TUCK ) | ( UNDER ) | ( DROP_1 ) | ( DUP_1 ) | ( SWAP_1 ) | ( OVER_1 ) | ( RCLEAR ) | ( R_1 ) | ( R_2 ) | ( R ) | ( RDROP ) )
-            int alt4=20;
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:490:1: ( ( Jsr ) | ( Branch ) | ( Branch_2 ) | ( Branch_1 ) | ( SBranch ) | ( NsBranch ) | ( NcBranch ) | ( NoBranch ) | ( TorBranch ) | ( ZExit ) | ( NzExit ) )
+            int alt4=11;
             switch ( input.LA(1) ) {
-            case CLEAR:
+            case Jsr:
                 {
                 alt4=1;
                 }
                 break;
-            case DROP:
+            case Branch:
                 {
                 alt4=2;
                 }
                 break;
-            case DUP:
+            case Branch_2:
                 {
                 alt4=3;
                 }
                 break;
-            case DUP_2:
+            case Branch_1:
                 {
                 alt4=4;
                 }
                 break;
-            case SWAP:
+            case SBranch:
                 {
                 alt4=5;
                 }
                 break;
-            case NIP:
+            case NsBranch:
                 {
                 alt4=6;
                 }
                 break;
-            case OVER:
+            case NcBranch:
                 {
                 alt4=7;
                 }
                 break;
-            case ROT:
+            case NoBranch:
                 {
                 alt4=8;
                 }
                 break;
-            case ROT_1:
+            case TorBranch:
                 {
                 alt4=9;
                 }
                 break;
-            case TUCK:
+            case ZExit:
                 {
                 alt4=10;
                 }
                 break;
-            case UNDER:
+            case NzExit:
                 {
                 alt4=11;
-                }
-                break;
-            case DROP_1:
-                {
-                alt4=12;
-                }
-                break;
-            case DUP_1:
-                {
-                alt4=13;
-                }
-                break;
-            case SWAP_1:
-                {
-                alt4=14;
-                }
-                break;
-            case OVER_1:
-                {
-                alt4=15;
-                }
-                break;
-            case RCLEAR:
-                {
-                alt4=16;
-                }
-                break;
-            case R_1:
-                {
-                alt4=17;
-                }
-                break;
-            case R_2:
-                {
-                alt4=18;
-                }
-                break;
-            case R:
-                {
-                alt4=19;
-                }
-                break;
-            case RDROP:
-                {
-                alt4=20;
                 }
                 break;
             default:
@@ -1335,14 +1400,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
 
             switch (alt4) {
                 case 1 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:452:1: ( CLEAR )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:491:1: ( Jsr )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:452:1: ( CLEAR )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:453:1: CLEAR
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:491:1: ( Jsr )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:492:1: Jsr
                     {
-                     before(grammarAccess.getIntrinsicStackWordsAccess().getNameCLEARKeyword_1_0_0()); 
-                    match(input,CLEAR,FOLLOW_CLEAR_in_rule__IntrinsicStackWords__NameAlternatives_1_0756); 
-                     after(grammarAccess.getIntrinsicStackWordsAccess().getNameCLEARKeyword_1_0_0()); 
+                     before(grammarAccess.getIntrinsicBranchWordsAccess().getNameJsrKeyword_0_0()); 
+                    match(input,Jsr,FOLLOW_Jsr_in_rule__IntrinsicBranchWords__NameAlternatives_0820); 
+                     after(grammarAccess.getIntrinsicBranchWordsAccess().getNameJsrKeyword_0_0()); 
 
                     }
 
@@ -1350,14 +1415,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 2 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:460:6: ( DROP )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:499:6: ( Branch )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:460:6: ( DROP )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:461:1: DROP
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:499:6: ( Branch )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:500:1: Branch
                     {
-                     before(grammarAccess.getIntrinsicStackWordsAccess().getNameDROPKeyword_1_0_1()); 
-                    match(input,DROP,FOLLOW_DROP_in_rule__IntrinsicStackWords__NameAlternatives_1_0776); 
-                     after(grammarAccess.getIntrinsicStackWordsAccess().getNameDROPKeyword_1_0_1()); 
+                     before(grammarAccess.getIntrinsicBranchWordsAccess().getName0BranchKeyword_0_1()); 
+                    match(input,Branch,FOLLOW_Branch_in_rule__IntrinsicBranchWords__NameAlternatives_0840); 
+                     after(grammarAccess.getIntrinsicBranchWordsAccess().getName0BranchKeyword_0_1()); 
 
                     }
 
@@ -1365,14 +1430,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 3 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:468:6: ( DUP )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:507:6: ( Branch_2 )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:468:6: ( DUP )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:469:1: DUP
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:507:6: ( Branch_2 )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:508:1: Branch_2
                     {
-                     before(grammarAccess.getIntrinsicStackWordsAccess().getNameDUPKeyword_1_0_2()); 
-                    match(input,DUP,FOLLOW_DUP_in_rule__IntrinsicStackWords__NameAlternatives_1_0796); 
-                     after(grammarAccess.getIntrinsicStackWordsAccess().getNameDUPKeyword_1_0_2()); 
+                     before(grammarAccess.getIntrinsicBranchWordsAccess().getName0BranchKeyword_0_2()); 
+                    match(input,Branch_2,FOLLOW_Branch_2_in_rule__IntrinsicBranchWords__NameAlternatives_0860); 
+                     after(grammarAccess.getIntrinsicBranchWordsAccess().getName0BranchKeyword_0_2()); 
 
                     }
 
@@ -1380,14 +1445,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 4 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:476:6: ( DUP_2 )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:515:6: ( Branch_1 )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:476:6: ( DUP_2 )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:477:1: DUP_2
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:515:6: ( Branch_1 )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:516:1: Branch_1
                     {
-                     before(grammarAccess.getIntrinsicStackWordsAccess().getNameDUPKeyword_1_0_3()); 
-                    match(input,DUP_2,FOLLOW_DUP_2_in_rule__IntrinsicStackWords__NameAlternatives_1_0816); 
-                     after(grammarAccess.getIntrinsicStackWordsAccess().getNameDUPKeyword_1_0_3()); 
+                     before(grammarAccess.getIntrinsicBranchWordsAccess().getNameBranchKeyword_0_3()); 
+                    match(input,Branch_1,FOLLOW_Branch_1_in_rule__IntrinsicBranchWords__NameAlternatives_0880); 
+                     after(grammarAccess.getIntrinsicBranchWordsAccess().getNameBranchKeyword_0_3()); 
 
                     }
 
@@ -1395,14 +1460,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 5 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:484:6: ( SWAP )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:523:6: ( SBranch )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:484:6: ( SWAP )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:485:1: SWAP
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:523:6: ( SBranch )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:524:1: SBranch
                     {
-                     before(grammarAccess.getIntrinsicStackWordsAccess().getNameSWAPKeyword_1_0_4()); 
-                    match(input,SWAP,FOLLOW_SWAP_in_rule__IntrinsicStackWords__NameAlternatives_1_0836); 
-                     after(grammarAccess.getIntrinsicStackWordsAccess().getNameSWAPKeyword_1_0_4()); 
+                     before(grammarAccess.getIntrinsicBranchWordsAccess().getNameSBranchKeyword_0_4()); 
+                    match(input,SBranch,FOLLOW_SBranch_in_rule__IntrinsicBranchWords__NameAlternatives_0900); 
+                     after(grammarAccess.getIntrinsicBranchWordsAccess().getNameSBranchKeyword_0_4()); 
 
                     }
 
@@ -1410,14 +1475,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 6 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:492:6: ( NIP )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:531:6: ( NsBranch )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:492:6: ( NIP )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:493:1: NIP
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:531:6: ( NsBranch )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:532:1: NsBranch
                     {
-                     before(grammarAccess.getIntrinsicStackWordsAccess().getNameNIPKeyword_1_0_5()); 
-                    match(input,NIP,FOLLOW_NIP_in_rule__IntrinsicStackWords__NameAlternatives_1_0856); 
-                     after(grammarAccess.getIntrinsicStackWordsAccess().getNameNIPKeyword_1_0_5()); 
+                     before(grammarAccess.getIntrinsicBranchWordsAccess().getNameNsBranchKeyword_0_5()); 
+                    match(input,NsBranch,FOLLOW_NsBranch_in_rule__IntrinsicBranchWords__NameAlternatives_0920); 
+                     after(grammarAccess.getIntrinsicBranchWordsAccess().getNameNsBranchKeyword_0_5()); 
 
                     }
 
@@ -1425,14 +1490,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 7 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:500:6: ( OVER )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:539:6: ( NcBranch )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:500:6: ( OVER )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:501:1: OVER
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:539:6: ( NcBranch )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:540:1: NcBranch
                     {
-                     before(grammarAccess.getIntrinsicStackWordsAccess().getNameOVERKeyword_1_0_6()); 
-                    match(input,OVER,FOLLOW_OVER_in_rule__IntrinsicStackWords__NameAlternatives_1_0876); 
-                     after(grammarAccess.getIntrinsicStackWordsAccess().getNameOVERKeyword_1_0_6()); 
+                     before(grammarAccess.getIntrinsicBranchWordsAccess().getNameNcBranchKeyword_0_6()); 
+                    match(input,NcBranch,FOLLOW_NcBranch_in_rule__IntrinsicBranchWords__NameAlternatives_0940); 
+                     after(grammarAccess.getIntrinsicBranchWordsAccess().getNameNcBranchKeyword_0_6()); 
 
                     }
 
@@ -1440,14 +1505,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 8 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:508:6: ( ROT )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:547:6: ( NoBranch )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:508:6: ( ROT )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:509:1: ROT
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:547:6: ( NoBranch )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:548:1: NoBranch
                     {
-                     before(grammarAccess.getIntrinsicStackWordsAccess().getNameROTKeyword_1_0_7()); 
-                    match(input,ROT,FOLLOW_ROT_in_rule__IntrinsicStackWords__NameAlternatives_1_0896); 
-                     after(grammarAccess.getIntrinsicStackWordsAccess().getNameROTKeyword_1_0_7()); 
+                     before(grammarAccess.getIntrinsicBranchWordsAccess().getNameNoBranchKeyword_0_7()); 
+                    match(input,NoBranch,FOLLOW_NoBranch_in_rule__IntrinsicBranchWords__NameAlternatives_0960); 
+                     after(grammarAccess.getIntrinsicBranchWordsAccess().getNameNoBranchKeyword_0_7()); 
 
                     }
 
@@ -1455,14 +1520,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 9 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:516:6: ( ROT_1 )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:555:6: ( TorBranch )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:516:6: ( ROT_1 )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:517:1: ROT_1
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:555:6: ( TorBranch )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:556:1: TorBranch
                     {
-                     before(grammarAccess.getIntrinsicStackWordsAccess().getNameROTKeyword_1_0_8()); 
-                    match(input,ROT_1,FOLLOW_ROT_1_in_rule__IntrinsicStackWords__NameAlternatives_1_0916); 
-                     after(grammarAccess.getIntrinsicStackWordsAccess().getNameROTKeyword_1_0_8()); 
+                     before(grammarAccess.getIntrinsicBranchWordsAccess().getNameTorBranchKeyword_0_8()); 
+                    match(input,TorBranch,FOLLOW_TorBranch_in_rule__IntrinsicBranchWords__NameAlternatives_0980); 
+                     after(grammarAccess.getIntrinsicBranchWordsAccess().getNameTorBranchKeyword_0_8()); 
 
                     }
 
@@ -1470,14 +1535,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 10 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:524:6: ( TUCK )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:563:6: ( ZExit )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:524:6: ( TUCK )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:525:1: TUCK
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:563:6: ( ZExit )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:564:1: ZExit
                     {
-                     before(grammarAccess.getIntrinsicStackWordsAccess().getNameTUCKKeyword_1_0_9()); 
-                    match(input,TUCK,FOLLOW_TUCK_in_rule__IntrinsicStackWords__NameAlternatives_1_0936); 
-                     after(grammarAccess.getIntrinsicStackWordsAccess().getNameTUCKKeyword_1_0_9()); 
+                     before(grammarAccess.getIntrinsicBranchWordsAccess().getNameZExitKeyword_0_9()); 
+                    match(input,ZExit,FOLLOW_ZExit_in_rule__IntrinsicBranchWords__NameAlternatives_01000); 
+                     after(grammarAccess.getIntrinsicBranchWordsAccess().getNameZExitKeyword_0_9()); 
 
                     }
 
@@ -1485,149 +1550,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 11 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:532:6: ( UNDER )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:571:6: ( NzExit )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:532:6: ( UNDER )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:533:1: UNDER
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:571:6: ( NzExit )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:572:1: NzExit
                     {
-                     before(grammarAccess.getIntrinsicStackWordsAccess().getNameUNDERKeyword_1_0_10()); 
-                    match(input,UNDER,FOLLOW_UNDER_in_rule__IntrinsicStackWords__NameAlternatives_1_0956); 
-                     after(grammarAccess.getIntrinsicStackWordsAccess().getNameUNDERKeyword_1_0_10()); 
-
-                    }
-
-
-                    }
-                    break;
-                case 12 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:540:6: ( DROP_1 )
-                    {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:540:6: ( DROP_1 )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:541:1: DROP_1
-                    {
-                     before(grammarAccess.getIntrinsicStackWordsAccess().getName2DROPKeyword_1_0_11()); 
-                    match(input,DROP_1,FOLLOW_DROP_1_in_rule__IntrinsicStackWords__NameAlternatives_1_0976); 
-                     after(grammarAccess.getIntrinsicStackWordsAccess().getName2DROPKeyword_1_0_11()); 
-
-                    }
-
-
-                    }
-                    break;
-                case 13 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:548:6: ( DUP_1 )
-                    {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:548:6: ( DUP_1 )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:549:1: DUP_1
-                    {
-                     before(grammarAccess.getIntrinsicStackWordsAccess().getName2DUPKeyword_1_0_12()); 
-                    match(input,DUP_1,FOLLOW_DUP_1_in_rule__IntrinsicStackWords__NameAlternatives_1_0996); 
-                     after(grammarAccess.getIntrinsicStackWordsAccess().getName2DUPKeyword_1_0_12()); 
-
-                    }
-
-
-                    }
-                    break;
-                case 14 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:556:6: ( SWAP_1 )
-                    {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:556:6: ( SWAP_1 )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:557:1: SWAP_1
-                    {
-                     before(grammarAccess.getIntrinsicStackWordsAccess().getName2SWAPKeyword_1_0_13()); 
-                    match(input,SWAP_1,FOLLOW_SWAP_1_in_rule__IntrinsicStackWords__NameAlternatives_1_01016); 
-                     after(grammarAccess.getIntrinsicStackWordsAccess().getName2SWAPKeyword_1_0_13()); 
-
-                    }
-
-
-                    }
-                    break;
-                case 15 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:564:6: ( OVER_1 )
-                    {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:564:6: ( OVER_1 )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:565:1: OVER_1
-                    {
-                     before(grammarAccess.getIntrinsicStackWordsAccess().getName2OVERKeyword_1_0_14()); 
-                    match(input,OVER_1,FOLLOW_OVER_1_in_rule__IntrinsicStackWords__NameAlternatives_1_01036); 
-                     after(grammarAccess.getIntrinsicStackWordsAccess().getName2OVERKeyword_1_0_14()); 
-
-                    }
-
-
-                    }
-                    break;
-                case 16 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:572:6: ( RCLEAR )
-                    {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:572:6: ( RCLEAR )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:573:1: RCLEAR
-                    {
-                     before(grammarAccess.getIntrinsicStackWordsAccess().getNameRCLEARKeyword_1_0_15()); 
-                    match(input,RCLEAR,FOLLOW_RCLEAR_in_rule__IntrinsicStackWords__NameAlternatives_1_01056); 
-                     after(grammarAccess.getIntrinsicStackWordsAccess().getNameRCLEARKeyword_1_0_15()); 
-
-                    }
-
-
-                    }
-                    break;
-                case 17 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:580:6: ( R_1 )
-                    {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:580:6: ( R_1 )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:581:1: R_1
-                    {
-                     before(grammarAccess.getIntrinsicStackWordsAccess().getNameRKeyword_1_0_16()); 
-                    match(input,R_1,FOLLOW_R_1_in_rule__IntrinsicStackWords__NameAlternatives_1_01076); 
-                     after(grammarAccess.getIntrinsicStackWordsAccess().getNameRKeyword_1_0_16()); 
-
-                    }
-
-
-                    }
-                    break;
-                case 18 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:588:6: ( R_2 )
-                    {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:588:6: ( R_2 )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:589:1: R_2
-                    {
-                     before(grammarAccess.getIntrinsicStackWordsAccess().getNameRKeyword_1_0_17()); 
-                    match(input,R_2,FOLLOW_R_2_in_rule__IntrinsicStackWords__NameAlternatives_1_01096); 
-                     after(grammarAccess.getIntrinsicStackWordsAccess().getNameRKeyword_1_0_17()); 
-
-                    }
-
-
-                    }
-                    break;
-                case 19 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:596:6: ( R )
-                    {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:596:6: ( R )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:597:1: R
-                    {
-                     before(grammarAccess.getIntrinsicStackWordsAccess().getNameRKeyword_1_0_18()); 
-                    match(input,R,FOLLOW_R_in_rule__IntrinsicStackWords__NameAlternatives_1_01116); 
-                     after(grammarAccess.getIntrinsicStackWordsAccess().getNameRKeyword_1_0_18()); 
-
-                    }
-
-
-                    }
-                    break;
-                case 20 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:604:6: ( RDROP )
-                    {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:604:6: ( RDROP )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:605:1: RDROP
-                    {
-                     before(grammarAccess.getIntrinsicStackWordsAccess().getNameRDROPKeyword_1_0_19()); 
-                    match(input,RDROP,FOLLOW_RDROP_in_rule__IntrinsicStackWords__NameAlternatives_1_01136); 
-                     after(grammarAccess.getIntrinsicStackWordsAccess().getNameRDROPKeyword_1_0_19()); 
+                     before(grammarAccess.getIntrinsicBranchWordsAccess().getNameNzExitKeyword_0_10()); 
+                    match(input,NzExit,FOLLOW_NzExit_in_rule__IntrinsicBranchWords__NameAlternatives_01020); 
+                     after(grammarAccess.getIntrinsicBranchWordsAccess().getNameNzExitKeyword_0_10()); 
 
                     }
 
@@ -1648,142 +1578,117 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__IntrinsicStackWords__NameAlternatives_1_0"
+    // $ANTLR end "rule__IntrinsicBranchWords__NameAlternatives_0"
 
 
-    // $ANTLR start "rule__IntrinsicMemoryWords__NameAlternatives_1_0"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:617:1: rule__IntrinsicMemoryWords__NameAlternatives_1_0 : ( ( LD ) | ( CommercialAt ) | ( ST ) | ( ExclamationMark ) | ( DigitTwoCommercialAt ) | ( DigitTwoExclamationMark ) | ( LLD ) | ( L_1 ) | ( LST ) | ( L ) | ( TLD ) | ( T_1 ) | ( TST ) | ( T ) | ( ST_1 ) | ( PlusSignExclamationMark ) | ( INC ) | ( DEC ) | ( ON ) | ( OFF ) | ( ERASE ) | ( FILL ) | ( COUNT ) | ( MOVE ) | ( PLACE ) );
-    public final void rule__IntrinsicMemoryWords__NameAlternatives_1_0() throws RecognitionException {
+    // $ANTLR start "rule__IntrinsicStackWords__NameAlternatives_0"
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:584:1: rule__IntrinsicStackWords__NameAlternatives_0 : ( ( CLEAR ) | ( DROP ) | ( DUP ) | ( DUP_2 ) | ( SWAP ) | ( NIP ) | ( OVER ) | ( ROT ) | ( ROT_1 ) | ( TUCK ) | ( UNDER ) | ( DROP_1 ) | ( DUP_1 ) | ( SWAP_1 ) | ( OVER_1 ) | ( RCLEAR ) | ( R_1 ) | ( R_2 ) | ( R ) | ( RDROP ) );
+    public final void rule__IntrinsicStackWords__NameAlternatives_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:621:1: ( ( LD ) | ( CommercialAt ) | ( ST ) | ( ExclamationMark ) | ( DigitTwoCommercialAt ) | ( DigitTwoExclamationMark ) | ( LLD ) | ( L_1 ) | ( LST ) | ( L ) | ( TLD ) | ( T_1 ) | ( TST ) | ( T ) | ( ST_1 ) | ( PlusSignExclamationMark ) | ( INC ) | ( DEC ) | ( ON ) | ( OFF ) | ( ERASE ) | ( FILL ) | ( COUNT ) | ( MOVE ) | ( PLACE ) )
-            int alt5=25;
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:588:1: ( ( CLEAR ) | ( DROP ) | ( DUP ) | ( DUP_2 ) | ( SWAP ) | ( NIP ) | ( OVER ) | ( ROT ) | ( ROT_1 ) | ( TUCK ) | ( UNDER ) | ( DROP_1 ) | ( DUP_1 ) | ( SWAP_1 ) | ( OVER_1 ) | ( RCLEAR ) | ( R_1 ) | ( R_2 ) | ( R ) | ( RDROP ) )
+            int alt5=20;
             switch ( input.LA(1) ) {
-            case LD:
+            case CLEAR:
                 {
                 alt5=1;
                 }
                 break;
-            case CommercialAt:
+            case DROP:
                 {
                 alt5=2;
                 }
                 break;
-            case ST:
+            case DUP:
                 {
                 alt5=3;
                 }
                 break;
-            case ExclamationMark:
+            case DUP_2:
                 {
                 alt5=4;
                 }
                 break;
-            case DigitTwoCommercialAt:
+            case SWAP:
                 {
                 alt5=5;
                 }
                 break;
-            case DigitTwoExclamationMark:
+            case NIP:
                 {
                 alt5=6;
                 }
                 break;
-            case LLD:
+            case OVER:
                 {
                 alt5=7;
                 }
                 break;
-            case L_1:
+            case ROT:
                 {
                 alt5=8;
                 }
                 break;
-            case LST:
+            case ROT_1:
                 {
                 alt5=9;
                 }
                 break;
-            case L:
+            case TUCK:
                 {
                 alt5=10;
                 }
                 break;
-            case TLD:
+            case UNDER:
                 {
                 alt5=11;
                 }
                 break;
-            case T_1:
+            case DROP_1:
                 {
                 alt5=12;
                 }
                 break;
-            case TST:
+            case DUP_1:
                 {
                 alt5=13;
                 }
                 break;
-            case T:
+            case SWAP_1:
                 {
                 alt5=14;
                 }
                 break;
-            case ST_1:
+            case OVER_1:
                 {
                 alt5=15;
                 }
                 break;
-            case PlusSignExclamationMark:
+            case RCLEAR:
                 {
                 alt5=16;
                 }
                 break;
-            case INC:
+            case R_1:
                 {
                 alt5=17;
                 }
                 break;
-            case DEC:
+            case R_2:
                 {
                 alt5=18;
                 }
                 break;
-            case ON:
+            case R:
                 {
                 alt5=19;
                 }
                 break;
-            case OFF:
+            case RDROP:
                 {
                 alt5=20;
-                }
-                break;
-            case ERASE:
-                {
-                alt5=21;
-                }
-                break;
-            case FILL:
-                {
-                alt5=22;
-                }
-                break;
-            case COUNT:
-                {
-                alt5=23;
-                }
-                break;
-            case MOVE:
-                {
-                alt5=24;
-                }
-                break;
-            case PLACE:
-                {
-                alt5=25;
                 }
                 break;
             default:
@@ -1795,14 +1700,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
 
             switch (alt5) {
                 case 1 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:622:1: ( LD )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:589:1: ( CLEAR )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:622:1: ( LD )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:623:1: LD
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:589:1: ( CLEAR )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:590:1: CLEAR
                     {
-                     before(grammarAccess.getIntrinsicMemoryWordsAccess().getNameLDKeyword_1_0_0()); 
-                    match(input,LD,FOLLOW_LD_in_rule__IntrinsicMemoryWords__NameAlternatives_1_01171); 
-                     after(grammarAccess.getIntrinsicMemoryWordsAccess().getNameLDKeyword_1_0_0()); 
+                     before(grammarAccess.getIntrinsicStackWordsAccess().getNameCLEARKeyword_0_0()); 
+                    match(input,CLEAR,FOLLOW_CLEAR_in_rule__IntrinsicStackWords__NameAlternatives_01055); 
+                     after(grammarAccess.getIntrinsicStackWordsAccess().getNameCLEARKeyword_0_0()); 
 
                     }
 
@@ -1810,14 +1715,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 2 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:630:6: ( CommercialAt )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:597:6: ( DROP )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:630:6: ( CommercialAt )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:631:1: CommercialAt
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:597:6: ( DROP )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:598:1: DROP
                     {
-                     before(grammarAccess.getIntrinsicMemoryWordsAccess().getNameCommercialAtKeyword_1_0_1()); 
-                    match(input,CommercialAt,FOLLOW_CommercialAt_in_rule__IntrinsicMemoryWords__NameAlternatives_1_01191); 
-                     after(grammarAccess.getIntrinsicMemoryWordsAccess().getNameCommercialAtKeyword_1_0_1()); 
+                     before(grammarAccess.getIntrinsicStackWordsAccess().getNameDROPKeyword_0_1()); 
+                    match(input,DROP,FOLLOW_DROP_in_rule__IntrinsicStackWords__NameAlternatives_01075); 
+                     after(grammarAccess.getIntrinsicStackWordsAccess().getNameDROPKeyword_0_1()); 
 
                     }
 
@@ -1825,14 +1730,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 3 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:638:6: ( ST )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:605:6: ( DUP )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:638:6: ( ST )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:639:1: ST
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:605:6: ( DUP )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:606:1: DUP
                     {
-                     before(grammarAccess.getIntrinsicMemoryWordsAccess().getNameSTKeyword_1_0_2()); 
-                    match(input,ST,FOLLOW_ST_in_rule__IntrinsicMemoryWords__NameAlternatives_1_01211); 
-                     after(grammarAccess.getIntrinsicMemoryWordsAccess().getNameSTKeyword_1_0_2()); 
+                     before(grammarAccess.getIntrinsicStackWordsAccess().getNameDUPKeyword_0_2()); 
+                    match(input,DUP,FOLLOW_DUP_in_rule__IntrinsicStackWords__NameAlternatives_01095); 
+                     after(grammarAccess.getIntrinsicStackWordsAccess().getNameDUPKeyword_0_2()); 
 
                     }
 
@@ -1840,14 +1745,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 4 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:646:6: ( ExclamationMark )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:613:6: ( DUP_2 )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:646:6: ( ExclamationMark )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:647:1: ExclamationMark
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:613:6: ( DUP_2 )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:614:1: DUP_2
                     {
-                     before(grammarAccess.getIntrinsicMemoryWordsAccess().getNameExclamationMarkKeyword_1_0_3()); 
-                    match(input,ExclamationMark,FOLLOW_ExclamationMark_in_rule__IntrinsicMemoryWords__NameAlternatives_1_01231); 
-                     after(grammarAccess.getIntrinsicMemoryWordsAccess().getNameExclamationMarkKeyword_1_0_3()); 
+                     before(grammarAccess.getIntrinsicStackWordsAccess().getNameDUPKeyword_0_3()); 
+                    match(input,DUP_2,FOLLOW_DUP_2_in_rule__IntrinsicStackWords__NameAlternatives_01115); 
+                     after(grammarAccess.getIntrinsicStackWordsAccess().getNameDUPKeyword_0_3()); 
 
                     }
 
@@ -1855,14 +1760,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 5 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:654:6: ( DigitTwoCommercialAt )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:621:6: ( SWAP )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:654:6: ( DigitTwoCommercialAt )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:655:1: DigitTwoCommercialAt
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:621:6: ( SWAP )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:622:1: SWAP
                     {
-                     before(grammarAccess.getIntrinsicMemoryWordsAccess().getName2Keyword_1_0_4()); 
-                    match(input,DigitTwoCommercialAt,FOLLOW_DigitTwoCommercialAt_in_rule__IntrinsicMemoryWords__NameAlternatives_1_01251); 
-                     after(grammarAccess.getIntrinsicMemoryWordsAccess().getName2Keyword_1_0_4()); 
+                     before(grammarAccess.getIntrinsicStackWordsAccess().getNameSWAPKeyword_0_4()); 
+                    match(input,SWAP,FOLLOW_SWAP_in_rule__IntrinsicStackWords__NameAlternatives_01135); 
+                     after(grammarAccess.getIntrinsicStackWordsAccess().getNameSWAPKeyword_0_4()); 
 
                     }
 
@@ -1870,14 +1775,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 6 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:662:6: ( DigitTwoExclamationMark )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:629:6: ( NIP )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:662:6: ( DigitTwoExclamationMark )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:663:1: DigitTwoExclamationMark
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:629:6: ( NIP )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:630:1: NIP
                     {
-                     before(grammarAccess.getIntrinsicMemoryWordsAccess().getName2Keyword_1_0_5()); 
-                    match(input,DigitTwoExclamationMark,FOLLOW_DigitTwoExclamationMark_in_rule__IntrinsicMemoryWords__NameAlternatives_1_01271); 
-                     after(grammarAccess.getIntrinsicMemoryWordsAccess().getName2Keyword_1_0_5()); 
+                     before(grammarAccess.getIntrinsicStackWordsAccess().getNameNIPKeyword_0_5()); 
+                    match(input,NIP,FOLLOW_NIP_in_rule__IntrinsicStackWords__NameAlternatives_01155); 
+                     after(grammarAccess.getIntrinsicStackWordsAccess().getNameNIPKeyword_0_5()); 
 
                     }
 
@@ -1885,14 +1790,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 7 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:670:6: ( LLD )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:637:6: ( OVER )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:670:6: ( LLD )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:671:1: LLD
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:637:6: ( OVER )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:638:1: OVER
                     {
-                     before(grammarAccess.getIntrinsicMemoryWordsAccess().getNameLLDKeyword_1_0_6()); 
-                    match(input,LLD,FOLLOW_LLD_in_rule__IntrinsicMemoryWords__NameAlternatives_1_01291); 
-                     after(grammarAccess.getIntrinsicMemoryWordsAccess().getNameLLDKeyword_1_0_6()); 
+                     before(grammarAccess.getIntrinsicStackWordsAccess().getNameOVERKeyword_0_6()); 
+                    match(input,OVER,FOLLOW_OVER_in_rule__IntrinsicStackWords__NameAlternatives_01175); 
+                     after(grammarAccess.getIntrinsicStackWordsAccess().getNameOVERKeyword_0_6()); 
 
                     }
 
@@ -1900,14 +1805,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 8 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:678:6: ( L_1 )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:645:6: ( ROT )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:678:6: ( L_1 )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:679:1: L_1
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:645:6: ( ROT )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:646:1: ROT
                     {
-                     before(grammarAccess.getIntrinsicMemoryWordsAccess().getNameLKeyword_1_0_7()); 
-                    match(input,L_1,FOLLOW_L_1_in_rule__IntrinsicMemoryWords__NameAlternatives_1_01311); 
-                     after(grammarAccess.getIntrinsicMemoryWordsAccess().getNameLKeyword_1_0_7()); 
+                     before(grammarAccess.getIntrinsicStackWordsAccess().getNameROTKeyword_0_7()); 
+                    match(input,ROT,FOLLOW_ROT_in_rule__IntrinsicStackWords__NameAlternatives_01195); 
+                     after(grammarAccess.getIntrinsicStackWordsAccess().getNameROTKeyword_0_7()); 
 
                     }
 
@@ -1915,14 +1820,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 9 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:686:6: ( LST )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:653:6: ( ROT_1 )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:686:6: ( LST )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:687:1: LST
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:653:6: ( ROT_1 )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:654:1: ROT_1
                     {
-                     before(grammarAccess.getIntrinsicMemoryWordsAccess().getNameLSTKeyword_1_0_8()); 
-                    match(input,LST,FOLLOW_LST_in_rule__IntrinsicMemoryWords__NameAlternatives_1_01331); 
-                     after(grammarAccess.getIntrinsicMemoryWordsAccess().getNameLSTKeyword_1_0_8()); 
+                     before(grammarAccess.getIntrinsicStackWordsAccess().getNameROTKeyword_0_8()); 
+                    match(input,ROT_1,FOLLOW_ROT_1_in_rule__IntrinsicStackWords__NameAlternatives_01215); 
+                     after(grammarAccess.getIntrinsicStackWordsAccess().getNameROTKeyword_0_8()); 
 
                     }
 
@@ -1930,14 +1835,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 10 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:694:6: ( L )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:661:6: ( TUCK )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:694:6: ( L )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:695:1: L
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:661:6: ( TUCK )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:662:1: TUCK
                     {
-                     before(grammarAccess.getIntrinsicMemoryWordsAccess().getNameLKeyword_1_0_9()); 
-                    match(input,L,FOLLOW_L_in_rule__IntrinsicMemoryWords__NameAlternatives_1_01351); 
-                     after(grammarAccess.getIntrinsicMemoryWordsAccess().getNameLKeyword_1_0_9()); 
+                     before(grammarAccess.getIntrinsicStackWordsAccess().getNameTUCKKeyword_0_9()); 
+                    match(input,TUCK,FOLLOW_TUCK_in_rule__IntrinsicStackWords__NameAlternatives_01235); 
+                     after(grammarAccess.getIntrinsicStackWordsAccess().getNameTUCKKeyword_0_9()); 
 
                     }
 
@@ -1945,14 +1850,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 11 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:702:6: ( TLD )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:669:6: ( UNDER )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:702:6: ( TLD )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:703:1: TLD
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:669:6: ( UNDER )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:670:1: UNDER
                     {
-                     before(grammarAccess.getIntrinsicMemoryWordsAccess().getNameTLDKeyword_1_0_10()); 
-                    match(input,TLD,FOLLOW_TLD_in_rule__IntrinsicMemoryWords__NameAlternatives_1_01371); 
-                     after(grammarAccess.getIntrinsicMemoryWordsAccess().getNameTLDKeyword_1_0_10()); 
+                     before(grammarAccess.getIntrinsicStackWordsAccess().getNameUNDERKeyword_0_10()); 
+                    match(input,UNDER,FOLLOW_UNDER_in_rule__IntrinsicStackWords__NameAlternatives_01255); 
+                     after(grammarAccess.getIntrinsicStackWordsAccess().getNameUNDERKeyword_0_10()); 
 
                     }
 
@@ -1960,14 +1865,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 12 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:710:6: ( T_1 )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:677:6: ( DROP_1 )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:710:6: ( T_1 )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:711:1: T_1
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:677:6: ( DROP_1 )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:678:1: DROP_1
                     {
-                     before(grammarAccess.getIntrinsicMemoryWordsAccess().getNameTKeyword_1_0_11()); 
-                    match(input,T_1,FOLLOW_T_1_in_rule__IntrinsicMemoryWords__NameAlternatives_1_01391); 
-                     after(grammarAccess.getIntrinsicMemoryWordsAccess().getNameTKeyword_1_0_11()); 
+                     before(grammarAccess.getIntrinsicStackWordsAccess().getName2DROPKeyword_0_11()); 
+                    match(input,DROP_1,FOLLOW_DROP_1_in_rule__IntrinsicStackWords__NameAlternatives_01275); 
+                     after(grammarAccess.getIntrinsicStackWordsAccess().getName2DROPKeyword_0_11()); 
 
                     }
 
@@ -1975,14 +1880,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 13 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:718:6: ( TST )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:685:6: ( DUP_1 )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:718:6: ( TST )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:719:1: TST
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:685:6: ( DUP_1 )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:686:1: DUP_1
                     {
-                     before(grammarAccess.getIntrinsicMemoryWordsAccess().getNameTSTKeyword_1_0_12()); 
-                    match(input,TST,FOLLOW_TST_in_rule__IntrinsicMemoryWords__NameAlternatives_1_01411); 
-                     after(grammarAccess.getIntrinsicMemoryWordsAccess().getNameTSTKeyword_1_0_12()); 
+                     before(grammarAccess.getIntrinsicStackWordsAccess().getName2DUPKeyword_0_12()); 
+                    match(input,DUP_1,FOLLOW_DUP_1_in_rule__IntrinsicStackWords__NameAlternatives_01295); 
+                     after(grammarAccess.getIntrinsicStackWordsAccess().getName2DUPKeyword_0_12()); 
 
                     }
 
@@ -1990,14 +1895,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 14 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:726:6: ( T )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:693:6: ( SWAP_1 )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:726:6: ( T )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:727:1: T
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:693:6: ( SWAP_1 )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:694:1: SWAP_1
                     {
-                     before(grammarAccess.getIntrinsicMemoryWordsAccess().getNameTKeyword_1_0_13()); 
-                    match(input,T,FOLLOW_T_in_rule__IntrinsicMemoryWords__NameAlternatives_1_01431); 
-                     after(grammarAccess.getIntrinsicMemoryWordsAccess().getNameTKeyword_1_0_13()); 
+                     before(grammarAccess.getIntrinsicStackWordsAccess().getName2SWAPKeyword_0_13()); 
+                    match(input,SWAP_1,FOLLOW_SWAP_1_in_rule__IntrinsicStackWords__NameAlternatives_01315); 
+                     after(grammarAccess.getIntrinsicStackWordsAccess().getName2SWAPKeyword_0_13()); 
 
                     }
 
@@ -2005,14 +1910,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 15 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:734:6: ( ST_1 )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:701:6: ( OVER_1 )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:734:6: ( ST_1 )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:735:1: ST_1
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:701:6: ( OVER_1 )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:702:1: OVER_1
                     {
-                     before(grammarAccess.getIntrinsicMemoryWordsAccess().getNameSTKeyword_1_0_14()); 
-                    match(input,ST_1,FOLLOW_ST_1_in_rule__IntrinsicMemoryWords__NameAlternatives_1_01451); 
-                     after(grammarAccess.getIntrinsicMemoryWordsAccess().getNameSTKeyword_1_0_14()); 
+                     before(grammarAccess.getIntrinsicStackWordsAccess().getName2OVERKeyword_0_14()); 
+                    match(input,OVER_1,FOLLOW_OVER_1_in_rule__IntrinsicStackWords__NameAlternatives_01335); 
+                     after(grammarAccess.getIntrinsicStackWordsAccess().getName2OVERKeyword_0_14()); 
 
                     }
 
@@ -2020,14 +1925,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 16 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:742:6: ( PlusSignExclamationMark )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:709:6: ( RCLEAR )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:742:6: ( PlusSignExclamationMark )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:743:1: PlusSignExclamationMark
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:709:6: ( RCLEAR )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:710:1: RCLEAR
                     {
-                     before(grammarAccess.getIntrinsicMemoryWordsAccess().getNamePlusSignExclamationMarkKeyword_1_0_15()); 
-                    match(input,PlusSignExclamationMark,FOLLOW_PlusSignExclamationMark_in_rule__IntrinsicMemoryWords__NameAlternatives_1_01471); 
-                     after(grammarAccess.getIntrinsicMemoryWordsAccess().getNamePlusSignExclamationMarkKeyword_1_0_15()); 
+                     before(grammarAccess.getIntrinsicStackWordsAccess().getNameRCLEARKeyword_0_15()); 
+                    match(input,RCLEAR,FOLLOW_RCLEAR_in_rule__IntrinsicStackWords__NameAlternatives_01355); 
+                     after(grammarAccess.getIntrinsicStackWordsAccess().getNameRCLEARKeyword_0_15()); 
 
                     }
 
@@ -2035,14 +1940,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 17 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:750:6: ( INC )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:717:6: ( R_1 )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:750:6: ( INC )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:751:1: INC
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:717:6: ( R_1 )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:718:1: R_1
                     {
-                     before(grammarAccess.getIntrinsicMemoryWordsAccess().getNameINCKeyword_1_0_16()); 
-                    match(input,INC,FOLLOW_INC_in_rule__IntrinsicMemoryWords__NameAlternatives_1_01491); 
-                     after(grammarAccess.getIntrinsicMemoryWordsAccess().getNameINCKeyword_1_0_16()); 
+                     before(grammarAccess.getIntrinsicStackWordsAccess().getNameRKeyword_0_16()); 
+                    match(input,R_1,FOLLOW_R_1_in_rule__IntrinsicStackWords__NameAlternatives_01375); 
+                     after(grammarAccess.getIntrinsicStackWordsAccess().getNameRKeyword_0_16()); 
 
                     }
 
@@ -2050,14 +1955,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 18 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:758:6: ( DEC )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:725:6: ( R_2 )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:758:6: ( DEC )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:759:1: DEC
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:725:6: ( R_2 )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:726:1: R_2
                     {
-                     before(grammarAccess.getIntrinsicMemoryWordsAccess().getNameDECKeyword_1_0_17()); 
-                    match(input,DEC,FOLLOW_DEC_in_rule__IntrinsicMemoryWords__NameAlternatives_1_01511); 
-                     after(grammarAccess.getIntrinsicMemoryWordsAccess().getNameDECKeyword_1_0_17()); 
+                     before(grammarAccess.getIntrinsicStackWordsAccess().getNameRKeyword_0_17()); 
+                    match(input,R_2,FOLLOW_R_2_in_rule__IntrinsicStackWords__NameAlternatives_01395); 
+                     after(grammarAccess.getIntrinsicStackWordsAccess().getNameRKeyword_0_17()); 
 
                     }
 
@@ -2065,14 +1970,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 19 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:766:6: ( ON )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:733:6: ( R )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:766:6: ( ON )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:767:1: ON
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:733:6: ( R )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:734:1: R
                     {
-                     before(grammarAccess.getIntrinsicMemoryWordsAccess().getNameONKeyword_1_0_18()); 
-                    match(input,ON,FOLLOW_ON_in_rule__IntrinsicMemoryWords__NameAlternatives_1_01531); 
-                     after(grammarAccess.getIntrinsicMemoryWordsAccess().getNameONKeyword_1_0_18()); 
+                     before(grammarAccess.getIntrinsicStackWordsAccess().getNameRKeyword_0_18()); 
+                    match(input,R,FOLLOW_R_in_rule__IntrinsicStackWords__NameAlternatives_01415); 
+                     after(grammarAccess.getIntrinsicStackWordsAccess().getNameRKeyword_0_18()); 
 
                     }
 
@@ -2080,89 +1985,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 20 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:774:6: ( OFF )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:741:6: ( RDROP )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:774:6: ( OFF )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:775:1: OFF
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:741:6: ( RDROP )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:742:1: RDROP
                     {
-                     before(grammarAccess.getIntrinsicMemoryWordsAccess().getNameOFFKeyword_1_0_19()); 
-                    match(input,OFF,FOLLOW_OFF_in_rule__IntrinsicMemoryWords__NameAlternatives_1_01551); 
-                     after(grammarAccess.getIntrinsicMemoryWordsAccess().getNameOFFKeyword_1_0_19()); 
-
-                    }
-
-
-                    }
-                    break;
-                case 21 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:782:6: ( ERASE )
-                    {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:782:6: ( ERASE )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:783:1: ERASE
-                    {
-                     before(grammarAccess.getIntrinsicMemoryWordsAccess().getNameERASEKeyword_1_0_20()); 
-                    match(input,ERASE,FOLLOW_ERASE_in_rule__IntrinsicMemoryWords__NameAlternatives_1_01571); 
-                     after(grammarAccess.getIntrinsicMemoryWordsAccess().getNameERASEKeyword_1_0_20()); 
-
-                    }
-
-
-                    }
-                    break;
-                case 22 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:790:6: ( FILL )
-                    {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:790:6: ( FILL )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:791:1: FILL
-                    {
-                     before(grammarAccess.getIntrinsicMemoryWordsAccess().getNameFILLKeyword_1_0_21()); 
-                    match(input,FILL,FOLLOW_FILL_in_rule__IntrinsicMemoryWords__NameAlternatives_1_01591); 
-                     after(grammarAccess.getIntrinsicMemoryWordsAccess().getNameFILLKeyword_1_0_21()); 
-
-                    }
-
-
-                    }
-                    break;
-                case 23 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:798:6: ( COUNT )
-                    {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:798:6: ( COUNT )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:799:1: COUNT
-                    {
-                     before(grammarAccess.getIntrinsicMemoryWordsAccess().getNameCOUNTKeyword_1_0_22()); 
-                    match(input,COUNT,FOLLOW_COUNT_in_rule__IntrinsicMemoryWords__NameAlternatives_1_01611); 
-                     after(grammarAccess.getIntrinsicMemoryWordsAccess().getNameCOUNTKeyword_1_0_22()); 
-
-                    }
-
-
-                    }
-                    break;
-                case 24 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:806:6: ( MOVE )
-                    {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:806:6: ( MOVE )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:807:1: MOVE
-                    {
-                     before(grammarAccess.getIntrinsicMemoryWordsAccess().getNameMOVEKeyword_1_0_23()); 
-                    match(input,MOVE,FOLLOW_MOVE_in_rule__IntrinsicMemoryWords__NameAlternatives_1_01631); 
-                     after(grammarAccess.getIntrinsicMemoryWordsAccess().getNameMOVEKeyword_1_0_23()); 
-
-                    }
-
-
-                    }
-                    break;
-                case 25 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:814:6: ( PLACE )
-                    {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:814:6: ( PLACE )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:815:1: PLACE
-                    {
-                     before(grammarAccess.getIntrinsicMemoryWordsAccess().getNamePLACEKeyword_1_0_24()); 
-                    match(input,PLACE,FOLLOW_PLACE_in_rule__IntrinsicMemoryWords__NameAlternatives_1_01651); 
-                     after(grammarAccess.getIntrinsicMemoryWordsAccess().getNamePLACEKeyword_1_0_24()); 
+                     before(grammarAccess.getIntrinsicStackWordsAccess().getNameRDROPKeyword_0_19()); 
+                    match(input,RDROP,FOLLOW_RDROP_in_rule__IntrinsicStackWords__NameAlternatives_01435); 
+                     after(grammarAccess.getIntrinsicStackWordsAccess().getNameRDROPKeyword_0_19()); 
 
                     }
 
@@ -2183,182 +2013,142 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__IntrinsicMemoryWords__NameAlternatives_1_0"
+    // $ANTLR end "rule__IntrinsicStackWords__NameAlternatives_0"
 
 
-    // $ANTLR start "rule__IntrinsicArithmeticWords__NameAlternatives_1_0"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:827:1: rule__IntrinsicArithmeticWords__NameAlternatives_1_0 : ( ( PlusSign ) | ( HyphenMinus ) | ( Asterisk ) | ( Solidus ) | ( DigitTwoAsterisk ) | ( DigitTwoSolidus ) | ( U2 ) | ( ROR ) | ( DROR ) | ( ROL ) | ( DROL ) | ( PACK ) | ( UNPACK ) | ( SHIFT ) | ( ASHIFT ) | ( DigitTwoAsteriskAsterisk ) | ( DigitZeroEqualsSign ) | ( DigitZeroLessThanSignGreaterThanSign ) | ( DigitZeroLessThanSign ) | ( D0 ) | ( NEGATE ) | ( DNEGATE ) | ( DigitOnePlusSign ) | ( DigitOneHyphenMinus ) | ( TRUE ) | ( FALSE ) | ( CELL ) | ( CELL_1 ) | ( CARRY_RESET ) | ( CARRYSET ) | ( ABS ) | ( DABS ) | ( EXTEND ) );
-    public final void rule__IntrinsicArithmeticWords__NameAlternatives_1_0() throws RecognitionException {
+    // $ANTLR start "rule__IntrinsicMemoryWords__NameAlternatives_0"
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:754:1: rule__IntrinsicMemoryWords__NameAlternatives_0 : ( ( LD ) | ( CommercialAt ) | ( ST ) | ( ExclamationMark ) | ( DigitTwoCommercialAt ) | ( DigitTwoExclamationMark ) | ( LLD ) | ( L_1 ) | ( LST ) | ( L ) | ( TLD ) | ( T_1 ) | ( TST ) | ( T ) | ( ST_1 ) | ( PlusSignExclamationMark ) | ( INC ) | ( DEC ) | ( ON ) | ( OFF ) | ( ERASE ) | ( FILL ) | ( COUNT ) | ( MOVE ) | ( PLACE ) );
+    public final void rule__IntrinsicMemoryWords__NameAlternatives_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:831:1: ( ( PlusSign ) | ( HyphenMinus ) | ( Asterisk ) | ( Solidus ) | ( DigitTwoAsterisk ) | ( DigitTwoSolidus ) | ( U2 ) | ( ROR ) | ( DROR ) | ( ROL ) | ( DROL ) | ( PACK ) | ( UNPACK ) | ( SHIFT ) | ( ASHIFT ) | ( DigitTwoAsteriskAsterisk ) | ( DigitZeroEqualsSign ) | ( DigitZeroLessThanSignGreaterThanSign ) | ( DigitZeroLessThanSign ) | ( D0 ) | ( NEGATE ) | ( DNEGATE ) | ( DigitOnePlusSign ) | ( DigitOneHyphenMinus ) | ( TRUE ) | ( FALSE ) | ( CELL ) | ( CELL_1 ) | ( CARRY_RESET ) | ( CARRYSET ) | ( ABS ) | ( DABS ) | ( EXTEND ) )
-            int alt6=33;
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:758:1: ( ( LD ) | ( CommercialAt ) | ( ST ) | ( ExclamationMark ) | ( DigitTwoCommercialAt ) | ( DigitTwoExclamationMark ) | ( LLD ) | ( L_1 ) | ( LST ) | ( L ) | ( TLD ) | ( T_1 ) | ( TST ) | ( T ) | ( ST_1 ) | ( PlusSignExclamationMark ) | ( INC ) | ( DEC ) | ( ON ) | ( OFF ) | ( ERASE ) | ( FILL ) | ( COUNT ) | ( MOVE ) | ( PLACE ) )
+            int alt6=25;
             switch ( input.LA(1) ) {
-            case PlusSign:
+            case LD:
                 {
                 alt6=1;
                 }
                 break;
-            case HyphenMinus:
+            case CommercialAt:
                 {
                 alt6=2;
                 }
                 break;
-            case Asterisk:
+            case ST:
                 {
                 alt6=3;
                 }
                 break;
-            case Solidus:
+            case ExclamationMark:
                 {
                 alt6=4;
                 }
                 break;
-            case DigitTwoAsterisk:
+            case DigitTwoCommercialAt:
                 {
                 alt6=5;
                 }
                 break;
-            case DigitTwoSolidus:
+            case DigitTwoExclamationMark:
                 {
                 alt6=6;
                 }
                 break;
-            case U2:
+            case LLD:
                 {
                 alt6=7;
                 }
                 break;
-            case ROR:
+            case L_1:
                 {
                 alt6=8;
                 }
                 break;
-            case DROR:
+            case LST:
                 {
                 alt6=9;
                 }
                 break;
-            case ROL:
+            case L:
                 {
                 alt6=10;
                 }
                 break;
-            case DROL:
+            case TLD:
                 {
                 alt6=11;
                 }
                 break;
-            case PACK:
+            case T_1:
                 {
                 alt6=12;
                 }
                 break;
-            case UNPACK:
+            case TST:
                 {
                 alt6=13;
                 }
                 break;
-            case SHIFT:
+            case T:
                 {
                 alt6=14;
                 }
                 break;
-            case ASHIFT:
+            case ST_1:
                 {
                 alt6=15;
                 }
                 break;
-            case DigitTwoAsteriskAsterisk:
+            case PlusSignExclamationMark:
                 {
                 alt6=16;
                 }
                 break;
-            case DigitZeroEqualsSign:
+            case INC:
                 {
                 alt6=17;
                 }
                 break;
-            case DigitZeroLessThanSignGreaterThanSign:
+            case DEC:
                 {
                 alt6=18;
                 }
                 break;
-            case DigitZeroLessThanSign:
+            case ON:
                 {
                 alt6=19;
                 }
                 break;
-            case D0:
+            case OFF:
                 {
                 alt6=20;
                 }
                 break;
-            case NEGATE:
+            case ERASE:
                 {
                 alt6=21;
                 }
                 break;
-            case DNEGATE:
+            case FILL:
                 {
                 alt6=22;
                 }
                 break;
-            case DigitOnePlusSign:
+            case COUNT:
                 {
                 alt6=23;
                 }
                 break;
-            case DigitOneHyphenMinus:
+            case MOVE:
                 {
                 alt6=24;
                 }
                 break;
-            case TRUE:
+            case PLACE:
                 {
                 alt6=25;
-                }
-                break;
-            case FALSE:
-                {
-                alt6=26;
-                }
-                break;
-            case CELL:
-                {
-                alt6=27;
-                }
-                break;
-            case CELL_1:
-                {
-                alt6=28;
-                }
-                break;
-            case CARRY_RESET:
-                {
-                alt6=29;
-                }
-                break;
-            case CARRYSET:
-                {
-                alt6=30;
-                }
-                break;
-            case ABS:
-                {
-                alt6=31;
-                }
-                break;
-            case DABS:
-                {
-                alt6=32;
-                }
-                break;
-            case EXTEND:
-                {
-                alt6=33;
                 }
                 break;
             default:
@@ -2370,14 +2160,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
 
             switch (alt6) {
                 case 1 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:832:1: ( PlusSign )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:759:1: ( LD )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:832:1: ( PlusSign )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:833:1: PlusSign
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:759:1: ( LD )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:760:1: LD
                     {
-                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getNamePlusSignKeyword_1_0_0()); 
-                    match(input,PlusSign,FOLLOW_PlusSign_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_01686); 
-                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getNamePlusSignKeyword_1_0_0()); 
+                     before(grammarAccess.getIntrinsicMemoryWordsAccess().getNameLDKeyword_0_0()); 
+                    match(input,LD,FOLLOW_LD_in_rule__IntrinsicMemoryWords__NameAlternatives_01470); 
+                     after(grammarAccess.getIntrinsicMemoryWordsAccess().getNameLDKeyword_0_0()); 
 
                     }
 
@@ -2385,14 +2175,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 2 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:840:6: ( HyphenMinus )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:767:6: ( CommercialAt )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:840:6: ( HyphenMinus )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:841:1: HyphenMinus
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:767:6: ( CommercialAt )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:768:1: CommercialAt
                     {
-                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameHyphenMinusKeyword_1_0_1()); 
-                    match(input,HyphenMinus,FOLLOW_HyphenMinus_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_01706); 
-                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameHyphenMinusKeyword_1_0_1()); 
+                     before(grammarAccess.getIntrinsicMemoryWordsAccess().getNameCommercialAtKeyword_0_1()); 
+                    match(input,CommercialAt,FOLLOW_CommercialAt_in_rule__IntrinsicMemoryWords__NameAlternatives_01490); 
+                     after(grammarAccess.getIntrinsicMemoryWordsAccess().getNameCommercialAtKeyword_0_1()); 
 
                     }
 
@@ -2400,14 +2190,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 3 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:848:6: ( Asterisk )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:775:6: ( ST )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:848:6: ( Asterisk )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:849:1: Asterisk
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:775:6: ( ST )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:776:1: ST
                     {
-                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameAsteriskKeyword_1_0_2()); 
-                    match(input,Asterisk,FOLLOW_Asterisk_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_01726); 
-                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameAsteriskKeyword_1_0_2()); 
+                     before(grammarAccess.getIntrinsicMemoryWordsAccess().getNameSTKeyword_0_2()); 
+                    match(input,ST,FOLLOW_ST_in_rule__IntrinsicMemoryWords__NameAlternatives_01510); 
+                     after(grammarAccess.getIntrinsicMemoryWordsAccess().getNameSTKeyword_0_2()); 
 
                     }
 
@@ -2415,14 +2205,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 4 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:856:6: ( Solidus )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:783:6: ( ExclamationMark )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:856:6: ( Solidus )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:857:1: Solidus
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:783:6: ( ExclamationMark )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:784:1: ExclamationMark
                     {
-                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameSolidusKeyword_1_0_3()); 
-                    match(input,Solidus,FOLLOW_Solidus_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_01746); 
-                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameSolidusKeyword_1_0_3()); 
+                     before(grammarAccess.getIntrinsicMemoryWordsAccess().getNameExclamationMarkKeyword_0_3()); 
+                    match(input,ExclamationMark,FOLLOW_ExclamationMark_in_rule__IntrinsicMemoryWords__NameAlternatives_01530); 
+                     after(grammarAccess.getIntrinsicMemoryWordsAccess().getNameExclamationMarkKeyword_0_3()); 
 
                     }
 
@@ -2430,14 +2220,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 5 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:864:6: ( DigitTwoAsterisk )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:791:6: ( DigitTwoCommercialAt )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:864:6: ( DigitTwoAsterisk )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:865:1: DigitTwoAsterisk
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:791:6: ( DigitTwoCommercialAt )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:792:1: DigitTwoCommercialAt
                     {
-                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getName2Keyword_1_0_4()); 
-                    match(input,DigitTwoAsterisk,FOLLOW_DigitTwoAsterisk_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_01766); 
-                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getName2Keyword_1_0_4()); 
+                     before(grammarAccess.getIntrinsicMemoryWordsAccess().getName2Keyword_0_4()); 
+                    match(input,DigitTwoCommercialAt,FOLLOW_DigitTwoCommercialAt_in_rule__IntrinsicMemoryWords__NameAlternatives_01550); 
+                     after(grammarAccess.getIntrinsicMemoryWordsAccess().getName2Keyword_0_4()); 
 
                     }
 
@@ -2445,14 +2235,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 6 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:872:6: ( DigitTwoSolidus )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:799:6: ( DigitTwoExclamationMark )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:872:6: ( DigitTwoSolidus )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:873:1: DigitTwoSolidus
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:799:6: ( DigitTwoExclamationMark )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:800:1: DigitTwoExclamationMark
                     {
-                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getName2Keyword_1_0_5()); 
-                    match(input,DigitTwoSolidus,FOLLOW_DigitTwoSolidus_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_01786); 
-                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getName2Keyword_1_0_5()); 
+                     before(grammarAccess.getIntrinsicMemoryWordsAccess().getName2Keyword_0_5()); 
+                    match(input,DigitTwoExclamationMark,FOLLOW_DigitTwoExclamationMark_in_rule__IntrinsicMemoryWords__NameAlternatives_01570); 
+                     after(grammarAccess.getIntrinsicMemoryWordsAccess().getName2Keyword_0_5()); 
 
                     }
 
@@ -2460,14 +2250,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 7 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:880:6: ( U2 )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:807:6: ( LLD )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:880:6: ( U2 )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:881:1: U2
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:807:6: ( LLD )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:808:1: LLD
                     {
-                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameU2Keyword_1_0_6()); 
-                    match(input,U2,FOLLOW_U2_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_01806); 
-                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameU2Keyword_1_0_6()); 
+                     before(grammarAccess.getIntrinsicMemoryWordsAccess().getNameLLDKeyword_0_6()); 
+                    match(input,LLD,FOLLOW_LLD_in_rule__IntrinsicMemoryWords__NameAlternatives_01590); 
+                     after(grammarAccess.getIntrinsicMemoryWordsAccess().getNameLLDKeyword_0_6()); 
 
                     }
 
@@ -2475,14 +2265,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 8 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:888:6: ( ROR )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:815:6: ( L_1 )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:888:6: ( ROR )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:889:1: ROR
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:815:6: ( L_1 )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:816:1: L_1
                     {
-                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameRORKeyword_1_0_7()); 
-                    match(input,ROR,FOLLOW_ROR_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_01826); 
-                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameRORKeyword_1_0_7()); 
+                     before(grammarAccess.getIntrinsicMemoryWordsAccess().getNameLKeyword_0_7()); 
+                    match(input,L_1,FOLLOW_L_1_in_rule__IntrinsicMemoryWords__NameAlternatives_01610); 
+                     after(grammarAccess.getIntrinsicMemoryWordsAccess().getNameLKeyword_0_7()); 
 
                     }
 
@@ -2490,14 +2280,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 9 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:896:6: ( DROR )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:823:6: ( LST )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:896:6: ( DROR )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:897:1: DROR
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:823:6: ( LST )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:824:1: LST
                     {
-                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameDRORKeyword_1_0_8()); 
-                    match(input,DROR,FOLLOW_DROR_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_01846); 
-                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameDRORKeyword_1_0_8()); 
+                     before(grammarAccess.getIntrinsicMemoryWordsAccess().getNameLSTKeyword_0_8()); 
+                    match(input,LST,FOLLOW_LST_in_rule__IntrinsicMemoryWords__NameAlternatives_01630); 
+                     after(grammarAccess.getIntrinsicMemoryWordsAccess().getNameLSTKeyword_0_8()); 
 
                     }
 
@@ -2505,14 +2295,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 10 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:904:6: ( ROL )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:831:6: ( L )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:904:6: ( ROL )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:905:1: ROL
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:831:6: ( L )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:832:1: L
                     {
-                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameROLKeyword_1_0_9()); 
-                    match(input,ROL,FOLLOW_ROL_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_01866); 
-                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameROLKeyword_1_0_9()); 
+                     before(grammarAccess.getIntrinsicMemoryWordsAccess().getNameLKeyword_0_9()); 
+                    match(input,L,FOLLOW_L_in_rule__IntrinsicMemoryWords__NameAlternatives_01650); 
+                     after(grammarAccess.getIntrinsicMemoryWordsAccess().getNameLKeyword_0_9()); 
 
                     }
 
@@ -2520,14 +2310,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 11 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:912:6: ( DROL )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:839:6: ( TLD )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:912:6: ( DROL )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:913:1: DROL
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:839:6: ( TLD )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:840:1: TLD
                     {
-                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameDROLKeyword_1_0_10()); 
-                    match(input,DROL,FOLLOW_DROL_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_01886); 
-                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameDROLKeyword_1_0_10()); 
+                     before(grammarAccess.getIntrinsicMemoryWordsAccess().getNameTLDKeyword_0_10()); 
+                    match(input,TLD,FOLLOW_TLD_in_rule__IntrinsicMemoryWords__NameAlternatives_01670); 
+                     after(grammarAccess.getIntrinsicMemoryWordsAccess().getNameTLDKeyword_0_10()); 
 
                     }
 
@@ -2535,14 +2325,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 12 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:920:6: ( PACK )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:847:6: ( T_1 )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:920:6: ( PACK )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:921:1: PACK
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:847:6: ( T_1 )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:848:1: T_1
                     {
-                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getNamePACKKeyword_1_0_11()); 
-                    match(input,PACK,FOLLOW_PACK_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_01906); 
-                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getNamePACKKeyword_1_0_11()); 
+                     before(grammarAccess.getIntrinsicMemoryWordsAccess().getNameTKeyword_0_11()); 
+                    match(input,T_1,FOLLOW_T_1_in_rule__IntrinsicMemoryWords__NameAlternatives_01690); 
+                     after(grammarAccess.getIntrinsicMemoryWordsAccess().getNameTKeyword_0_11()); 
 
                     }
 
@@ -2550,14 +2340,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 13 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:928:6: ( UNPACK )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:855:6: ( TST )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:928:6: ( UNPACK )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:929:1: UNPACK
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:855:6: ( TST )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:856:1: TST
                     {
-                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameUNPACKKeyword_1_0_12()); 
-                    match(input,UNPACK,FOLLOW_UNPACK_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_01926); 
-                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameUNPACKKeyword_1_0_12()); 
+                     before(grammarAccess.getIntrinsicMemoryWordsAccess().getNameTSTKeyword_0_12()); 
+                    match(input,TST,FOLLOW_TST_in_rule__IntrinsicMemoryWords__NameAlternatives_01710); 
+                     after(grammarAccess.getIntrinsicMemoryWordsAccess().getNameTSTKeyword_0_12()); 
 
                     }
 
@@ -2565,14 +2355,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 14 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:936:6: ( SHIFT )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:863:6: ( T )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:936:6: ( SHIFT )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:937:1: SHIFT
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:863:6: ( T )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:864:1: T
                     {
-                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameSHIFTKeyword_1_0_13()); 
-                    match(input,SHIFT,FOLLOW_SHIFT_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_01946); 
-                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameSHIFTKeyword_1_0_13()); 
+                     before(grammarAccess.getIntrinsicMemoryWordsAccess().getNameTKeyword_0_13()); 
+                    match(input,T,FOLLOW_T_in_rule__IntrinsicMemoryWords__NameAlternatives_01730); 
+                     after(grammarAccess.getIntrinsicMemoryWordsAccess().getNameTKeyword_0_13()); 
 
                     }
 
@@ -2580,14 +2370,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 15 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:944:6: ( ASHIFT )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:871:6: ( ST_1 )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:944:6: ( ASHIFT )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:945:1: ASHIFT
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:871:6: ( ST_1 )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:872:1: ST_1
                     {
-                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameASHIFTKeyword_1_0_14()); 
-                    match(input,ASHIFT,FOLLOW_ASHIFT_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_01966); 
-                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameASHIFTKeyword_1_0_14()); 
+                     before(grammarAccess.getIntrinsicMemoryWordsAccess().getNameSTKeyword_0_14()); 
+                    match(input,ST_1,FOLLOW_ST_1_in_rule__IntrinsicMemoryWords__NameAlternatives_01750); 
+                     after(grammarAccess.getIntrinsicMemoryWordsAccess().getNameSTKeyword_0_14()); 
 
                     }
 
@@ -2595,14 +2385,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 16 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:952:6: ( DigitTwoAsteriskAsterisk )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:879:6: ( PlusSignExclamationMark )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:952:6: ( DigitTwoAsteriskAsterisk )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:953:1: DigitTwoAsteriskAsterisk
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:879:6: ( PlusSignExclamationMark )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:880:1: PlusSignExclamationMark
                     {
-                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getName2Keyword_1_0_15()); 
-                    match(input,DigitTwoAsteriskAsterisk,FOLLOW_DigitTwoAsteriskAsterisk_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_01986); 
-                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getName2Keyword_1_0_15()); 
+                     before(grammarAccess.getIntrinsicMemoryWordsAccess().getNamePlusSignExclamationMarkKeyword_0_15()); 
+                    match(input,PlusSignExclamationMark,FOLLOW_PlusSignExclamationMark_in_rule__IntrinsicMemoryWords__NameAlternatives_01770); 
+                     after(grammarAccess.getIntrinsicMemoryWordsAccess().getNamePlusSignExclamationMarkKeyword_0_15()); 
 
                     }
 
@@ -2610,14 +2400,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 17 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:960:6: ( DigitZeroEqualsSign )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:887:6: ( INC )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:960:6: ( DigitZeroEqualsSign )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:961:1: DigitZeroEqualsSign
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:887:6: ( INC )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:888:1: INC
                     {
-                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getName0Keyword_1_0_16()); 
-                    match(input,DigitZeroEqualsSign,FOLLOW_DigitZeroEqualsSign_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_02006); 
-                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getName0Keyword_1_0_16()); 
+                     before(grammarAccess.getIntrinsicMemoryWordsAccess().getNameINCKeyword_0_16()); 
+                    match(input,INC,FOLLOW_INC_in_rule__IntrinsicMemoryWords__NameAlternatives_01790); 
+                     after(grammarAccess.getIntrinsicMemoryWordsAccess().getNameINCKeyword_0_16()); 
 
                     }
 
@@ -2625,14 +2415,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 18 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:968:6: ( DigitZeroLessThanSignGreaterThanSign )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:895:6: ( DEC )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:968:6: ( DigitZeroLessThanSignGreaterThanSign )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:969:1: DigitZeroLessThanSignGreaterThanSign
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:895:6: ( DEC )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:896:1: DEC
                     {
-                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getName0Keyword_1_0_17()); 
-                    match(input,DigitZeroLessThanSignGreaterThanSign,FOLLOW_DigitZeroLessThanSignGreaterThanSign_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_02026); 
-                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getName0Keyword_1_0_17()); 
+                     before(grammarAccess.getIntrinsicMemoryWordsAccess().getNameDECKeyword_0_17()); 
+                    match(input,DEC,FOLLOW_DEC_in_rule__IntrinsicMemoryWords__NameAlternatives_01810); 
+                     after(grammarAccess.getIntrinsicMemoryWordsAccess().getNameDECKeyword_0_17()); 
 
                     }
 
@@ -2640,14 +2430,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 19 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:976:6: ( DigitZeroLessThanSign )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:903:6: ( ON )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:976:6: ( DigitZeroLessThanSign )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:977:1: DigitZeroLessThanSign
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:903:6: ( ON )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:904:1: ON
                     {
-                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getName0Keyword_1_0_18()); 
-                    match(input,DigitZeroLessThanSign,FOLLOW_DigitZeroLessThanSign_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_02046); 
-                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getName0Keyword_1_0_18()); 
+                     before(grammarAccess.getIntrinsicMemoryWordsAccess().getNameONKeyword_0_18()); 
+                    match(input,ON,FOLLOW_ON_in_rule__IntrinsicMemoryWords__NameAlternatives_01830); 
+                     after(grammarAccess.getIntrinsicMemoryWordsAccess().getNameONKeyword_0_18()); 
 
                     }
 
@@ -2655,14 +2445,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 20 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:984:6: ( D0 )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:911:6: ( OFF )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:984:6: ( D0 )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:985:1: D0
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:911:6: ( OFF )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:912:1: OFF
                     {
-                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameD0Keyword_1_0_19()); 
-                    match(input,D0,FOLLOW_D0_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_02066); 
-                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameD0Keyword_1_0_19()); 
+                     before(grammarAccess.getIntrinsicMemoryWordsAccess().getNameOFFKeyword_0_19()); 
+                    match(input,OFF,FOLLOW_OFF_in_rule__IntrinsicMemoryWords__NameAlternatives_01850); 
+                     after(grammarAccess.getIntrinsicMemoryWordsAccess().getNameOFFKeyword_0_19()); 
 
                     }
 
@@ -2670,14 +2460,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 21 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:992:6: ( NEGATE )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:919:6: ( ERASE )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:992:6: ( NEGATE )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:993:1: NEGATE
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:919:6: ( ERASE )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:920:1: ERASE
                     {
-                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameNEGATEKeyword_1_0_20()); 
-                    match(input,NEGATE,FOLLOW_NEGATE_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_02086); 
-                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameNEGATEKeyword_1_0_20()); 
+                     before(grammarAccess.getIntrinsicMemoryWordsAccess().getNameERASEKeyword_0_20()); 
+                    match(input,ERASE,FOLLOW_ERASE_in_rule__IntrinsicMemoryWords__NameAlternatives_01870); 
+                     after(grammarAccess.getIntrinsicMemoryWordsAccess().getNameERASEKeyword_0_20()); 
 
                     }
 
@@ -2685,14 +2475,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 22 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1000:6: ( DNEGATE )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:927:6: ( FILL )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1000:6: ( DNEGATE )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1001:1: DNEGATE
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:927:6: ( FILL )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:928:1: FILL
                     {
-                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameDNEGATEKeyword_1_0_21()); 
-                    match(input,DNEGATE,FOLLOW_DNEGATE_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_02106); 
-                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameDNEGATEKeyword_1_0_21()); 
+                     before(grammarAccess.getIntrinsicMemoryWordsAccess().getNameFILLKeyword_0_21()); 
+                    match(input,FILL,FOLLOW_FILL_in_rule__IntrinsicMemoryWords__NameAlternatives_01890); 
+                     after(grammarAccess.getIntrinsicMemoryWordsAccess().getNameFILLKeyword_0_21()); 
 
                     }
 
@@ -2700,14 +2490,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 23 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1008:6: ( DigitOnePlusSign )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:935:6: ( COUNT )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1008:6: ( DigitOnePlusSign )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1009:1: DigitOnePlusSign
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:935:6: ( COUNT )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:936:1: COUNT
                     {
-                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getName1Keyword_1_0_22()); 
-                    match(input,DigitOnePlusSign,FOLLOW_DigitOnePlusSign_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_02126); 
-                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getName1Keyword_1_0_22()); 
+                     before(grammarAccess.getIntrinsicMemoryWordsAccess().getNameCOUNTKeyword_0_22()); 
+                    match(input,COUNT,FOLLOW_COUNT_in_rule__IntrinsicMemoryWords__NameAlternatives_01910); 
+                     after(grammarAccess.getIntrinsicMemoryWordsAccess().getNameCOUNTKeyword_0_22()); 
 
                     }
 
@@ -2715,14 +2505,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 24 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1016:6: ( DigitOneHyphenMinus )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:943:6: ( MOVE )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1016:6: ( DigitOneHyphenMinus )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1017:1: DigitOneHyphenMinus
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:943:6: ( MOVE )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:944:1: MOVE
                     {
-                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getName1Keyword_1_0_23()); 
-                    match(input,DigitOneHyphenMinus,FOLLOW_DigitOneHyphenMinus_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_02146); 
-                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getName1Keyword_1_0_23()); 
+                     before(grammarAccess.getIntrinsicMemoryWordsAccess().getNameMOVEKeyword_0_23()); 
+                    match(input,MOVE,FOLLOW_MOVE_in_rule__IntrinsicMemoryWords__NameAlternatives_01930); 
+                     after(grammarAccess.getIntrinsicMemoryWordsAccess().getNameMOVEKeyword_0_23()); 
 
                     }
 
@@ -2730,134 +2520,14 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 25 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1024:6: ( TRUE )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:951:6: ( PLACE )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1024:6: ( TRUE )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1025:1: TRUE
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:951:6: ( PLACE )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:952:1: PLACE
                     {
-                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameTRUEKeyword_1_0_24()); 
-                    match(input,TRUE,FOLLOW_TRUE_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_02166); 
-                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameTRUEKeyword_1_0_24()); 
-
-                    }
-
-
-                    }
-                    break;
-                case 26 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1032:6: ( FALSE )
-                    {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1032:6: ( FALSE )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1033:1: FALSE
-                    {
-                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameFALSEKeyword_1_0_25()); 
-                    match(input,FALSE,FOLLOW_FALSE_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_02186); 
-                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameFALSEKeyword_1_0_25()); 
-
-                    }
-
-
-                    }
-                    break;
-                case 27 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1040:6: ( CELL )
-                    {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1040:6: ( CELL )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1041:1: CELL
-                    {
-                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameCELLKeyword_1_0_26()); 
-                    match(input,CELL,FOLLOW_CELL_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_02206); 
-                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameCELLKeyword_1_0_26()); 
-
-                    }
-
-
-                    }
-                    break;
-                case 28 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1048:6: ( CELL_1 )
-                    {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1048:6: ( CELL_1 )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1049:1: CELL_1
-                    {
-                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameCELLKeyword_1_0_27()); 
-                    match(input,CELL_1,FOLLOW_CELL_1_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_02226); 
-                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameCELLKeyword_1_0_27()); 
-
-                    }
-
-
-                    }
-                    break;
-                case 29 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1056:6: ( CARRY_RESET )
-                    {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1056:6: ( CARRY_RESET )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1057:1: CARRY_RESET
-                    {
-                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameCARRY_RESETKeyword_1_0_28()); 
-                    match(input,CARRY_RESET,FOLLOW_CARRY_RESET_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_02246); 
-                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameCARRY_RESETKeyword_1_0_28()); 
-
-                    }
-
-
-                    }
-                    break;
-                case 30 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1064:6: ( CARRYSET )
-                    {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1064:6: ( CARRYSET )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1065:1: CARRYSET
-                    {
-                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameCARRYSETKeyword_1_0_29()); 
-                    match(input,CARRYSET,FOLLOW_CARRYSET_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_02266); 
-                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameCARRYSETKeyword_1_0_29()); 
-
-                    }
-
-
-                    }
-                    break;
-                case 31 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1072:6: ( ABS )
-                    {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1072:6: ( ABS )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1073:1: ABS
-                    {
-                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameABSKeyword_1_0_30()); 
-                    match(input,ABS,FOLLOW_ABS_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_02286); 
-                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameABSKeyword_1_0_30()); 
-
-                    }
-
-
-                    }
-                    break;
-                case 32 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1080:6: ( DABS )
-                    {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1080:6: ( DABS )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1081:1: DABS
-                    {
-                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameDABSKeyword_1_0_31()); 
-                    match(input,DABS,FOLLOW_DABS_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_02306); 
-                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameDABSKeyword_1_0_31()); 
-
-                    }
-
-
-                    }
-                    break;
-                case 33 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1088:6: ( EXTEND )
-                    {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1088:6: ( EXTEND )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1089:1: EXTEND
-                    {
-                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameEXTENDKeyword_1_0_32()); 
-                    match(input,EXTEND,FOLLOW_EXTEND_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_02326); 
-                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameEXTENDKeyword_1_0_32()); 
+                     before(grammarAccess.getIntrinsicMemoryWordsAccess().getNamePLACEKeyword_0_24()); 
+                    match(input,PLACE,FOLLOW_PLACE_in_rule__IntrinsicMemoryWords__NameAlternatives_01950); 
+                     after(grammarAccess.getIntrinsicMemoryWordsAccess().getNamePLACEKeyword_0_24()); 
 
                     }
 
@@ -2878,19 +2548,729 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__IntrinsicArithmeticWords__NameAlternatives_1_0"
+    // $ANTLR end "rule__IntrinsicMemoryWords__NameAlternatives_0"
+
+
+    // $ANTLR start "rule__IntrinsicArithmeticWords__NameAlternatives_0"
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:964:1: rule__IntrinsicArithmeticWords__NameAlternatives_0 : ( ( PlusSign ) | ( HyphenMinus ) | ( Asterisk ) | ( Solidus ) | ( DigitTwoAsterisk ) | ( DigitTwoSolidus ) | ( U2 ) | ( ROR ) | ( DROR ) | ( ROL ) | ( DROL ) | ( PACK ) | ( UNPACK ) | ( SHIFT ) | ( ASHIFT ) | ( DigitTwoAsteriskAsterisk ) | ( DigitZeroEqualsSign ) | ( DigitZeroLessThanSignGreaterThanSign ) | ( DigitZeroLessThanSign ) | ( D0 ) | ( NEGATE ) | ( DNEGATE ) | ( DigitOnePlusSign ) | ( DigitOneHyphenMinus ) | ( TRUE ) | ( FALSE ) | ( CELL ) | ( CELL_1 ) | ( CARRY_RESET ) | ( CARRYSET ) | ( ABS ) | ( DABS ) | ( EXTEND ) );
+    public final void rule__IntrinsicArithmeticWords__NameAlternatives_0() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:968:1: ( ( PlusSign ) | ( HyphenMinus ) | ( Asterisk ) | ( Solidus ) | ( DigitTwoAsterisk ) | ( DigitTwoSolidus ) | ( U2 ) | ( ROR ) | ( DROR ) | ( ROL ) | ( DROL ) | ( PACK ) | ( UNPACK ) | ( SHIFT ) | ( ASHIFT ) | ( DigitTwoAsteriskAsterisk ) | ( DigitZeroEqualsSign ) | ( DigitZeroLessThanSignGreaterThanSign ) | ( DigitZeroLessThanSign ) | ( D0 ) | ( NEGATE ) | ( DNEGATE ) | ( DigitOnePlusSign ) | ( DigitOneHyphenMinus ) | ( TRUE ) | ( FALSE ) | ( CELL ) | ( CELL_1 ) | ( CARRY_RESET ) | ( CARRYSET ) | ( ABS ) | ( DABS ) | ( EXTEND ) )
+            int alt7=33;
+            switch ( input.LA(1) ) {
+            case PlusSign:
+                {
+                alt7=1;
+                }
+                break;
+            case HyphenMinus:
+                {
+                alt7=2;
+                }
+                break;
+            case Asterisk:
+                {
+                alt7=3;
+                }
+                break;
+            case Solidus:
+                {
+                alt7=4;
+                }
+                break;
+            case DigitTwoAsterisk:
+                {
+                alt7=5;
+                }
+                break;
+            case DigitTwoSolidus:
+                {
+                alt7=6;
+                }
+                break;
+            case U2:
+                {
+                alt7=7;
+                }
+                break;
+            case ROR:
+                {
+                alt7=8;
+                }
+                break;
+            case DROR:
+                {
+                alt7=9;
+                }
+                break;
+            case ROL:
+                {
+                alt7=10;
+                }
+                break;
+            case DROL:
+                {
+                alt7=11;
+                }
+                break;
+            case PACK:
+                {
+                alt7=12;
+                }
+                break;
+            case UNPACK:
+                {
+                alt7=13;
+                }
+                break;
+            case SHIFT:
+                {
+                alt7=14;
+                }
+                break;
+            case ASHIFT:
+                {
+                alt7=15;
+                }
+                break;
+            case DigitTwoAsteriskAsterisk:
+                {
+                alt7=16;
+                }
+                break;
+            case DigitZeroEqualsSign:
+                {
+                alt7=17;
+                }
+                break;
+            case DigitZeroLessThanSignGreaterThanSign:
+                {
+                alt7=18;
+                }
+                break;
+            case DigitZeroLessThanSign:
+                {
+                alt7=19;
+                }
+                break;
+            case D0:
+                {
+                alt7=20;
+                }
+                break;
+            case NEGATE:
+                {
+                alt7=21;
+                }
+                break;
+            case DNEGATE:
+                {
+                alt7=22;
+                }
+                break;
+            case DigitOnePlusSign:
+                {
+                alt7=23;
+                }
+                break;
+            case DigitOneHyphenMinus:
+                {
+                alt7=24;
+                }
+                break;
+            case TRUE:
+                {
+                alt7=25;
+                }
+                break;
+            case FALSE:
+                {
+                alt7=26;
+                }
+                break;
+            case CELL:
+                {
+                alt7=27;
+                }
+                break;
+            case CELL_1:
+                {
+                alt7=28;
+                }
+                break;
+            case CARRY_RESET:
+                {
+                alt7=29;
+                }
+                break;
+            case CARRYSET:
+                {
+                alt7=30;
+                }
+                break;
+            case ABS:
+                {
+                alt7=31;
+                }
+                break;
+            case DABS:
+                {
+                alt7=32;
+                }
+                break;
+            case EXTEND:
+                {
+                alt7=33;
+                }
+                break;
+            default:
+                NoViableAltException nvae =
+                    new NoViableAltException("", 7, 0, input);
+
+                throw nvae;
+            }
+
+            switch (alt7) {
+                case 1 :
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:969:1: ( PlusSign )
+                    {
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:969:1: ( PlusSign )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:970:1: PlusSign
+                    {
+                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getNamePlusSignKeyword_0_0()); 
+                    match(input,PlusSign,FOLLOW_PlusSign_in_rule__IntrinsicArithmeticWords__NameAlternatives_01985); 
+                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getNamePlusSignKeyword_0_0()); 
+
+                    }
+
+
+                    }
+                    break;
+                case 2 :
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:977:6: ( HyphenMinus )
+                    {
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:977:6: ( HyphenMinus )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:978:1: HyphenMinus
+                    {
+                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameHyphenMinusKeyword_0_1()); 
+                    match(input,HyphenMinus,FOLLOW_HyphenMinus_in_rule__IntrinsicArithmeticWords__NameAlternatives_02005); 
+                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameHyphenMinusKeyword_0_1()); 
+
+                    }
+
+
+                    }
+                    break;
+                case 3 :
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:985:6: ( Asterisk )
+                    {
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:985:6: ( Asterisk )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:986:1: Asterisk
+                    {
+                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameAsteriskKeyword_0_2()); 
+                    match(input,Asterisk,FOLLOW_Asterisk_in_rule__IntrinsicArithmeticWords__NameAlternatives_02025); 
+                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameAsteriskKeyword_0_2()); 
+
+                    }
+
+
+                    }
+                    break;
+                case 4 :
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:993:6: ( Solidus )
+                    {
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:993:6: ( Solidus )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:994:1: Solidus
+                    {
+                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameSolidusKeyword_0_3()); 
+                    match(input,Solidus,FOLLOW_Solidus_in_rule__IntrinsicArithmeticWords__NameAlternatives_02045); 
+                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameSolidusKeyword_0_3()); 
+
+                    }
+
+
+                    }
+                    break;
+                case 5 :
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1001:6: ( DigitTwoAsterisk )
+                    {
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1001:6: ( DigitTwoAsterisk )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1002:1: DigitTwoAsterisk
+                    {
+                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getName2Keyword_0_4()); 
+                    match(input,DigitTwoAsterisk,FOLLOW_DigitTwoAsterisk_in_rule__IntrinsicArithmeticWords__NameAlternatives_02065); 
+                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getName2Keyword_0_4()); 
+
+                    }
+
+
+                    }
+                    break;
+                case 6 :
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1009:6: ( DigitTwoSolidus )
+                    {
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1009:6: ( DigitTwoSolidus )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1010:1: DigitTwoSolidus
+                    {
+                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getName2Keyword_0_5()); 
+                    match(input,DigitTwoSolidus,FOLLOW_DigitTwoSolidus_in_rule__IntrinsicArithmeticWords__NameAlternatives_02085); 
+                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getName2Keyword_0_5()); 
+
+                    }
+
+
+                    }
+                    break;
+                case 7 :
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1017:6: ( U2 )
+                    {
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1017:6: ( U2 )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1018:1: U2
+                    {
+                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameU2Keyword_0_6()); 
+                    match(input,U2,FOLLOW_U2_in_rule__IntrinsicArithmeticWords__NameAlternatives_02105); 
+                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameU2Keyword_0_6()); 
+
+                    }
+
+
+                    }
+                    break;
+                case 8 :
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1025:6: ( ROR )
+                    {
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1025:6: ( ROR )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1026:1: ROR
+                    {
+                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameRORKeyword_0_7()); 
+                    match(input,ROR,FOLLOW_ROR_in_rule__IntrinsicArithmeticWords__NameAlternatives_02125); 
+                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameRORKeyword_0_7()); 
+
+                    }
+
+
+                    }
+                    break;
+                case 9 :
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1033:6: ( DROR )
+                    {
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1033:6: ( DROR )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1034:1: DROR
+                    {
+                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameDRORKeyword_0_8()); 
+                    match(input,DROR,FOLLOW_DROR_in_rule__IntrinsicArithmeticWords__NameAlternatives_02145); 
+                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameDRORKeyword_0_8()); 
+
+                    }
+
+
+                    }
+                    break;
+                case 10 :
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1041:6: ( ROL )
+                    {
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1041:6: ( ROL )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1042:1: ROL
+                    {
+                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameROLKeyword_0_9()); 
+                    match(input,ROL,FOLLOW_ROL_in_rule__IntrinsicArithmeticWords__NameAlternatives_02165); 
+                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameROLKeyword_0_9()); 
+
+                    }
+
+
+                    }
+                    break;
+                case 11 :
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1049:6: ( DROL )
+                    {
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1049:6: ( DROL )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1050:1: DROL
+                    {
+                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameDROLKeyword_0_10()); 
+                    match(input,DROL,FOLLOW_DROL_in_rule__IntrinsicArithmeticWords__NameAlternatives_02185); 
+                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameDROLKeyword_0_10()); 
+
+                    }
+
+
+                    }
+                    break;
+                case 12 :
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1057:6: ( PACK )
+                    {
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1057:6: ( PACK )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1058:1: PACK
+                    {
+                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getNamePACKKeyword_0_11()); 
+                    match(input,PACK,FOLLOW_PACK_in_rule__IntrinsicArithmeticWords__NameAlternatives_02205); 
+                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getNamePACKKeyword_0_11()); 
+
+                    }
+
+
+                    }
+                    break;
+                case 13 :
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1065:6: ( UNPACK )
+                    {
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1065:6: ( UNPACK )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1066:1: UNPACK
+                    {
+                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameUNPACKKeyword_0_12()); 
+                    match(input,UNPACK,FOLLOW_UNPACK_in_rule__IntrinsicArithmeticWords__NameAlternatives_02225); 
+                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameUNPACKKeyword_0_12()); 
+
+                    }
+
+
+                    }
+                    break;
+                case 14 :
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1073:6: ( SHIFT )
+                    {
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1073:6: ( SHIFT )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1074:1: SHIFT
+                    {
+                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameSHIFTKeyword_0_13()); 
+                    match(input,SHIFT,FOLLOW_SHIFT_in_rule__IntrinsicArithmeticWords__NameAlternatives_02245); 
+                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameSHIFTKeyword_0_13()); 
+
+                    }
+
+
+                    }
+                    break;
+                case 15 :
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1081:6: ( ASHIFT )
+                    {
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1081:6: ( ASHIFT )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1082:1: ASHIFT
+                    {
+                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameASHIFTKeyword_0_14()); 
+                    match(input,ASHIFT,FOLLOW_ASHIFT_in_rule__IntrinsicArithmeticWords__NameAlternatives_02265); 
+                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameASHIFTKeyword_0_14()); 
+
+                    }
+
+
+                    }
+                    break;
+                case 16 :
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1089:6: ( DigitTwoAsteriskAsterisk )
+                    {
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1089:6: ( DigitTwoAsteriskAsterisk )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1090:1: DigitTwoAsteriskAsterisk
+                    {
+                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getName2Keyword_0_15()); 
+                    match(input,DigitTwoAsteriskAsterisk,FOLLOW_DigitTwoAsteriskAsterisk_in_rule__IntrinsicArithmeticWords__NameAlternatives_02285); 
+                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getName2Keyword_0_15()); 
+
+                    }
+
+
+                    }
+                    break;
+                case 17 :
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1097:6: ( DigitZeroEqualsSign )
+                    {
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1097:6: ( DigitZeroEqualsSign )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1098:1: DigitZeroEqualsSign
+                    {
+                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getName0Keyword_0_16()); 
+                    match(input,DigitZeroEqualsSign,FOLLOW_DigitZeroEqualsSign_in_rule__IntrinsicArithmeticWords__NameAlternatives_02305); 
+                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getName0Keyword_0_16()); 
+
+                    }
+
+
+                    }
+                    break;
+                case 18 :
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1105:6: ( DigitZeroLessThanSignGreaterThanSign )
+                    {
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1105:6: ( DigitZeroLessThanSignGreaterThanSign )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1106:1: DigitZeroLessThanSignGreaterThanSign
+                    {
+                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getName0Keyword_0_17()); 
+                    match(input,DigitZeroLessThanSignGreaterThanSign,FOLLOW_DigitZeroLessThanSignGreaterThanSign_in_rule__IntrinsicArithmeticWords__NameAlternatives_02325); 
+                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getName0Keyword_0_17()); 
+
+                    }
+
+
+                    }
+                    break;
+                case 19 :
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1113:6: ( DigitZeroLessThanSign )
+                    {
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1113:6: ( DigitZeroLessThanSign )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1114:1: DigitZeroLessThanSign
+                    {
+                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getName0Keyword_0_18()); 
+                    match(input,DigitZeroLessThanSign,FOLLOW_DigitZeroLessThanSign_in_rule__IntrinsicArithmeticWords__NameAlternatives_02345); 
+                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getName0Keyword_0_18()); 
+
+                    }
+
+
+                    }
+                    break;
+                case 20 :
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1121:6: ( D0 )
+                    {
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1121:6: ( D0 )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1122:1: D0
+                    {
+                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameD0Keyword_0_19()); 
+                    match(input,D0,FOLLOW_D0_in_rule__IntrinsicArithmeticWords__NameAlternatives_02365); 
+                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameD0Keyword_0_19()); 
+
+                    }
+
+
+                    }
+                    break;
+                case 21 :
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1129:6: ( NEGATE )
+                    {
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1129:6: ( NEGATE )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1130:1: NEGATE
+                    {
+                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameNEGATEKeyword_0_20()); 
+                    match(input,NEGATE,FOLLOW_NEGATE_in_rule__IntrinsicArithmeticWords__NameAlternatives_02385); 
+                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameNEGATEKeyword_0_20()); 
+
+                    }
+
+
+                    }
+                    break;
+                case 22 :
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1137:6: ( DNEGATE )
+                    {
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1137:6: ( DNEGATE )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1138:1: DNEGATE
+                    {
+                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameDNEGATEKeyword_0_21()); 
+                    match(input,DNEGATE,FOLLOW_DNEGATE_in_rule__IntrinsicArithmeticWords__NameAlternatives_02405); 
+                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameDNEGATEKeyword_0_21()); 
+
+                    }
+
+
+                    }
+                    break;
+                case 23 :
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1145:6: ( DigitOnePlusSign )
+                    {
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1145:6: ( DigitOnePlusSign )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1146:1: DigitOnePlusSign
+                    {
+                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getName1Keyword_0_22()); 
+                    match(input,DigitOnePlusSign,FOLLOW_DigitOnePlusSign_in_rule__IntrinsicArithmeticWords__NameAlternatives_02425); 
+                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getName1Keyword_0_22()); 
+
+                    }
+
+
+                    }
+                    break;
+                case 24 :
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1153:6: ( DigitOneHyphenMinus )
+                    {
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1153:6: ( DigitOneHyphenMinus )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1154:1: DigitOneHyphenMinus
+                    {
+                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getName1Keyword_0_23()); 
+                    match(input,DigitOneHyphenMinus,FOLLOW_DigitOneHyphenMinus_in_rule__IntrinsicArithmeticWords__NameAlternatives_02445); 
+                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getName1Keyword_0_23()); 
+
+                    }
+
+
+                    }
+                    break;
+                case 25 :
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1161:6: ( TRUE )
+                    {
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1161:6: ( TRUE )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1162:1: TRUE
+                    {
+                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameTRUEKeyword_0_24()); 
+                    match(input,TRUE,FOLLOW_TRUE_in_rule__IntrinsicArithmeticWords__NameAlternatives_02465); 
+                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameTRUEKeyword_0_24()); 
+
+                    }
+
+
+                    }
+                    break;
+                case 26 :
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1169:6: ( FALSE )
+                    {
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1169:6: ( FALSE )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1170:1: FALSE
+                    {
+                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameFALSEKeyword_0_25()); 
+                    match(input,FALSE,FOLLOW_FALSE_in_rule__IntrinsicArithmeticWords__NameAlternatives_02485); 
+                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameFALSEKeyword_0_25()); 
+
+                    }
+
+
+                    }
+                    break;
+                case 27 :
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1177:6: ( CELL )
+                    {
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1177:6: ( CELL )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1178:1: CELL
+                    {
+                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameCELLKeyword_0_26()); 
+                    match(input,CELL,FOLLOW_CELL_in_rule__IntrinsicArithmeticWords__NameAlternatives_02505); 
+                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameCELLKeyword_0_26()); 
+
+                    }
+
+
+                    }
+                    break;
+                case 28 :
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1185:6: ( CELL_1 )
+                    {
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1185:6: ( CELL_1 )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1186:1: CELL_1
+                    {
+                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameCELLKeyword_0_27()); 
+                    match(input,CELL_1,FOLLOW_CELL_1_in_rule__IntrinsicArithmeticWords__NameAlternatives_02525); 
+                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameCELLKeyword_0_27()); 
+
+                    }
+
+
+                    }
+                    break;
+                case 29 :
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1193:6: ( CARRY_RESET )
+                    {
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1193:6: ( CARRY_RESET )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1194:1: CARRY_RESET
+                    {
+                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameCARRY_RESETKeyword_0_28()); 
+                    match(input,CARRY_RESET,FOLLOW_CARRY_RESET_in_rule__IntrinsicArithmeticWords__NameAlternatives_02545); 
+                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameCARRY_RESETKeyword_0_28()); 
+
+                    }
+
+
+                    }
+                    break;
+                case 30 :
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1201:6: ( CARRYSET )
+                    {
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1201:6: ( CARRYSET )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1202:1: CARRYSET
+                    {
+                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameCARRYSETKeyword_0_29()); 
+                    match(input,CARRYSET,FOLLOW_CARRYSET_in_rule__IntrinsicArithmeticWords__NameAlternatives_02565); 
+                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameCARRYSETKeyword_0_29()); 
+
+                    }
+
+
+                    }
+                    break;
+                case 31 :
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1209:6: ( ABS )
+                    {
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1209:6: ( ABS )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1210:1: ABS
+                    {
+                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameABSKeyword_0_30()); 
+                    match(input,ABS,FOLLOW_ABS_in_rule__IntrinsicArithmeticWords__NameAlternatives_02585); 
+                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameABSKeyword_0_30()); 
+
+                    }
+
+
+                    }
+                    break;
+                case 32 :
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1217:6: ( DABS )
+                    {
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1217:6: ( DABS )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1218:1: DABS
+                    {
+                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameDABSKeyword_0_31()); 
+                    match(input,DABS,FOLLOW_DABS_in_rule__IntrinsicArithmeticWords__NameAlternatives_02605); 
+                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameDABSKeyword_0_31()); 
+
+                    }
+
+
+                    }
+                    break;
+                case 33 :
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1225:6: ( EXTEND )
+                    {
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1225:6: ( EXTEND )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1226:1: EXTEND
+                    {
+                     before(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameEXTENDKeyword_0_32()); 
+                    match(input,EXTEND,FOLLOW_EXTEND_in_rule__IntrinsicArithmeticWords__NameAlternatives_02625); 
+                     after(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameEXTENDKeyword_0_32()); 
+
+                    }
+
+
+                    }
+                    break;
+
+            }
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__IntrinsicArithmeticWords__NameAlternatives_0"
 
 
     // $ANTLR start "rule__Word__Alternatives"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1101:1: rule__Word__Alternatives : ( ( ruleIntrinsicStackWords ) | ( ruleIntrinsicMemoryWords ) | ( ruleIntrinsicArithmeticWords ) | ( ( rule__Word__NameAssignment_3 ) ) | ( ( rule__Word__NameAssignment_4 ) ) );
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1238:1: rule__Word__Alternatives : ( ( ruleIntrinsicBranchWords ) | ( ruleIntrinsicStackWords ) | ( ruleIntrinsicMemoryWords ) | ( ruleIntrinsicArithmeticWords ) | ( ( rule__Word__NameAssignment_4 ) ) | ( ( rule__Word__NameAssignment_5 ) ) );
     public final void rule__Word__Alternatives() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1105:1: ( ( ruleIntrinsicStackWords ) | ( ruleIntrinsicMemoryWords ) | ( ruleIntrinsicArithmeticWords ) | ( ( rule__Word__NameAssignment_3 ) ) | ( ( rule__Word__NameAssignment_4 ) ) )
-            int alt7=5;
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1242:1: ( ( ruleIntrinsicBranchWords ) | ( ruleIntrinsicStackWords ) | ( ruleIntrinsicMemoryWords ) | ( ruleIntrinsicArithmeticWords ) | ( ( rule__Word__NameAssignment_4 ) ) | ( ( rule__Word__NameAssignment_5 ) ) )
+            int alt8=6;
             switch ( input.LA(1) ) {
+            case TorBranch:
+            case Branch_2:
+            case NcBranch:
+            case NoBranch:
+            case NsBranch:
+            case Branch:
+            case Branch_1:
+            case SBranch:
+            case NzExit:
+            case ZExit:
+            case Jsr:
+                {
+                alt8=1;
+                }
+                break;
             case RCLEAR:
             case DROP_1:
             case OVER_1:
@@ -2912,7 +3292,7 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
             case R_1:
             case R_2:
                 {
-                alt7=1;
+                alt8=2;
                 }
                 break;
             case COUNT:
@@ -2941,7 +3321,7 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
             case ExclamationMark:
             case CommercialAt:
                 {
-                alt7=2;
+                alt8=3;
                 }
                 break;
             case CARRY_RESET:
@@ -2978,41 +3358,41 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
             case HyphenMinus:
             case Solidus:
                 {
-                alt7=3;
+                alt8=4;
                 }
                 break;
             case RULE_INT:
             case RULE_DOUBLE:
                 {
-                alt7=4;
+                alt8=5;
                 }
                 break;
             case RULE_ID:
                 {
-                alt7=5;
+                alt8=6;
                 }
                 break;
             default:
                 NoViableAltException nvae =
-                    new NoViableAltException("", 7, 0, input);
+                    new NoViableAltException("", 8, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt7) {
+            switch (alt8) {
                 case 1 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1106:1: ( ruleIntrinsicStackWords )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1243:1: ( ruleIntrinsicBranchWords )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1106:1: ( ruleIntrinsicStackWords )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1107:1: ruleIntrinsicStackWords
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1243:1: ( ruleIntrinsicBranchWords )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1244:1: ruleIntrinsicBranchWords
                     {
-                     before(grammarAccess.getWordAccess().getIntrinsicStackWordsParserRuleCall_0()); 
-                    pushFollow(FOLLOW_ruleIntrinsicStackWords_in_rule__Word__Alternatives2360);
-                    ruleIntrinsicStackWords();
+                     before(grammarAccess.getWordAccess().getIntrinsicBranchWordsParserRuleCall_0()); 
+                    pushFollow(FOLLOW_ruleIntrinsicBranchWords_in_rule__Word__Alternatives2659);
+                    ruleIntrinsicBranchWords();
 
                     state._fsp--;
 
-                     after(grammarAccess.getWordAccess().getIntrinsicStackWordsParserRuleCall_0()); 
+                     after(grammarAccess.getWordAccess().getIntrinsicBranchWordsParserRuleCall_0()); 
 
                     }
 
@@ -3020,18 +3400,18 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 2 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1112:6: ( ruleIntrinsicMemoryWords )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1249:6: ( ruleIntrinsicStackWords )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1112:6: ( ruleIntrinsicMemoryWords )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1113:1: ruleIntrinsicMemoryWords
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1249:6: ( ruleIntrinsicStackWords )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1250:1: ruleIntrinsicStackWords
                     {
-                     before(grammarAccess.getWordAccess().getIntrinsicMemoryWordsParserRuleCall_1()); 
-                    pushFollow(FOLLOW_ruleIntrinsicMemoryWords_in_rule__Word__Alternatives2377);
-                    ruleIntrinsicMemoryWords();
+                     before(grammarAccess.getWordAccess().getIntrinsicStackWordsParserRuleCall_1()); 
+                    pushFollow(FOLLOW_ruleIntrinsicStackWords_in_rule__Word__Alternatives2676);
+                    ruleIntrinsicStackWords();
 
                     state._fsp--;
 
-                     after(grammarAccess.getWordAccess().getIntrinsicMemoryWordsParserRuleCall_1()); 
+                     after(grammarAccess.getWordAccess().getIntrinsicStackWordsParserRuleCall_1()); 
 
                     }
 
@@ -3039,18 +3419,18 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 3 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1118:6: ( ruleIntrinsicArithmeticWords )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1255:6: ( ruleIntrinsicMemoryWords )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1118:6: ( ruleIntrinsicArithmeticWords )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1119:1: ruleIntrinsicArithmeticWords
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1255:6: ( ruleIntrinsicMemoryWords )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1256:1: ruleIntrinsicMemoryWords
                     {
-                     before(grammarAccess.getWordAccess().getIntrinsicArithmeticWordsParserRuleCall_2()); 
-                    pushFollow(FOLLOW_ruleIntrinsicArithmeticWords_in_rule__Word__Alternatives2394);
-                    ruleIntrinsicArithmeticWords();
+                     before(grammarAccess.getWordAccess().getIntrinsicMemoryWordsParserRuleCall_2()); 
+                    pushFollow(FOLLOW_ruleIntrinsicMemoryWords_in_rule__Word__Alternatives2693);
+                    ruleIntrinsicMemoryWords();
 
                     state._fsp--;
 
-                     after(grammarAccess.getWordAccess().getIntrinsicArithmeticWordsParserRuleCall_2()); 
+                     after(grammarAccess.getWordAccess().getIntrinsicMemoryWordsParserRuleCall_2()); 
 
                     }
 
@@ -3058,24 +3438,18 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 4 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1124:6: ( ( rule__Word__NameAssignment_3 ) )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1261:6: ( ruleIntrinsicArithmeticWords )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1124:6: ( ( rule__Word__NameAssignment_3 ) )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1125:1: ( rule__Word__NameAssignment_3 )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1261:6: ( ruleIntrinsicArithmeticWords )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1262:1: ruleIntrinsicArithmeticWords
                     {
-                     before(grammarAccess.getWordAccess().getNameAssignment_3()); 
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1126:1: ( rule__Word__NameAssignment_3 )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1126:2: rule__Word__NameAssignment_3
-                    {
-                    pushFollow(FOLLOW_rule__Word__NameAssignment_3_in_rule__Word__Alternatives2411);
-                    rule__Word__NameAssignment_3();
+                     before(grammarAccess.getWordAccess().getIntrinsicArithmeticWordsParserRuleCall_3()); 
+                    pushFollow(FOLLOW_ruleIntrinsicArithmeticWords_in_rule__Word__Alternatives2710);
+                    ruleIntrinsicArithmeticWords();
 
                     state._fsp--;
 
-
-                    }
-
-                     after(grammarAccess.getWordAccess().getNameAssignment_3()); 
+                     after(grammarAccess.getWordAccess().getIntrinsicArithmeticWordsParserRuleCall_3()); 
 
                     }
 
@@ -3083,16 +3457,16 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 5 :
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1130:6: ( ( rule__Word__NameAssignment_4 ) )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1267:6: ( ( rule__Word__NameAssignment_4 ) )
                     {
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1130:6: ( ( rule__Word__NameAssignment_4 ) )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1131:1: ( rule__Word__NameAssignment_4 )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1267:6: ( ( rule__Word__NameAssignment_4 ) )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1268:1: ( rule__Word__NameAssignment_4 )
                     {
                      before(grammarAccess.getWordAccess().getNameAssignment_4()); 
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1132:1: ( rule__Word__NameAssignment_4 )
-                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1132:2: rule__Word__NameAssignment_4
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1269:1: ( rule__Word__NameAssignment_4 )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1269:2: rule__Word__NameAssignment_4
                     {
-                    pushFollow(FOLLOW_rule__Word__NameAssignment_4_in_rule__Word__Alternatives2429);
+                    pushFollow(FOLLOW_rule__Word__NameAssignment_4_in_rule__Word__Alternatives2727);
                     rule__Word__NameAssignment_4();
 
                     state._fsp--;
@@ -3101,6 +3475,31 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
                     }
 
                      after(grammarAccess.getWordAccess().getNameAssignment_4()); 
+
+                    }
+
+
+                    }
+                    break;
+                case 6 :
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1273:6: ( ( rule__Word__NameAssignment_5 ) )
+                    {
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1273:6: ( ( rule__Word__NameAssignment_5 ) )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1274:1: ( rule__Word__NameAssignment_5 )
+                    {
+                     before(grammarAccess.getWordAccess().getNameAssignment_5()); 
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1275:1: ( rule__Word__NameAssignment_5 )
+                    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1275:2: rule__Word__NameAssignment_5
+                    {
+                    pushFollow(FOLLOW_rule__Word__NameAssignment_5_in_rule__Word__Alternatives2745);
+                    rule__Word__NameAssignment_5();
+
+                    state._fsp--;
+
+
+                    }
+
+                     after(grammarAccess.getWordAccess().getNameAssignment_5()); 
 
                     }
 
@@ -3125,21 +3524,21 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Function__Group__0"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1143:1: rule__Function__Group__0 : rule__Function__Group__0__Impl rule__Function__Group__1 ;
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1286:1: rule__Function__Group__0 : rule__Function__Group__0__Impl rule__Function__Group__1 ;
     public final void rule__Function__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1147:1: ( rule__Function__Group__0__Impl rule__Function__Group__1 )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1148:2: rule__Function__Group__0__Impl rule__Function__Group__1
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1290:1: ( rule__Function__Group__0__Impl rule__Function__Group__1 )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1291:2: rule__Function__Group__0__Impl rule__Function__Group__1
             {
-            pushFollow(FOLLOW_rule__Function__Group__0__Impl_in_rule__Function__Group__02460);
+            pushFollow(FOLLOW_rule__Function__Group__0__Impl_in_rule__Function__Group__02776);
             rule__Function__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Function__Group__1_in_rule__Function__Group__02463);
+            pushFollow(FOLLOW_rule__Function__Group__1_in_rule__Function__Group__02779);
             rule__Function__Group__1();
 
             state._fsp--;
@@ -3163,20 +3562,20 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Function__Group__0__Impl"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1155:1: rule__Function__Group__0__Impl : ( Colon ) ;
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1298:1: rule__Function__Group__0__Impl : ( Colon ) ;
     public final void rule__Function__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1159:1: ( ( Colon ) )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1160:1: ( Colon )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1302:1: ( ( Colon ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1303:1: ( Colon )
             {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1160:1: ( Colon )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1161:1: Colon
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1303:1: ( Colon )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1304:1: Colon
             {
              before(grammarAccess.getFunctionAccess().getColonKeyword_0()); 
-            match(input,Colon,FOLLOW_Colon_in_rule__Function__Group__0__Impl2491); 
+            match(input,Colon,FOLLOW_Colon_in_rule__Function__Group__0__Impl2807); 
              after(grammarAccess.getFunctionAccess().getColonKeyword_0()); 
 
             }
@@ -3200,21 +3599,21 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Function__Group__1"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1174:1: rule__Function__Group__1 : rule__Function__Group__1__Impl rule__Function__Group__2 ;
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1317:1: rule__Function__Group__1 : rule__Function__Group__1__Impl rule__Function__Group__2 ;
     public final void rule__Function__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1178:1: ( rule__Function__Group__1__Impl rule__Function__Group__2 )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1179:2: rule__Function__Group__1__Impl rule__Function__Group__2
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1321:1: ( rule__Function__Group__1__Impl rule__Function__Group__2 )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1322:2: rule__Function__Group__1__Impl rule__Function__Group__2
             {
-            pushFollow(FOLLOW_rule__Function__Group__1__Impl_in_rule__Function__Group__12522);
+            pushFollow(FOLLOW_rule__Function__Group__1__Impl_in_rule__Function__Group__12838);
             rule__Function__Group__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Function__Group__2_in_rule__Function__Group__12525);
+            pushFollow(FOLLOW_rule__Function__Group__2_in_rule__Function__Group__12841);
             rule__Function__Group__2();
 
             state._fsp--;
@@ -3238,31 +3637,25 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Function__Group__1__Impl"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1186:1: rule__Function__Group__1__Impl : ( ( rule__Function__NameAssignment_1 ) ) ;
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1329:1: rule__Function__Group__1__Impl : ( ruleWord ) ;
     public final void rule__Function__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1190:1: ( ( ( rule__Function__NameAssignment_1 ) ) )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1191:1: ( ( rule__Function__NameAssignment_1 ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1333:1: ( ( ruleWord ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1334:1: ( ruleWord )
             {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1191:1: ( ( rule__Function__NameAssignment_1 ) )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1192:1: ( rule__Function__NameAssignment_1 )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1334:1: ( ruleWord )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1335:1: ruleWord
             {
-             before(grammarAccess.getFunctionAccess().getNameAssignment_1()); 
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1193:1: ( rule__Function__NameAssignment_1 )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1193:2: rule__Function__NameAssignment_1
-            {
-            pushFollow(FOLLOW_rule__Function__NameAssignment_1_in_rule__Function__Group__1__Impl2552);
-            rule__Function__NameAssignment_1();
+             before(grammarAccess.getFunctionAccess().getWordParserRuleCall_1()); 
+            pushFollow(FOLLOW_ruleWord_in_rule__Function__Group__1__Impl2868);
+            ruleWord();
 
             state._fsp--;
 
-
-            }
-
-             after(grammarAccess.getFunctionAccess().getNameAssignment_1()); 
+             after(grammarAccess.getFunctionAccess().getWordParserRuleCall_1()); 
 
             }
 
@@ -3285,21 +3678,21 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Function__Group__2"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1203:1: rule__Function__Group__2 : rule__Function__Group__2__Impl rule__Function__Group__3 ;
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1346:1: rule__Function__Group__2 : rule__Function__Group__2__Impl rule__Function__Group__3 ;
     public final void rule__Function__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1207:1: ( rule__Function__Group__2__Impl rule__Function__Group__3 )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1208:2: rule__Function__Group__2__Impl rule__Function__Group__3
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1350:1: ( rule__Function__Group__2__Impl rule__Function__Group__3 )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1351:2: rule__Function__Group__2__Impl rule__Function__Group__3
             {
-            pushFollow(FOLLOW_rule__Function__Group__2__Impl_in_rule__Function__Group__22582);
+            pushFollow(FOLLOW_rule__Function__Group__2__Impl_in_rule__Function__Group__22897);
             rule__Function__Group__2__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Function__Group__3_in_rule__Function__Group__22585);
+            pushFollow(FOLLOW_rule__Function__Group__3_in_rule__Function__Group__22900);
             rule__Function__Group__3();
 
             state._fsp--;
@@ -3323,35 +3716,35 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Function__Group__2__Impl"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1215:1: rule__Function__Group__2__Impl : ( ( rule__Function__WordsAssignment_2 )* ) ;
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1358:1: rule__Function__Group__2__Impl : ( ( rule__Function__WordsAssignment_2 )* ) ;
     public final void rule__Function__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1219:1: ( ( ( rule__Function__WordsAssignment_2 )* ) )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1220:1: ( ( rule__Function__WordsAssignment_2 )* )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1362:1: ( ( ( rule__Function__WordsAssignment_2 )* ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1363:1: ( ( rule__Function__WordsAssignment_2 )* )
             {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1220:1: ( ( rule__Function__WordsAssignment_2 )* )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1221:1: ( rule__Function__WordsAssignment_2 )*
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1363:1: ( ( rule__Function__WordsAssignment_2 )* )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1364:1: ( rule__Function__WordsAssignment_2 )*
             {
              before(grammarAccess.getFunctionAccess().getWordsAssignment_2()); 
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1222:1: ( rule__Function__WordsAssignment_2 )*
-            loop8:
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1365:1: ( rule__Function__WordsAssignment_2 )*
+            loop9:
             do {
-                int alt8=2;
-                int LA8_0 = input.LA(1);
+                int alt9=2;
+                int LA9_0 = input.LA(1);
 
-                if ( ((LA8_0>=CARRY_RESET && LA8_0<=UNPACK)||(LA8_0>=DROP_1 && LA8_0<=PlusSign)||(LA8_0>=HyphenMinus && LA8_0<=Solidus)||LA8_0==CommercialAt||(LA8_0>=RULE_INT && LA8_0<=RULE_ID)) ) {
-                    alt8=1;
+                if ( ((LA9_0>=CARRY_RESET && LA9_0<=UNPACK)||(LA9_0>=ZExit && LA9_0<=PlusSign)||(LA9_0>=HyphenMinus && LA9_0<=Solidus)||LA9_0==CommercialAt||(LA9_0>=RULE_INT && LA9_0<=RULE_ID)) ) {
+                    alt9=1;
                 }
 
 
-                switch (alt8) {
+                switch (alt9) {
             	case 1 :
-            	    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1222:2: rule__Function__WordsAssignment_2
+            	    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1365:2: rule__Function__WordsAssignment_2
             	    {
-            	    pushFollow(FOLLOW_rule__Function__WordsAssignment_2_in_rule__Function__Group__2__Impl2612);
+            	    pushFollow(FOLLOW_rule__Function__WordsAssignment_2_in_rule__Function__Group__2__Impl2927);
             	    rule__Function__WordsAssignment_2();
 
             	    state._fsp--;
@@ -3361,7 +3754,7 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
             	    break;
 
             	default :
-            	    break loop8;
+            	    break loop9;
                 }
             } while (true);
 
@@ -3388,16 +3781,16 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Function__Group__3"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1232:1: rule__Function__Group__3 : rule__Function__Group__3__Impl ;
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1375:1: rule__Function__Group__3 : rule__Function__Group__3__Impl ;
     public final void rule__Function__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1236:1: ( rule__Function__Group__3__Impl )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1237:2: rule__Function__Group__3__Impl
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1379:1: ( rule__Function__Group__3__Impl )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1380:2: rule__Function__Group__3__Impl
             {
-            pushFollow(FOLLOW_rule__Function__Group__3__Impl_in_rule__Function__Group__32643);
+            pushFollow(FOLLOW_rule__Function__Group__3__Impl_in_rule__Function__Group__32958);
             rule__Function__Group__3__Impl();
 
             state._fsp--;
@@ -3421,20 +3814,20 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Function__Group__3__Impl"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1243:1: rule__Function__Group__3__Impl : ( Semicolon ) ;
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1386:1: rule__Function__Group__3__Impl : ( Semicolon ) ;
     public final void rule__Function__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1247:1: ( ( Semicolon ) )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1248:1: ( Semicolon )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1390:1: ( ( Semicolon ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1391:1: ( Semicolon )
             {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1248:1: ( Semicolon )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1249:1: Semicolon
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1391:1: ( Semicolon )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1392:1: Semicolon
             {
              before(grammarAccess.getFunctionAccess().getSemicolonKeyword_3()); 
-            match(input,Semicolon,FOLLOW_Semicolon_in_rule__Function__Group__3__Impl2671); 
+            match(input,Semicolon,FOLLOW_Semicolon_in_rule__Function__Group__3__Impl2986); 
              after(grammarAccess.getFunctionAccess().getSemicolonKeyword_3()); 
 
             }
@@ -3458,21 +3851,21 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Create__Group__0"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1270:1: rule__Create__Group__0 : rule__Create__Group__0__Impl rule__Create__Group__1 ;
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1413:1: rule__Create__Group__0 : rule__Create__Group__0__Impl rule__Create__Group__1 ;
     public final void rule__Create__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1274:1: ( rule__Create__Group__0__Impl rule__Create__Group__1 )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1275:2: rule__Create__Group__0__Impl rule__Create__Group__1
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1417:1: ( rule__Create__Group__0__Impl rule__Create__Group__1 )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1418:2: rule__Create__Group__0__Impl rule__Create__Group__1
             {
-            pushFollow(FOLLOW_rule__Create__Group__0__Impl_in_rule__Create__Group__02710);
+            pushFollow(FOLLOW_rule__Create__Group__0__Impl_in_rule__Create__Group__03025);
             rule__Create__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Create__Group__1_in_rule__Create__Group__02713);
+            pushFollow(FOLLOW_rule__Create__Group__1_in_rule__Create__Group__03028);
             rule__Create__Group__1();
 
             state._fsp--;
@@ -3496,20 +3889,20 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Create__Group__0__Impl"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1282:1: rule__Create__Group__0__Impl : ( Create ) ;
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1425:1: rule__Create__Group__0__Impl : ( Create ) ;
     public final void rule__Create__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1286:1: ( ( Create ) )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1287:1: ( Create )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1429:1: ( ( Create ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1430:1: ( Create )
             {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1287:1: ( Create )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1288:1: Create
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1430:1: ( Create )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1431:1: Create
             {
              before(grammarAccess.getCreateAccess().getCreateKeyword_0()); 
-            match(input,Create,FOLLOW_Create_in_rule__Create__Group__0__Impl2741); 
+            match(input,Create,FOLLOW_Create_in_rule__Create__Group__0__Impl3056); 
              after(grammarAccess.getCreateAccess().getCreateKeyword_0()); 
 
             }
@@ -3533,21 +3926,21 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Create__Group__1"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1301:1: rule__Create__Group__1 : rule__Create__Group__1__Impl rule__Create__Group__2 ;
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1444:1: rule__Create__Group__1 : rule__Create__Group__1__Impl rule__Create__Group__2 ;
     public final void rule__Create__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1305:1: ( rule__Create__Group__1__Impl rule__Create__Group__2 )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1306:2: rule__Create__Group__1__Impl rule__Create__Group__2
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1448:1: ( rule__Create__Group__1__Impl rule__Create__Group__2 )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1449:2: rule__Create__Group__1__Impl rule__Create__Group__2
             {
-            pushFollow(FOLLOW_rule__Create__Group__1__Impl_in_rule__Create__Group__12772);
+            pushFollow(FOLLOW_rule__Create__Group__1__Impl_in_rule__Create__Group__13087);
             rule__Create__Group__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Create__Group__2_in_rule__Create__Group__12775);
+            pushFollow(FOLLOW_rule__Create__Group__2_in_rule__Create__Group__13090);
             rule__Create__Group__2();
 
             state._fsp--;
@@ -3571,23 +3964,23 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Create__Group__1__Impl"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1313:1: rule__Create__Group__1__Impl : ( ( rule__Create__NameAssignment_1 ) ) ;
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1456:1: rule__Create__Group__1__Impl : ( ( rule__Create__NameAssignment_1 ) ) ;
     public final void rule__Create__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1317:1: ( ( ( rule__Create__NameAssignment_1 ) ) )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1318:1: ( ( rule__Create__NameAssignment_1 ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1460:1: ( ( ( rule__Create__NameAssignment_1 ) ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1461:1: ( ( rule__Create__NameAssignment_1 ) )
             {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1318:1: ( ( rule__Create__NameAssignment_1 ) )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1319:1: ( rule__Create__NameAssignment_1 )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1461:1: ( ( rule__Create__NameAssignment_1 ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1462:1: ( rule__Create__NameAssignment_1 )
             {
              before(grammarAccess.getCreateAccess().getNameAssignment_1()); 
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1320:1: ( rule__Create__NameAssignment_1 )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1320:2: rule__Create__NameAssignment_1
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1463:1: ( rule__Create__NameAssignment_1 )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1463:2: rule__Create__NameAssignment_1
             {
-            pushFollow(FOLLOW_rule__Create__NameAssignment_1_in_rule__Create__Group__1__Impl2802);
+            pushFollow(FOLLOW_rule__Create__NameAssignment_1_in_rule__Create__Group__1__Impl3117);
             rule__Create__NameAssignment_1();
 
             state._fsp--;
@@ -3618,16 +4011,16 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Create__Group__2"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1330:1: rule__Create__Group__2 : rule__Create__Group__2__Impl ;
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1473:1: rule__Create__Group__2 : rule__Create__Group__2__Impl ;
     public final void rule__Create__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1334:1: ( rule__Create__Group__2__Impl )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1335:2: rule__Create__Group__2__Impl
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1477:1: ( rule__Create__Group__2__Impl )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1478:2: rule__Create__Group__2__Impl
             {
-            pushFollow(FOLLOW_rule__Create__Group__2__Impl_in_rule__Create__Group__22832);
+            pushFollow(FOLLOW_rule__Create__Group__2__Impl_in_rule__Create__Group__23147);
             rule__Create__Group__2__Impl();
 
             state._fsp--;
@@ -3651,50 +4044,50 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Create__Group__2__Impl"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1341:1: rule__Create__Group__2__Impl : ( ( rule__Create__Group_2__0 )* ) ;
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1484:1: rule__Create__Group__2__Impl : ( ( rule__Create__Group_2__0 )* ) ;
     public final void rule__Create__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1345:1: ( ( ( rule__Create__Group_2__0 )* ) )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1346:1: ( ( rule__Create__Group_2__0 )* )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1488:1: ( ( ( rule__Create__Group_2__0 )* ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1489:1: ( ( rule__Create__Group_2__0 )* )
             {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1346:1: ( ( rule__Create__Group_2__0 )* )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1347:1: ( rule__Create__Group_2__0 )*
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1489:1: ( ( rule__Create__Group_2__0 )* )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1490:1: ( rule__Create__Group_2__0 )*
             {
              before(grammarAccess.getCreateAccess().getGroup_2()); 
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1348:1: ( rule__Create__Group_2__0 )*
-            loop9:
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1491:1: ( rule__Create__Group_2__0 )*
+            loop10:
             do {
-                int alt9=2;
-                int LA9_0 = input.LA(1);
+                int alt10=2;
+                int LA10_0 = input.LA(1);
 
-                if ( (LA9_0==RULE_INT) ) {
-                    int LA9_2 = input.LA(2);
+                if ( (LA10_0==RULE_INT) ) {
+                    int LA10_2 = input.LA(2);
 
-                    if ( (LA9_2==Comma) ) {
-                        alt9=1;
+                    if ( (LA10_2==Comma) ) {
+                        alt10=1;
                     }
 
 
                 }
-                else if ( (LA9_0==RULE_DOUBLE) ) {
-                    int LA9_3 = input.LA(2);
+                else if ( (LA10_0==RULE_DOUBLE) ) {
+                    int LA10_3 = input.LA(2);
 
-                    if ( (LA9_3==Comma) ) {
-                        alt9=1;
+                    if ( (LA10_3==Comma) ) {
+                        alt10=1;
                     }
 
 
                 }
 
 
-                switch (alt9) {
+                switch (alt10) {
             	case 1 :
-            	    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1348:2: rule__Create__Group_2__0
+            	    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1491:2: rule__Create__Group_2__0
             	    {
-            	    pushFollow(FOLLOW_rule__Create__Group_2__0_in_rule__Create__Group__2__Impl2859);
+            	    pushFollow(FOLLOW_rule__Create__Group_2__0_in_rule__Create__Group__2__Impl3174);
             	    rule__Create__Group_2__0();
 
             	    state._fsp--;
@@ -3704,7 +4097,7 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
             	    break;
 
             	default :
-            	    break loop9;
+            	    break loop10;
                 }
             } while (true);
 
@@ -3731,21 +4124,21 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Create__Group_2__0"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1364:1: rule__Create__Group_2__0 : rule__Create__Group_2__0__Impl rule__Create__Group_2__1 ;
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1507:1: rule__Create__Group_2__0 : rule__Create__Group_2__0__Impl rule__Create__Group_2__1 ;
     public final void rule__Create__Group_2__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1368:1: ( rule__Create__Group_2__0__Impl rule__Create__Group_2__1 )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1369:2: rule__Create__Group_2__0__Impl rule__Create__Group_2__1
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1511:1: ( rule__Create__Group_2__0__Impl rule__Create__Group_2__1 )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1512:2: rule__Create__Group_2__0__Impl rule__Create__Group_2__1
             {
-            pushFollow(FOLLOW_rule__Create__Group_2__0__Impl_in_rule__Create__Group_2__02896);
+            pushFollow(FOLLOW_rule__Create__Group_2__0__Impl_in_rule__Create__Group_2__03211);
             rule__Create__Group_2__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Create__Group_2__1_in_rule__Create__Group_2__02899);
+            pushFollow(FOLLOW_rule__Create__Group_2__1_in_rule__Create__Group_2__03214);
             rule__Create__Group_2__1();
 
             state._fsp--;
@@ -3769,23 +4162,23 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Create__Group_2__0__Impl"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1376:1: rule__Create__Group_2__0__Impl : ( ( rule__Create__LitAssignment_2_0 ) ) ;
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1519:1: rule__Create__Group_2__0__Impl : ( ( rule__Create__LitAssignment_2_0 ) ) ;
     public final void rule__Create__Group_2__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1380:1: ( ( ( rule__Create__LitAssignment_2_0 ) ) )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1381:1: ( ( rule__Create__LitAssignment_2_0 ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1523:1: ( ( ( rule__Create__LitAssignment_2_0 ) ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1524:1: ( ( rule__Create__LitAssignment_2_0 ) )
             {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1381:1: ( ( rule__Create__LitAssignment_2_0 ) )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1382:1: ( rule__Create__LitAssignment_2_0 )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1524:1: ( ( rule__Create__LitAssignment_2_0 ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1525:1: ( rule__Create__LitAssignment_2_0 )
             {
              before(grammarAccess.getCreateAccess().getLitAssignment_2_0()); 
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1383:1: ( rule__Create__LitAssignment_2_0 )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1383:2: rule__Create__LitAssignment_2_0
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1526:1: ( rule__Create__LitAssignment_2_0 )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1526:2: rule__Create__LitAssignment_2_0
             {
-            pushFollow(FOLLOW_rule__Create__LitAssignment_2_0_in_rule__Create__Group_2__0__Impl2926);
+            pushFollow(FOLLOW_rule__Create__LitAssignment_2_0_in_rule__Create__Group_2__0__Impl3241);
             rule__Create__LitAssignment_2_0();
 
             state._fsp--;
@@ -3816,16 +4209,16 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Create__Group_2__1"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1393:1: rule__Create__Group_2__1 : rule__Create__Group_2__1__Impl ;
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1536:1: rule__Create__Group_2__1 : rule__Create__Group_2__1__Impl ;
     public final void rule__Create__Group_2__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1397:1: ( rule__Create__Group_2__1__Impl )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1398:2: rule__Create__Group_2__1__Impl
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1540:1: ( rule__Create__Group_2__1__Impl )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1541:2: rule__Create__Group_2__1__Impl
             {
-            pushFollow(FOLLOW_rule__Create__Group_2__1__Impl_in_rule__Create__Group_2__12956);
+            pushFollow(FOLLOW_rule__Create__Group_2__1__Impl_in_rule__Create__Group_2__13271);
             rule__Create__Group_2__1__Impl();
 
             state._fsp--;
@@ -3849,20 +4242,20 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Create__Group_2__1__Impl"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1404:1: rule__Create__Group_2__1__Impl : ( Comma ) ;
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1547:1: rule__Create__Group_2__1__Impl : ( Comma ) ;
     public final void rule__Create__Group_2__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1408:1: ( ( Comma ) )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1409:1: ( Comma )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1551:1: ( ( Comma ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1552:1: ( Comma )
             {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1409:1: ( Comma )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1410:1: Comma
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1552:1: ( Comma )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1553:1: Comma
             {
              before(grammarAccess.getCreateAccess().getCommaKeyword_2_1()); 
-            match(input,Comma,FOLLOW_Comma_in_rule__Create__Group_2__1__Impl2984); 
+            match(input,Comma,FOLLOW_Comma_in_rule__Create__Group_2__1__Impl3299); 
              after(grammarAccess.getCreateAccess().getCommaKeyword_2_1()); 
 
             }
@@ -3885,486 +4278,21 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__Create__Group_2__1__Impl"
 
 
-    // $ANTLR start "rule__IntrinsicStackWords__Group__0"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1427:1: rule__IntrinsicStackWords__Group__0 : rule__IntrinsicStackWords__Group__0__Impl rule__IntrinsicStackWords__Group__1 ;
-    public final void rule__IntrinsicStackWords__Group__0() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1431:1: ( rule__IntrinsicStackWords__Group__0__Impl rule__IntrinsicStackWords__Group__1 )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1432:2: rule__IntrinsicStackWords__Group__0__Impl rule__IntrinsicStackWords__Group__1
-            {
-            pushFollow(FOLLOW_rule__IntrinsicStackWords__Group__0__Impl_in_rule__IntrinsicStackWords__Group__03019);
-            rule__IntrinsicStackWords__Group__0__Impl();
-
-            state._fsp--;
-
-            pushFollow(FOLLOW_rule__IntrinsicStackWords__Group__1_in_rule__IntrinsicStackWords__Group__03022);
-            rule__IntrinsicStackWords__Group__1();
-
-            state._fsp--;
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__IntrinsicStackWords__Group__0"
-
-
-    // $ANTLR start "rule__IntrinsicStackWords__Group__0__Impl"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1439:1: rule__IntrinsicStackWords__Group__0__Impl : ( () ) ;
-    public final void rule__IntrinsicStackWords__Group__0__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1443:1: ( ( () ) )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1444:1: ( () )
-            {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1444:1: ( () )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1445:1: ()
-            {
-             before(grammarAccess.getIntrinsicStackWordsAccess().getIntrinsicStackWordsAction_0()); 
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1446:1: ()
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1448:1: 
-            {
-            }
-
-             after(grammarAccess.getIntrinsicStackWordsAccess().getIntrinsicStackWordsAction_0()); 
-
-            }
-
-
-            }
-
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__IntrinsicStackWords__Group__0__Impl"
-
-
-    // $ANTLR start "rule__IntrinsicStackWords__Group__1"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1458:1: rule__IntrinsicStackWords__Group__1 : rule__IntrinsicStackWords__Group__1__Impl ;
-    public final void rule__IntrinsicStackWords__Group__1() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1462:1: ( rule__IntrinsicStackWords__Group__1__Impl )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1463:2: rule__IntrinsicStackWords__Group__1__Impl
-            {
-            pushFollow(FOLLOW_rule__IntrinsicStackWords__Group__1__Impl_in_rule__IntrinsicStackWords__Group__13080);
-            rule__IntrinsicStackWords__Group__1__Impl();
-
-            state._fsp--;
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__IntrinsicStackWords__Group__1"
-
-
-    // $ANTLR start "rule__IntrinsicStackWords__Group__1__Impl"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1469:1: rule__IntrinsicStackWords__Group__1__Impl : ( ( rule__IntrinsicStackWords__NameAssignment_1 ) ) ;
-    public final void rule__IntrinsicStackWords__Group__1__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1473:1: ( ( ( rule__IntrinsicStackWords__NameAssignment_1 ) ) )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1474:1: ( ( rule__IntrinsicStackWords__NameAssignment_1 ) )
-            {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1474:1: ( ( rule__IntrinsicStackWords__NameAssignment_1 ) )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1475:1: ( rule__IntrinsicStackWords__NameAssignment_1 )
-            {
-             before(grammarAccess.getIntrinsicStackWordsAccess().getNameAssignment_1()); 
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1476:1: ( rule__IntrinsicStackWords__NameAssignment_1 )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1476:2: rule__IntrinsicStackWords__NameAssignment_1
-            {
-            pushFollow(FOLLOW_rule__IntrinsicStackWords__NameAssignment_1_in_rule__IntrinsicStackWords__Group__1__Impl3107);
-            rule__IntrinsicStackWords__NameAssignment_1();
-
-            state._fsp--;
-
-
-            }
-
-             after(grammarAccess.getIntrinsicStackWordsAccess().getNameAssignment_1()); 
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__IntrinsicStackWords__Group__1__Impl"
-
-
-    // $ANTLR start "rule__IntrinsicMemoryWords__Group__0"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1490:1: rule__IntrinsicMemoryWords__Group__0 : rule__IntrinsicMemoryWords__Group__0__Impl rule__IntrinsicMemoryWords__Group__1 ;
-    public final void rule__IntrinsicMemoryWords__Group__0() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1494:1: ( rule__IntrinsicMemoryWords__Group__0__Impl rule__IntrinsicMemoryWords__Group__1 )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1495:2: rule__IntrinsicMemoryWords__Group__0__Impl rule__IntrinsicMemoryWords__Group__1
-            {
-            pushFollow(FOLLOW_rule__IntrinsicMemoryWords__Group__0__Impl_in_rule__IntrinsicMemoryWords__Group__03141);
-            rule__IntrinsicMemoryWords__Group__0__Impl();
-
-            state._fsp--;
-
-            pushFollow(FOLLOW_rule__IntrinsicMemoryWords__Group__1_in_rule__IntrinsicMemoryWords__Group__03144);
-            rule__IntrinsicMemoryWords__Group__1();
-
-            state._fsp--;
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__IntrinsicMemoryWords__Group__0"
-
-
-    // $ANTLR start "rule__IntrinsicMemoryWords__Group__0__Impl"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1502:1: rule__IntrinsicMemoryWords__Group__0__Impl : ( () ) ;
-    public final void rule__IntrinsicMemoryWords__Group__0__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1506:1: ( ( () ) )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1507:1: ( () )
-            {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1507:1: ( () )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1508:1: ()
-            {
-             before(grammarAccess.getIntrinsicMemoryWordsAccess().getIntrinsicMemoryWordsAction_0()); 
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1509:1: ()
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1511:1: 
-            {
-            }
-
-             after(grammarAccess.getIntrinsicMemoryWordsAccess().getIntrinsicMemoryWordsAction_0()); 
-
-            }
-
-
-            }
-
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__IntrinsicMemoryWords__Group__0__Impl"
-
-
-    // $ANTLR start "rule__IntrinsicMemoryWords__Group__1"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1521:1: rule__IntrinsicMemoryWords__Group__1 : rule__IntrinsicMemoryWords__Group__1__Impl ;
-    public final void rule__IntrinsicMemoryWords__Group__1() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1525:1: ( rule__IntrinsicMemoryWords__Group__1__Impl )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1526:2: rule__IntrinsicMemoryWords__Group__1__Impl
-            {
-            pushFollow(FOLLOW_rule__IntrinsicMemoryWords__Group__1__Impl_in_rule__IntrinsicMemoryWords__Group__13202);
-            rule__IntrinsicMemoryWords__Group__1__Impl();
-
-            state._fsp--;
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__IntrinsicMemoryWords__Group__1"
-
-
-    // $ANTLR start "rule__IntrinsicMemoryWords__Group__1__Impl"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1532:1: rule__IntrinsicMemoryWords__Group__1__Impl : ( ( rule__IntrinsicMemoryWords__NameAssignment_1 ) ) ;
-    public final void rule__IntrinsicMemoryWords__Group__1__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1536:1: ( ( ( rule__IntrinsicMemoryWords__NameAssignment_1 ) ) )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1537:1: ( ( rule__IntrinsicMemoryWords__NameAssignment_1 ) )
-            {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1537:1: ( ( rule__IntrinsicMemoryWords__NameAssignment_1 ) )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1538:1: ( rule__IntrinsicMemoryWords__NameAssignment_1 )
-            {
-             before(grammarAccess.getIntrinsicMemoryWordsAccess().getNameAssignment_1()); 
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1539:1: ( rule__IntrinsicMemoryWords__NameAssignment_1 )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1539:2: rule__IntrinsicMemoryWords__NameAssignment_1
-            {
-            pushFollow(FOLLOW_rule__IntrinsicMemoryWords__NameAssignment_1_in_rule__IntrinsicMemoryWords__Group__1__Impl3229);
-            rule__IntrinsicMemoryWords__NameAssignment_1();
-
-            state._fsp--;
-
-
-            }
-
-             after(grammarAccess.getIntrinsicMemoryWordsAccess().getNameAssignment_1()); 
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__IntrinsicMemoryWords__Group__1__Impl"
-
-
-    // $ANTLR start "rule__IntrinsicArithmeticWords__Group__0"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1553:1: rule__IntrinsicArithmeticWords__Group__0 : rule__IntrinsicArithmeticWords__Group__0__Impl rule__IntrinsicArithmeticWords__Group__1 ;
-    public final void rule__IntrinsicArithmeticWords__Group__0() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1557:1: ( rule__IntrinsicArithmeticWords__Group__0__Impl rule__IntrinsicArithmeticWords__Group__1 )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1558:2: rule__IntrinsicArithmeticWords__Group__0__Impl rule__IntrinsicArithmeticWords__Group__1
-            {
-            pushFollow(FOLLOW_rule__IntrinsicArithmeticWords__Group__0__Impl_in_rule__IntrinsicArithmeticWords__Group__03263);
-            rule__IntrinsicArithmeticWords__Group__0__Impl();
-
-            state._fsp--;
-
-            pushFollow(FOLLOW_rule__IntrinsicArithmeticWords__Group__1_in_rule__IntrinsicArithmeticWords__Group__03266);
-            rule__IntrinsicArithmeticWords__Group__1();
-
-            state._fsp--;
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__IntrinsicArithmeticWords__Group__0"
-
-
-    // $ANTLR start "rule__IntrinsicArithmeticWords__Group__0__Impl"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1565:1: rule__IntrinsicArithmeticWords__Group__0__Impl : ( () ) ;
-    public final void rule__IntrinsicArithmeticWords__Group__0__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1569:1: ( ( () ) )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1570:1: ( () )
-            {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1570:1: ( () )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1571:1: ()
-            {
-             before(grammarAccess.getIntrinsicArithmeticWordsAccess().getIntrinsicArithmeticWordsAction_0()); 
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1572:1: ()
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1574:1: 
-            {
-            }
-
-             after(grammarAccess.getIntrinsicArithmeticWordsAccess().getIntrinsicArithmeticWordsAction_0()); 
-
-            }
-
-
-            }
-
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__IntrinsicArithmeticWords__Group__0__Impl"
-
-
-    // $ANTLR start "rule__IntrinsicArithmeticWords__Group__1"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1584:1: rule__IntrinsicArithmeticWords__Group__1 : rule__IntrinsicArithmeticWords__Group__1__Impl ;
-    public final void rule__IntrinsicArithmeticWords__Group__1() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1588:1: ( rule__IntrinsicArithmeticWords__Group__1__Impl )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1589:2: rule__IntrinsicArithmeticWords__Group__1__Impl
-            {
-            pushFollow(FOLLOW_rule__IntrinsicArithmeticWords__Group__1__Impl_in_rule__IntrinsicArithmeticWords__Group__13324);
-            rule__IntrinsicArithmeticWords__Group__1__Impl();
-
-            state._fsp--;
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__IntrinsicArithmeticWords__Group__1"
-
-
-    // $ANTLR start "rule__IntrinsicArithmeticWords__Group__1__Impl"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1595:1: rule__IntrinsicArithmeticWords__Group__1__Impl : ( ( rule__IntrinsicArithmeticWords__NameAssignment_1 ) ) ;
-    public final void rule__IntrinsicArithmeticWords__Group__1__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1599:1: ( ( ( rule__IntrinsicArithmeticWords__NameAssignment_1 ) ) )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1600:1: ( ( rule__IntrinsicArithmeticWords__NameAssignment_1 ) )
-            {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1600:1: ( ( rule__IntrinsicArithmeticWords__NameAssignment_1 ) )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1601:1: ( rule__IntrinsicArithmeticWords__NameAssignment_1 )
-            {
-             before(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameAssignment_1()); 
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1602:1: ( rule__IntrinsicArithmeticWords__NameAssignment_1 )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1602:2: rule__IntrinsicArithmeticWords__NameAssignment_1
-            {
-            pushFollow(FOLLOW_rule__IntrinsicArithmeticWords__NameAssignment_1_in_rule__IntrinsicArithmeticWords__Group__1__Impl3351);
-            rule__IntrinsicArithmeticWords__NameAssignment_1();
-
-            state._fsp--;
-
-
-            }
-
-             after(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameAssignment_1()); 
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__IntrinsicArithmeticWords__Group__1__Impl"
-
-
     // $ANTLR start "rule__Forth__InstructionsAssignment"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1617:1: rule__Forth__InstructionsAssignment : ( ruleInstruction ) ;
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1571:1: rule__Forth__InstructionsAssignment : ( ruleInstruction ) ;
     public final void rule__Forth__InstructionsAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1621:1: ( ( ruleInstruction ) )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1622:1: ( ruleInstruction )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1575:1: ( ( ruleInstruction ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1576:1: ( ruleInstruction )
             {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1622:1: ( ruleInstruction )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1623:1: ruleInstruction
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1576:1: ( ruleInstruction )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1577:1: ruleInstruction
             {
              before(grammarAccess.getForthAccess().getInstructionsInstructionParserRuleCall_0()); 
-            pushFollow(FOLLOW_ruleInstruction_in_rule__Forth__InstructionsAssignment3390);
+            pushFollow(FOLLOW_ruleInstruction_in_rule__Forth__InstructionsAssignment3339);
             ruleInstruction();
 
             state._fsp--;
@@ -4391,62 +4319,21 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__Forth__InstructionsAssignment"
 
 
-    // $ANTLR start "rule__Function__NameAssignment_1"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1632:1: rule__Function__NameAssignment_1 : ( ruleWord ) ;
-    public final void rule__Function__NameAssignment_1() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1636:1: ( ( ruleWord ) )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1637:1: ( ruleWord )
-            {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1637:1: ( ruleWord )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1638:1: ruleWord
-            {
-             before(grammarAccess.getFunctionAccess().getNameWordParserRuleCall_1_0()); 
-            pushFollow(FOLLOW_ruleWord_in_rule__Function__NameAssignment_13421);
-            ruleWord();
-
-            state._fsp--;
-
-             after(grammarAccess.getFunctionAccess().getNameWordParserRuleCall_1_0()); 
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__Function__NameAssignment_1"
-
-
     // $ANTLR start "rule__Function__WordsAssignment_2"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1647:1: rule__Function__WordsAssignment_2 : ( ruleWord ) ;
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1586:1: rule__Function__WordsAssignment_2 : ( ruleWord ) ;
     public final void rule__Function__WordsAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1651:1: ( ( ruleWord ) )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1652:1: ( ruleWord )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1590:1: ( ( ruleWord ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1591:1: ( ruleWord )
             {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1652:1: ( ruleWord )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1653:1: ruleWord
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1591:1: ( ruleWord )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1592:1: ruleWord
             {
              before(grammarAccess.getFunctionAccess().getWordsWordParserRuleCall_2_0()); 
-            pushFollow(FOLLOW_ruleWord_in_rule__Function__WordsAssignment_23452);
+            pushFollow(FOLLOW_ruleWord_in_rule__Function__WordsAssignment_23370);
             ruleWord();
 
             state._fsp--;
@@ -4474,20 +4361,20 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Create__NameAssignment_1"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1662:1: rule__Create__NameAssignment_1 : ( RULE_ID ) ;
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1601:1: rule__Create__NameAssignment_1 : ( RULE_ID ) ;
     public final void rule__Create__NameAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1666:1: ( ( RULE_ID ) )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1667:1: ( RULE_ID )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1605:1: ( ( RULE_ID ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1606:1: ( RULE_ID )
             {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1667:1: ( RULE_ID )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1668:1: RULE_ID
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1606:1: ( RULE_ID )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1607:1: RULE_ID
             {
              before(grammarAccess.getCreateAccess().getNameIDTerminalRuleCall_1_0()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__Create__NameAssignment_13483); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__Create__NameAssignment_13401); 
              after(grammarAccess.getCreateAccess().getNameIDTerminalRuleCall_1_0()); 
 
             }
@@ -4511,20 +4398,20 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Create__LitAssignment_2_0"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1677:1: rule__Create__LitAssignment_2_0 : ( ruleLITERAL ) ;
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1616:1: rule__Create__LitAssignment_2_0 : ( ruleLITERAL ) ;
     public final void rule__Create__LitAssignment_2_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1681:1: ( ( ruleLITERAL ) )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1682:1: ( ruleLITERAL )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1620:1: ( ( ruleLITERAL ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1621:1: ( ruleLITERAL )
             {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1682:1: ( ruleLITERAL )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1683:1: ruleLITERAL
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1621:1: ( ruleLITERAL )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1622:1: ruleLITERAL
             {
              before(grammarAccess.getCreateAccess().getLitLITERALParserRuleCall_2_0_0()); 
-            pushFollow(FOLLOW_ruleLITERAL_in_rule__Create__LitAssignment_2_03514);
+            pushFollow(FOLLOW_ruleLITERAL_in_rule__Create__LitAssignment_2_03432);
             ruleLITERAL();
 
             state._fsp--;
@@ -4551,32 +4438,32 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__Create__LitAssignment_2_0"
 
 
-    // $ANTLR start "rule__IntrinsicStackWords__NameAssignment_1"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1692:1: rule__IntrinsicStackWords__NameAssignment_1 : ( ( rule__IntrinsicStackWords__NameAlternatives_1_0 ) ) ;
-    public final void rule__IntrinsicStackWords__NameAssignment_1() throws RecognitionException {
+    // $ANTLR start "rule__IntrinsicBranchWords__NameAssignment"
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1631:1: rule__IntrinsicBranchWords__NameAssignment : ( ( rule__IntrinsicBranchWords__NameAlternatives_0 ) ) ;
+    public final void rule__IntrinsicBranchWords__NameAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1696:1: ( ( ( rule__IntrinsicStackWords__NameAlternatives_1_0 ) ) )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1697:1: ( ( rule__IntrinsicStackWords__NameAlternatives_1_0 ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1635:1: ( ( ( rule__IntrinsicBranchWords__NameAlternatives_0 ) ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1636:1: ( ( rule__IntrinsicBranchWords__NameAlternatives_0 ) )
             {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1697:1: ( ( rule__IntrinsicStackWords__NameAlternatives_1_0 ) )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1698:1: ( rule__IntrinsicStackWords__NameAlternatives_1_0 )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1636:1: ( ( rule__IntrinsicBranchWords__NameAlternatives_0 ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1637:1: ( rule__IntrinsicBranchWords__NameAlternatives_0 )
             {
-             before(grammarAccess.getIntrinsicStackWordsAccess().getNameAlternatives_1_0()); 
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1699:1: ( rule__IntrinsicStackWords__NameAlternatives_1_0 )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1699:2: rule__IntrinsicStackWords__NameAlternatives_1_0
+             before(grammarAccess.getIntrinsicBranchWordsAccess().getNameAlternatives_0()); 
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1638:1: ( rule__IntrinsicBranchWords__NameAlternatives_0 )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1638:2: rule__IntrinsicBranchWords__NameAlternatives_0
             {
-            pushFollow(FOLLOW_rule__IntrinsicStackWords__NameAlternatives_1_0_in_rule__IntrinsicStackWords__NameAssignment_13545);
-            rule__IntrinsicStackWords__NameAlternatives_1_0();
+            pushFollow(FOLLOW_rule__IntrinsicBranchWords__NameAlternatives_0_in_rule__IntrinsicBranchWords__NameAssignment3463);
+            rule__IntrinsicBranchWords__NameAlternatives_0();
 
             state._fsp--;
 
 
             }
 
-             after(grammarAccess.getIntrinsicStackWordsAccess().getNameAlternatives_1_0()); 
+             after(grammarAccess.getIntrinsicBranchWordsAccess().getNameAlternatives_0()); 
 
             }
 
@@ -4595,35 +4482,35 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__IntrinsicStackWords__NameAssignment_1"
+    // $ANTLR end "rule__IntrinsicBranchWords__NameAssignment"
 
 
-    // $ANTLR start "rule__IntrinsicMemoryWords__NameAssignment_1"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1708:1: rule__IntrinsicMemoryWords__NameAssignment_1 : ( ( rule__IntrinsicMemoryWords__NameAlternatives_1_0 ) ) ;
-    public final void rule__IntrinsicMemoryWords__NameAssignment_1() throws RecognitionException {
+    // $ANTLR start "rule__IntrinsicStackWords__NameAssignment"
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1647:1: rule__IntrinsicStackWords__NameAssignment : ( ( rule__IntrinsicStackWords__NameAlternatives_0 ) ) ;
+    public final void rule__IntrinsicStackWords__NameAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1712:1: ( ( ( rule__IntrinsicMemoryWords__NameAlternatives_1_0 ) ) )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1713:1: ( ( rule__IntrinsicMemoryWords__NameAlternatives_1_0 ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1651:1: ( ( ( rule__IntrinsicStackWords__NameAlternatives_0 ) ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1652:1: ( ( rule__IntrinsicStackWords__NameAlternatives_0 ) )
             {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1713:1: ( ( rule__IntrinsicMemoryWords__NameAlternatives_1_0 ) )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1714:1: ( rule__IntrinsicMemoryWords__NameAlternatives_1_0 )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1652:1: ( ( rule__IntrinsicStackWords__NameAlternatives_0 ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1653:1: ( rule__IntrinsicStackWords__NameAlternatives_0 )
             {
-             before(grammarAccess.getIntrinsicMemoryWordsAccess().getNameAlternatives_1_0()); 
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1715:1: ( rule__IntrinsicMemoryWords__NameAlternatives_1_0 )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1715:2: rule__IntrinsicMemoryWords__NameAlternatives_1_0
+             before(grammarAccess.getIntrinsicStackWordsAccess().getNameAlternatives_0()); 
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1654:1: ( rule__IntrinsicStackWords__NameAlternatives_0 )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1654:2: rule__IntrinsicStackWords__NameAlternatives_0
             {
-            pushFollow(FOLLOW_rule__IntrinsicMemoryWords__NameAlternatives_1_0_in_rule__IntrinsicMemoryWords__NameAssignment_13578);
-            rule__IntrinsicMemoryWords__NameAlternatives_1_0();
+            pushFollow(FOLLOW_rule__IntrinsicStackWords__NameAlternatives_0_in_rule__IntrinsicStackWords__NameAssignment3496);
+            rule__IntrinsicStackWords__NameAlternatives_0();
 
             state._fsp--;
 
 
             }
 
-             after(grammarAccess.getIntrinsicMemoryWordsAccess().getNameAlternatives_1_0()); 
+             after(grammarAccess.getIntrinsicStackWordsAccess().getNameAlternatives_0()); 
 
             }
 
@@ -4642,35 +4529,35 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__IntrinsicMemoryWords__NameAssignment_1"
+    // $ANTLR end "rule__IntrinsicStackWords__NameAssignment"
 
 
-    // $ANTLR start "rule__IntrinsicArithmeticWords__NameAssignment_1"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1724:1: rule__IntrinsicArithmeticWords__NameAssignment_1 : ( ( rule__IntrinsicArithmeticWords__NameAlternatives_1_0 ) ) ;
-    public final void rule__IntrinsicArithmeticWords__NameAssignment_1() throws RecognitionException {
+    // $ANTLR start "rule__IntrinsicMemoryWords__NameAssignment"
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1663:1: rule__IntrinsicMemoryWords__NameAssignment : ( ( rule__IntrinsicMemoryWords__NameAlternatives_0 ) ) ;
+    public final void rule__IntrinsicMemoryWords__NameAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1728:1: ( ( ( rule__IntrinsicArithmeticWords__NameAlternatives_1_0 ) ) )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1729:1: ( ( rule__IntrinsicArithmeticWords__NameAlternatives_1_0 ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1667:1: ( ( ( rule__IntrinsicMemoryWords__NameAlternatives_0 ) ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1668:1: ( ( rule__IntrinsicMemoryWords__NameAlternatives_0 ) )
             {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1729:1: ( ( rule__IntrinsicArithmeticWords__NameAlternatives_1_0 ) )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1730:1: ( rule__IntrinsicArithmeticWords__NameAlternatives_1_0 )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1668:1: ( ( rule__IntrinsicMemoryWords__NameAlternatives_0 ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1669:1: ( rule__IntrinsicMemoryWords__NameAlternatives_0 )
             {
-             before(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameAlternatives_1_0()); 
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1731:1: ( rule__IntrinsicArithmeticWords__NameAlternatives_1_0 )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1731:2: rule__IntrinsicArithmeticWords__NameAlternatives_1_0
+             before(grammarAccess.getIntrinsicMemoryWordsAccess().getNameAlternatives_0()); 
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1670:1: ( rule__IntrinsicMemoryWords__NameAlternatives_0 )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1670:2: rule__IntrinsicMemoryWords__NameAlternatives_0
             {
-            pushFollow(FOLLOW_rule__IntrinsicArithmeticWords__NameAlternatives_1_0_in_rule__IntrinsicArithmeticWords__NameAssignment_13611);
-            rule__IntrinsicArithmeticWords__NameAlternatives_1_0();
+            pushFollow(FOLLOW_rule__IntrinsicMemoryWords__NameAlternatives_0_in_rule__IntrinsicMemoryWords__NameAssignment3529);
+            rule__IntrinsicMemoryWords__NameAlternatives_0();
 
             state._fsp--;
 
 
             }
 
-             after(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameAlternatives_1_0()); 
+             after(grammarAccess.getIntrinsicMemoryWordsAccess().getNameAlternatives_0()); 
 
             }
 
@@ -4689,29 +4576,35 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__IntrinsicArithmeticWords__NameAssignment_1"
+    // $ANTLR end "rule__IntrinsicMemoryWords__NameAssignment"
 
 
-    // $ANTLR start "rule__Word__NameAssignment_3"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1740:1: rule__Word__NameAssignment_3 : ( ruleLITERAL ) ;
-    public final void rule__Word__NameAssignment_3() throws RecognitionException {
+    // $ANTLR start "rule__IntrinsicArithmeticWords__NameAssignment"
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1679:1: rule__IntrinsicArithmeticWords__NameAssignment : ( ( rule__IntrinsicArithmeticWords__NameAlternatives_0 ) ) ;
+    public final void rule__IntrinsicArithmeticWords__NameAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1744:1: ( ( ruleLITERAL ) )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1745:1: ( ruleLITERAL )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1683:1: ( ( ( rule__IntrinsicArithmeticWords__NameAlternatives_0 ) ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1684:1: ( ( rule__IntrinsicArithmeticWords__NameAlternatives_0 ) )
             {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1745:1: ( ruleLITERAL )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1746:1: ruleLITERAL
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1684:1: ( ( rule__IntrinsicArithmeticWords__NameAlternatives_0 ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1685:1: ( rule__IntrinsicArithmeticWords__NameAlternatives_0 )
             {
-             before(grammarAccess.getWordAccess().getNameLITERALParserRuleCall_3_0()); 
-            pushFollow(FOLLOW_ruleLITERAL_in_rule__Word__NameAssignment_33644);
-            ruleLITERAL();
+             before(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameAlternatives_0()); 
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1686:1: ( rule__IntrinsicArithmeticWords__NameAlternatives_0 )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1686:2: rule__IntrinsicArithmeticWords__NameAlternatives_0
+            {
+            pushFollow(FOLLOW_rule__IntrinsicArithmeticWords__NameAlternatives_0_in_rule__IntrinsicArithmeticWords__NameAssignment3562);
+            rule__IntrinsicArithmeticWords__NameAlternatives_0();
 
             state._fsp--;
 
-             after(grammarAccess.getWordAccess().getNameLITERALParserRuleCall_3_0()); 
+
+            }
+
+             after(grammarAccess.getIntrinsicArithmeticWordsAccess().getNameAlternatives_0()); 
 
             }
 
@@ -4730,25 +4623,29 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__Word__NameAssignment_3"
+    // $ANTLR end "rule__IntrinsicArithmeticWords__NameAssignment"
 
 
     // $ANTLR start "rule__Word__NameAssignment_4"
-    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1755:1: rule__Word__NameAssignment_4 : ( RULE_ID ) ;
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1695:1: rule__Word__NameAssignment_4 : ( ruleLITERAL ) ;
     public final void rule__Word__NameAssignment_4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1759:1: ( ( RULE_ID ) )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1760:1: ( RULE_ID )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1699:1: ( ( ruleLITERAL ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1700:1: ( ruleLITERAL )
             {
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1760:1: ( RULE_ID )
-            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1761:1: RULE_ID
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1700:1: ( ruleLITERAL )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1701:1: ruleLITERAL
             {
-             before(grammarAccess.getWordAccess().getNameIDTerminalRuleCall_4_0()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__Word__NameAssignment_43675); 
-             after(grammarAccess.getWordAccess().getNameIDTerminalRuleCall_4_0()); 
+             before(grammarAccess.getWordAccess().getNameLITERALParserRuleCall_4_0()); 
+            pushFollow(FOLLOW_ruleLITERAL_in_rule__Word__NameAssignment_43595);
+            ruleLITERAL();
+
+            state._fsp--;
+
+             after(grammarAccess.getWordAccess().getNameLITERALParserRuleCall_4_0()); 
 
             }
 
@@ -4769,6 +4666,43 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
     }
     // $ANTLR end "rule__Word__NameAssignment_4"
 
+
+    // $ANTLR start "rule__Word__NameAssignment_5"
+    // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1710:1: rule__Word__NameAssignment_5 : ( RULE_ID ) ;
+    public final void rule__Word__NameAssignment_5() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1714:1: ( ( RULE_ID ) )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1715:1: ( RULE_ID )
+            {
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1715:1: ( RULE_ID )
+            // ../ch.fhnw.mdt.forthlang.ui/src-gen/ch/fhnw/mdt/ui/contentassist/antlr/internal/InternalUForthParser.g:1716:1: RULE_ID
+            {
+             before(grammarAccess.getWordAccess().getNameIDTerminalRuleCall_5_0()); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__Word__NameAssignment_53626); 
+             after(grammarAccess.getWordAccess().getNameIDTerminalRuleCall_5_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__Word__NameAssignment_5"
+
     // Delegated rules
 
 
@@ -4776,7 +4710,7 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
 
     public static final BitSet FOLLOW_ruleForth_in_entryRuleForth54 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleForth61 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Forth__InstructionsAssignment_in_ruleForth91 = new BitSet(new long[]{0xFFFFFFFFFFFFFFF2L,0x000000001C2EFFFFL});
+    public static final BitSet FOLLOW_rule__Forth__InstructionsAssignment_in_ruleForth91 = new BitSet(new long[]{0xFFFFFFFFFFFFFFF2L,0x000000E177FFFFFFL});
     public static final BitSet FOLLOW_ruleInstruction_in_entryRuleInstruction119 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleInstruction126 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__Instruction__Alternatives_in_ruleInstruction156 = new BitSet(new long[]{0x0000000000000002L});
@@ -4789,151 +4723,154 @@ public class InternalUForthParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_ruleLITERAL_in_entryRuleLITERAL311 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleLITERAL318 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__LITERAL__Alternatives_in_ruleLITERAL348 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIntrinsicStackWords_in_entryRuleIntrinsicStackWords375 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleIntrinsicStackWords382 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__IntrinsicStackWords__Group__0_in_ruleIntrinsicStackWords412 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIntrinsicMemoryWords_in_entryRuleIntrinsicMemoryWords439 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleIntrinsicMemoryWords446 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__IntrinsicMemoryWords__Group__0_in_ruleIntrinsicMemoryWords476 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIntrinsicArithmeticWords_in_entryRuleIntrinsicArithmeticWords503 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleIntrinsicArithmeticWords510 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__IntrinsicArithmeticWords__Group__0_in_ruleIntrinsicArithmeticWords540 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleWord_in_entryRuleWord567 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleWord574 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Word__Alternatives_in_ruleWord604 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleCreate_in_rule__Instruction__Alternatives640 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleFunction_in_rule__Instruction__Alternatives657 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleWord_in_rule__Instruction__Alternatives674 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_INT_in_rule__LITERAL__Alternatives706 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_DOUBLE_in_rule__LITERAL__Alternatives723 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_CLEAR_in_rule__IntrinsicStackWords__NameAlternatives_1_0756 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DROP_in_rule__IntrinsicStackWords__NameAlternatives_1_0776 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DUP_in_rule__IntrinsicStackWords__NameAlternatives_1_0796 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DUP_2_in_rule__IntrinsicStackWords__NameAlternatives_1_0816 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_SWAP_in_rule__IntrinsicStackWords__NameAlternatives_1_0836 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NIP_in_rule__IntrinsicStackWords__NameAlternatives_1_0856 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_OVER_in_rule__IntrinsicStackWords__NameAlternatives_1_0876 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ROT_in_rule__IntrinsicStackWords__NameAlternatives_1_0896 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ROT_1_in_rule__IntrinsicStackWords__NameAlternatives_1_0916 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_TUCK_in_rule__IntrinsicStackWords__NameAlternatives_1_0936 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_UNDER_in_rule__IntrinsicStackWords__NameAlternatives_1_0956 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DROP_1_in_rule__IntrinsicStackWords__NameAlternatives_1_0976 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DUP_1_in_rule__IntrinsicStackWords__NameAlternatives_1_0996 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_SWAP_1_in_rule__IntrinsicStackWords__NameAlternatives_1_01016 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_OVER_1_in_rule__IntrinsicStackWords__NameAlternatives_1_01036 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RCLEAR_in_rule__IntrinsicStackWords__NameAlternatives_1_01056 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_R_1_in_rule__IntrinsicStackWords__NameAlternatives_1_01076 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_R_2_in_rule__IntrinsicStackWords__NameAlternatives_1_01096 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_R_in_rule__IntrinsicStackWords__NameAlternatives_1_01116 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RDROP_in_rule__IntrinsicStackWords__NameAlternatives_1_01136 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LD_in_rule__IntrinsicMemoryWords__NameAlternatives_1_01171 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_CommercialAt_in_rule__IntrinsicMemoryWords__NameAlternatives_1_01191 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ST_in_rule__IntrinsicMemoryWords__NameAlternatives_1_01211 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ExclamationMark_in_rule__IntrinsicMemoryWords__NameAlternatives_1_01231 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DigitTwoCommercialAt_in_rule__IntrinsicMemoryWords__NameAlternatives_1_01251 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DigitTwoExclamationMark_in_rule__IntrinsicMemoryWords__NameAlternatives_1_01271 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LLD_in_rule__IntrinsicMemoryWords__NameAlternatives_1_01291 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_L_1_in_rule__IntrinsicMemoryWords__NameAlternatives_1_01311 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LST_in_rule__IntrinsicMemoryWords__NameAlternatives_1_01331 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_L_in_rule__IntrinsicMemoryWords__NameAlternatives_1_01351 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_TLD_in_rule__IntrinsicMemoryWords__NameAlternatives_1_01371 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_T_1_in_rule__IntrinsicMemoryWords__NameAlternatives_1_01391 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_TST_in_rule__IntrinsicMemoryWords__NameAlternatives_1_01411 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_T_in_rule__IntrinsicMemoryWords__NameAlternatives_1_01431 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ST_1_in_rule__IntrinsicMemoryWords__NameAlternatives_1_01451 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_PlusSignExclamationMark_in_rule__IntrinsicMemoryWords__NameAlternatives_1_01471 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_INC_in_rule__IntrinsicMemoryWords__NameAlternatives_1_01491 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DEC_in_rule__IntrinsicMemoryWords__NameAlternatives_1_01511 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ON_in_rule__IntrinsicMemoryWords__NameAlternatives_1_01531 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_OFF_in_rule__IntrinsicMemoryWords__NameAlternatives_1_01551 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ERASE_in_rule__IntrinsicMemoryWords__NameAlternatives_1_01571 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_FILL_in_rule__IntrinsicMemoryWords__NameAlternatives_1_01591 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_COUNT_in_rule__IntrinsicMemoryWords__NameAlternatives_1_01611 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_MOVE_in_rule__IntrinsicMemoryWords__NameAlternatives_1_01631 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_PLACE_in_rule__IntrinsicMemoryWords__NameAlternatives_1_01651 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_PlusSign_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_01686 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_HyphenMinus_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_01706 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Asterisk_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_01726 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Solidus_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_01746 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DigitTwoAsterisk_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_01766 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DigitTwoSolidus_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_01786 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_U2_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_01806 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ROR_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_01826 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DROR_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_01846 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ROL_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_01866 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DROL_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_01886 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_PACK_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_01906 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_UNPACK_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_01926 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_SHIFT_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_01946 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ASHIFT_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_01966 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DigitTwoAsteriskAsterisk_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_01986 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DigitZeroEqualsSign_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_02006 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DigitZeroLessThanSignGreaterThanSign_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_02026 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DigitZeroLessThanSign_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_02046 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_D0_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_02066 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NEGATE_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_02086 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DNEGATE_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_02106 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DigitOnePlusSign_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_02126 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DigitOneHyphenMinus_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_02146 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_TRUE_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_02166 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_FALSE_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_02186 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_CELL_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_02206 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_CELL_1_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_02226 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_CARRY_RESET_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_02246 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_CARRYSET_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_02266 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ABS_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_02286 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DABS_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_02306 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_EXTEND_in_rule__IntrinsicArithmeticWords__NameAlternatives_1_02326 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIntrinsicStackWords_in_rule__Word__Alternatives2360 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIntrinsicMemoryWords_in_rule__Word__Alternatives2377 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIntrinsicArithmeticWords_in_rule__Word__Alternatives2394 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Word__NameAssignment_3_in_rule__Word__Alternatives2411 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Word__NameAssignment_4_in_rule__Word__Alternatives2429 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Function__Group__0__Impl_in_rule__Function__Group__02460 = new BitSet(new long[]{0xFFFFFFFFFFFFFFF0L,0x000000001C2EFFFFL});
-    public static final BitSet FOLLOW_rule__Function__Group__1_in_rule__Function__Group__02463 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Colon_in_rule__Function__Group__0__Impl2491 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Function__Group__1__Impl_in_rule__Function__Group__12522 = new BitSet(new long[]{0xFFFFFFFFFFFFFFF0L,0x000000001C3EFFFFL});
-    public static final BitSet FOLLOW_rule__Function__Group__2_in_rule__Function__Group__12525 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Function__NameAssignment_1_in_rule__Function__Group__1__Impl2552 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Function__Group__2__Impl_in_rule__Function__Group__22582 = new BitSet(new long[]{0xFFFFFFFFFFFFFFF0L,0x000000001C3EFFFFL});
-    public static final BitSet FOLLOW_rule__Function__Group__3_in_rule__Function__Group__22585 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Function__WordsAssignment_2_in_rule__Function__Group__2__Impl2612 = new BitSet(new long[]{0xFFFFFFFFFFFFFFF2L,0x000000001C2EFFFFL});
-    public static final BitSet FOLLOW_rule__Function__Group__3__Impl_in_rule__Function__Group__32643 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Semicolon_in_rule__Function__Group__3__Impl2671 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Create__Group__0__Impl_in_rule__Create__Group__02710 = new BitSet(new long[]{0x0000000000000000L,0x0000000010000000L});
-    public static final BitSet FOLLOW_rule__Create__Group__1_in_rule__Create__Group__02713 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Create_in_rule__Create__Group__0__Impl2741 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Create__Group__1__Impl_in_rule__Create__Group__12772 = new BitSet(new long[]{0x0000000000000000L,0x000000000C000000L});
-    public static final BitSet FOLLOW_rule__Create__Group__2_in_rule__Create__Group__12775 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Create__NameAssignment_1_in_rule__Create__Group__1__Impl2802 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Create__Group__2__Impl_in_rule__Create__Group__22832 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Create__Group_2__0_in_rule__Create__Group__2__Impl2859 = new BitSet(new long[]{0x0000000000000002L,0x000000000C000000L});
-    public static final BitSet FOLLOW_rule__Create__Group_2__0__Impl_in_rule__Create__Group_2__02896 = new BitSet(new long[]{0x0000000000000000L,0x0000000000010000L});
-    public static final BitSet FOLLOW_rule__Create__Group_2__1_in_rule__Create__Group_2__02899 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Create__LitAssignment_2_0_in_rule__Create__Group_2__0__Impl2926 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Create__Group_2__1__Impl_in_rule__Create__Group_2__12956 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Comma_in_rule__Create__Group_2__1__Impl2984 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__IntrinsicStackWords__Group__0__Impl_in_rule__IntrinsicStackWords__Group__03019 = new BitSet(new long[]{0x002220A89E84E400L,0x0000000000001108L});
-    public static final BitSet FOLLOW_rule__IntrinsicStackWords__Group__1_in_rule__IntrinsicStackWords__Group__03022 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__IntrinsicStackWords__Group__1__Impl_in_rule__IntrinsicStackWords__Group__13080 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__IntrinsicStackWords__NameAssignment_1_in_rule__IntrinsicStackWords__Group__1__Impl3107 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__IntrinsicMemoryWords__Group__0__Impl_in_rule__IntrinsicMemoryWords__Group__03141 = new BitSet(new long[]{0x84C5D10600580000L,0x0000000000202EF4L});
-    public static final BitSet FOLLOW_rule__IntrinsicMemoryWords__Group__1_in_rule__IntrinsicMemoryWords__Group__03144 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__IntrinsicMemoryWords__Group__1__Impl_in_rule__IntrinsicMemoryWords__Group__13202 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__IntrinsicMemoryWords__NameAssignment_1_in_rule__IntrinsicMemoryWords__Group__1__Impl3229 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__IntrinsicArithmeticWords__Group__0__Impl_in_rule__IntrinsicArithmeticWords__Group__03263 = new BitSet(new long[]{0x7B180E5161230BF0L,0x000000000006C003L});
-    public static final BitSet FOLLOW_rule__IntrinsicArithmeticWords__Group__1_in_rule__IntrinsicArithmeticWords__Group__03266 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__IntrinsicArithmeticWords__Group__1__Impl_in_rule__IntrinsicArithmeticWords__Group__13324 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__IntrinsicArithmeticWords__NameAssignment_1_in_rule__IntrinsicArithmeticWords__Group__1__Impl3351 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleInstruction_in_rule__Forth__InstructionsAssignment3390 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleWord_in_rule__Function__NameAssignment_13421 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleWord_in_rule__Function__WordsAssignment_23452 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__Create__NameAssignment_13483 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleLITERAL_in_rule__Create__LitAssignment_2_03514 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__IntrinsicStackWords__NameAlternatives_1_0_in_rule__IntrinsicStackWords__NameAssignment_13545 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__IntrinsicMemoryWords__NameAlternatives_1_0_in_rule__IntrinsicMemoryWords__NameAssignment_13578 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__IntrinsicArithmeticWords__NameAlternatives_1_0_in_rule__IntrinsicArithmeticWords__NameAssignment_13611 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleLITERAL_in_rule__Word__NameAssignment_33644 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__Word__NameAssignment_43675 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIntrinsicBranchWords_in_entryRuleIntrinsicBranchWords375 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleIntrinsicBranchWords382 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__IntrinsicBranchWords__NameAssignment_in_ruleIntrinsicBranchWords412 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIntrinsicStackWords_in_entryRuleIntrinsicStackWords439 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleIntrinsicStackWords446 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__IntrinsicStackWords__NameAssignment_in_ruleIntrinsicStackWords476 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIntrinsicMemoryWords_in_entryRuleIntrinsicMemoryWords503 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleIntrinsicMemoryWords510 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__IntrinsicMemoryWords__NameAssignment_in_ruleIntrinsicMemoryWords540 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIntrinsicArithmeticWords_in_entryRuleIntrinsicArithmeticWords567 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleIntrinsicArithmeticWords574 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__IntrinsicArithmeticWords__NameAssignment_in_ruleIntrinsicArithmeticWords604 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleWord_in_entryRuleWord631 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleWord638 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Word__Alternatives_in_ruleWord668 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleCreate_in_rule__Instruction__Alternatives704 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleFunction_in_rule__Instruction__Alternatives721 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleWord_in_rule__Instruction__Alternatives738 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_INT_in_rule__LITERAL__Alternatives770 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_DOUBLE_in_rule__LITERAL__Alternatives787 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Jsr_in_rule__IntrinsicBranchWords__NameAlternatives_0820 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Branch_in_rule__IntrinsicBranchWords__NameAlternatives_0840 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Branch_2_in_rule__IntrinsicBranchWords__NameAlternatives_0860 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Branch_1_in_rule__IntrinsicBranchWords__NameAlternatives_0880 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_SBranch_in_rule__IntrinsicBranchWords__NameAlternatives_0900 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NsBranch_in_rule__IntrinsicBranchWords__NameAlternatives_0920 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NcBranch_in_rule__IntrinsicBranchWords__NameAlternatives_0940 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NoBranch_in_rule__IntrinsicBranchWords__NameAlternatives_0960 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_TorBranch_in_rule__IntrinsicBranchWords__NameAlternatives_0980 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ZExit_in_rule__IntrinsicBranchWords__NameAlternatives_01000 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NzExit_in_rule__IntrinsicBranchWords__NameAlternatives_01020 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_CLEAR_in_rule__IntrinsicStackWords__NameAlternatives_01055 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DROP_in_rule__IntrinsicStackWords__NameAlternatives_01075 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DUP_in_rule__IntrinsicStackWords__NameAlternatives_01095 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DUP_2_in_rule__IntrinsicStackWords__NameAlternatives_01115 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_SWAP_in_rule__IntrinsicStackWords__NameAlternatives_01135 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NIP_in_rule__IntrinsicStackWords__NameAlternatives_01155 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_OVER_in_rule__IntrinsicStackWords__NameAlternatives_01175 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ROT_in_rule__IntrinsicStackWords__NameAlternatives_01195 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ROT_1_in_rule__IntrinsicStackWords__NameAlternatives_01215 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_TUCK_in_rule__IntrinsicStackWords__NameAlternatives_01235 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_UNDER_in_rule__IntrinsicStackWords__NameAlternatives_01255 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DROP_1_in_rule__IntrinsicStackWords__NameAlternatives_01275 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DUP_1_in_rule__IntrinsicStackWords__NameAlternatives_01295 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_SWAP_1_in_rule__IntrinsicStackWords__NameAlternatives_01315 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_OVER_1_in_rule__IntrinsicStackWords__NameAlternatives_01335 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RCLEAR_in_rule__IntrinsicStackWords__NameAlternatives_01355 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_R_1_in_rule__IntrinsicStackWords__NameAlternatives_01375 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_R_2_in_rule__IntrinsicStackWords__NameAlternatives_01395 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_R_in_rule__IntrinsicStackWords__NameAlternatives_01415 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RDROP_in_rule__IntrinsicStackWords__NameAlternatives_01435 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LD_in_rule__IntrinsicMemoryWords__NameAlternatives_01470 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_CommercialAt_in_rule__IntrinsicMemoryWords__NameAlternatives_01490 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ST_in_rule__IntrinsicMemoryWords__NameAlternatives_01510 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ExclamationMark_in_rule__IntrinsicMemoryWords__NameAlternatives_01530 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DigitTwoCommercialAt_in_rule__IntrinsicMemoryWords__NameAlternatives_01550 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DigitTwoExclamationMark_in_rule__IntrinsicMemoryWords__NameAlternatives_01570 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LLD_in_rule__IntrinsicMemoryWords__NameAlternatives_01590 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_L_1_in_rule__IntrinsicMemoryWords__NameAlternatives_01610 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LST_in_rule__IntrinsicMemoryWords__NameAlternatives_01630 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_L_in_rule__IntrinsicMemoryWords__NameAlternatives_01650 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_TLD_in_rule__IntrinsicMemoryWords__NameAlternatives_01670 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_T_1_in_rule__IntrinsicMemoryWords__NameAlternatives_01690 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_TST_in_rule__IntrinsicMemoryWords__NameAlternatives_01710 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_T_in_rule__IntrinsicMemoryWords__NameAlternatives_01730 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ST_1_in_rule__IntrinsicMemoryWords__NameAlternatives_01750 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_PlusSignExclamationMark_in_rule__IntrinsicMemoryWords__NameAlternatives_01770 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_INC_in_rule__IntrinsicMemoryWords__NameAlternatives_01790 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DEC_in_rule__IntrinsicMemoryWords__NameAlternatives_01810 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ON_in_rule__IntrinsicMemoryWords__NameAlternatives_01830 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_OFF_in_rule__IntrinsicMemoryWords__NameAlternatives_01850 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ERASE_in_rule__IntrinsicMemoryWords__NameAlternatives_01870 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_FILL_in_rule__IntrinsicMemoryWords__NameAlternatives_01890 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_COUNT_in_rule__IntrinsicMemoryWords__NameAlternatives_01910 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_MOVE_in_rule__IntrinsicMemoryWords__NameAlternatives_01930 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_PLACE_in_rule__IntrinsicMemoryWords__NameAlternatives_01950 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_PlusSign_in_rule__IntrinsicArithmeticWords__NameAlternatives_01985 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_HyphenMinus_in_rule__IntrinsicArithmeticWords__NameAlternatives_02005 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Asterisk_in_rule__IntrinsicArithmeticWords__NameAlternatives_02025 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Solidus_in_rule__IntrinsicArithmeticWords__NameAlternatives_02045 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DigitTwoAsterisk_in_rule__IntrinsicArithmeticWords__NameAlternatives_02065 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DigitTwoSolidus_in_rule__IntrinsicArithmeticWords__NameAlternatives_02085 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_U2_in_rule__IntrinsicArithmeticWords__NameAlternatives_02105 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ROR_in_rule__IntrinsicArithmeticWords__NameAlternatives_02125 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DROR_in_rule__IntrinsicArithmeticWords__NameAlternatives_02145 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ROL_in_rule__IntrinsicArithmeticWords__NameAlternatives_02165 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DROL_in_rule__IntrinsicArithmeticWords__NameAlternatives_02185 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_PACK_in_rule__IntrinsicArithmeticWords__NameAlternatives_02205 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_UNPACK_in_rule__IntrinsicArithmeticWords__NameAlternatives_02225 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_SHIFT_in_rule__IntrinsicArithmeticWords__NameAlternatives_02245 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ASHIFT_in_rule__IntrinsicArithmeticWords__NameAlternatives_02265 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DigitTwoAsteriskAsterisk_in_rule__IntrinsicArithmeticWords__NameAlternatives_02285 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DigitZeroEqualsSign_in_rule__IntrinsicArithmeticWords__NameAlternatives_02305 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DigitZeroLessThanSignGreaterThanSign_in_rule__IntrinsicArithmeticWords__NameAlternatives_02325 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DigitZeroLessThanSign_in_rule__IntrinsicArithmeticWords__NameAlternatives_02345 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_D0_in_rule__IntrinsicArithmeticWords__NameAlternatives_02365 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NEGATE_in_rule__IntrinsicArithmeticWords__NameAlternatives_02385 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DNEGATE_in_rule__IntrinsicArithmeticWords__NameAlternatives_02405 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DigitOnePlusSign_in_rule__IntrinsicArithmeticWords__NameAlternatives_02425 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DigitOneHyphenMinus_in_rule__IntrinsicArithmeticWords__NameAlternatives_02445 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_TRUE_in_rule__IntrinsicArithmeticWords__NameAlternatives_02465 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_FALSE_in_rule__IntrinsicArithmeticWords__NameAlternatives_02485 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_CELL_in_rule__IntrinsicArithmeticWords__NameAlternatives_02505 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_CELL_1_in_rule__IntrinsicArithmeticWords__NameAlternatives_02525 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_CARRY_RESET_in_rule__IntrinsicArithmeticWords__NameAlternatives_02545 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_CARRYSET_in_rule__IntrinsicArithmeticWords__NameAlternatives_02565 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ABS_in_rule__IntrinsicArithmeticWords__NameAlternatives_02585 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DABS_in_rule__IntrinsicArithmeticWords__NameAlternatives_02605 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_EXTEND_in_rule__IntrinsicArithmeticWords__NameAlternatives_02625 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIntrinsicBranchWords_in_rule__Word__Alternatives2659 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIntrinsicStackWords_in_rule__Word__Alternatives2676 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIntrinsicMemoryWords_in_rule__Word__Alternatives2693 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIntrinsicArithmeticWords_in_rule__Word__Alternatives2710 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Word__NameAssignment_4_in_rule__Word__Alternatives2727 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Word__NameAssignment_5_in_rule__Word__Alternatives2745 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Function__Group__0__Impl_in_rule__Function__Group__02776 = new BitSet(new long[]{0xFFFFFFFFFFFFFFF0L,0x000000E177FFFFFFL});
+    public static final BitSet FOLLOW_rule__Function__Group__1_in_rule__Function__Group__02779 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Colon_in_rule__Function__Group__0__Impl2807 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Function__Group__1__Impl_in_rule__Function__Group__12838 = new BitSet(new long[]{0xFFFFFFFFFFFFFFF0L,0x000000E1F7FFFFFFL});
+    public static final BitSet FOLLOW_rule__Function__Group__2_in_rule__Function__Group__12841 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleWord_in_rule__Function__Group__1__Impl2868 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Function__Group__2__Impl_in_rule__Function__Group__22897 = new BitSet(new long[]{0xFFFFFFFFFFFFFFF0L,0x000000E1F7FFFFFFL});
+    public static final BitSet FOLLOW_rule__Function__Group__3_in_rule__Function__Group__22900 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Function__WordsAssignment_2_in_rule__Function__Group__2__Impl2927 = new BitSet(new long[]{0xFFFFFFFFFFFFFFF2L,0x000000E177FFFFFFL});
+    public static final BitSet FOLLOW_rule__Function__Group__3__Impl_in_rule__Function__Group__32958 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Semicolon_in_rule__Function__Group__3__Impl2986 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Create__Group__0__Impl_in_rule__Create__Group__03025 = new BitSet(new long[]{0x0000000000000000L,0x0000008000000000L});
+    public static final BitSet FOLLOW_rule__Create__Group__1_in_rule__Create__Group__03028 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Create_in_rule__Create__Group__0__Impl3056 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Create__Group__1__Impl_in_rule__Create__Group__13087 = new BitSet(new long[]{0x0000000000000000L,0x0000006000000000L});
+    public static final BitSet FOLLOW_rule__Create__Group__2_in_rule__Create__Group__13090 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Create__NameAssignment_1_in_rule__Create__Group__1__Impl3117 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Create__Group__2__Impl_in_rule__Create__Group__23147 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Create__Group_2__0_in_rule__Create__Group__2__Impl3174 = new BitSet(new long[]{0x0000000000000002L,0x0000006000000000L});
+    public static final BitSet FOLLOW_rule__Create__Group_2__0__Impl_in_rule__Create__Group_2__03211 = new BitSet(new long[]{0x0000000000000000L,0x0000000008000000L});
+    public static final BitSet FOLLOW_rule__Create__Group_2__1_in_rule__Create__Group_2__03214 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Create__LitAssignment_2_0_in_rule__Create__Group_2__0__Impl3241 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Create__Group_2__1__Impl_in_rule__Create__Group_2__13271 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Comma_in_rule__Create__Group_2__1__Impl3299 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleInstruction_in_rule__Forth__InstructionsAssignment3339 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleWord_in_rule__Function__WordsAssignment_23370 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__Create__NameAssignment_13401 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleLITERAL_in_rule__Create__LitAssignment_2_03432 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__IntrinsicBranchWords__NameAlternatives_0_in_rule__IntrinsicBranchWords__NameAssignment3463 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__IntrinsicStackWords__NameAlternatives_0_in_rule__IntrinsicStackWords__NameAssignment3496 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__IntrinsicMemoryWords__NameAlternatives_0_in_rule__IntrinsicMemoryWords__NameAssignment3529 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__IntrinsicArithmeticWords__NameAlternatives_0_in_rule__IntrinsicArithmeticWords__NameAssignment3562 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleLITERAL_in_rule__Word__NameAssignment_43595 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__Word__NameAssignment_53626 = new BitSet(new long[]{0x0000000000000002L});
 
 }
