@@ -20,11 +20,13 @@ public class LCCBuildRunner extends InternalBuildRunner {
 			IncrementalProjectBuilder projectBuilder, IProgressMonitor monitor) throws CoreException {
 
 		final IPath buildPath = builder.getBuildLocation();
-		final IResource buildLocationResource = ResourcesPlugin.getWorkspace().getRoot()
-				.findMember(buildPath.makeRelativeTo(ResourcesPlugin.getWorkspace().getRoot().getLocation()));
 
 		// build project
 		super.invokeBuild(kind, project, configuration, builder, console, markerGenerator, projectBuilder, monitor);
+
+		// build location
+		final IResource buildLocationResource = ResourcesPlugin.getWorkspace().getRoot()
+				.findMember(buildPath.makeRelativeTo(ResourcesPlugin.getWorkspace().getRoot().getLocation()));
 
 		// rename output files
 		if (buildLocationResource != null) {

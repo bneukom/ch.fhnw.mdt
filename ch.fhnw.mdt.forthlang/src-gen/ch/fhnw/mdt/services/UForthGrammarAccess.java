@@ -343,8 +343,8 @@ public class UForthGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cNamePLACEKeyword_0_24 = (Keyword)cNameAlternatives_0.eContents().get(24);
 		
 		//IntrinsicMemoryWords:
-		//	name=("LD" | "@" | "ST" | "!" | "2@" | "2!" | "LLD" | "L@" | "LST" | "L!" | "TLD" | "T@" | "TST" | "T!" | "+ST" |
-		//	"+!" | "INC" | "DEC" | "ON" | "OFF" | "ERASE" | "FILL" | "COUNT" | "MOVE" | "PLACE");
+		//	name=("LD" | "@" | "ST" | "!" | "2@" | "2!" | "LLD" | "L@" | "LST" | "L!" | "TLD" | "T@" | "TST" | "T!" | "+ST" | "+!"
+		//	| "INC" | "DEC" | "ON" | "OFF" | "ERASE" | "FILL" | "COUNT" | "MOVE" | "PLACE");
 		@Override public ParserRule getRule() { return rule; }
 
 		//name=("LD" | "@" | "ST" | "!" | "2@" | "2!" | "LLD" | "L@" | "LST" | "L!" | "TLD" | "T@" | "TST" | "T!" | "+ST" | "+!" |
@@ -598,8 +598,7 @@ public class UForthGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNameIDTerminalRuleCall_5_0 = (RuleCall)cNameAssignment_5.eContents().get(0);
 		
 		//Word:
-		//	IntrinsicBranchWords | IntrinsicStackWords | IntrinsicMemoryWords | IntrinsicArithmeticWords | name=LITERAL |
-		//	name=ID;
+		//	IntrinsicBranchWords | IntrinsicStackWords | IntrinsicMemoryWords | IntrinsicArithmeticWords | name=LITERAL | name=ID;
 		@Override public ParserRule getRule() { return rule; }
 
 		//IntrinsicBranchWords | IntrinsicStackWords | IntrinsicMemoryWords | IntrinsicArithmeticWords | name=LITERAL | name=ID
@@ -812,8 +811,8 @@ public class UForthGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//IntrinsicMemoryWords:
-	//	name=("LD" | "@" | "ST" | "!" | "2@" | "2!" | "LLD" | "L@" | "LST" | "L!" | "TLD" | "T@" | "TST" | "T!" | "+ST" |
-	//	"+!" | "INC" | "DEC" | "ON" | "OFF" | "ERASE" | "FILL" | "COUNT" | "MOVE" | "PLACE");
+	//	name=("LD" | "@" | "ST" | "!" | "2@" | "2!" | "LLD" | "L@" | "LST" | "L!" | "TLD" | "T@" | "TST" | "T!" | "+ST" | "+!"
+	//	| "INC" | "DEC" | "ON" | "OFF" | "ERASE" | "FILL" | "COUNT" | "MOVE" | "PLACE");
 	public IntrinsicMemoryWordsElements getIntrinsicMemoryWordsAccess() {
 		return pIntrinsicMemoryWords;
 	}
@@ -835,8 +834,7 @@ public class UForthGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Word:
-	//	IntrinsicBranchWords | IntrinsicStackWords | IntrinsicMemoryWords | IntrinsicArithmeticWords | name=LITERAL |
-	//	name=ID;
+	//	IntrinsicBranchWords | IntrinsicStackWords | IntrinsicMemoryWords | IntrinsicArithmeticWords | name=LITERAL | name=ID;
 	public WordElements getWordAccess() {
 		return pWord;
 	}
