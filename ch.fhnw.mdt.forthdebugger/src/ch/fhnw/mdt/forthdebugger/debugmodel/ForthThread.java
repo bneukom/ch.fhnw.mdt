@@ -199,13 +199,7 @@ public class ForthThread extends ForthDebugElement implements IThread, IJumpExte
 	 */
 	@Override
 	public void resume() throws DebugException {
-		if (isSuspended()) {
-			try {
-				processCommunicator.sendCommand("end-trace" + ProcessCommunicator.NL);
-			} catch (CommandTimeOutException e) {
-				abort("timeout", e);
-			}
-		}
+		getDebugTarget().resume();
 	}
 
 	/*
@@ -707,7 +701,12 @@ public class ForthThread extends ForthDebugElement implements IThread, IJumpExte
 		 * @return
 		 */
 		public int getLineNumber(final String currentFunction, final String currentAddress) {
-			return functionLineMap.get(currentFunction).get(currentAddress);
+			Map<String, Integer> functionMap = functionLineMap.get(currentFunction);
+			if (functionMap != null && functionMap.containsKey(currentAddress)) {
+				return functionMap.get(currentAddress);
+			}
+			
+			return -1;
 		}
 
 		/**

@@ -27,6 +27,7 @@ import org.eclipse.debug.core.model.IThread;
 import org.eclipse.debug.core.model.IValue;
 
 import ch.fhnw.mdt.forthdebugger.communication.ProcessCommunicator;
+import ch.fhnw.mdt.forthdebugger.communication.ProcessCommunicator.CommandTimeOutException;
 import ch.fhnw.mdt.forthdebugger.debugmodel.extensions.IKillProcessExtension;
 
 /**
@@ -257,7 +258,15 @@ public class ForthDebugTarget extends ForthDebugElement implements IDebugTarget,
 	 */
 	@Override
 	public void resume() throws DebugException {
-		forthThread.resume();
+		if (isSuspended()) {
+			try {
+				processCommunicator.sendCommand("end-trace" + ProcessCommunicator.NL);
+				
+				installDeferredBreakpoints();
+			} catch (CommandTimeOutException e) {
+				abort("timeout", e);
+			}
+		}
 	}
 
 	/*

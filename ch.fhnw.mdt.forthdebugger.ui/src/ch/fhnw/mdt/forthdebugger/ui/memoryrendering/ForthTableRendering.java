@@ -44,15 +44,17 @@ public class ForthTableRendering extends AbstractMemoryRendering {
 		// address
 		final TableColumn addressColumn = new TableColumn(tableViewer.getTable(), SWT.LEFT);
 		addressColumn.setText("Address");
-		addressColumn.setWidth(75);
+		addressColumn.setWidth((int) (Display.getDefault().getDPI().x * 0.8));
 
 		// data
 		for (int i = 0; i < 8; ++i) {
 			final TableColumn dataColumn = new TableColumn(tableViewer.getTable(), SWT.RIGHT);
-			dataColumn.setWidth(60);
+			dataColumn.setWidth((int) (Display.getDefault().getDPI().x * 0.8));
 		}
 
 		tableViewer.setInput(getMemoryBlock());
+		
+		tableViewer.getTable().pack();
 
 		return tableViewer.getControl();
 	}
