@@ -25,10 +25,12 @@ class UForthOutlineTreeProvider extends DefaultOutlineTreeProvider {
 	override protected _image(Object modelElement) {
 		if (modelElement instanceof Forth) {
 			return imageHelper.getImage("forth.png")
-		} else if (modelElement.class.equals(WordImpl)) {
-			return imageHelper.getImage("word.png")
-		} else if (modelElement.class.equals(FunctionImpl)) {
-			return imageHelper.getImage("function.png")
+		} else if (modelElement instanceof Word) {
+			if (modelElement.words.size > 0) {
+				return imageHelper.getImage("function.png")
+			} else {
+				return imageHelper.getImage("word.png")
+			}
 		}
 		super._image(modelElement)
 	}
