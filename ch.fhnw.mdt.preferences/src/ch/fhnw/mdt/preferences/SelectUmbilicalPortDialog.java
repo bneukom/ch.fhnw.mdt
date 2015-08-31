@@ -26,7 +26,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
-import ch.fhnw.mdt.platform.IPlatformStrings;
+import ch.fhnw.mdt.platform.IMDTPlatform;
 import ch.fhnw.mdt.platform.MDTPlatformPlugin;
 
 /**
@@ -44,7 +44,7 @@ public class SelectUmbilicalPortDialog extends TitleAreaDialog {
 
 		@Override
 		public void run() {
-			final List<String> comPorts = platformStrings.listComPorts();
+			final List<String> comPorts = platformStrings.listUmbilicalPorts();
 
 			Display.getDefault().asyncExec(() -> {
 				final ISelection previousSelection = usbDeviceListViewer.getSelection();
@@ -65,7 +65,7 @@ public class SelectUmbilicalPortDialog extends TitleAreaDialog {
 		}
 	};
 
-	private final IPlatformStrings platformStrings = MDTPlatformPlugin.getDefault().getPlatformStrings();
+	private final IMDTPlatform platformStrings = MDTPlatformPlugin.getDefault().getPlatformStrings();
 
 	/**
 	 * Create the dialog.
@@ -102,7 +102,7 @@ public class SelectUmbilicalPortDialog extends TitleAreaDialog {
 		listFormData.left = new FormAttachment(0, 10);
 		list.setLayoutData(listFormData);
 
-		final List<String> availableUsbDevices = platformStrings.listComPorts();
+		final List<String> availableUsbDevices = platformStrings.listUmbilicalPorts();
 		usbDeviceListViewer.setInput(availableUsbDevices);
 		if (availableUsbDevices.isEmpty()) {
 			setErrorMessage("No available port found.");

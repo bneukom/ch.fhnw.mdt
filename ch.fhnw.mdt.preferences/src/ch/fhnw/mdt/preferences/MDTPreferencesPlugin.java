@@ -15,6 +15,8 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
+import ch.fhnw.mdt.platform.MDTPlatformPlugin;
+
 /**
  * The activator class controls the plug-in life cycle
  */
@@ -118,10 +120,7 @@ public class MDTPreferencesPlugin extends AbstractUIPlugin {
 	 * @return whether the given umbilical port is valid
 	 */
 	public boolean isValidUmbilical(String port) {
-		// TODO this is unix specific!!!
-		// return port != null && !port.isEmpty() &&
-		// Files.exists(Paths.get(port));
-		return true;
+		return MDTPlatformPlugin.getDefault().getPlatformStrings().isValidUmbilicalPort(port);
 	}
 
 	/**

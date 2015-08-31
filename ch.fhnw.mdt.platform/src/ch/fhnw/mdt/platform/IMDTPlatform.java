@@ -3,10 +3,10 @@ package ch.fhnw.mdt.platform;
 import java.util.List;
 
 /**
- * Returns platform specific strings.
+ * Platform specific operations.
  *
  */
-public interface IPlatformStrings {
+public interface IMDTPlatform {
 
 	/**
 	 * Returns the separator for environment variables.
@@ -41,9 +41,18 @@ public interface IPlatformStrings {
 	public String getVariableName(String input);
 
 	/**
-	 * Returns all available com ports.
+	 * Returns all available umbilical ports.
 	 * 
-	 * @return all available com ports
+	 * @return all available umbilical ports
 	 */
-	public List<String> listComPorts();
+	public List<String> listUmbilicalPorts();
+
+	/**
+	 * Returns <code>true</code> if the given port is valid.
+	 * 
+	 * @return
+	 */
+	public default boolean isValidUmbilicalPort(String port) {
+		return listUmbilicalPorts().contains(port);
+	}
 }

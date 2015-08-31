@@ -52,7 +52,7 @@ import ch.fhnw.mdt.forthdebugger.communication.ProcessCommunicator.CommandTimeOu
 import ch.fhnw.mdt.forthdebugger.communication.process.DefaultProcessDecorator;
 import ch.fhnw.mdt.forthdebugger.debugmodel.ForthDebugTarget;
 import ch.fhnw.mdt.forthdebugger.debugmodel.IForthConstants;
-import ch.fhnw.mdt.platform.IPlatformStrings;
+import ch.fhnw.mdt.platform.IMDTPlatform;
 import ch.fhnw.mdt.platform.MDTPlatformPlugin;
 import ch.fhnw.mdt.preferences.MDTPreferencesPlugin;
 import ch.fhnw.mdt.preferences.SelectUmbilicalPortDialog;
@@ -63,7 +63,7 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate implements ILau
 	private static final String DEBUG_MODE = "debug";
 	private static final String DEBUG_FILE_NAME = "debugCFunction.fs";
 
-	private final IPlatformStrings platformStrings = MDTPlatformPlugin.getDefault().getPlatformStrings();
+	private final IMDTPlatform platformStrings = MDTPlatformPlugin.getDefault().getPlatformStrings();
 
 	@Override
 	public void launch(final ILaunchConfiguration configuration, final String mode, final ILaunch launch, final IProgressMonitor monitor) throws CoreException {
@@ -126,6 +126,7 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate implements ILau
 		}
 	}
 
+	// TODO implement launch shortcut
 	@Override
 	public void launch(final ISelection selection, final String mode) {
 		final IStructuredSelection structuredSelection = (IStructuredSelection) selection;
@@ -140,14 +141,6 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate implements ILau
 			if (CCorePlugin.getContentType(file.getName()) != null) {
 				System.out.println("c file");
 			}
-
-			// try {
-			// IContentType contentType =
-			// file.getContentDescription().getContentType();
-			// } catch (CoreException e) {
-			// e.printStackTrace();
-			// }
-
 		} else if (firstElement instanceof IProject) {
 			file = null;
 		} else {
@@ -340,8 +333,7 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate implements ILau
 			ConsolePlugin.getDefault().getConsoleManager().addConsoles(new IConsole[] { gforthConsole });
 
 			final ProcessCommunicator processCommunicator = new ProcessCommunicator(new DefaultProcessDecorator(process), 10000);
-			
-			
+
 			final InputThread inputThread = new InputThread(gforthConsole.getInputStream(), processCommunicator);
 			inputThread.start();
 
@@ -352,13 +344,11 @@ public class MCoreLaunchDelegate extends AbstractCLaunchDelegate implements ILau
 			// display timeout
 			processCommunicator.addCommandTimeOutListener(() -> {
 				Display.getDefault().asyncExec(() -> {
-					
-					// TODO create popup
 					try {
 						consoleOutputStream.write(System.lineSeparator() + System.lineSeparator() + "The process has timed out.");
 						consoleOutputStream.flush();
 					} catch (final Exception e) {
-						e.printStackTrace();
+						// ignore in case of write error
 					}
 				});
 			});

@@ -4,7 +4,7 @@
    <extension
          point="ch.fhnw.mdt.platform">
       <platformStrings
-            class="ch.fhnw.mdt.platform.windows.WindowsPlatformStrings">
+            class="ch.fhnw.mdt.platform.windows.WindowsMDTPlatform">
       </platformStrings>
    </extension>
 

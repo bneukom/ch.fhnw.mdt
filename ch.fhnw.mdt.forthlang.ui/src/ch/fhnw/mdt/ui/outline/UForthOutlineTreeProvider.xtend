@@ -4,13 +4,10 @@
 package ch.fhnw.mdt.ui.outline
 
 import ch.fhnw.mdt.uForth.Forth
-import ch.fhnw.mdt.uForth.Function
 import ch.fhnw.mdt.uForth.Word
 import javax.inject.Inject
 import org.eclipse.xtext.ui.IImageHelper
 import org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider
-import ch.fhnw.mdt.uForth.impl.WordImpl
-import ch.fhnw.mdt.uForth.impl.FunctionImpl
 
 /**
  * Customization of the default outline structure.

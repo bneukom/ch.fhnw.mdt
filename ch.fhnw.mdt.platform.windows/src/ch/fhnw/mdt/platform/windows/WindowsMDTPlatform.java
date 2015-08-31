@@ -2,13 +2,13 @@ package ch.fhnw.mdt.platform.windows;
 
 import java.util.List;
 
-import ch.fhnw.mdt.platform.IPlatformStrings;
+import ch.fhnw.mdt.platform.IMDTPlatform;
 
-public class WindowsPlatformStrings implements IPlatformStrings {
+public class WindowsMDTPlatform implements IMDTPlatform {
 	
 	private final ComPortEnumerator comPortEnumerator = new ComPortEnumerator();
 	
-	public WindowsPlatformStrings() {
+	public WindowsMDTPlatform() {
 	}
 
 	@Override
@@ -32,7 +32,7 @@ public class WindowsPlatformStrings implements IPlatformStrings {
 	}
 
 	@Override
-	public List<String> listComPorts() {
+	public List<String> listUmbilicalPorts() {
 		return comPortEnumerator.listPorts();
 	}
 

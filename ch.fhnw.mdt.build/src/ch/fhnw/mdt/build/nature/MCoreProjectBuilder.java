@@ -16,7 +16,7 @@ import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 
-import ch.fhnw.mdt.platform.IPlatformStrings;
+import ch.fhnw.mdt.platform.IMDTPlatform;
 import ch.fhnw.mdt.platform.MDTPlatformPlugin;
 
 /**
@@ -35,7 +35,7 @@ public class MCoreProjectBuilder extends IncrementalProjectBuilder {
 
 	private static final String MDT_PROBLEM = "ch.fhnw.mdt.build.pathProblem";
 
-	private final IPlatformStrings platformStrings = MDTPlatformPlugin.getDefault().getPlatformStrings();
+	private final IMDTPlatform platformStrings = MDTPlatformPlugin.getDefault().getPlatformStrings();
 
 	@Override
 	protected IProject[] build(final int kind, final Map<String, String> args, final IProgressMonitor monitor) throws CoreException {

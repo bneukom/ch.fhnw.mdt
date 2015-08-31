@@ -7,11 +7,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import ch.fhnw.mdt.platform.IPlatformStrings;
+import ch.fhnw.mdt.platform.IMDTPlatform;
 
-public class LinuxPlatformStrings implements IPlatformStrings {
+public class LinuxMDTPlatform implements IMDTPlatform {
 
-	public LinuxPlatformStrings() {
+	public LinuxMDTPlatform() {
 	}
 
 	@Override
@@ -35,7 +35,7 @@ public class LinuxPlatformStrings implements IPlatformStrings {
 	}
 
 	@Override
-	public List<String> listComPorts() {
+	public List<String> listUmbilicalPorts() {
 		try {
 			return Files.list(new File("/dev/").toPath()).filter(p -> p.toString().startsWith("/dev/ttyUSB")).map(p -> p.toString()).collect(Collectors.toList());
 		} catch (IOException e) {

@@ -19,7 +19,7 @@ public class MDTPlatformPlugin extends AbstractUIPlugin {
 	// The shared instance
 	private static MDTPlatformPlugin plugin;
 
-	private IPlatformStrings platformStrings;
+	private IMDTPlatform platformStrings;
 
 	/**
 	 * The constructor
@@ -49,7 +49,7 @@ public class MDTPlatformPlugin extends AbstractUIPlugin {
 			for (IConfigurationElement configurationElement : configurationElements) {
 				switch (configurationElement.getName()) {
 				case "platformStrings":
-					platformStrings = (IPlatformStrings) Class.forName(configurationElement.getAttribute("class")).newInstance();
+					platformStrings = (IMDTPlatform) Class.forName(configurationElement.getAttribute("class")).newInstance();
 					break;
 				}
 			}
@@ -76,11 +76,11 @@ public class MDTPlatformPlugin extends AbstractUIPlugin {
 	}
 
 	/**
-	 * Returns the {@link IPlatformStrings}.
+	 * Returns the {@link IMDTPlatform}.
 	 * 
 	 * @return
 	 */
-	public IPlatformStrings getPlatformStrings() {
+	public IMDTPlatform getPlatformStrings() {
 		return platformStrings;
 	}
 
