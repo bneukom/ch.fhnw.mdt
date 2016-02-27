@@ -6,7 +6,7 @@ Eclipse IDE for [MircroCore](http://www.fhnw.ch/technik/imvs/forschung/projekte/
   * Integrated scc for uForth
 * An integrated debugger for the uForth dialect
   * Console-based as well as visual debugger
-  * Custom View for the uForth data-stack
+  * Custom view for uForth data-stack
   * Memory rendering for uForth
 * Simple integrated compiler for uForth
 * Syntax highlighting for uForth
