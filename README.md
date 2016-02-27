@@ -1,4 +1,4 @@
-# MDT Readme #
+# MicroCore Development Tools #
 
 Eclipse IDE for [MircroCore](http://www.fhnw.ch/technik/imvs/forschung/projekte/crypto-microcore). The IDE is based on the Eclipse CDT and includes the following features:
 
